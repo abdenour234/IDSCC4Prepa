@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ENSAO Data Modules - Bazzed Community</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .logo {
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease-in-out infinite;
+            margin-bottom: 20px;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 0.5s forwards;
+        }
+
+        .school-name {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            animation: fadeIn 1s ease-out 1s forwards;
+        }
+
+        .modules-section {
+            margin: 60px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            position: relative;
+            animation: slideInLeft 1s ease-out;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border-radius: 2px;
+        }
+
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .module-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .module-card:nth-child(even) {
+            animation-delay: 0.2s;
+        }
+
+        .module-card:nth-child(odd) {
+            animation-delay: 0.4s;
+        }
+
+        .module-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .module-card:hover::before {
+            left: 100%;
+        }
+
+        .module-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .module-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .module-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .module-description {
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        .locked-card {
+            position: relative;
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .locked-card::after {
+            content: '🔒';
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+        }
+
+        .locked-card:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        .team-section {
+            margin: 80px 0;
+            text-align: center;
+        }
+
+        .team-grid {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .member-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            flex-shrink: 0;
+            width: 300px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .member-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 48px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .member-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 20px auto;
+            border: 4px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .avatar-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .member-name {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 5px;
+        }
+
+        .member-role {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 40px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeIn 1s ease-out 2s forwards;
+            opacity: 0;
+        }
+
+        .bazzed-badge {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        .notification {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            display: none;
+            z-index: 1000;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: popIn 0.3s ease-out;
+        }
+
+        .notification.show {
+            display: block;
+        }
+
+        .notification button {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .notification button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes shine {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes popIn {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .modules-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .team-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="logo">DATA MODULES</h1>
+            <p class="subtitle">Your Gateway to Data Science Excellence</p>
+            <p class="school-name">École Nationale des Sciences Appliquées - Oujda</p>
+        </header>
+
+        <section class="modules-section">
+            <h2 class="section-title">Choose Your Module</h2>
+            <div class="modules-grid">
+                <div class="module-card" onclick="redirectToModule('Gestion_Projet')">
+                    <span class="module-icon">📊</span>
+                    <h3 class="module-title">Gestion Project</h3>
+                    <p class="module-description">Master project management methodologies and best practices for successful data projects.</p>
+                </div>
+                
+                <div class="module-card" onclick="redirectToModule('security')">
+                    <span class="module-icon">🔐</span>
+                    <h3 class="module-title">Security</h3>
+                    <p class="module-description">Learn essential cybersecurity concepts and data protection strategies.</p>
+                </div>
+                
+                <div class="module-card locked-card" onclick="showComingSoon()">
+                    <span class="module-icon">☁️</span>
+                    <h3 class="module-title">Cloud Computing</h3>
+                    <p class="module-description">Explore cloud technologies and distributed computing solutions.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="team-section">
+            <h2 class="section-title">Meet Our Mde3bel Team</h2>
+            <div class="team-grid">
+                <div class="member-card">
+                    <div class="member-avatar">
+                        <img src="assets/images/team/iliass.png" alt="Mde3bel Member 1" class="avatar-image">
+                    </div>
+                    <h3 class="member-name">Mde3bel Member 1</h3>
+                    <p class="member-role">Lead Developer & Data Scientist</p>
+                </div>
+                
+                <div class="member-card">
+                    <div class="member-avatar">
+                        <img src="assets/images/team/youssef.png" alt="Mde3bel Member 2" class="avatar-image">
+                    </div>
+                    <h3 class="member-name">Mde3bel Member 2</h3>
+                    <p class="member-role">Frontend Developer & UI/UX Designer</p>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div class="bazzed-badge">
+                Made with ❤️ by Bazzed Community
+            </div>
+            <p>Empowering ENSAO students with quality educational resources</p>
+        </footer>
+    </div>
+
+    <div class="notification" id="comingSoonNotification">
+        <h3>🚧 Module Under Development</h3>
+        <p>Our amazing developers are working hard on the Cloud Computing module!</p>
+        <p>It will be available soon, insha'Allah! 🚀</p>
+        <button onclick="hideNotification()">Got it!</button>
+    </div>
+
+    <script>
+        function redirectToModule(moduleName) {
+            // Add a smooth transition effect
+            document.body.style.transition = 'opacity 0.5s ease-out';
+            document.body.style.opacity = '0';
+            
+            setTimeout(() => {
+                window.location.href = `${moduleName}/index.html`;
+            }, 500);
+        }
+
+        function showComingSoon() {
+            const notification = document.getElementById('comingSoonNotification');
+            notification.classList.add('show');
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                hideNotification();
+            }, 5000);
+        }
+
+        function hideNotification() {
+            const notification = document.getElementById('comingSoonNotification');
+            notification.classList.remove('show');
+        }
+
+        // Add floating particles effect
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.style.position = 'fixed';
+            particle.style.width = '4px';
+            particle.style.height = '4px';
+            particle.style.background = 'rgba(255, 255, 255, 0.8)';
+            particle.style.borderRadius = '50%';
+            particle.style.left = Math.random() * 100 + 'vw';
+            particle.style.top = '100vh';
+            particle.style.pointerEvents = 'none';
+            particle.style.zIndex = '1';
+            
+            document.body.appendChild(particle);
+            
+            const animation = particle.animate([
+                { transform: 'translateY(0px)', opacity: 1 },
+                { transform: 'translateY(-100vh)', opacity: 0 }
+            ], {
+                duration: Math.random() * 3000 + 2000,
+                easing: 'linear'
+            });
+            
+            animation.onfinish = () => {
+                particle.remove();
+            };
+        }
+
+        // Create particles periodically
+        setInterval(createParticle, 300);
+
+        // Add keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                hideNotification();
+            }
+        });
+
+        // Add smooth scrolling for better UX
+        document.documentElement.style.scrollBehavior = 'smooth';
+    </script>
+</body>
+</html>
