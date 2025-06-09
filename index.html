@@ -626,16 +626,25 @@
             avatar.addEventListener('click', () => {
                 const memberName = avatar.dataset.memberName;
                 if (memberName) {
-                    let memePath;
-                    if (memberName === 'youssef') {
-                        memePath = `assets/images/team/${memberName}_meme.jpg`; // Use .jpg for youssef
-                    } else if (memberName === 'iliass') {
-                        memePath = `assets/images/team/${memberName}_meme.jpg`; // Use .jpg for iliass
-                    } else {
-                        memePath = `assets/images/team/${memberName}_meme.png`; // Default to .png for others
+                    const extensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+                    let memePath = null;
+                    
+                    // Try each extension until we find a valid image
+                    for (const ext of extensions) {
+                        const testPath = `assets/images/team/${memberName}_meme.${ext}`;
+                        const img = new Image();
+                        img.src = testPath;
+                        
+                        if (img.complete) {
+                            memePath = testPath;
+                            break;
+                        }
                     }
-                    memeImage.src = memePath;
-                    memeModal.classList.add('show');
+                    
+                    if (memePath) {
+                        memeImage.src = memePath;
+                        memeModal.classList.add('show');
+                    }
                 }
             });
         });
