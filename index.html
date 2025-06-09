@@ -626,7 +626,14 @@
             avatar.addEventListener('click', () => {
                 const memberName = avatar.dataset.memberName;
                 if (memberName) {
-                    const memePath = `assets/images/team/${memberName}_meme.png`;
+                    let memePath;
+                    if (memberName === 'youssef') {
+                        memePath = `assets/images/team/${memberName}_meme.jpg`; // Use .jpg for youssef
+                    } else if (memberName === 'iliass') {
+                        memePath = `assets/images/team/${memberName}_meme.jpg`; // Use .jpg for iliass
+                    } else {
+                        memePath = `assets/images/team/${memberName}_meme.png`; // Default to .png for others
+                    }
                     memeImage.src = memePath;
                     memeModal.classList.add('show');
                 }
