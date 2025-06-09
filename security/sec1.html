@@ -1,0 +1,2771 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Pratique CompTIA Security+</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+        .progress-bar {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        .progress-fill {
+            width: 0;
+            height: 20px;
+            background-color: #3498db;
+            transition: width 0.3s ease;
+        }
+        .progress-text {
+            text-align: center;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .question-card {
+            margin: 15px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .question-number {
+            font-weight: bold;
+            color: #3498db;
+        }
+        .question-text {
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        .options {
+            margin: 10px 0;
+        }
+        .option {
+            display: block;
+            margin: 5px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .option:hover {
+            background-color: #e8f4f8;
+        }
+        .option input {
+            margin-right: 10px;
+        }
+        .validate-btn {
+            display: block;
+            margin: 10px 0;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .validate-btn:disabled {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+        }
+        .validate-btn:hover:not(:disabled) {
+            background-color: #2980b9;
+        }
+        .result {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .correct {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .explanation {
+            margin-top: 10px;
+            font-style: italic;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Test Pratique CompTIA Security+</h1>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressBar"></div>
+        </div>
+        <div class="progress-text">Questions répondues : <span id="answered">0</span> / 118</div>
+
+        <div class="question-card">
+            <div class="question-number">Question 1</div>
+            <div class="question-text">Comment définit-on le mieux une menace dans le contexte de la cybersécurité ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q1" value="a"> Une faille logicielle pouvant être exploitée par un attaquant
+                </label>
+                <label class="option">
+                    <input type="radio" name="q1" value="b"> Un événement intentionnel ou non qui peut causer un préjudice
+                </label>
+                <label class="option">
+                    <input type="radio" name="q1" value="c"> Une mesure de sécurité pour protéger les systèmes
+                </label>
+                <label class="option">
+                    <input type="radio" name="q1" value="d"> Une tentative d’accès non autorisé à un réseau
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q1', 'b', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 2</div>
+            <div class="question-text">Quelle est la principale différence entre une vulnérabilité et une menace ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q2" value="a"> Une vulnérabilité est une faiblesse, tandis qu’une menace est un danger potentiel
+                </label>
+                <label class="option">
+                    <input type="radio" name="q2" value="b"> Une vulnérabilité est un danger, tandis qu’une menace est une faiblesse exploitable
+                </label>
+                <label class="option">
+                    <input type="radio" name="q2" value="c"> Une menace est une attaque active, tandis qu’une vulnérabilité est un risque passif
+                </label>
+                <label class="option">
+                    <input type="radio" name="q2" value="d"> Une vulnérabilité est une action malveillante, tandis qu’une menace est une faille système
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q2', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 3</div>
+            <div class="question-text">Un employé reçoit un courriel indiquant que son compte bancaire est compromis et doit cliquer sur un lien pour réinitialiser son mot de passe. Quel type d’attaque est-ce ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q3" value="a"> Spear phishing
+                </label>
+                <label class="option">
+                    <input type="radio" name="q3" value="b"> Phishing
+                </label>
+                <label class="option">
+                    <input type="radio" name="q3" value="c"> Pretexting
+                </label>
+                <label class="option">
+                    <input type="radio" name="q3" value="d"> Whaling
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q3', 'b', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 4</div>
+            <div class="question-text">Quelle est une caractéristique d’une attaque de phishing ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q4" value="a"> Elle repose sur l’ingénierie sociale pour manipuler les utilisateurs
+                </label>
+                <label class="option">
+                    <input type="radio" name="q4" value="b"> Elle utilise une communication frauduleuse pour inciter les utilisateurs à révéler des informations sensibles
+                </label>
+                <label class="option">
+                    <input type="radio" name="q4" value="c"> Elle exploite des vulnérabilités logicielles pour voler des données
+                </label>
+                <label class="option">
+                    <input type="radio" name="q4" value="d"> Elle nécessite une interaction physique avec la victime
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q4', 'b', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 5</div>
+            <div class="question-text">Un attaquant prétend être un consultant informatique de l’entreprise et envoie un courriel demandant aux employés de changer leur mot de passe via un lien fourni. C’est un exemple de :</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q5" value="a"> Pretexting
+                </label>
+                <label class="option">
+                    <input type="radio" name="q5" value="b"> Impersonation
+                </label>
+                <label class="option">
+                    <input type="radio" name="q5" value="c"> Phishing
+                </label>
+                <label class="option">
+                    <input type="radio" name="q5" value="d"> Social engineering
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q5', 'b', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 6</div>
+            <div class="question-text">Qu’est-ce qui rend les attaques par impersonation efficaces en ingénierie sociale ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q6" value="a"> Elles exploitent la confiance envers une figure familière ou autoritaire
+                </label>
+                <label class="option">
+                    <input type="radio" name="q6" value="b"> Elles utilisent des tactiques psychologiques pour manipuler les émotions
+                </label>
+                <label class="option">
+                    <input type="radio" name="q6" value="c"> Elles reposent sur l’intimidation pour forcer la conformité
+                </label>
+                <label class="option">
+                    <input type="radio" name="q6" value="d"> Elles ciblent les faiblesses logicielles pour obtenir l’accès
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q6', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 7</div>
+            <div class="question-text">Quel est l’objectif principal du dumpster diving dans un contexte de cybersécurité ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q7" value="a"> Récupérer des informations confidentielles à partir de documents non sécurisés
+                </label>
+                <label class="option">
+                    <input type="radio" name="q7" value="b"> Collecter des informations sensibles à partir de matériaux jetés
+                </label>
+                <label class="option">
+                    <input type="radio" name="q7" value="c"> Accéder à des systèmes via des appareils électroniques jetés
+                </label>
+                <label class="option">
+                    <input type="radio" name="q7" value="d"> Identifier des failles dans les processus de gestion des déchets
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q7', 'b', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 8</div>
+            <div class="question-text">Laquelle des mesures suivantes peut aider à prévenir les attaques par dumpster diving ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q8" value="a"> Mettre en œuvre des politiques de destruction sécurisée des documents
+                </label>
+                <label class="option">
+                    <input type="radio" name="q8" value="b"> Déchiqueter les documents sensibles avant leur élimination
+                </label>
+                <label class="option">
+                    <input type="radio" name="q8" value="c"> Stocker les documents dans un emplacement sécurisé avant élimination
+                </label>
+                <label class="option">
+                    <input type="radio" name="q8" value="d"> Former les employés à reconnaître les documents sensibles
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q8', 'b', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 9</div>
+            <div class="question-text">Un attaquant observe un employé saisir son mot de passe dans un café. C’est un exemple de :</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q9" value="a"> Eavesdropping
+                </label>
+                <label class="option">
+                    <input type="radio" name="q9" value="b"> Shoulder surfing
+                </label>
+                <label class="option">
+                    <input type="radio" name="q9" value="c"> Social engineering
+                </label>
+                <label class="option">
+                    <input type="radio" name="q9" value="d"> Visual hacking
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q9', 'b', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 10</div>
+            <div class="question-text">Quelle est une défense recommandée contre le shoulder surfing ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q10" value="a"> Utiliser des écrans de confidentialité
+                </label>
+                <label class="option">
+                    <input type="radio" name="q10" value="b"> Être attentif à son environnement lors de la saisie d’informations sensibles
+                </label>
+                <label class="option">
+                    <input type="radio" name="q10" value="c"> Activer l’authentification à deux facteurs
+                </label>
+                <label class="option">
+                    <input type="radio" name="q10" value="d"> Verrouiller automatiquement l’écran après inactivité
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q10', 'b', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 11</div>
+            <div class="question-text">Un utilisateur reçoit un courriel avertissant d’un faux virus et l’incitant à supprimer des fichiers système. C’est un exemple de :</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q11" value="a"> Hoax
+                </label>
+                <label class="option">
+                    <input type="radio" name="q11" value="b"> Scareware
+                </label>
+                <label class="option">
+                    <input type="radio" name="q11" value="c"> Malware
+                </label>
+                <label class="option">
+                    <input type="radio" name="q11" value="d"> Social engineering
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q11', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 12</div>
+            <div class="question-text">Quel est le principal danger d’un hoax en cybersécurité ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q12" value="a"> Il propage des logiciels malveillants via des pièces jointes
+                </label>
+                <label class="option">
+                    <input type="radio" name="q12" value="b"> Il incite les utilisateurs à prendre des actions nuisibles basées sur de fausses informations
+                </label>
+                <label class="option">
+                    <input type="radio" name="q12" value="c"> Il exploite les failles logicielles pour accéder aux systèmes
+                </label>
+                <label class="option">
+                    <input type="radio" name="q12" value="d"> Il surcharge les serveurs avec du trafic malveillant
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q12', 'b', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 13</div>
+            <div class="question-text">Dans une attaque de type watering hole, quelle est la stratégie principale de l’attaquant ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q13" value="a"> Envoyer des messages malveillants à des groupes ciblés
+                </label>
+                <label class="option">
+                    <input type="radio" name="q13" value="b"> Compromettre un site web fréquemment visité par le groupe cible
+                </label>
+                <label class="option">
+                    <input type="radio" name="q13" value="c"> Exploiter des vulnérabilités dans les navigateurs des utilisateurs
+                </label>
+                <label class="option">
+                    <input type="radio" name="q13" value="d"> Capter le trafic réseau d’un site légitime
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q13', 'b', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 14</div>
+            <div class="question-text">Lequel des exemples suivants est un cas réel d’attaque de type watering hole ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q14" value="a"> Compromettre un site de médias sociaux avec des scripts malveillants
+                </label>
+                <label class="option">
+                    <input type="radio" name="q14" value="b"> Un pirate infecte un forum industriel populaire avec un malware
+                </label>
+                <label class="option">
+                    <input type="radio" name="q14" value="c"> Exploiter une faille logicielle dans un site d’entreprise
+                </label>
+                <label class="option">
+                    <input type="radio" name="q14" value="d"> Intercepter les connexions à un site web légitime
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q14', 'b', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 15</div>
+            <div class="question-text">Quelle est une caractéristique commune du spam ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q15" value="a"> Il contient toujours des pièces jointes malveillantes
+                </label>
+                <label class="option">
+                    <input type="radio" name="q15" value="b"> Il s’agit de messages non sollicités envoyés en masse
+                </label>
+                <label class="option">
+                    <input type="radio" name="q15" value="c"> Il est uniquement envoyé à des individus ciblés
+                </label>
+                <label class="option">
+                    <input type="radio" name="q15" value="d"> Il exploite des vulnérabilités logicielles directement
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q15', 'b', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 16</div>
+            <div class="question-text">Comment le spam peut-il être utilisé dans une cyberattaque plus large ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q16" value="a"> En diffusant des liens de phishing ou des pièces jointes malveillantes
+                </label>
+                <label class="option">
+                    <input type="radio" name="q16" value="b"> En exploitant des failles dans les serveurs de messagerie
+                </label>
+                <label class="option">
+                    <input type="radio" name="q16" value="c"> En interceptant des communications réseau sécurisées
+                </label>
+                <label class="option">
+                    <input type="radio" name="q16" value="d"> En surchargeant les systèmes avec des données inutiles
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q16', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 17</div>
+            <div class="question-text">Quel est l’objectif principal d’une campagne d’influence en cybersécurité ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q17" value="a"> Exploiter des vulnérabilités logicielles
+                </label>
+                <label class="option">
+                    <input type="radio" name="q17" value="b"> Manipuler l’opinion publique ou le comportement par la désinformation
+                </label>
+                <label class="option">
+                    <input type="radio" name="q17" value="c"> Collecter des données personnelles via phishing
+                </label>
+                <label class="option">
+                    <input type="radio" name="q17" value="d"> Perturber les systèmes via des attaques DDoS
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q17', 'b', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 18</div>
+            <div class="question-text">Quelle plateforme est couramment utilisée pour les campagnes d’influence ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q18" value="a"> Réseaux sociaux
+                </label>
+                <label class="option">
+                    <input type="radio" name="q18" value="b"> Forums en ligne
+                </label>
+                <label class="option">
+                    <input type="radio" name="q18" value="c"> Sites web d’actualités
+                </label>
+                <label class="option">
+                    <input type="radio" name="q18" value="d"> Plateformes de messagerie instantanée
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q18', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 19</div>
+            <div class="question-text">Qu’est-ce que le smishing ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q19" value="a"> Phishing effectué via SMS/messages texte
+                </label>
+                <label class="option">
+                    <input type="radio" name="q19" value="b"> Ingénierie sociale via appels téléphoniques
+                </label>
+                <label class="option">
+                    <input type="radio" name="q19" value="c"> Envoi de messages malveillants via e-mails
+                </label>
+                <label class="option">
+                    <input type="radio" name="q19" value="d"> Exploitation de vulnérabilités dans les applications mobiles
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q19', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 20</div>
+            <div class="question-text">Un escroc appelle un employé en prétendant être de l’IRS et exige un paiement immédiat. C’est un exemple de :</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q20" value="a"> Phishing
+                </label>
+                <label class="option">
+                    <input type="radio" name="q20" value="b"> Vishing
+                </label>
+                <label class="option">
+                    <input type="radio" name="q20" value="c"> Pretexting
+                </label>
+                <label class="option">
+                    <input type="radio" name="q20" value="d"> Impersonation
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q20', 'b', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 21</div>
+            <div class="question-text">Quel principe d’ingénierie sociale repose sur la création d’un sentiment d’urgence pour inciter à l’action ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q21" value="a"> Pression temporelle
+                </label>
+                <label class="option">
+                    <input type="radio" name="q21" value="b"> Manipulation psychologique
+                </label>
+                <label class="option">
+                    <input type="radio" name="q21" value="c"> Urgence
+                </label>
+                <label class="option">
+                    <input type="radio" name="q21" value="d"> Intimidation
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q21', 'c', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 22</div>
+            <div class="question-text">Un attaquant se fait passer pour un PDG pour obtenir la conformité d’un employé. Quel principe d’ingénierie sociale est principalement en jeu ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q22" value="a"> Influence
+                </label>
+                <label class="option">
+                    <input type="radio" name="q22" value="b"> Autorité
+                </label>
+                <label class="option">
+                    <input type="radio" name="q22" value="c"> Confiance
+                </label>
+                <label class="option">
+                    <input type="radio" name="q22" value="d"> Manipulation
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q22', 'b', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 23</div>
+            <div class="question-text">Quel est l’objectif principal d’un malware ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q23" value="a"> Collecter des données utilisateur à des fins légitimes
+                </label>
+                <label class="option">
+                    <input type="radio" name="q23" value="b"> Causer des dommages, voler des données ou perturber les systèmes
+                </label>
+                <label class="option">
+                    <input type="radio" name="q23" value="c"> Améliorer la sécurité des systèmes
+                </label>
+                <label class="option">
+                    <input type="radio" name="q23" value="d"> Optimiser les performances réseau
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q23', 'b', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 24</div>
+            <div class="question-text">Lequel des éléments suivants n’est PAS un type de malware ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q24" value="a"> Worm
+                </label>
+                <label class="option">
+                    <input type="radio" name="q24" value="b"> Firewall
+                </label>
+                <label class="option">
+                    <input type="radio" name="q24" value="c"> Spyware
+                </label>
+                <label class="option">
+                    <input type="radio" name="q24" value="d"> Rootkit
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q24', 'b', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 25</div>
+            <div class="question-text">Qu’est-ce qui distingue un worm d’un virus ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q25" value="a"> Un worm nécessite un programme hôte pour se propager
+                </label>
+                <label class="option">
+                    <input type="radio" name="q25" value="b"> Un worm peut se répliquer et se propager sans programme hôte
+                </label>
+                <label class="option">
+                    <input type="radio" name="q25" value="c"> Un virus se propage sans interaction humaine
+                </label>
+                <label class="option">
+                    <input type="radio" name="q25" value="d"> Un worm est toujours moins destructeur qu’un virus
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q25', 'b', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 26</div>
+            <div class="question-text">Lequel des éléments suivants est un exemple de worm ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q26" value="a"> Emotet
+                </label>
+                <label class="option">
+                    <input type="radio" name="q26" value="b"> Stuxnet
+                </label>
+                <label class="option">
+                    <input type="radio" name="q26" value="c"> TrickBot
+                </label>
+                <label class="option">
+                    <input type="radio" name="q26" value="d"> Ryuk
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q26', 'b', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 27</div>
+            <div class="question-text">Quel est l’objectif principal d’un ransomware ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q27" value="a"> Collecter des données pour des campagnes publicitaires
+                </label>
+                <label class="option">
+                    <input type="radio" name="q27" value="b"> Refuser l’accès aux systèmes ou données jusqu’au paiement d’une rançon
+                </label>
+                <label class="option">
+                    <input type="radio" name="q27" value="c"> Améliorer la sécurité des données
+                </label>
+                <label class="option">
+                    <input type="radio" name="q27" value="d"> Optimiser les performances du système
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q27', 'b', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 28</div>
+            <div class="question-text">Comment le crypto-malware se propage-t-il généralement ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q28" value="a"> Via des courriels de phishing ou des sites web infectés
+                </label>
+                <label class="option">
+                    <input type="radio" name="q28" value="b"> Par des mises à jour logicielles compromises
+                </label>
+                <label class="option">
+                    <input type="radio" name="q28" value="c"> Via des réseaux sociaux malveillants
+                </label>
+                <label class="option">
+                    <input type="radio" name="q28" value="d"> Par des connexions Bluetooth non sécurisées
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q28', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 29</div>
+            <div class="question-text">Quelle est une caractéristique clé d’un Trojan horse ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q29" value="a"> Il se propage automatiquement sans interaction
+                </label>
+                <label class="option">
+                    <input type="radio" name="q29" value="b"> Il semble légitime mais contient un code malveillant
+                </label>
+                <label class="option">
+                    <input type="radio" name="q29" value="c"> Il exploite directement les vulnérabilités réseau
+                </label>
+                <label class="option">
+                    <input type="radio" name="q29" value="d"> Il nécessite un accès physique pour s’installer
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q29', 'b', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 30</div>
+            <div class="question-text">Un Remote Access Trojan (RAT) est principalement utilisé pour :</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q30" value="a"> Collecter des données utilisateur à des fins légitimes
+                </label>
+                <label class="option">
+                    <input type="radio" name="q30" value="b"> Permettre aux attaquants de contrôler un système à distance
+                </label>
+                <label class="option">
+                    <input type="radio" name="q30" value="c"> Perturber les communications réseau
+                </label>
+                <label class="option">
+                    <input type="radio" name="q30" value="d"> Améliorer la sécurité des systèmes
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q30', 'b', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 31</div>
+            <div class="question-text">Qu’est-ce qui rend les rootkits particulièrement dangereux ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q31" value="a"> Ils sont détectables par la plupart des antivirus
+                </label>
+                <label class="option">
+                    <input type="radio" name="q31" value="b"> Ils cachent leur présence en s’intégrant dans le système d’exploitation
+                </label>
+                <label class="option">
+                    <input type="radio" name="q31" value="c"> Ils nécessitent une interaction utilisateur pour s’activer
+                </label>
+                <label class="option">
+                    <input type="radio" name="q31" value="d"> Ils se propagent rapidement via les réseaux sociaux
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q31', 'b', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 32</div>
+            <div class="question-text">Quelle est l’action recommandée si un rootkit est suspecté sur un système ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q32" value="a"> Mettre à jour tous les logiciels
+                </label>
+                <label class="option">
+                    <input type="radio" name="q32" value="b"> Reformater et réimager le système
+                </label>
+                <label class="option">
+                    <input type="radio" name="q32" value="c"> Exécuter une analyse approfondie avec un antivirus
+                </label>
+                <label class="option">
+                    <input type="radio" name="q32" value="d"> Isoler le système du réseau
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q32', 'b', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 33</div>
+            <div class="question-text">Quelle est la fonction principale d’un spyware ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q33" value="a"> Perturber les opérations du système
+                </label>
+                <label class="option">
+                    <input type="radio" name="q33" value="b"> Collecter des informations sur un utilisateur à son insu
+                </label>
+                <label class="option">
+                    <input type="radio" name="q33" value="c"> Chiffrer les données pour la sécurité
+                </label>
+                <label class="option">
+                    <input type="radio" name="q33" value="d"> Optimiser les performances réseau
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q33', 'b', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 34</div>
+            <div class="question-text">Comment le spyware est-il généralement distribué ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q34" value="a"> Via des applications mobiles non sécurisées
+                </label>
+                <label class="option">
+                    <input type="radio" name="q34" value="b"> Via des logiciels groupés ou des sites de partage de fichiers
+                </label>
+                <label class="option">
+                    <input type="radio" name="q34" value="c"> Par des connexions réseau directes
+                </label>
+                <label class="option">
+                    <input type="radio" name="q34" value="d"> Via des mises à jour logicielles officielles
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q34', 'b', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 35</div>
+            <div class="question-text">Qu’est-ce qu’un botnet ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q35" value="a"> Un groupe d’appareils légitimes connectés pour des tests
+                </label>
+                <label class="option">
+                    <input type="radio" name="q35" value="b"> Un réseau d’appareils compromis contrôlés par un attaquant
+                </label>
+                <label class="option">
+                    <input type="radio" name="q35" value="c"> Un système de sécurité réseau
+                </label>
+                <label class="option">
+                    <input type="radio" name="q35" value="d"> Un ensemble de serveurs cloud sécurisés
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q35', 'b', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 36</div>
+            <div class="question-text">Quelle est une utilisation courante d’un botnet ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q36" value="a"> Effectuer des calculs distribués légitimes
+                </label>
+                <label class="option">
+                    <input type="radio" name="q36" value="b"> Lancer des attaques par déni de service distribué (DDoS)
+                </label>
+                <label class="option">
+                    <input type="radio" name="q36" value="c"> Héberger des services cloud sécurisés
+                </label>
+                <label class="option">
+                    <input type="radio" name="q36" value="d"> Analyser les performances réseau
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q36', 'b', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 37</div>
+            <div class="question-text">Qu’est-ce qui déclenche une logic bomb ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q37" value="a"> Une date, une heure ou une condition spécifique
+                </label>
+                <label class="option">
+                    <input type="radio" name="q37" value="b"> Une tentative d’accès non autorisé
+                </label>
+                <label class="option">
+                    <input type="radio" name="q37" value="c"> Une mise à jour du système
+                </label>
+                <label class="option">
+                    <input type="radio" name="q37" value="d"> Une surcharge réseau
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q37', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 38</div>
+            <div class="question-text">Lequel des éléments suivants est un exemple de payload d’une logic bomb ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q38" value="a"> Lancer une attaque DDoS
+                </label>
+                <label class="option">
+                    <input type="radio" name="q38" value="b"> Supprimer des fichiers critiques à une date spécifique
+                </label>
+                <label class="option">
+                    <input type="radio" name="q38" value="c"> Intercepter des communications réseau
+                </label>
+                <label class="option">
+                    <input type="radio" name="q38" value="d"> Chiffrer les données utilisateur
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q38', 'b', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 39</div>
+            <div class="question-text">Quelle attaque de mot de passe consiste à essayer toutes les combinaisons possibles de caractères ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q39" value="a"> Credential stuffing
+                </label>
+                <label class="option">
+                    <input type="radio" name="q39" value="b"> Brute force attack
+                </label>
+                <label class="option">
+                    <input type="radio" name="q39" value="c"> Password spraying
+                </label>
+                <label class="option">
+                    <input type="radio" name="q39" value="d"> Keylogging
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q39', 'b', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 40</div>
+            <div class="question-text">À quoi sert une rainbow table dans les attaques de mots de passe ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q40" value="a"> Tester la force des mots de passe
+                </label>
+                <label class="option">
+                    <input type="radio" name="q40" value="b"> Stocker des hachages de mots de passe précalculés pour un craquage plus rapide
+                </label>
+                <label class="option">
+                    <input type="radio" name="q40" value="c"> Générer des clés de chiffrement
+                </label>
+                <label class="option">
+                    <input type="radio" name="q40" value="d"> Vérifier l’intégrité des mots de passe
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q40', 'b', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 41</div>
+            <div class="question-text">Lequel des éléments suivants est un exemple d’attaque physique ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q41" value="a"> Utiliser une clé USB malveillante pour diffuser un malware
+                </label>
+                <label class="option">
+                    <input type="radio" name="q41" value="b"> Accéder à un bâtiment sécurisé sans autorisation
+                </label>
+                <label class="option">
+                    <input type="radio" name="q41" value="c"> Intercepter des signaux Wi-Fi
+                </label>
+                <label class="option">
+                    <input type="radio" name="q41" value="d"> Utiliser des caméras pour espionner
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q41', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 42</div>
+            <div class="question-text">Qu’est-ce que le card cloning dans le contexte des attaques physiques ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q42" value="a"> Copier les données d’une carte de crédit pour créer un duplicata
+                </label>
+                <label class="option">
+                    <input type="radio" name="q42" value="b"> Intercepter les signaux RFID d’une carte
+                </label>
+                <label class="option">
+                    <input type="radio" name="q42" value="c"> Voler physiquement une carte d’accès
+                </label>
+                <label class="option">
+                    <input type="radio" name="q42" value="d"> Modifier les données sur une carte à puce
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q42', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 43</div>
+            <div class="question-text">Quel est un objectif courant des attaques par intelligence artificielle adversarial ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q43" value="a"> Améliorer la précision des modèles IA
+                </label>
+                <label class="option">
+                    <input type="radio" name="q43" value="b"> Manipuler ou contourner les systèmes de sécurité basés sur l’IA
+                </label>
+                <label class="option">
+                    <input type="radio" name="q43" value="c"> Optimiser les algorithmes d’apprentissage
+                </label>
+                <label class="option">
+                    <input type="radio" name="q43" value="d"> Accélérer l’entraînement des modèles IA
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q43', 'b', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 44</div>
+            <div class="question-text">Quelle technique est utilisée dans l’IA adversarial pour compromettre les modèles d’apprentissage automatique ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q44" value="a"> Empoisonnement des données d’entraînement
+                </label>
+                <label class="option">
+                    <input type="radio" name="q44" value="b"> Modification des hyperparamètres du modèle
+                </label>
+                <label class="option">
+                    <input type="radio" name="q44" value="c"> Optimisation des algorithmes d’entraînement
+                </label>
+                <label class="option">
+                    <input type="radio" name="q44" value="d"> Analyse des performances du modèle
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q44', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 45</div>
+            <div class="question-text">Qu’est-ce qu’une attaque de la chaîne d’approvisionnement ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q45" value="a"> Exploiter les vulnérabilités logicielles d’un système
+                </label>
+                <label class="option">
+                    <input type="radio" name="q45" value="b"> Une attaque compromettant un fournisseur tiers pour accéder à la cible
+                </label>
+                <label class="option">
+                    <input type="radio" name="q45" value="c"> Attaquer directement les serveurs internes
+                </label>
+                <label class="option">
+                    <input type="radio" name="q45" value="d"> Perturber les processus de fabrication
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q45', 'b', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 46</div>
+            <div class="question-text">Lequel des éléments suivants est un exemple d’attaque de la chaîne d’approvisionnement ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q46" value="a"> Installer un malware via une mise à jour logicielle compromise
+                </label>
+                <label class="option">
+                    <input type="radio" name="q46" value="b"> Exploiter une faille dans un logiciel interne
+                </label>
+                <label class="option">
+                    <input type="radio" name="q46" value="c"> Accéder à un réseau via un mot de passe volé
+                </label>
+                <label class="option">
+                    <input type="radio" name="q46" value="d"> Perturber un réseau via une attaque DDoS
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q46', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 47</div>
+            <div class="question-text">Quelle est une différence clé entre les attaques basées sur le cloud et celles sur site ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q47" value="a"> Les attaques basées sur le cloud ciblent les serveurs locaux
+                </label>
+                <label class="option">
+                    <input type="radio" name="q47" value="b"> Les attaques basées sur le cloud exploitent l’infrastructure partagée, tandis que celles sur site ciblent les systèmes locaux
+                </label>
+                <label class="option">
+                    <input type="radio" name="q47" value="c"> Les attaques sur site utilisent toujours des techniques de phishing
+                </label>
+                <label class="option">
+                    <input type="radio" name="q47" value="d"> Les attaques basées sur le cloud ciblent uniquement les applications
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q47', 'b', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 48</div>
+            <div class="question-text">Quelle attaque est plus probable dans un environnement cloud ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q48" value="a"> Exploitation des API non sécurisées
+                </label>
+                <label class="option">
+                    <input type="radio" name="q48" value="b"> Mauvaise configuration des services cloud
+                </label>
+                <label class="option">
+                    <input type="radio" name="q48" value="c"> Attaques par force brute sur les serveurs
+                </label>
+                <label class="option">
+                    <input type="radio" name="q48" value="d"> Interception des communications réseau
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q48', 'b', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 49</div>
+            <div class="question-text">Quel est l’objectif d’une attaque cryptographique ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q49" value="a"> Exploiter des vulnérabilités logicielles
+                </label>
+                <label class="option">
+                    <input type="radio" name="q49" value="b"> Contourner ou casser les mécanismes de encryption
+                </label>
+                <label class="option">
+                    <input type="radio" name="q49" value="c"> Perturber les communications réseau
+                </label>
+                <label class="option">
+                    <input type="radio" name="q49" value="d"> Collecter des données utilisateur
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q49', 'b', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 50</div>
+            <div class="question-text">Lequel des éléments suivants est un exemple d’attaque cryptographique ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q50" value="a"> Birthday attack
+                </label>
+                <label class="option">
+                    <input type="radio" name="q50" value="b"> Man-in-the-middle attack
+                </label>
+                <label class="option">
+                    <input type="radio" name="q50" value="c"> Replay attack
+                </label>
+                <label class="option">
+                    <input type="radio" name="q50" value="d"> Side-channel attack
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q50', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 51</div>
+            <div class="question-text">Qu’est-ce que l’escalation de privilèges ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q51" value="a"> Obtenir un accès non autorisé à des permissions de niveau supérieur
+                </label>
+                <label class="option">
+                    <input type="radio" name="q51" value="b"> Accéder à un système via des identifiants volés
+                </label>
+                <label class="option">
+                    <input type="radio" name="q51" value="c"> Exploiter une faille réseau
+                </label>
+                <label class="option">
+                    <input type="radio" name="q51" value="d"> Intercepter des communications
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q51', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 52</div>
+            <div class="question-text">Lequel des méthodes suivantes est une méthode courante d’escalation de privilèges ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q52" value="a"> Exploiter une vulnérabilité logicielle
+                </label>
+                <label class="option">
+                    <input type="radio" name="q52" value="b"> Utiliser des identifiants volés
+                </label>
+                <label class="option">
+                    <input type="radio" name="q52" value="c"> Effectuer une attaque par force brute
+                </label>
+                <label class="option">
+                    <input type="radio" name="q52" value="d"> Modifier les configurations réseau
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q52', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 53</div>
+            <div class="question-text">Quel est l’objectif principal d’une attaque de cross-site scripting (XSS) ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q53" value="a"> Voler des identifiants via phishing
+                </label>
+                <label class="option">
+                    <input type="radio" name="q53" value="b"> Injecter des scripts malveillants dans un site web de confiance
+                </label>
+                <label class="option">
+                    <input type="radio" name="q53" value="c"> Exploiter des failles serveur
+                </label>
+                <label class="option">
+                    <input type="radio" name="q53" value="d"> Perturber les services web
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q53', 'b', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 54</div>
+            <div class="question-text">Quel type d’attaque XSS exécute un code malveillant lorsqu’un utilisateur visite une page web compromise ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q54" value="a"> Persistent XSS
+                </label>
+                <label class="option">
+                    <input type="radio" name="q54" value="b"> Non-persistent XSS
+                </label>
+                <label class="option">
+                    <input type="radio" name="q54" value="c"> Client-side XSS
+                </label>
+                <label class="option">
+                    <input type="radio" name="q54" value="d"> Toutes
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q54', 'd', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 55</div>
+            <div class="question-text">Lequel des éléments suivants est un type d’attaque par injection ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q55" value="a"> SQL injection
+                </label>
+                <label class="option">
+                    <input type="radio" name="q55" value="b"> Command injection
+                </label>
+                <label class="option">
+                    <input type="radio" name="q55" value="c"> XML injection
+                </label>
+                <label class="option">
+                    <input type="radio" name="q55" value="d"> LDAP injection
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q55', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 56</div>
+            <div class="question-text">Comment peut-on prévenir les attaques par injection ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q56" value="a"> Utiliser des requêtes paramétrées
+                </label>
+                <label class="option">
+                    <input type="radio" name="q56" value="b"> En mettant en œuvre la validation des entrées et la sanitisation des données
+                </label>
+                <label class="option">
+                    <input type="radio" name="q56" value="c"> Activer un pare-feu applicatif
+                </label>
+                <label class="option">
+                    <input type="radio" name="q56" value="d"> Surveiller les journaux d’accès
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q56', 'b', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 57</div>
+            <div class="question-text">Qu’est-ce qu’une attaque par débordement de tampon (buffer overflow) ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q57" value="a"> Exploiter une faille logicielle pour exécuter du code
+                </label>
+                <label class="option">
+                    <input type="radio" name="q57" value="b"> Écrire des données au-delà de la mémoire allouée à un tampon
+                </label>
+                <label class="option">
+                    <input type="radio" name="q57" value="c"> Surcharger un serveur avec des requêtes
+                </label>
+                <label class="option">
+                    <input type="radio" name="q57" value="d"> Corrompre les données utilisateur
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q57', 'b', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 58</div>
+            <div class="question-text">Quelle est une conséquence courante d’une attaque par débordement de tampon réussie ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q58" value="a"> Exécution de code à distance
+                </label>
+                <label class="option">
+                    <input type="radio" name="q58" value="b"> Altération des données utilisateur
+                </label>
+                <label class="option">
+                    <input type="radio" name="q58" value="c"> Perturbation des services réseau
+                </label>
+                <label class="option">
+                    <input type="radio" name="q58" value="d"> Collecte de données sensibles
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q58', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 59</div>
+            <div class="question-text">Qu’est-ce qu’une attaque par replay ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q59" value="a"> Capturer et réutiliser des transmissions de données valides pour obtenir un accès non autorisé
+                </label>
+                <label class="option">
+                    <input type="radio" name="q59" value="b"> Intercepter et modifier les communications
+                </label>
+                <label class="option">
+                    <input type="radio" name="q59" value="c"> Exploiter une faille logicielle
+                </label>
+                <label class="option">
+                    <input type="radio" name="q59" value="d"> Surcharger un système avec des données
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q59', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 60</div>
+            <div class="question-text">Comment peut-on atténuer les attaques par replay ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q60" value="a"> Utiliser des horodatages ou des nonces dans les communications
+                </label>
+                <label class="option">
+                    <input type="radio" name="q60" value="b"> Implémenter des jetons d’authentification
+                </label>
+                <label class="option">
+                    <input type="radio" name="q60" value="c"> Surveiller le trafic réseau
+                </label>
+                <label class="option">
+                    <input type="radio" name="q60" value="d"> Limiter les sessions utilisateur
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q60', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 61</div>
+            <div class="question-text">Qu’est-ce qu’une attaque par cross-site request forgery (CSRF) ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q61" value="a"> Inciter le navigateur d’un utilisateur à envoyer des requêtes non autorisées à un site de confiance
+                </label>
+                <label class="option">
+                    <input type="radio" name="q61" value="b"> Exploiter une faille dans un site web
+                </label>
+                <label class="option">
+                    <input type="radio" name="q61" value="c"> Voler des cookies de session
+                </label>
+                <label class="option">
+                    <input type="radio" name="q61" value="d"> Injecter des données malveillantes
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q61', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 62</div>
+            <div class="question-text">Lequel des éléments suivants aide à prévenir les attaques CSRF ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q62" value="a"> Valider les entrées utilisateur
+                </label>
+                <label class="option">
+                    <input type="radio" name="q62" value="b"> Implémenter des jetons CSRF
+                </label>
+                <label class="option">
+                    <input type="radio" name="q62" value="c"> Utiliser un pare-feu applicatif
+                </label>
+                <label class="option">
+                    <input type="radio" name="q62" value="d"> Surveiller les sessions utilisateur
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q62', 'b', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 63</div>
+            <div class="question-text">Qu’est-ce que la manipulation de pilotes dans le contexte des cyberattaques ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q63" value="a"> Modifier ou remplacer des pilotes de périphériques légitimes par des malveillants
+                </label>
+                <label class="option">
+                    <input type="radio" name="q63" value="b"> Exploiter les pilotes pour accéder au réseau
+                </label>
+                <label class="option">
+                    <input type="radio" name="q63" value="c"> Corrompre les pilotes pour perturber les systèmes
+                </label>
+                <label class="option">
+                    <input type="radio" name="q63" value="d"> Installer des pilotes pour améliorer la sécurité
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q63', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 64</div>
+            <div class="question-text">Quelle est une conséquence potentielle de la manipulation de pilotes ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q64" value="a"> Obtenir un accès persistant à un système
+                </label>
+                <label class="option">
+                    <input type="radio" name="q64" value="b"> Perturber les communications réseau
+                </label>
+                <label class="option">
+                    <input type="radio" name="q64" value="c"> Collecter des données utilisateur
+                </label>
+                <label class="option">
+                    <input type="radio" name="q64" value="d"> Améliorer les performances des pilotes
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q64', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 65</div>
+            <div class="question-text">Qu’est-ce que le SSL stripping ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q65" value="a"> Forcer une connexion HTTPS sécurisée à passer en HTTP
+                </label>
+                <label class="option">
+                    <input type="radio" name="q65" value="b"> Intercepter des certificats SSL
+                </label>
+                <label class="option">
+                    <input type="radio" name="q65" value="c"> Exploiter des failles dans le protocole SSL
+                </label>
+                <label class="option">
+                    <input type="radio" name="q65" value="d"> Rediriger le trafic HTTPS vers un site malveillant
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q65', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 66</div>
+            <div class="question-text">Comment peut-on prévenir le SSL stripping ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q66" value="a"> Utiliser des certificats SSL plus forts
+                </label>
+                <label class="option">
+                    <input type="radio" name="q66" value="b"> Implémenter HTTP Strict Transport Security (HSTS)
+                </label>
+                <label class="option">
+                    <input type="radio" name="q66" value="c"> Surveiller le trafic réseau
+                </label>
+                <label class="option">
+                    <input type="radio" name="q66" value="d"> Activer un pare-feu applicatif
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q66', 'b', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 67</div>
+            <div class="question-text">Qu’est-ce qu’une condition de course (race condition) en sécurité logicielle ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q67" value="a"> Une situation où le résultat dépend du timing des événements
+                </label>
+                <label class="option">
+                    <input type="radio" name="q67" value="b"> Une faille dans le chiffrement des données
+                </label>
+                <label class="option">
+                    <input type="radio" name="q67" value="c"> Une surcharge des ressources système
+                </label>
+                <label class="option">
+                    <input type="radio" name="q67" value="d"> Une intrusion réseau non détectée
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q67', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 68</div>
+            <div class="question-text">À quoi peut mener une vulnérabilité de condition de course ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q68" value="a"> Accès non autorisé ou escalation de privilèges
+                </label>
+                <label class="option">
+                    <input type="radio" name="q68" value="b"> Corruption de données due à des accès concurrents
+                </label>
+                <label class="option">
+                    <input type="radio" name="q68" value="c"> Surcharge des ressources système
+                </label>
+                <label class="option">
+                    <input type="radio" name="q68" value="d"> Interruption des processus réseau
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q68', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 69</div>
+            <div class="question-text">Qu’est-ce qu’une attaque par déni de service distribué (DDoS) ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q69" value="a"> Surcharger un système avec du trafic provenant de multiples sources
+                </label>
+                <label class="option">
+                    <input type="radio" name="q69" value="b"> Inonder un réseau avec des requêtes à partir d’une seule source
+                </label>
+                <label class="option">
+                    <input type="radio" name="q69" value="c"> Exploiter une vulnérabilité logicielle pour perturber les services
+                </label>
+                <label class="option">
+                    <input type="radio" name="q69" value="d"> Intercepter le trafic réseau pour bloquer l’accès
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q69', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 70</div>
+            <div class="question-text">Lequel des éléments suivants est un type courant d’attaque DDoS ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q70" value="a"> Inondation SYN
+                </label>
+                <label class="option">
+                    <input type="radio" name="q70" value="b"> Inondation ACK
+                </label>
+                <label class="option">
+                    <input type="radio" name="q70" value="c"> Inondation RST
+                </label>
+                <label class="option">
+                    <input type="radio" name="q70" value="d"> Inondation FIN
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q70', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 71</div>
+            <div class="question-text">Qu’est-ce qu’une attaque man-in-the-middle (MITM) ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q71" value="a"> Intercepter et potentiellement modifier les communications entre deux parties
+                </label>
+                <label class="option">
+                    <input type="radio" name="q71" value="b"> Usurper l’identité d’une partie pour accéder à un système
+                </label>
+                <label class="option">
+                    <input type="radio" name="q71" value="c"> Rediriger le trafic réseau vers un serveur malveillant
+                </label>
+                <label class="option">
+                    <input type="radio" name="q71" value="d"> Injecter du code malveillant dans les communications
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q71', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 72</div>
+            <div class="question-text">Lequel des éléments suivants peut aider à prévenir les attaques MITM ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q72" value="a"> Utiliser des connexions chiffrées comme HTTPS
+                </label>
+                <label class="option">
+                    <input type="radio" name="q72" value="b"> Implémenter des certificats SSL faibles
+                </label>
+                <label class="option">
+                    <input type="radio" name="q72" value="c"> Désactiver le chiffrement des données
+                </label>
+                <label class="option">
+                    <input type="radio" name="q72" value="d"> Utiliser des réseaux Wi-Fi publics non sécurisés
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q72', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 73</div>
+            <div class="question-text">Qu’est-ce qu’une attaque par force brute ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q73" value="a"> Tenter systématiquement toutes les combinaisons possibles pour deviner les identifiants
+                </label>
+                <label class="option">
+                    <input type="radio" name="q73" value="b"> Utiliser des identifiants volés pour accéder à un système
+                </label>
+                <label class="option">
+                    <input type="radio" name="q73" value="c"> Exploiter une faille logicielle pour contourner l’authentification
+                </label>
+                <label class="option">
+                    <input type="radio" name="q73" value="d"> Envoyer des requêtes massives pour perturber un service
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q73', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 74</div>
+            <div class="question-text">Quelle mesure peut réduire l’efficacité des attaques par force brute ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q74" value="a"> Limiter les tentatives de connexion
+                </label>
+                <label class="option">
+                    <input type="radio" name="q74" value="b"> Simplifier les mots de passe
+                </label>
+                <label class="option">
+                    <input type="radio" name="q74" value="c"> Désactiver les verrouillages de compte
+                </label>
+                <label class="option">
+                    <input type="radio" name="q74" value="d"> Réduire la longueur des mots de passe
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q74', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 75</div>
+            <div class="question-text">Qu’est-ce que le credential stuffing ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q75" value="a"> Utiliser des identifiants volés pour tenter d’accéder à plusieurs services
+                </label>
+                <label class="option">
+                    <input type="radio" name="q75" value="b"> Essayer des combinaisons d’identifiants générées aléatoirement
+                </label>
+                <label class="option">
+                    <input type="radio" name="q75" value="c"> Exploiter une faille pour obtenir des identifiants
+                </label>
+                <label class="option">
+                    <input type="radio" name="q75" value="d"> Collecter des identifiants via phishing
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q75', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 76</div>
+            <div class="question-text">Pourquoi le credential stuffing est-il efficace ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q76" value="a"> Les utilisateurs réutilisent souvent les mêmes identifiants sur plusieurs plateformes
+                </label>
+                <label class="option">
+                    <input type="radio" name="q76" value="b"> Les systèmes ne limitent pas les tentatives de connexion
+                </label>
+                <label class="option">
+                    <input type="radio" name="q76" value="c"> Les mots de passe sont rarement chiffrés
+                </label>
+                <label class="option">
+                    <input type="radio" name="q76" value="d"> Les bases de données contiennent des failles exploitées
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q76', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 77</div>
+            <div class="question-text">Qu’est-ce que le password spraying ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q77" value="a"> Essayer un mot de passe commun sur plusieurs comptes
+                </label>
+                <label class="option">
+                    <input type="radio" name="q77" value="b"> Tester des combinaisons aléatoires sur un seul compte
+                </label>
+                <label class="option">
+                    <input type="radio" name="q77" value="c"> Collecter des mots de passe via phishing
+                </label>
+                <label class="option">
+                    <input type="radio" name="q77" value="d"> Exploiter une faille pour obtenir des mots de passe
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q77', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 78</div>
+            <div class="question-text">Quelle est une défense contre le password spraying ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q78" value="a"> Utiliser des mots de passe complexes et uniques
+                </label>
+                <label class="option">
+                    <input type="radio" name="q78" value="b"> Simplifier les mots de passe pour les utilisateurs
+                </label>
+                <label class="option">
+                    <input type="radio" name="q78" value="c"> Désactiver les notifications de connexion
+                </label>
+                <label class="option">
+                    <input type="radio" name="q78" value="d"> Réduire la surveillance des connexions
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q78', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        
+        <div class="question-card">
+            <div class="number">Question 79</div>
+            <div class="text">Qu’est-ce qu’une attaque de session hijacking ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q79" value="a">Voler un identifiant de session pour accéder à une session utilisateur active
+                </label>
+                <label class="option">
+                    <input type="radio" name="q79" value="b">Interrompre une session utilisateur pour collecter des données
+                </label>
+                <label class="option">
+                    <input type="radio" name="q79" value="c">Créer une session utilisateur pour tester la sécurité
+                </label>
+                <label class="option">
+                    <input type="radio" name="q79" value="d">Modifier les paramètres de session pour perturber l’accès
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q79', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 80</div>
+            <div class="question-text">Comment peut-on atténuer les attaques de session hijacking ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q80" value="a">Utiliser des cookies sécurisés avec les attributs Secure et HttpOnly
+                </label>
+                <label class="option">
+                    <input type="radio" name="q80" value="b">Désactiver le chiffrement des sessions
+                </label>
+                <label class="option">
+                    <input type="radio" name="q80" value="c">Permettre des identifiants de session persistants
+                </label>
+                <label class="option">
+                    <input type="option" name="q80" value="d">Réduire la durée de vie des sessions</label>
+                </div>
+            <button class="validate-btn" onclick="validateAnswer('q80', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 81</div>
+            <div class="question-text">Qu’est-ce qu’un keylogger ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q81" value="a">Un logiciel ou dispositif qui enregistre les frappes clavier
+                </label>
+                <label class="option">
+                    <input type="radio" name="q81" value="b">Un outil pour générer des clés de chiffrement
+                </label>
+                <label class="option">
+                    <input type="radio" name="q81" value="c">Un programme pour analyser les journaux système
+                </label>
+                <label class="option">
+                    <input type="radio" name="q81" value="d">Une méthode pour tester la force des mots de passe
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q81', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 82</div>
+            <div class="question-text">Comment un keylogger peut-il être détecté ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q82" value="a">En exécutant une analyse antivirus ou en surveillant les processus suspects
+                </label>
+                <label class="option">
+                    <input type="radio" name="q82" value="b">En mettant à jour le système d’exploitation
+                </label>
+                <label class="option">
+                    <input type="radio" name="q82" value="c">En modifiant les paramètres réseau
+                </label>
+                <label class="option">
+                    <input type="radio" name="q82" value="d">En désactivant le clavier
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q82', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 83</div>
+            <div class="question-text">Qu’est-ce qu’une attaque par empoisonnement DNS ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q83" value="a">Modifier les enregistrements DNS pour rediriger le trafic vers un site malveillant
+                </label>
+                <label class="option">
+                    <input type="radio" name="q83" value="b">Surcharges les serveurs DNS avec des requêtes
+                </label>
+                <label class="option">
+                    <input type="radio" name="q83" value="c">Intercepter les requêtes DNS pour collecter des données
+                </label>
+                <label class="option">
+                    <input type="radio" name="q83" value="d">Exploiter une faille dans le protocole DNS
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q83', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 84</div>
+            <div class="question-text">Comment prévenir les attaques par empoisonnement DNS ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q84" value="a">Utiliser DNSSEC pour valider les réponses DNS
+                </label>
+                <label class="option">
+                    <input type="radio" name="q84" value="b">Désactiver les services DNS
+                </label>
+                <label class="option">
+                    <input type="radio" name="q84" value="c">Réduire la fréquence des requêtes DNS
+                </label>
+                <label class="option">
+                    <input type="radio" name="q84" value="d">Changer les serveurs DNS régulièrement
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q84', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 85</div>
+            <div class="question-text">Qu’est-ce qu’un rogue access point ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q85" value="a">Un point d’accès Wi-Fi malveillant configuré pour intercepter le trafic
+                </label>
+                <label class="option">
+                    <input type="radio" name="q85" value="b">Un point d’accès légitime mal configuré
+                </label>
+                <label class="option">
+                    <input type="radio" name="q85" value="c">Un dispositif pour amplifier les signaux Wi-Fi
+                </label>
+                <label class="option">
+                    <input type="radio" name="q85" value="d">Un serveur pour gérer les connexions Wi-Fi
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q85', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 86</div>
+            <div class="question-text">Comment détecter un rogue access point ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q86" value="a">Surveiller les réseaux sans fil pour identifier les points d’accès non autorisés
+                </label>
+                <label class="option">
+                    <input type="radio" name="q86" value="b">Modifier les paramètres des points d’accès existants
+                </label>
+                <label class="option">
+                    <input type="radio" name="q86" value="c">Désactiver tous les réseaux Wi-Fi
+                </label>
+                <label class="option">
+                    <input type="radio" name="q86" value="d">Augmenter la puissance des signaux Wi-Fi
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q86', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 87</div>
+            <div class="question-text">Qu’est-ce qu’une attaque par ARP spoofing ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q87" value="a">Associer une adresse MAC malveillante à une adresse IP légitime
+                </label>
+                <label class="option">
+                    <input type="radio" name="q87" value="b">Modifier les enregistrements ARP pour bloquer le trafic
+                </label>
+                <label class="option">
+                    <input type="radio" name="q87" value="c">Exploiter une faille dans le protocole ARP
+                </label>
+                <label class="option">
+                    <input type="radio" name="q87" value="d">Intercepter les requêtes ARP pour collecter des données
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q87', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 88</div>
+            <div class="question-text">Comment atténuer les attaques par ARP spoofing ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q88" value="a">Utiliser des tables ARP statiques ou des outils de détection
+                </label>
+                <label class="option">
+                    <input type="radio" name="q88" value="b">Désactiver le protocole ARP
+                </label>
+                <label class="option">
+                    <input type="radio" name="q88" value="c">Augmenter la fréquence des requêtes ARP
+                </label>
+                <label class="option">
+                    <input type="radio" name="q88" value="d">Modifier les adresses MAC régulièrement
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q88', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 89</div>
+            <div class="question-text">Qu’est-ce qu’une attaque par MAC flooding ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q89" value="a">Surcharger la table MAC d’un commutateur pour provoquer un débordement
+                </label>
+                <label class="option">
+                    <input type="radio" name="q89" value="b">Modifier les adresses MAC pour intercepter le trafic
+                </label>
+                <label class="option">
+                    <input type="radio" name="q89" value="c">Exploiter une faille dans le protocole MAC
+                </label>
+                <label class="option">
+                    <input type="radio" name="q89" value="d">Bloquer les adresses MAC pour perturber le réseau
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q89', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 90</div>
+            <div class="question-text">Comment prévenir les attaques par MAC flooding ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q90" value="a">Activer la sécurité des ports sur les commutateurs
+                </label>
+                <label class="option">
+                    <input type="radio" name="q90" value="b">Désactiver les tables MAC
+                </label>
+                <label class="option">
+                    <input type="radio" name="q90" value="c">Augmenter la taille des tables MAC
+                </label>
+                <label class="option">
+                    <input type="radio" name="q90" value="d">Réduire le nombre de ports actifs
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q90', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 91</div>
+            <div class="question-text">Qu’est-ce qu’une attaque par VLAN hopping ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q91" value="a">Accéder à un VLAN non autorisé en manipulant les configurations réseau
+                </label>
+                <label class="option">
+                    <input type="radio" name="q91" value="b">Créer un nouveau VLAN pour intercepter le trafic
+                </label>
+                <label class="option">
+                    <input type="radio" name="q91" value="c">Exploiter une faille dans le protocole VLAN
+                </label>
+                <label class="option">
+                    <input type="radio" name="q91" value="d">Surcharger les VLAN pour perturber le réseau
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q91', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 92</div>
+            <div class="question-text">Comment prévenir les attaques par VLAN hopping ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q92" value="a">Désactiver le trunking automatique et configurer les VLAN statiques
+                </label>
+                <label class="option">
+                    <input type="radio" name="q92" value="b">Augmenter le nombre de VLAN
+                </label>
+                <label class="option">
+                    <input type="radio" name="q92" value="c">Désactiver les VLAN
+                </label>
+                <label class="option">
+                    <input type="radio" name="q92" value="d">Modifier les identifiants VLAN régulièrement
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q92', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 93</div>
+            <div class="question-text">Qu’est-ce qu’une attaque par STP manipulation ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q93" value="a">Manipuler le protocole Spanning Tree pour perturber le réseau
+                </label>
+                <label class="option">
+                    <input type="radio" name="q93" value="b">Exploiter une faille dans le protocole STP
+                </label>
+                <label class="option">
+                    <input type="radio" name="q93" value="c">Surcharger les commutateurs avec des requêtes STP
+                </label>
+                <label class="option">
+                    <input type="radio" name="q93" value="d">Intercepter les paquets STP pour collecter des données
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q93', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 94</div>
+            <div class="question-text">Comment atténuer les attaques par STP manipulation ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q94" value="a">Activer BPDU Guard et Root Guard sur les commutateurs
+                </label>
+                <label class="option">
+                    <input type="radio" name="q94" value="b">Désactiver le protocole STP
+                </label>
+                <label class="option">
+                    <input type="radio" name="q94" value="c">Augmenter la priorité des commutateurs
+                </label>
+                <label class="option">
+                    <input type="radio" name="q94" value="d">Réduire la fréquence des BPDU
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q94', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 95</div>
+            <div class="question-text">Qu’est-ce qu’une attaque par packet sniffing ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q95" value="a">Capturer et analyser les paquets réseau pour extraire des informations
+                </label>
+                <label class="option">
+                    <input type="radio" name="q95" value="b">Modifier les paquets réseau pour perturber les communications
+                </label>
+                <label class="option">
+                    <input type="radio" name="q95" value="c">Surcharger le réseau avec des paquets malveillants
+                </label>
+                <label class="option">
+                    <input type="radio" name="q95" value="d">Exploiter une faille dans les paquets réseau
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q95', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 96</div>
+            <div class="question-text">Comment prévenir les attaques par packet sniffing ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q96" value="a">Utiliser le chiffrement pour protéger les données en transit
+                </label>
+                <label class="option">
+                    <input type="radio" name="q96" value="b">Désactiver les interfaces réseau
+                </label>
+                <label class="option">
+                    <input type="radio" name="q96" value="c">Augmenter la taille des paquets
+                </label>
+                <label class="option">
+                    <input type="radio" name="q96" value="d">Réduire la surveillance du réseau
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q96', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 97</div>
+            <div class="question-text">Qu’est-ce qu’une attaque par social engineering ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q97" value="a">Manipuler les individus pour obtenir des informations ou un accès
+                </label>
+                <label class="option">
+                    <input type="radio" name="q97" value="b">Exploiter les failles des réseaux sociaux
+                </label>
+                <label class="option">
+                    <input type="radio" name="q97" value="c">Surcharger les plateformes sociales avec des requêtes
+                </label>
+                <label class="option">
+                    <input type="radio" name="q97" value="d">Modifier les profils sociaux pour collecter des données
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q97', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 98</div>
+            <div class="question-text">Quelle est une défense clé contre les attaques par social engineering ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q98" value="a">Former les employés à reconnaître les tactiques de manipulation
+                </label>
+                <label class="option">
+                    <input type="radio" name="q98" value="b">Désactiver les comptes de médias sociaux
+                </label>
+                <label class="option">
+                    <input type="radio" name="q98" value="c">Augmenter la complexité des mots de passe
+                </label>
+                <label class="option">
+                    <input type="radio" name="q98" value="d">Réduire l’accès aux plateformes sociales
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q98', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 99</div>
+            <div class="question-text">Qu’est-ce qu’une attaque par zero-day ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q99" value="a">Exploiter une vulnérabilité inconnue avant qu’un correctif ne soit disponible
+                </label>
+                <label class="option">
+                    <input type="radio" name="q99" value="b">Exploiter une vulnérabilité connue sans correctif
+                </label>
+                <label class="option">
+                    <input type="radio" name="q99" value="c">Attaquer un système le jour de sa mise en ligne
+                </label>
+                <label class="option">
+                    <input type="radio" name="q99" value="d">Surcharger un système avec des requêtes le premier jour
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q99', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number">Question 100</div>
+            <div class="question-text">Comment atténuer les risques des attaques par zero-day ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="q100" value="a">Utiliser des systèmes de détection d’intrusion et appliquer des correctifs rapidement
+                </label>
+                <label class="option">
+                    <input type="radio" name="q100" value="b">Désactiver tous les logiciels non essentiels
+                </label>
+                <label class="option">
+                    <input type="radio" name="q100" value="c">Réduire les mises à jour logicielles
+                </label>
+                <label class="option">
+                    <input type="radio" name="q100" value="d">Augmenter les privilèges des utilisateurs
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q100', 'a', this)">Valider la réponse</button>
+            <div class="result"></div>
+        </div>
+<div class="question-card">
+    <div class="question-number">Question 101</div>
+    <div class="question-text">Lequel des éléments suivants est un type de vulnérabilité ?</div>
+    <div class="options">
+        <label class="option">
+            <input type="radio" name="q101" value="a"> Mauvaise configuration
+        </label>
+        <label class="option">
+            <input type="radio" name="q101" value="b"> Chiffrement fort
+        </label>
+        <label class="option">
+            <input type="radio" name="q101" value="c"> Logiciel mis à jour
+        </label>
+        <label class="option">
+            <input type="radio" name="q101" value="d"> Mots de passe sécurisés
+        </label>
+    </div>
+    <button class="validate-btn" onclick="validateAnswer('q101', 'a', this)">Valider la réponse</button>
+    <div class="result"></div>
+</div>
+
+<div class="question-card">
+    <div class="question-number">Question 102</div>
+    <div class="question-text">Qu’est-ce qu’une vulnérabilité zero-day ?</div>
+    <div class="options">
+        <label class="option">
+            <input type="radio" name="q102" value="a"> Une vulnérabilité qui a été corrigée
+        </label>
+        <label class="option">
+            <input type="radio" name="q102" value="b"> Une vulnérabilité inconnue du fournisseur et exploitée par des attaquants
+        </label>
+        <label class="option">
+            <input type="radio" name="q102" value="c"> Une vulnérabilité dans la sécurité physique
+        </label>
+        <label class="option">
+            <input type="radio" name="q102" value="d"> Une vulnérabilité dans le chiffrement
+        </label>
+    </div>
+    <button class="validate-btn" onclick="validateAnswer('q102', 'b', this)">Valider la réponse</button>
+    <div class="result"></div>
+</div>
+
+<div class="question-card">
+    <div class="question-number">Question 103</div>
+    <div class="question-text">Qu’est-ce qu’un risque tiers en cybersécurité ?</div>
+    <div class="options">
+        <label class="option">
+            <input type="radio" name="q103" value="a"> Risques introduits par des fournisseurs ou partenaires externes
+        </label>
+        <label class="option">
+            <input type="radio" name="q103" value="b"> Risques provenant des employés internes
+        </label>
+        <label class="option">
+            <input type="radio" name="q103" value="c"> Risques des communications chiffrées
+        </label>
+        <label class="option">
+            <input type="radio" name="q103" value="d"> Risques des configurations sécurisées
+        </label>
+    </div>
+    <button class="validate-btn" onclick="validateAnswer('q103', 'a', this)">Valider la réponse</button>
+    <div class="result"></div>
+</div>
+
+<div class="question-card">
+    <div class="question-number">Question 104</div>
+    <div class="question-text">Comment peut-on atténuer les risques tiers ?</div>
+    <div class="options">
+        <label class="option">
+            <input type="radio" name="q104" value="a"> En effectuant des évaluations de sécurité des fournisseurs
+        </label>
+        <label class="option">
+            <input type="radio" name="q104" value="b"> En désactivant tout accès tiers
+        </label>
+        <label class="option">
+            <input type="radio" name="q104" value="c"> En ignorant les vulnérabilités des fournisseurs
+        </label>
+        <label class="option">
+            <input type="radio" name="q104" value="d"> En utilisant des mots de passe faibles
+        </label>
+    </div>
+    <button class="validate-btn" onclick="validateAnswer('q104', 'a', this)">Valider la réponse</button>
+    <div class="result"></div>
+</div>
+
+<div class="question-card">
+    <div class="question-number">Question 105</div>
+    <div class="question-text">Quel est un impact potentiel de l’exploitation d’une vulnérabilité ?</div>
+    <div class="options">
+        <label class="option">
+            <input type="radio" name="q105" value="a"> Violation de données
+        </label>
+        <label class="option">
+            <input type="radio" name="q105" value="b"> Amélioration des performances du système
+        </label>
+        <label class="option">
+            <input type="radio" name="q105" value="c"> Chiffrement plus fort
+        </label>
+        <label class="option">
+            <input type="radio" name="q105" value="d"> Sauvegardes sécurisées
+        </label>
+    </div>
+    <button class="validate-btn" onclick="validateAnswer('q105', 'a', this)">Valider la réponse</button>
+    <div class="result"></div>
+</div>
+
+<div class="question-card">
+    <div class="question-number">Question 106</div>
+    <div class="question-text">Lequel des éléments suivants est un impact financier de l’exploitation d’une vulnérabilité ?</div>
+    <div class="options">
+        <label class="option">
+            <input type="radio" name="q106" value="a"> Perte de la confiance des clients
+        </label>
+        <label class="option">
+            <input type="radio" name="q106" value="b"> Coût de la réponse à l’incident
+        </label>
+        <label class="option">
+            <input type="radio" name="q106" value="c"> Amélioration de la réputation de la marque
+        </label>
+        <label class="option">
+            <input type="radio" name="q106" value="d"> Performance réseau plus rapide
+        </label>
+    </div>
+    <button class="validate-btn" onclick="validateAnswer('q106', 'b', this)">Valider la réponse</button>
+    <div class="result"></div>
+</div>
+
+<div class="question-card">
+    <div class="question-number">Question 107</div>
+    <div class="question-text">Qu’est-ce que la chasse aux menaces (threat hunting) ?</div>
+    <div class="options">
+        <label class="option">
+            <input type="radio" name="q107" value="a"> Rechercher proactivement des menaces au sein d’un réseau
+        </label>
+        <label class="option">
+            <input type="radio" name="q107" value="b"> Chiffrer des données sensibles
+        </label>
+        <label class="option">
+            <input type="radio" name="q107" value="c"> Désactiver les systèmes de sécurité
+        </label>
+        <label class="option">
+            <input type="radio" name="q107" value="d"> Ignorer les vulnérabilités
+        </label>
+    </div>
+    <button class="validate-btn" onclick="validateAnswer('q107', 'a', this)">Valider la réponse</button>
+    <div class="result"></div>
+</div>
+
+<div class="question-card">
+    <div class="question-number">Question 108</div>
+    <div class="question-text">Quel outil est couramment utilisé dans la chasse aux menaces ?</div>
+    <div class="options">
+        <label class="option">
+            <input type="radio" name="q108" value="a"> Système SIEM
+        </label>
+        <label class="option">
+            <input type="radio" name="q108" value="b"> Navigateur web
+        </label>
+        <label class="option">
+            <input type="radio" name="q108" value="c"> Éditeur de texte
+        </label>
+        <label class="option">
+            <input type="radio" name="q108" value="d"> Lecteur multimédia
+        </label>
+    </div>
+    <button class="validate-btn" onclick="validateAnswer('q108', 'a', this)">Valider la réponse</button>
+    <div class="result"></div>
+</div>
+
+<div class="question-card">
+    <div class="question-number">Question 109</div>
+    <div class="question-text">Quel est l’objectif d’un scan de vulnérabilités ?</div>
+    <div class="options">
+        <label class="option">
+            <input type="radio" name="q109" value="a"> Chiffrer le trafic réseau
+        </label>
+        <label class="option">
+            <input type="radio" name="q109" value="b"> Identifier les faiblesses dans les systèmes ou réseaux
+        </label>
+        <label class="option">
+            <input type="radio" name="q109" value="c"> Surcharger les ressources du système
+        </label>
+        <label class="option">
+            <input type="radio" name="q109" value="d"> Désactiver les contrôles de sécurité
+        </label>
+    </div>
+    <button class="validate-btn" onclick="validateAnswer('q109', 'b', this)">Valider la réponse</button>
+    <div class="result"></div>
+</div>
+
+<div class="question-card">
+    <div class="question-number">Question 110</div>
+    <div class="question-text">Quel est un résultat courant d’un scan de vulnérabilités ?</div>
+    <div class="options">
+        <label class="option">
+            <input type="radio" name="q110" value="a"> Une liste de faiblesses de sécurité potentielles
+        </label>
+        <label class="option">
+            <input type="radio" name="q110" value="b"> Données chiffrées
+        </label>
+        <label class="option">
+            <input type="radio" name="q110" value="c"> Amélioration des performances matérielles
+        </label>
+        <label class="option">
+            <input type="radio" name="q110" value="d"> Pare-feu désactivés
+        </label>
+    </div>
+    <button class="validate-btn" onclick="validateAnswer('q110', 'a', this)">Valider la réponse</button>
+    <div class="result"></div>
+</div>
+
+<div class="question-card">
+    <div class="question-number">Question 111</div>
+    <div class="question-text">Quelle est la fonction principale d’un système SIEM ?</div>
+    <div class="options">
+        <label class="option">
+            <input type="radio" name="q111" value="a"> Chiffrer des données sensibles
+        </label>
+        <label class="option">
+            <input type="radio" name="q111" value="b"> Collecter, analyser et corréler les données d’événements de sécurité
+        </label>
+        <label class="option">
+            <input type="radio" name="q111" value="c"> Sécuriser physiquement les appareils
+        </label>
+        <label class="option">
+            <input type="radio" name="q111" value="d"> Désactiver le trafic réseau
+        </label>
+    </div>
+    <button class="validate-btn" onclick="validateAnswer('q111', 'b', this)">Valider la réponse</button>
+    <div class="result"></div>
+</div>
+
+<div class="question-card">
+    <div class="question-number">Question 112</div>
+    <div class="question-text">Lequel des éléments suivants est un avantage de l’utilisation d’un système SIEM ?</div>
+    <div class="options">
+        <label class="option">
+            <input type="radio" name="q112" value="a"> Détection des menaces en temps réel
+        </label>
+        <label class="option">
+            <input type="radio" name="q112" value="b"> Réponse plus lente aux incidents
+        </label>
+        <label class="option">
+            <input type="radio" name="q112" value="c"> Augmentation des vulnérabilités
+        </label>
+        <label class="option">
+            <input type="radio" name="q112" value="d"> Désactivation des contrôles de sécurité
+        </label>
+    </div>
+    <button class="validate-btn" onclick="validateAnswer('q112', 'a', this)">Valider la réponse</button>
+    <div class="result"></div>
+</div>
+
+<div class="question-card">
+    <div class="question-number">Question 113</div>
+    <div class="question-text">Quel est l’objectif des tests de pénétration ?</div>
+    <div class="options">
+        <label class="option">
+            <input type="radio" name="q113" value="a"> Simuler des attaques pour identifier les vulnérabilités
+        </label>
+        <label class="option">
+            <input type="radio" name="q113" value="b"> Chiffrer le trafic réseau
+        </label>
+        <label class="option">
+            <input type="radio" name="q113" value="c"> Désactiver les systèmes de sécurité
+        </label>
+        <label class="option">
+            <input type="radio" name="q113" value="d"> Surcharger les ressources du système
+        </label>
+    </div>
+    <button class="validate-btn" onclick="validateAnswer('q113', 'a', this)">Valider la réponse</button>
+    <div class="result"></div>
+</div>
+
+<div class="question-card">
+    <div class="question-number">Question 114</div>
+    <div class="question-text">Quelle phase des tests de pénétration implique la collecte d’informations sur la cible ?</div>
+    <div class="options">
+        <label class="option">
+            <input type="radio" name="q114" value="a"> Exploitation
+        </label>
+        <label class="option">
+            <input type="radio" name="q114" value="b"> Rapportage
+        </label>
+        <label class="option">
+            <input type="radio" name="q114" value="c"> Reconnaissance
+        </label>
+        <label class="option">
+            <input type="radio" name="q114" value="d"> Post-exploitation
+        </label>
+    </div>
+    <button class="validate-btn" onclick="validateAnswer('q114', 'c', this)">Valider la réponse</button>
+    <div class="result"></div>
+</div>
+
+<div class="question-card">
+    <div class="question-number">Question 115</div>
+    <div class="question-text">Qu’est-ce que la reconnaissance dans le contexte des cyberattaques ?</div>
+    <div class="options">
+        <label class="option">
+            <input type="radio" name="q115" value="a"> Collecter des informations sur une cible avant une attaque
+        </label>
+        <label class="option">
+            <input type="radio" name="q115" value="b"> Chiffrer des données sensibles
+        </label>
+        <label class="option">
+            <input type="radio" name="q115" value="c"> Surcharger les ressources du système
+        </label>
+        <label class="option">
+            <input type="radio" name="q115" value="d"> Désactiver les contrôles de sécurité
+        </label>
+    </div>
+    <button class="validate-btn" onclick="validateAnswer('q115', 'a', this)">Valider la réponse</button>
+    <div class="result"></div>
+</div>
+
+<div class="question-card">
+    <div class="question-number">Question 116</div>
+    <div class="question-text">Lequel des éléments suivants est un exemple de reconnaissance passive ?</div>
+    <div class="options">
+        <label class="option">
+            <input type="radio" name="q116" value="a"> Scanner un réseau pour des ports ouverts
+        </label>
+        <label class="option">
+            <input type="radio" name="q116" value="b"> Examiner le site web public d’une entreprise
+        </label>
+        <label class="option">
+            <input type="radio" name="q116" value="c"> Envoyer des courriels de phishing
+        </label>
+        <label class="option">
+            <input type="radio" name="q116" value="d"> Exploiter une vulnérabilité
+        </label>
+    </div>
+    <button class="validate-btn" onclick="validateAnswer('q116', 'b', this)">Valider la réponse</button>
+    <div class="result"></div>
+</div>
+
+<div class="question-card">
+    <div class="question-number">Question 117</div>
+    <div class="question-text">Quelle est la responsabilité principale d’une équipe de sécurité ?</div>
+    <div class="options">
+        <label class="option">
+            <input type="radio" name="q117" value="a"> Développer de nouvelles applications logicielles
+        </label>
+        <label class="option">
+            <input type="radio" name="q117" value="b"> Protéger les actifs d’une organisation contre les menaces
+        </label>
+        <label class="option">
+            <input type="radio" name="q117" value="c"> Chiffrer tout le trafic réseau
+        </label>
+        <label class="option">
+            <input type="radio" name="q117" value="d"> Désactiver les contrôles de sécurité
+        </label>
+    </div>
+    <button class="validate-btn" onclick="validateAnswer('q117', 'b', this)">Valider la réponse</button>
+    <div class="result"></div>
+</div>
+
+<div class="question-card">
+    <div class="question-number">Question 118</div>
+    <div class="question-text">Lequel des rôles suivants fait généralement partie d’une équipe de sécurité ?</div>
+    <div class="options">
+        <label class="option">
+            <input type="radio" name="q118" value="a"> Répondeur aux incidents
+        </label>
+        <label class="option">
+            <input type="radio" name="q118" value="b"> Développeur logiciel
+        </label>
+        <label class="option">
+            <input type="radio" name="q118" value="c"> Analyste marketing
+        </label>
+        <label class="option">
+            <input type="radio" name="q118" value="d"> Concepteur graphique
+        </label>
+    </div>
+    <button class="validate-btn" onclick="validateAnswer('q118', 'a', this)">Valider la réponse</button>
+    <div class="result"></div>
+</div>
+
+    </div>
+<script>
+    let answeredQuestions = 0;
+    const totalQuestions = 118;
+
+    // ... existing code ...
+    const explanations = {
+        q1: "Une menace en cybersécurité est un danger potentiel, qu'il soit intentionnel (comme une attaque de pirate) ou non intentionnel (comme une catastrophe naturelle), qui pourrait causer un préjudice à un système ou à des données.",
+        q2: "Une vulnérabilité est une faiblesse ou une faille dans un système qui peut être exploitée. Une menace est un danger potentiel qui pourrait exploiter cette vulnérabilité pour causer un préjudice.",
+        q3: "Le phishing est une tentative d'inciter des individus à révéler des informations sensibles (comme des identifiants ou des informations bancaires) en se faisant passer pour une entité de confiance, souvent par courriel.",
+        q4: "Le phishing est caractérisé par l'utilisation de communications trompeuses, souvent des courriels ou des sites web frauduleux, pour inciter les victimes à divulguer des informations confidentielles comme des mots de passe ou des numéros de carte de crédit.",
+        q5: "L'impersonation est une technique d'ingénierie sociale où un attaquant se fait passer pour une personne ou une entité de confiance (comme un consultant IT) pour obtenir des informations ou un accès non autorisé.",
+        q6: "Les attaques par impersonation sont efficaces car elles capitalisent sur le fait que les gens sont plus enclins à obéir ou à faire confiance à des individus qui semblent familiers ou qui détiennent une position d'autorité.",
+        q7: "Le dumpster diving (fouiller les poubelles) est une technique consistant à rechercher des informations sensibles (documents, notes, identifiants) dans les déchets d'une organisation ou d'un individu.",
+        q8: "Déchiqueter les documents sensibles avant de les jeter rend la récupération d'informations par le dumpster diving extrêmement difficile, car les données sont détruites de manière irréversible.",
+        q9: "Le shoulder surfing est une technique où un attaquant observe secrètement les informations sensibles (comme les mots de passe ou codes PIN) d'une victime en regardant par-dessus son épaule.",
+        q10: "La vigilance est la meilleure défense contre le shoulder surfing. Être conscient de son environnement et s'assurer que personne ne peut observer l'écran ou le clavier lors de la saisie d'informations confidentielles est crucial.",
+        q11: "Un hoax en cybersécurité est un faux avertissement de virus ou de menace qui incite les utilisateurs à prendre des mesures nuisibles, comme supprimer des fichiers système ou transférer de l'argent.",
+        q12: "Le danger principal d'un hoax est qu'il manipule les utilisateurs pour qu'ils s'auto-infligent des dommages en suivant de fausses instructions, comme désactiver des protections ou supprimer des fichiers essentiels.",
+        q13: "Une attaque par watering hole consiste à compromettre un site web que le groupe cible est connu pour visiter fréquemment, puis à infecter les visiteurs légitimes de ce site avec un malware.",
+        q14: "Infecter un forum industriel populaire avec un malware est un exemple classique de watering hole, car les attaquants ciblent une ressource que de nombreux membres de l'industrie (leur cible) sont susceptibles de visiter.",
+        q15: "Le spam est défini comme des communications non sollicitées, généralement envoyées en grande quantité, souvent à des fins commerciales, frauduleuses ou malveillantes.",
+        q16: "Le spam est un vecteur courant pour les cyberattaques, servant à distribuer des courriels de phishing, des liens vers des sites malveillants, ou des pièces jointes infectées par des malwares.",
+        q17: "Une campagne d'influence cherche à manipuler la perception ou le comportement d'un public cible en diffusant de la désinformation, de la propagande ou des récits biaisés, souvent à des fins politiques ou idéologiques.",
+        q18: "Les réseaux sociaux sont des plateformes privilégiées pour les campagnes d'influence en raison de leur portée massive, de la facilité de diffusion d'informations et de la capacité à cibler des groupes démographiques spécifiques.",
+        q19: "Le smishing est une forme d'hameçonnage (phishing) qui utilise les messages SMS (Short Message Service) ou les messages texte pour tenter d'inciter les victimes à révéler des informations personnelles ou à installer des malwares.",
+        q20: "Le vishing est une forme d'hameçonnage (phishing) qui utilise des appels vocaux (Voice over IP, téléphone) pour tromper la victime et l'inciter à divulguer des informations sensibles ou à effectuer des actions spécifiques.",
+        q21: "Le principe d'urgence en ingénierie sociale consiste à créer un sentiment de hâte ou de pression pour forcer la victime à agir rapidement, sans prendre le temps de réfléchir ou de vérifier la légitimité de la demande.",
+        q22: "Le principe d'autorité en ingénierie sociale exploite la tendance humaine à obéir à des figures d'autorité (comme un PDG ou un responsable) perçues, même si la demande semble inhabituelle.",
+        q23: "Le malware (logiciel malveillant) est conçu pour s'infiltrer dans un système informatique, endommager des données, voler des informations, perturber des opérations ou obtenir un accès non autorisé.",
+        q24: "Un firewall (pare-feu) est un système de sécurité réseau qui contrôle le trafic, ce n'est pas un logiciel malveillant. Les virus, trojans et ransomwares sont tous des types de malwares.",
+        q25: "Un ver (worm) est un type de malware autonome qui peut se répliquer et se propager sur les réseaux sans avoir besoin de s'attacher à un programme hôte ou de l'intervention de l'utilisateur. Un virus, en revanche, a besoin d'un hôte.",
+        q26: "Stuxnet est un exemple célèbre de ver informatique, conçu pour cibler et saboter des systèmes de contrôle industriels spécifiques. CryptoLocker et WannaCry sont des ransomwares, Zeus est un cheval de Troie bancaire.",
+        q27: "Le ransomware est un type de malware qui chiffre les fichiers ou bloque l'accès à un système, puis exige une rançon, généralement en cryptomonnaie, en échange de la clé de déchiffrement ou de la restauration de l'accès.",
+        q28: "Le crypto-malware (ransomware qui chiffre les données) se propage le plus souvent par le biais de courriels de phishing contenant des pièces jointes malveillantes ou des liens vers des sites web compromis.",
+        q29: "Un cheval de Troie (Trojan horse) est un type de malware qui se déguise en logiciel légitime ou utile pour inciter l'utilisateur à l'installer. Une fois exécuté, il effectue des actions malveillantes cachées.",
+        q30: "Un Remote Access Trojan (RAT) est un type de cheval de Troie qui permet à un attaquant de contrôler à distance l'ordinateur infecté, y compris l'accès aux fichiers, l'enregistrement des frappes, et l'activation de la webcam.",
+        q31: "Les rootkits sont dangereux car ils sont conçus pour se cacher profondément dans le système d'exploitation, rendant leur détection très difficile par les logiciels antivirus standard et permettant à l'attaquant de maintenir un accès persistant et furtif.",
+        q32: "En raison de la difficulté de supprimer un rootkit de manière fiable, la mesure la plus sûre est généralement de reformater complètement le système et de le réimager à partir d'une source propre pour garantir l'élimination de toutes les traces du malware.",
+        q33: "Le spyware (logiciel espion) est un type de malware conçu pour collecter des informations sur l'activité d'un utilisateur, ses habitudes de navigation, ses données personnelles, sans son consentement.",
+        q34: "Le spyware est souvent distribué en étant groupé avec des logiciels légitimes, ou via des téléchargements à partir de sites de partage de fichiers non officiels, incitant les utilisateurs à l'installer involontairement.",
+        q35: "Un botnet est un réseau d'ordinateurs ou d'autres appareils infectés (appelés \"bots\" ou \"zombies\") qui sont contrôlés à distance par un attaquant (le \"botmaster\") pour mener des activités malveillantes coordonnées.",
+        q36: "Les botnets sont fréquemment utilisés pour lancer des attaques DDoS (Distributed Denial of Service) en dirigeant un grand volume de trafic simultanément depuis les machines compromises vers une cible, la rendant inaccessible.",
+        q37: "Une bombe logique (logic bomb) est un code malveillant intégré dans un programme qui reste dormant jusqu'à ce qu'une condition spécifique soit remplie (par exemple, une date ou une heure particulière, ou la suppression d'un employé).",
+        q38: "Le payload (charge utile) d'une bombe logique est l'action malveillante qu'elle exécute lorsque la condition de déclenchement est remplie, comme la suppression de fichiers, la corruption de données, ou l'envoi de messages spécifiques.",
+        q39: "Une attaque par force brute consiste à essayer systématiquement toutes les combinaisons possibles de caractères, de chiffres et de symboles pour deviner un mot de passe ou une clé de chiffrement.",
+        q40: "Une rainbow table est une table précalculée contenant des hachages de mots de passe possibles. Elle est utilisée pour inverser rapidement les hachages de mots de passe volés sans avoir à effectuer des calculs de hachage complexes pour chaque tentative.",
+        q41: "Une attaque physique implique une interaction directe avec le matériel ou l'environnement physique de la cible. L'utilisation d'une clé USB infectée en est un exemple car elle nécessite un accès physique à la machine.",
+        q42: "Le card cloning (clonage de carte) est une attaque physique où les données d'une carte (crédit, accès, etc.) sont copiées, souvent à l'aide d'un skimmer, pour créer une carte dupliquée et frauduleuse.",
+        q43: "Les attaques par IA adversaire (adversarial AI) visent à manipuler les systèmes d'apprentissage automatique (machine learning) en introduisant des données subtilement modifiées (exemples contradictoires) pour les tromper et les faire prendre de mauvaises décisions ou contourner les contrôles de sécurité.",
+        q44: "L'empoisonnement des données d'entraînement (data poisoning) est une technique d'IA adversaire où des données malveillantes sont intentionnellement introduites dans l'ensemble de données d'entraînement d'un modèle pour altérer son comportement ou ses performances.",
+        q45: "Une attaque de la chaîne d'approvisionnement cible une organisation en compromettant un fournisseur ou un partenaire tiers (par exemple, un éditeur de logiciels) pour accéder indirectement au système ou aux données de la cible finale.",
+        q46: "La distribution d'un malware via une mise à jour logicielle compromise (comme ce fut le cas avec SolarWinds) est un exemple classique d'attaque de la chaîne d'approvisionnement, car elle exploite la confiance entre l'entreprise et ses fournisseurs.",
+        q47: "Les attaques basées sur le cloud tirent parti de la nature partagée de l'infrastructure cloud et des vulnérabilités des services, tandis que les attaques sur site se concentrent sur les systèmes et réseaux gérés localement par l'organisation.",
+        q48: "Les mauvaises configurations sont une cause fréquente de vulnérabilités dans les environnements cloud, car la complexité des plateformes et la responsabilité partagée peuvent entraîner des erreurs qui exposent les données ou les services.",
+        q49: "Une attaque cryptographique vise à contourner, casser ou exploiter les faiblesses des algorithmes ou des implémentations de chiffrement pour accéder aux données sécurisées.",
+        q50: "La \"birthday attack\" (attaque des anniversaires) est un exemple d'attaque cryptographique qui exploite la probabilité plus élevée de trouver deux collisions de hachage dans un ensemble plus petit que prévu, pour casser des fonctions de hachage.",
+        q51: "L'escalade de privilèges est le processus par lequel un attaquant, ayant initialement un accès limité à un système, parvient à obtenir des droits d'accès plus élevés, comme ceux d'un administrateur, pour exercer un contrôle plus important.",
+        q52: "L'exploitation de vulnérabilités logicielles (bugs, failles de configuration) est une méthode courante pour l'escalade de privilèges, permettant à un attaquant de contourner les contrôles de sécurité et d'obtenir des droits plus élevés.",
+        q53: "Une attaque de cross-site scripting (XSS) consiste à injecter des scripts côté client malveillants (généralement JavaScript) dans des pages web visualisées par d'autres utilisateurs, souvent pour voler des cookies de session ou dérober des informations.",
+        q54: "Les trois types d'attaques XSS – Stored (persistant), Reflected (non persistant), et DOM-based – peuvent entraîner l'exécution de code malveillant dans le navigateur de l'utilisateur lorsqu'il visite une page web affectée.",
+        q55: "L'injection SQL est une attaque par injection où des requêtes SQL malveillantes sont insérées dans des champs d'entrée d'une application pour manipuler ou exfiltrer des données d'une base de données.",
+        q56: "La prévention des attaques par injection repose sur la validation et la sanitisation rigoureuses de toutes les entrées utilisateur pour s'assurer qu'elles ne contiennent pas de code ou de caractères malveillants qui pourraient être exécutés par le système.",
+        q57: "Un débordement de tampon (buffer overflow) se produit lorsqu'un programme tente d'écrire des données au-delà des limites d'un tampon de mémoire alloué, ce qui peut écraser des données adjacentes ou des instructions de programme, et potentiellement permettre l'exécution de code arbitraire.",
+        q58: "Une attaque par débordement de tampon réussie peut souvent conduire à l'exécution de code arbitraire à distance, donnant à l'attaquant le contrôle du système compromis.",
+        q59: "Une attaque par rejeu (replay attack) consiste à intercepter et à retransmettre des communications de données valides (comme des identifiants d'authentification) pour tromper un système et obtenir un accès non autorisé.",
+        q60: "L'utilisation d'horodatages, de nonces (nombres utilisés une seule fois) ou de jetons de session qui expirent rapidement peut aider à atténuer les attaques par rejeu en rendant les données interceptées inutilisables après une courte période.",
+        q61: "Une attaque CSRF (Cross-Site Request Forgery) amène le navigateur web d'un utilisateur authentifié à soumettre à son insu une requête malveillante à une application web de confiance, exploitant la confiance que l'application a envers le navigateur de l'utilisateur.",
+        q62: "L'implémentation de jetons anti-CSRF (également appelés jetons de synchronisation) est une méthode efficace pour prévenir les attaques CSRF. Ces jetons sont des valeurs secrètes et uniques générées par le serveur et incluses dans les formulaires web, vérifiant que la requête est légitime.",
+        q63: "La manipulation de pilotes (driver manipulation) implique la modification, l'altération ou le remplacement de pilotes de périphériques légitimes par des versions malveillantes afin d'obtenir un contrôle de bas niveau sur le système.",
+        q64: "La manipulation de pilotes peut permettre à un attaquant d'obtenir un accès persistant et très privilégié à un système, car les pilotes s'exécutent au niveau du noyau du système d'exploitation.",
+        q65: "Le SSL stripping (ou HTTPS stripping) est une attaque de type man-in-the-middle qui rétrograde une connexion HTTPS sécurisée à une connexion HTTP non chiffrée, permettant à l'attaquant d'intercepter et de lire les données.",
+        q66: "HTTP Strict Transport Security (HSTS) est un mécanisme de politique de sécurité web qui aide à protéger les sites web contre les attaques par rétrogradation de protocole (comme le SSL stripping) et les attaques par vol de cookies, en forçant le navigateur à communiquer via HTTPS.",
+        q67: "Une condition de course (race condition) est une vulnérabilité logicielle où le comportement d'un programme dépend de la séquence ou du timing non contrôlé d'événements, pouvant entraîner des résultats inattendus et potentiellement exploitables.",
+        q68: "Une vulnérabilité de condition de course peut être exploitée pour obtenir un accès non autorisé, des escalades de privilèges, ou même des dénis de service, en manipulant le timing des opérations du système.",
+        q69: "Les attaques applicatives ciblent spécifiquement les faiblesses et les vulnérabilités du code, de la logique ou de la configuration des applications logicielles pour compromettre la sécurité, voler des données ou obtenir un accès non autorisé.",
+        q70: "L'injection XML est un type d'attaque applicative qui exploite les vulnérabilités dans le traitement des données XML, permettant à un attaquant d'injecter du code XML malveillant pour accéder à des données, manipuler des requêtes ou exécuter des commandes.",
+        q71: "Un point d'accès non autorisé (rogue access point) est un routeur sans fil ou un point d'accès installé sur un réseau sans autorisation. Il peut être utilisé par un attaquant pour intercepter le trafic réseau, capturer des identifiants ou lancer d'autres attaques.",
+        q72: "Une attaque \"Evil Twin\" est une forme de point d'accès non autorisé où l'attaquant crée un faux réseau Wi-Fi avec le même nom (SSID) qu'un réseau légitime et de confiance pour tromper les utilisateurs et les inciter à s'y connecter, permettant l'interception de données.",
+        q73: "Le bluejacking est l'envoi de messages non sollicités, généralement du texte ou des images, à d'autres appareils compatibles Bluetooth à courte portée. Il est souvent considéré comme une nuisance plutôt qu'une menace de sécurité majeure.",
+        q74: "Le bluesnarfing est une attaque Bluetooth plus grave qui permet à un attaquant de voler des données (telles que des contacts, des calendriers ou des messages) d'un appareil compatible Bluetooth sans l'autorisation de l'utilisateur. Le bluejacking n'implique pas le vol de données.",
+        q75: "Une attaque par désassociation sans fil envoie des paquets de désassociation à un point d'accès Wi-Fi ou à un client, forçant les appareils à se déconnecter du réseau. Cela peut être utilisé pour initier d'autres attaques, comme l'interception de handshakes pour le craquage de mot de passe.",
+        q76: "L'utilisation de protocoles de chiffrement robustes tels que WPA3 aide à atténuer les attaques par désassociation en rendant plus difficile pour les attaquants de capturer des informations utiles ou de compromettre la connexion après une déconnexion forcée.",
+        q77: "Le brouillage sans fil (wireless jamming) est l'émission intentionnelle de signaux radio sur les mêmes fréquences qu'un réseau sans fil pour perturber ou bloquer les communications légitimes, créant un déni de service.",
+        q78: "L'impact principal du brouillage sans fil est le déni de service (DoS), car il empêche les appareils légitimes de communiquer sur le réseau sans fil, rendant les services inaccessibles.",
+        q79: "Les attaques RFID (Radio-Frequency Identification) visent à intercepter, lire, cloner ou manipuler les données transmises sans fil par les puces RFID, souvent présentes dans les cartes d'accès ou les passeports.",
+        q80: "Les attaques NFC (Near Field Communication) peuvent être prévenues en conservant les appareils compatibles NFC (comme les cartes de crédit ou les smartphones) dans des étuis blindés ou des portefeuilles RFID qui bloquent les signaux, empêchant ainsi la lecture non autorisée à courte portée.",
+        q81: "La randomisation en cryptographie vise à introduire de l'imprévisibilité (aléatoire) dans les processus de chiffrement ou de hachage, ce qui rend plus difficile pour les attaquants de deviner ou de prédire les sorties, renforçant ainsi la sécurité des algorithmes.",
+        q82: "L'utilisation de nonces (nombres utilisés une seule fois) et de sels (données aléatoires ajoutées aux entrées de hachage) est cruciale pour la randomisation en cryptographie, car ils garantissent que même des entrées identiques produisent des sorties chiffrées ou hachées différentes, protégeant contre les attaques par tables arc-en-ciel et par rejeu.",
+        q83: "Une attaque on-path (anciennement \"man-in-the-middle\" ou MITM) est un type d'attaque où un attaquant se place entre deux parties communicantes pour intercepter, lire ou modifier leurs communications sans qu'elles s'en aperçoivent.",
+        q84: "Le protocole ARP (Address Resolution Protocol) est fréquemment ciblé dans les attaques on-path (souvent appelées \"ARP spoofing\") sur les réseaux locaux. En falsifiant les associations MAC-IP, l'attaquant peut rediriger le trafic des victimes à travers sa propre machine.",
+        q85: "Une attaque par inondation MAC (MAC flooding) inonde le commutateur réseau avec un grand nombre de fausses adresses MAC, ce qui sature sa table d'adresses MAC et le force à se comporter comme un hub, diffusant tout le trafic et permettant l'écoute clandestine.",
+        q86: "Le clonage MAC est une technique où un attaquant copie l'adresse MAC (Media Access Control) d'un appareil légitime sur son propre appareil pour contourner les contrôles de sécurité basés sur les adresses MAC, tels que le filtrage MAC.",
+        q87: "L'empoisonnement du cache DNS (DNS cache poisoning) est une attaque où des données DNS corrompues sont insérées dans le cache d'un serveur DNS, ce qui amène ce serveur à renvoyer des adresses IP incorrectes pour des domaines légitimes, redirigeant les utilisateurs vers des sites malveillants.",
+        q88: "DNSSEC (DNS Security Extensions) est un ensemble de spécifications qui ajoutent une couche de sécurité aux informations fournies par le DNS en utilisant des signatures numériques, aidant à protéger contre l'empoisonnement du cache DNS et la falsification des enregistrements.",
+        q89: "L'objectif principal d'une attaque par déni de service (DoS) est de rendre un service, une ressource ou un système indisponible pour les utilisateurs légitimes en le submergeant de trafic ou en exploitant ses vulnérabilités.",
+        q90: "Le \"Ping of Death\" est une attaque DoS classique qui consiste à envoyer un paquet ICMP (Ping) de taille supérieure à la limite maximale autorisée. Lorsque le système cible tente de réassembler ce paquet fragmenté, il peut planter ou redémarrer.",
+        q91: "Un script malveillant est un code écrit dans un langage de script (comme JavaScript, Python, PowerShell) conçu pour effectuer des actions nuisibles, comme voler des données, défigurer des sites web, ou exploiter des vulnérabilités.",
+        q92: "Les scripts malveillants sont souvent distribués via des vecteurs tels que les pièces jointes de courriels de phishing, des liens vers des sites web compromis (où les scripts sont exécutés côté client via XSS), ou des téléchargements de logiciels non fiables.",
+        q93: "Les cybercriminels sont des acteurs de menace dont la motivation principale est le gain financier, souvent par le biais de fraudes, de ransomwares, de vol de données pour la revente, ou d'autres activités illégales lucratives.",
+        q94: "Les acteurs de menace État-nation sont parrainés par des gouvernements et mènent des cyberattaques sophistiquées pour des objectifs stratégiques tels que l'espionnage, le sabotage d'infrastructures critiques, la collecte de renseignements ou la manipulation politique.",
+        q95: "Un vecteur d'attaque est le chemin ou le moyen par lequel un attaquant obtient un accès non autorisé ou infecte un système informatique. Il peut s'agir de courriels de phishing, de périphériques USB, de vulnérabilités logicielles, etc.",
+        q96: "Un courriel de phishing est un exemple classique de vecteur d'attaque, car il est le moyen par lequel l'attaquant tente d'induire la victime en erreur pour obtenir des informations sensibles ou installer un malware.",
+        q97: "Le renseignement sur les menaces (threat intelligence) est l'information organisée et analysée sur les menaces existantes ou émergentes, les acteurs de menace, leurs tactiques, techniques et procédures (TTP), utilisée pour prendre des décisions de sécurité éclairées.",
+        q98: "Les bases de données de vulnérabilités (comme CVE - Common Vulnerabilities and Exposures) sont des sources importantes de renseignement sur les menaces, fournissant des informations détaillées sur les faiblesses logicielles et matérielles connues.",
+        q99: "La recherche sur les menaces (threat research) est l'étude proactive et continue des nouvelles menaces, des techniques d'attaque et des vulnérabilités pour anticiper et développer des défenses contre les futures cyberattaques.",
+        q100: "L'analyse d'échantillons de malware fait partie intégrante de la recherche sur les menaces, permettant de comprendre le fonctionnement des logiciels malveillants, leurs capacités et leurs vecteurs de propagation, afin de développer des contre-mesures.",
+        q101: "Une mauvaise configuration (misconfiguration) est une vulnérabilité courante où les systèmes ne sont pas configurés de manière sécurisée, ce qui peut exposer des ports, des services, ou des données à des attaquants.",
+        q102: "Une vulnérabilité zero-day est une faille de sécurité logicielle ou matérielle qui est inconnue du fournisseur et pour laquelle aucune mise à jour ou correctif n'existe encore. Elle est souvent exploitée activement par des attaquants.",
+        q103: "Un risque tiers est un risque de sécurité introduit par l'utilisation de services, de produits ou de données provenant de fournisseurs, de partenaires ou de toute autre entité externe à l'organisation principale.",
+        q104: "L'atténuation des risques tiers passe par des évaluations de sécurité régulières des fournisseurs, l'établissement de contrats clairs sur la sécurité et la mise en œuvre de contrôles pour s'assurer que les tiers respectent les normes de sécurité.",
+        q105: "L'exploitation d'une vulnérabilité permet souvent à un attaquant d'accéder à des données sensibles, entraînant une violation de données, qui peut avoir des conséquences financières, légales et réputationnelles importantes.",
+        q106: "Le coût de la réponse à l'incident est un impact financier direct d'une exploitation de vulnérabilité, incluant les dépenses liées à l'investigation, à la récupération des systèmes, aux services de notification des victimes, et aux honoraires juridiques.",
+        q107: "La chasse aux menaces (threat hunting) est une activité proactive où les analystes de sécurité recherchent activement des activités malveillantes non détectées dans un réseau, en utilisant des hypothèses et des outils avancés, au lieu d'attendre les alertes.",
+        q108: "Un système SIEM (Security Information and Event Management) est un outil essentiel pour la chasse aux menaces, car il consolide et analyse les journaux et les événements de sécurité provenant de diverses sources, permettant de détecter des schémas anormaux ou des indicateurs de compromission.",
+        q109: "Un scan de vulnérabilités est un processus automatisé qui analyse les systèmes, applications et réseaux pour identifier les faiblesses connues, les mauvaises configurations, les ports ouverts ou les logiciels obsolètes qui pourraient être exploités par des attaquants.",
+        q110: "Le résultat principal d'un scan de vulnérabilités est un rapport détaillé listant les faiblesses de sécurité détectées, classées par niveau de gravité, avec des recommandations pour les corriger.",
+        q111: "La fonction principale d'un système SIEM est de collecter les journaux et les événements de sécurité de différentes sources (pare-feu, serveurs, applications), de les agréger, de les analyser et de corréler les données pour identifier des menaces potentielles et générer des alertes.",
+        q112: "Un avantage majeur d'un SIEM est sa capacité à fournir une détection des menaces en temps réel en analysant les événements de sécurité au fur et à mesure qu'ils se produisent, ce qui permet une réponse rapide aux incidents.",
+        q113: "Les tests de pénétration (pentests) sont des simulations d'attaques cybernétiques réelles menées par des experts (pentesteurs) pour identifier les vulnérabilités exploitables dans un système, une application ou un réseau avant que de vrais attaquants ne le fassent.",
+        q114: "La reconnaissance est la première phase des tests de pénétration, où le pentesteur collecte passivement et activement des informations sur la cible (adresses IP, technologies utilisées, employés, etc.) pour planifier l'attaque.",
+        q115: "La reconnaissance (ou OSINT pour Open Source Intelligence) est le processus de collecte d'informations sur une cible, ses systèmes, son infrastructure, et ses employés, avant de lancer une attaque. Elle peut être passive ou active.",
+        q116: "La reconnaissance passive implique la collecte d'informations sur une cible sans interagir directement avec elle, comme l'examen de sites web publics, de médias sociaux, de registres Whois, ou de moteurs de recherche.",
+        q117: "La responsabilité principale d'une équipe de sécurité est de protéger les actifs informationnels et physiques d'une organisation contre les menaces internes et externes, en mettant en œuvre des contrôles de sécurité, en surveillant les menaces et en répondant aux incidents.",
+        q118: "Un répondeur aux incidents (incident responder) est un rôle clé au sein d'une équipe de sécurité, chargé de la gestion et de la résolution des incidents de sécurité (violations, attaques) pour minimiser les dommages et restaurer les opérations normales."
+    };
+
+    
+
+    function validateAnswer(questionName, correctAnswer, button) {
+        const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
+        const resultDiv = button.nextElementSibling;
+        const options = document.querySelectorAll(`input[name="${questionName}"]`);
+
+        if (!selectedOption) {
+            alert("Veuillez sélectionner une réponse !");
+            return;
+        }
+
+        const userAnswer = selectedOption.value;
+        options.forEach(option => option.disabled = true);
+        button.disabled = true;
+
+        let resultText = "";
+        if (userAnswer === correctAnswer) {
+            resultText = "Correct !";
+            resultDiv.className = "result correct";
+        } else {
+            resultText = `Incorrect. La bonne réponse est : ${correctAnswer.toUpperCase()}.`;
+            resultDiv.className = "result incorrect";
+        }
+
+        // Append explanation
+        resultText += `<br><br><strong>Explication :</strong> ${explanations[questionName]}`;
+        resultDiv.innerHTML = resultText;
+        resultDiv.style.display = "block";
+
+        answeredQuestions++;
+        updateProgress();
+    }
+
+    function updateProgress() {
+        const progressFill = document.getElementById("progressBar");
+        const progressText = document.getElementById("answered");
+        const percentage = (answeredQuestions / totalQuestions) * 100;
+
+        progressFill.style.width = `${percentage}%`;
+        progressText.textContent = answeredQuestions;
+    }
+</script>
+</body>
+</html>
