@@ -166,6 +166,18 @@
             box-shadow: none;
         }
 
+        .available-card {
+            position: relative;
+        }
+
+        .available-card::after {
+            content: '✅';
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+        }
+
         .team-section {
             margin: 80px 0;
             text-align: center;
@@ -485,22 +497,22 @@
         <section class="modules-section">
             <h2 class="section-title">Choose Your Module</h2>
             <div class="modules-grid">
-                <div class="module-card" onclick="redirectToModule('Gestion_Projet')">
+                <div class="module-card available-card" onclick="redirectToModule('Gestion_Projet')">
                     <span class="module-icon">📊</span>
                     <h3 class="module-title">Gestion Project</h3>
                     <p class="module-description">Master project management methodologies and best practices for successful data projects.</p>
                 </div>
                 
-                <div class="module-card" onclick="redirectToModule('security')">
+                <div class="module-card available-card" onclick="redirectToModule('security')">
                     <span class="module-icon">🔐</span>
                     <h3 class="module-title">Security</h3>
                     <p class="module-description">Learn essential cybersecurity concepts and data protection strategies.</p>
                 </div>
                 
-                <div class="module-card locked-card" onclick="showComingSoon()">
+                <div class="module-card available-card" onclick="redirectToModule('cloud_computing')">
                     <span class="module-icon">☁️</span>
                     <h3 class="module-title">Cloud Computing</h3>
-                    <p class="module-description">Explore cloud technologies and distributed computing solutions.</p>
+                    <p class="module-description">Explore cloud technologies, containerization, and distributed computing solutions.</p>
                 </div>
             </div>
         </section>
@@ -544,7 +556,7 @@
 
     <div class="notification" id="comingSoonNotification">
         <h3>🚧 Module Under Development</h3>
-        <p>Our amazing developers are working hard on the Cloud Computing module!</p>
+        <p>Our amazing developers are working hard on this module!</p>
         <p>It will be available soon, insha'Allah! 🚀</p>
         <button onclick="hideNotification()">Got it!</button>
     </div>
