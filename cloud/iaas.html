@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QCM - IaaS et OpenStack</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .quiz-container {
+            padding: 30px;
+        }
+
+        .back-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .section-title {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 15px 20px;
+            margin: 30px 0 20px 0;
+            border-radius: 8px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .question-card {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .question-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-color: #3498db;
+        }
+
+        .question-number {
+            background: #3498db;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .options {
+            margin-bottom: 20px;
+        }
+
+        .option {
+            background: white;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .option:hover {
+            border-color: #3498db;
+            background: #f0f8ff;
+        }
+
+        .option input[type="radio"], .option input[type="checkbox"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+
+        .validate-btn {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .validate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+
+        .validate-btn:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            display: none;
+        }
+
+        .correct {
+            background: #d4edda;
+            border: 2px solid #c3e6cb;
+            color: #155724;
+        }
+
+        .incorrect {
+            background: #f8d7da;
+            border: 2px solid #f5c6cb;
+            color: #721c24;
+        }
+
+        .explanation {
+            margin-top: 10px;
+            font-weight: normal;
+            line-height: 1.6;
+            color: #495057;
+            font-size: 0.95rem;
+        }
+
+        .progress-bar {
+            background: #e9ecef;
+            height: 8px;
+            border-radius: 4px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .stats {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 1.1rem;
+            color: #2c3e50;
+        }
+
+        .final-score {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 30px 0;
+            display: none;
+        }
+
+        .score-excellent {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+        }
+
+        .score-good {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+        }
+
+        .score-poor {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .quiz-container {
+                padding: 20px;
+            }
+            
+            .question-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>☁️ IaaS et OpenStack</h1>
+            <p>Testez vos connaissances sur l'Infrastructure as a Service et OpenStack avec 40 questions complètes</p>
+        </div>
+        
+        <div class="quiz-container">
+            <a href="#" class="back-btn">← Retour au Cloud Computing</a>
+            
+            <div class="stats">
+                <strong>Progression : <span id="answered">0</span>/40 questions répondues</strong>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar"></div>
+            </div>
+
+            <div class="final-score" id="finalScore">
+                <h2>🎉 Félicitations!</h2>
+                <p>Votre score final : <span id="scorePercentage"></span>%</p>
+                <p id="scoreMessage"></p>
+            </div>
+    
+            <div class="section-title">Questions fondamentales sur IaaS et OpenStack</div>
+            
+            <!-- Question 1 -->
+            <div class="question-card">
+                <div class="question-number">Question 1</div>
+                <div class="question-text">Concernant l'hyperviseur utilisé dans un environnement IaaS, quelles affirmations sont vraies ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q1" value="a"> Il exécute le code client dans un espace mémoire partagé avec l'hôte
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q1" value="b"> Il permet la création de machines virtuelles isolées du matériel physique
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q1" value="c"> Il remplace complètement le système d'exploitation de l'hôte
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q1" value="d"> Il peut s'appuyer sur des extensions matérielles comme Intel VT-x
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q1', ['b', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">L'hyperviseur virtualise le matériel (B) et utilise des extensions CPU (D). Il n'élimine pas forcément l'OS hôte (donc C est faux) et ne partage pas l'espace mémoire (A est dangereux en sécurité).</div>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question-card">
+                <div class="question-number">Question 2</div>
+                <div class="question-text">Parmi les composants suivants, lesquels sont spécifiques à un service IaaS complet ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q2" value="a"> Load balancer managé pour applications HTTP
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q2" value="b"> Hyperviseur de type 1 ou 2
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q2" value="c"> Système de gestion des disques bloc (ex: Cinder)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q2" value="d"> Orchestrateur de fonctions serverless
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q2', ['b', 'c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">IaaS fournit une infrastructure brute : compute (hyperviseur), stockage (Cinder). Le load balancer (A) et l'orchestration serverless (D) sont plutôt PaaS ou FaaS.</div>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question-card">
+                <div class="question-number">Question 3</div>
+                <div class="question-text">Quelle(s) couche(s) de virtualisation est/sont assurée(s) par OpenStack via Nova ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q3" value="a"> Virtualisation du stockage objet
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q3" value="b"> Virtualisation réseau
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q3" value="c"> Virtualisation du CPU, RAM et disque via compute nodes
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q3" value="d"> Gestion des conteneurs Docker via Kubernetes natif
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q3', ['c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Nova gère les machines virtuelles au niveau compute. Le réseau est géré par Neutron, et OpenStack ne gère pas nativement Kubernetes/Docker sans plugin.</div>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question-card">
+                <div class="question-number">Question 4</div>
+                <div class="question-text">Dans un déploiement OpenStack, quelle(s) interface(s) permet(tent) de dialoguer avec les services internes ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q4" value="a"> L'interface Horizon
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q4" value="b"> Le réseau Management
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q4" value="c"> Le réseau External
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q4" value="d"> Les API REST exposées sur le réseau API
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q4', ['b', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le réseau Management est utilisé pour la communication interne des services, tandis que les API REST sont exposées via le réseau API.</div>
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="question-card">
+                <div class="question-number">Question 5</div>
+                <div class="question-text">Quelles sont les conséquences de l'utilisation de Neutron avec Open vSwitch ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q5" value="a"> Possibilité de créer des réseaux VLAN, VXLAN
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q5" value="b"> Contrôle centralisé avec support du SDN
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q5" value="c"> Communication entre VM uniquement sur le même hôte
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q5" value="d"> Nécessite Swift pour fonctionner correctement
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q5', ['a', 'b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Open vSwitch permet des réseaux overlay (A), et peut être contrôlé par des contrôleurs SDN (B). Il permet la communication entre hôtes, donc C est faux. Swift est indépendant (D).</div>
+                </div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="question-card">
+                <div class="question-number">Question 6</div>
+                <div class="question-text">Quelles affirmations décrivent correctement les modules OpenStack ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q6" value="a"> Glance permet de stocker les images dans Keystone
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q6" value="b"> Cinder permet de créer des volumes persistants attachés à des instances
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q6" value="c"> Swift est une alternative à Cinder pour le stockage bloc
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q6" value="d"> Horizon permet de gérer OpenStack via une interface Web graphique
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q6', ['b', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Glance stocke dans Swift, pas Keystone (A faux). Swift = stockage objet ≠ Cinder (stockage bloc), donc C faux.</div>
+                </div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="question-card">
+                <div class="question-number">Question 7</div>
+                <div class="question-text">Dans OpenStack, quel module serait utilisé pour automatiser le déploiement d'une architecture complète (VM, réseau, volumes) via un fichier YAML ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q7" value="a"> Heat
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q7" value="b"> Horizon
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q7" value="c"> Ceilometer
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q7" value="d"> Keystone
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q7', ['a'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Heat est l'outil d'orchestration, équivalent à Terraform dans l'univers OpenStack.</div>
+                </div>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="question-card">
+                <div class="question-number">Question 8</div>
+                <div class="question-text">Quelle combinaison assure la disponibilité et la résilience des données dans Swift ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q8" value="a"> RAID matériel intégré
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q8" value="b"> Réplication logicielle automatique
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q8" value="c"> Erasure coding distribué
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q8" value="d"> Stockage dans Keystone
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q8', ['b', 'c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Swift repose sur la réplication logicielle (copies multiples) ou erasure coding selon la configuration. Il ne dépend pas de Keystone ni de RAID matériel.</div>
+                </div>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="question-card">
+                <div class="question-number">Question 9</div>
+                <div class="question-text">Pourquoi l'IaaS est souvent utilisé comme socle pour PaaS ou SaaS ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q9" value="a"> Car il offre un environnement riche prêt à l'emploi
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q9" value="b"> Car il permet une personnalisation complète de l'environnement virtuel
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q9" value="c"> Car il élimine le besoin de réseau et de sécurité
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q9" value="d"> Car il inclut toujours des applications métiers préinstallées
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q9', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">IaaS est bas niveau, donc personnalisable, mais il n'est pas livré "prêt à l'emploi" (donc A et D faux) et ne supprime pas les responsabilités réseau/sécurité (C faux).</div>
+                </div>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="question-card">
+                <div class="question-number">Question 10</div>
+                <div class="question-text">Quels sont les défis typiques liés à l'usage d'IaaS ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q10" value="a"> Automatisation complexe sans outil complémentaire
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q10" value="b"> Nécessité de gérer le cycle de vie des VM et leurs dépendances
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q10" value="c"> Accès direct au matériel réseau du fournisseur
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q10" value="d"> Obligation de maintenance du système d'exploitation
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q10', ['a', 'b', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">IaaS impose de gérer l'OS, les mises à jour, l'orchestration. On n'a pas accès au matériel physique du cloud provider (C faux).</div>
+                </div>
+            </div>
+
+            <div class="section-title">Questions avancées sur OpenStack</div>
+
+            <!-- Question 11 -->
+            <div class="question-card">
+                <div class="question-number">Question 11</div>
+                <div class="question-text">En quoi consiste l'élasticité dans un cloud IaaS comme OpenStack ou AWS ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q11" value="a"> Capacité de redimensionner automatiquement les ressources selon la charge
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q11" value="b"> Redondance des données sur plusieurs datacenters
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q11" value="c"> Réplication automatique des VM à chaque instant
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q11" value="d"> Allocation ou suppression de ressources dynamiquement, sans intervention humaine
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q11', ['a', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">L'élasticité permet d'ajouter ou retirer dynamiquement des instances, volumes, etc., selon les pics ou baisses de charge (scaling).</div>
+                </div>
+            </div>
+
+            <!-- Question 12 -->
+            <div class="question-card">
+                <div class="question-number">Question 12</div>
+                <div class="question-text">Lors d'une défaillance d'un hyperviseur dans un cloud IaaS, quelles stratégies assurent la continuité ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q12" value="a"> Live migration préalable des VM vers un autre nœud
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q12" value="b"> Sauvegarde automatique sur Cinder toutes les minutes
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q12" value="c"> Redondance de l'alimentation et du réseau
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q12" value="d"> Utilisation d'un système de scheduling pour relancer les VM ailleurs
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q12', ['a', 'c', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Les plateformes comme OpenStack peuvent redémarrer automatiquement les VM sur un autre hyperviseur si la configuration de haute disponibilité (HA) est active. Les snapshots fréquents sont possibles mais non systématiques (B est partiel).</div>
+                </div>
+            </div>
+
+            <!-- Question 13 -->
+            <div class="question-card">
+                <div class="question-number">Question 13</div>
+                <div class="question-text">Quelle(s) affirmation(s) est/sont vraie(s) concernant la communication réseau des VM dans OpenStack avec Neutron ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q13" value="a"> Toutes les VMs doivent appartenir au même sous-réseau pour communiquer
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q13" value="b"> L'isolation est assurée par VLAN, VXLAN ou GRE
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q13" value="c"> Open vSwitch agit comme un commutateur virtuel configurable
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q13" value="d"> Chaque VM a une IP flottante automatiquement assignée
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q13', ['b', 'c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">OpenStack utilise des réseaux overlay (VXLAN/GRE) pour isoler les locataires. L'IP flottante est assignée manuellement (D faux). Des VM peuvent communiquer entre réseaux via un routeur.</div>
+                </div>
+            </div>
+
+            <!-- Question 14 -->
+            <div class="question-card">
+                <div class="question-number">Question 14</div>
+                <div class="question-text">Quelle(s) solution(s) permet(tent) de garantir la persistance des données dans OpenStack ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q14" value="a"> Swift pour les fichiers statiques et non structurés
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q14" value="b"> Cinder pour les disques persistants attachés aux VM
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q14" value="c"> Glance pour le stockage temporaire uniquement
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q14" value="d"> Keystone pour stocker les tokens d'accès
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q14', ['a', 'b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Swift (objet) et Cinder (bloc) permettent la persistance des données. Glance est un dépôt d'images VM, pas un stockage classique. Keystone n'est pas un système de fichiers.</div>
+                </div>
+            </div>
+
+            <!-- Question 15 -->
+            <div class="question-card">
+                <div class="question-number">Question 15</div>
+                <div class="question-text">En cas de surcharge CPU sur un hyperviseur Nova, que peut faire l'ordonnanceur OpenStack ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q15" value="a"> Créer de nouvelles VM automatiquement
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q15" value="b"> Migrer les VM vers un hôte moins chargé
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q15" value="c"> Redistribuer dynamiquement les ressources CPU entre VM
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q15" value="d"> Stopper les VM peu prioritaires selon leur SLA
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q15', ['b', 'c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">L'ordonnanceur peut déplacer les VM (migration) ou ajuster les vCPU si la surallocation est activée. Il ne
