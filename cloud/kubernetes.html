@@ -256,14 +256,14 @@
     <div class="container">
         <div class="header">
             <h1>🐳 Orchestration des Conteneurs</h1>
-            <p>Testez vos connaissances sur Kubernetes et l'orchestration avec 40 questions complètes</p>
+            <p>Testez vos connaissances sur Kubernetes et l'orchestration avec 50 questions complètes</p>
         </div>
         
         <div class="quiz-container">
             <a href="index.html" class="back-btn">← Retour au Cloud Computing</a>
             
             <div class="stats">
-                <strong>Progression : <span id="answered">0</span>/40 questions répondues</strong>
+                <strong>Progression : <span id="answered">0</span>/50 questions répondues</strong>
             </div>
             <div class="progress-bar">
                 <div class="progress-fill" id="progressBar"></div>
@@ -283,21 +283,21 @@
                 <div class="question-text">Qu'est-ce que l'orchestration des conteneurs ?</div>
                 <div class="options">
                     <label class="option">
-                        <input type="radio" name="q1" value="a"> La gestion de la création, l'ordonnancement et le lancement des containers
+                        <input type="radio" name="q1" value="a"> Automatisation du cycle de vie des conteneurs, incluant planification et scaling
                     </label>
                     <label class="option">
-                        <input type="radio" name="q1" value="b"> La création d'images Docker
+                        <input type="radio" name="q1" value="b"> Construction et gestion des images de conteneurs
                     </label>
                     <label class="option">
-                        <input type="radio" name="q1" value="c"> La compilation de code source
+                        <input type="radio" name="q1" value="c"> Optimisation des performances réseau des conteneurs
                     </label>
                     <label class="option">
-                        <input type="radio" name="q1" value="d"> La gestion des utilisateurs système
+                        <input type="radio" name="q1" value="d"> Configuration des permissions d'accès aux conteneurs
                     </label>
                 </div>
                 <button class="validate-btn" onclick="validateAnswer('q1', ['a'], this)">Valider la réponse</button>
                 <div class="result">
-                    <div class="explanation">L'orchestration des conteneurs comprend la gestion de la création, l'ordonnancement et le lancement des containers.</div>
+                    <div class="explanation">L'orchestration des conteneurs comprend la gestion de la création, l'ordonnancement, le scaling et la résilience des conteneurs.</div>
                 </div>
             </div>
 
@@ -307,21 +307,21 @@
                 <div class="question-text">Quelle est la plus petite unité déployable dans Kubernetes ?</div>
                 <div class="options">
                     <label class="option">
-                        <input type="radio" name="q2" value="a"> Container
+                        <input type="radio" name="q2" value="a"> Conteneur individuel
                     </label>
                     <label class="option">
-                        <input type="radio" name="q2" value="b"> Pod
+                        <input type="radio" name="q2" value="b"> Pod, regroupant un ou plusieurs conteneurs
                     </label>
                     <label class="option">
-                        <input type="radio" name="q2" value="c"> Service
+                        <input type="radio" name="q2" value="c"> Service, exposant des conteneurs
                     </label>
                     <label class="option">
-                        <input type="radio" name="q2" value="d"> Node
+                        <input type="radio" name="q2" value="d"> Node, hébergeant des conteneurs
                     </label>
                 </div>
                 <button class="validate-btn" onclick="validateAnswer('q2', ['b'], this)">Valider la réponse</button>
                 <div class="result">
-                    <div class="explanation">Le Pod est le premier niveau d'abstraction dans Kubernetes et la plus petite unité déployable.</div>
+                    <div class="explanation">Le Pod est la plus petite unité déployable dans Kubernetes, pouvant contenir un ou plusieurs conteneurs partageant des ressources.</div>
                 </div>
             </div>
 
@@ -331,21 +331,21 @@
                 <div class="question-text">Quel composant Kubernetes est responsable de la planification des pods ?</div>
                 <div class="options">
                     <label class="option">
-                        <input type="radio" name="q3" value="a"> kubelet
+                        <input type="radio" name="q3" value="a"> kubelet, gérant les conteneurs locaux
                     </label>
                     <label class="option">
-                        <input type="radio" name="q3" value="b"> kube-proxy
+                        <input type="radio" name="q3" value="b"> kube-proxy, gérant le réseau
                     </label>
                     <label class="option">
-                        <input type="radio" name="q3" value="c"> kube-scheduler
+                        <input type="radio" name="q3" value="c"> kube-scheduler, assignant les pods aux nœuds
                     </label>
                     <label class="option">
-                        <input type="radio" name="q3" value="d"> etcd
+                        <input type="radio" name="q3" value="d"> etcd, stockant l'état du cluster
                     </label>
                 </div>
                 <button class="validate-btn" onclick="validateAnswer('q3', ['c'], this)">Valider la réponse</button>
                 <div class="result">
-                    <div class="explanation">Le kube-scheduler est responsable de l'assignation automatique des pods aux nœuds selon les ressources disponibles.</div>
+                    <div class="explanation">Le kube-scheduler assigne automatiquement les pods aux nœuds en fonction des ressources et contraintes.</div>
                 </div>
             </div>
 
@@ -355,21 +355,21 @@
                 <div class="question-text">Dans l'architecture Kubernetes, quel est le rôle du Master ?</div>
                 <div class="options">
                     <label class="option">
-                        <input type="radio" name="q4" value="a"> Exécuter les applications
+                        <input type="radio" name="q4" value="a"> Héberger les conteneurs d'application
                     </label>
                     <label class="option">
-                        <input type="radio" name="q4" value="b"> Stocker les données
+                        <input type="radio" name="q4" value="b"> Maintenir la base de données des pods
                     </label>
                     <label class="option">
-                        <input type="radio" name="q4" value="c"> Fournir une vue unifiée du cluster et contrôler les Minions
+                        <input type="radio" name="q4" value="c"> Coordonner et gérer l'ensemble du cluster
                     </label>
                     <label class="option">
-                        <input type="radio" name="q4" value="d"> Gérer le réseau
+                        <input type="radio" name="q4" value="d"> Configurer les politiques réseau
                     </label>
                 </div>
                 <button class="validate-btn" onclick="validateAnswer('q4', ['c'], this)">Valider la réponse</button>
                 <div class="result">
-                    <div class="explanation">Le Master est le point de contrôle central qui fournit une vue unifiée du cluster et contrôle les Minions.</div>
+                    <div class="explanation">Le Master est le point de contrôle central qui coordonne le cluster et gère les nœuds workers.</div>
                 </div>
             </div>
 
@@ -379,21 +379,21 @@
                 <div class="question-text">Que signifie "Minion" dans l'architecture Kubernetes classique ?</div>
                 <div class="options">
                     <label class="option">
-                        <input type="radio" name="q5" value="a"> Un pod défaillant
+                        <input type="radio" name="q5" value="a"> Un pod en attente de planification
                     </label>
                     <label class="option">
-                        <input type="radio" name="q5" value="b"> Un nœud de travail qui exécute des tâches déléguées par le maître
+                        <input type="radio" name="q5" value="b"> Un nœud worker exécutant des pods
                     </label>
                     <label class="option">
-                        <input type="radio" name="q5" value="c"> Un service réseau
+                        <input type="radio" name="q5" value="c"> Un composant réseau du cluster
                     </label>
                     <label class="option">
-                        <input type="radio" name="q5" value="d"> Un volume de stockage
+                        <input type="radio" name="q5" value="d"> Un volume attaché aux pods
                     </label>
                 </div>
                 <button class="validate-btn" onclick="validateAnswer('q5', ['b'], this)">Valider la réponse</button>
                 <div class="result">
-                    <div class="explanation">Les Minions sont des nœuds de travail qui exécutent des tâches déléguées par le maître et peuvent exécuter un ou plusieurs pods.</div>
+                    <div class="explanation">Les Minions (désormais appelés Nodes) sont des nœuds workers exécutant des pods sous la direction du Master.</div>
                 </div>
             </div>
 
@@ -403,21 +403,21 @@
                 <div class="question-text">Quelle commande permet d'appliquer un fichier YAML dans Kubernetes ?</div>
                 <div class="options">
                     <label class="option">
-                        <input type="radio" name="q6" value="a"> kubectl create -f nom-fichier.yml
+                        <input type="radio" name="q6" value="a"> kubectl create -f fichier.yml
                     </label>
                     <label class="option">
-                        <input type="radio" name="q6" value="b"> kubectl apply -f nom-fichier.yml
+                        <input type="radio" name="q6" value="b"> kubectl apply -f fichier.yml
                     </label>
                     <label class="option">
-                        <input type="radio" name="q6" value="c"> kubectl run -f nom-fichier.yml
+                        <input type="radio" name="q6" value="c"> kubectl deploy -f fichier.yml
                     </label>
                     <label class="option">
-                        <input type="radio" name="q6" value="d"> kubectl start -f nom-fichier.yml
+                        <input type="radio" name="q6" value="d"> kubectl exec -f fichier.yml
                     </label>
                 </div>
                 <button class="validate-btn" onclick="validateAnswer('q6', ['b'], this)">Valider la réponse</button>
                 <div class="result">
-                    <div class="explanation">La commande kubectl apply -f est utilisée pour appliquer des configurations définies dans des fichiers YAML.</div>
+                    <div class="explanation">kubectl apply -f applique des configurations YAML de manière déclarative, mettant à jour les ressources si nécessaire.</div>
                 </div>
             </div>
 
@@ -427,21 +427,21 @@
                 <div class="question-text">Quel composant est responsable de la gestion des Pods et des conteneurs sur chaque nœud ?</div>
                 <div class="options">
                     <label class="option">
-                        <input type="radio" name="q7" value="a"> kube-scheduler
+                        <input type="radio" name="q7" value="a"> kube-scheduler, planifiant les pods
                     </label>
                     <label class="option">
-                        <input type="radio" name="q7" value="b"> kubelet
+                        <input type="radio" name="q7" value="b"> kubelet, exécutant les conteneurs
                     </label>
                     <label class="option">
-                        <input type="radio" name="q7" value="c"> kube-proxy
+                        <input type="radio" name="q7" value="c"> kube-proxy, gérant les services
                     </label>
                     <label class="option">
-                        <input type="radio" name="q7" value="d"> etcd
+                        <input type="radio" name="q7" value="d"> etcd, stockant les métadonnées
                     </label>
                 </div>
                 <button class="validate-btn" onclick="validateAnswer('q7', ['b'], this)">Valider la réponse</button>
                 <div class="result">
-                    <div class="explanation">kubelet est en charge de la gestion des Pods et des conteneurs sur chaque nœud.</div>
+                    <div class="explanation">kubelet s'assure que les conteneurs d'un pod sont en cours d'exécution sur un nœud spécifique.</div>
                 </div>
             </div>
 
@@ -451,21 +451,21 @@
                 <div class="question-text">Quelle est la fonction principale de kube-proxy ?</div>
                 <div class="options">
                     <label class="option">
-                        <input type="radio" name="q8" value="a"> Planifier les pods
+                        <input type="radio" name="q8" value="a"> Assigner des pods aux nœuds
                     </label>
                     <label class="option">
-                        <input type="radio" name="q8" value="b"> Gérer les volumes
+                        <input type="radio" name="q8" value="b"> Gérer les volumes persistants
                     </label>
                     <label class="option">
-                        <input type="radio" name="q8" value="c"> Offrir une couche d'abstraction pour la communication avec les pods
+                        <input type="radio" name="q8" value="c"> Fournir des services réseau aux pods
                     </label>
                     <label class="option">
-                        <input type="radio" name="q8" value="d"> Stocker la configuration
+                        <input type="radio" name="q8" value="d"> Stocker l'état du cluster
                     </label>
                 </div>
                 <button class="validate-btn" onclick="validateAnswer('q8', ['c'], this)">Valider la réponse</button>
                 <div class="result">
-                    <div class="explanation">kube-proxy offre une couche d'abstraction pour la communication avec les pods.</div>
+                    <div class="explanation">kube-proxy gère les règles réseau pour permettre la communication avec les pods via les services.</div>
                 </div>
             </div>
 
@@ -475,21 +475,21 @@
                 <div class="question-text">Quel composant est utilisé pour surveiller les conteneurs ?</div>
                 <div class="options">
                     <label class="option">
-                        <input type="radio" name="q9" value="a"> kubelet
+                        <input type="radio" name="q9" value="a"> kubelet, surveillant les pods
                     </label>
                     <label class="option">
-                        <input type="radio" name="q9" value="b"> cAdvisor
+                        <input type="radio" name="q9" value="b"> cAdvisor, collectant les métriques
                     </label>
                     <label class="option">
-                        <input type="radio" name="q9" value="c"> kube-scheduler
+                        <input type="radio" name="q9" value="c"> kube-scheduler, analysant les ressources
                     </label>
                     <label class="option">
-                        <input type="radio" name="q9" value="d"> etcd
+                        <input type="radio" name="q9" value="d"> etcd, journalisant les événements
                     </label>
                 </div>
                 <button class="validate-btn" onclick="validateAnswer('q9', ['b'], this)">Valider la réponse</button>
                 <div class="result">
-                    <div class="explanation">cAdvisor est utilisé pour surveiller les conteneurs dans l'architecture Kubernetes.</div>
+                    <div class="explanation">cAdvisor collecte des métriques de performance des conteneurs sur chaque nœud.</div>
                 </div>
             </div>
 
@@ -499,21 +499,21 @@
                 <div class="question-text">Dans un fichier YAML de Pod, quelle section définit les conteneurs ?</div>
                 <div class="options">
                     <label class="option">
-                        <input type="radio" name="q10" value="a"> metadata
+                        <input type="radio" name="q10" value="a"> metadata, pour les annotations
                     </label>
                     <label class="option">
-                        <input type="radio" name="q10" value="b"> spec
+                        <input type="radio" name="q10" value="b"> spec, pour la configuration générale
                     </label>
                     <label class="option">
-                        <input type="radio" name="q10" value="c"> containers
+                        <input type="radio" name="q10" value="c"> containers, dans la section spec
                     </label>
                     <label class="option">
-                        <input type="radio" name="q10" value="d"> apiVersion
+                        <input type="radio" name="q10" value="d"> apiVersion, pour la compatibilité
                     </label>
                 </div>
                 <button class="validate-btn" onclick="validateAnswer('q10', ['c'], this)">Valider la réponse</button>
                 <div class="result">
-                    <div class="explanation">La section containers dans spec définit les conteneurs qui seront exécutés dans le pod.</div>
+                    <div class="explanation">La section containers dans spec définit les conteneurs exécutés dans le pod.</div>
                 </div>
             </div>
 
@@ -525,21 +525,21 @@
                 <div class="question-text">Quel type de Service Kubernetes a une adresse IP statique mais pas d'accès externe par défaut ?</div>
                 <div class="options">
                     <label class="option">
-                        <input type="radio" name="q11" value="a"> NodePort
+                        <input type="radio" name="q11" value="a"> NodePort, exposant un port externe
                     </label>
                     <label class="option">
-                        <input type="radio" name="q11" value="b"> LoadBalancer
+                        <input type="radio" name="q11" value="b"> LoadBalancer, pour l'accès cloud
                     </label>
                     <label class="option">
-                        <input type="radio" name="q11" value="c"> ClusterIP
+                        <input type="radio" name="q11" value="c"> ClusterIP, pour la communication interne
                     </label>
                     <label class="option">
-                        <input type="radio" name="q11" value="d"> ExternalName
+                        <input type="radio" name="q11" value="d"> ExternalName, pour le mapping DNS
                     </label>
                 </div>
                 <button class="validate-btn" onclick="validateAnswer('q11', ['c'], this)">Valider la réponse</button>
                 <div class="result">
-                    <div class="explanation">ClusterIP est la configuration par défaut qui fournit une adresse IP statique sans accès externe.</div>
+                    <div class="explanation">ClusterIP fournit une adresse IP statique pour la communication interne au cluster, sans accès externe par défaut.</div>
                 </div>
             </div>
 
@@ -549,21 +549,21 @@
                 <div class="question-text">Qu'est-ce qui différencie un Service NodePort d'un Service ClusterIP ?</div>
                 <div class="options">
                     <label class="option">
-                        <input type="radio" name="q12" value="a"> NodePort permet d'avoir un accès externe
+                        <input type="radio" name="q12" value="a"> NodePort expose un port sur chaque nœud
                     </label>
                     <label class="option">
-                        <input type="radio" name="q12" value="b"> NodePort est plus sécurisé
+                        <input type="radio" name="q12" value="b"> NodePort utilise une IP dynamique
                     </label>
                     <label class="option">
-                        <input type="radio" name="q12" value="c"> NodePort ne fonctionne qu'avec un seul pod
+                        <input type="radio" name="q12" value="c"> NodePort limite l'accès à un pod
                     </label>
                     <label class="option">
-                        <input type="radio" name="q12" value="d"> NodePort n'a pas d'adresse IP
+                        <input type="radio" name="q12" value="d"> NodePort supprime l'IP de cluster
                     </label>
                 </div>
                 <button class="validate-btn" onclick="validateAnswer('q12', ['a'], this)">Valider la réponse</button>
                 <div class="result">
-                    <div class="explanation">NodePort permet d'avoir un accès externe contrairement à ClusterIP qui est limité au cluster.</div>
+                    <div class="explanation">NodePort expose un port sur chaque nœud pour un accès externe, contrairement à ClusterIP qui reste interne.</div>
                 </div>
             </div>
 
@@ -573,21 +573,21 @@
                 <div class="question-text">Dans un Service NodePort, que représente le targetPort ?</div>
                 <div class="options">
                     <label class="option">
-                        <input type="radio" name="q13" value="a"> Le port externe du nœud
+                        <input type="radio" name="q13" value="a"> Le port exposé sur le nœud
                     </label>
                     <label class="option">
-                        <input type="radio" name="q13" value="b"> Le port sur lequel les conteneurs écoutent
+                        <input type="radio" name="q13" value="b"> Le port d'écoute du conteneur
                     </label>
                     <label class="option">
-                        <input type="radio" name="q13" value="c"> Le port du service interne
+                        <input type="radio" name="q13" value="c"> Le port du service dans le cluster
                     </label>
                     <label class="option">
-                        <input type="radio" name="q13" value="d"> Le port de l'équilibreur de charge
+                        <input type="radio" name="q13" value="d"> Le port de l'équilibreur externe
                     </label>
                 </div>
                 <button class="validate-btn" onclick="validateAnswer('q13', ['b'], this)">Valider la réponse</button>
                 <div class="result">
-                    <div class="explanation">targetPort est le port sur lequel les conteneurs écoutent à l'intérieur des pods.</div>
+                    <div class="explanation">targetPort est le port sur lequel le conteneur dans le pod écoute.</div>
                 </div>
             </div>
 
@@ -597,21 +597,21 @@
                 <div class="question-text">Quelle est la fonction principale d'un Ingress ?</div>
                 <div class="options">
                     <label class="option">
-                        <input type="radio" name="q14" value="a"> Gérer les volumes persistants
+                        <input type="radio" name="q14" value="a"> Gérer les volumes de stockage
                     </label>
                     <label class="option">
-                        <input type="radio" name="q14" value="b"> Permettre d'acheminer les données vers les services en utilisant des adresses symboliques
+                        <input type="radio" name="q14" value="b"> Router le trafic HTTP/HTTPS vers les services
                     </label>
                     <label class="option">
-                        <input type="radio" name="q14" value="c"> Créer des pods
+                        <input type="radio" name="q14" value="c"> Planifier des pods sur les nœuds
                     </label>
                     <label class="option">
-                        <input type="radio" name="q14" value="d"> Configurer le réseau interne
+                        <input type="radio" name="q14" value="d"> Configurer les adresses IP des pods
                     </label>
                 </div>
                 <button class="validate-btn" onclick="validateAnswer('q14', ['b'], this)">Valider la réponse</button>
                 <div class="result">
-                    <div class="explanation">Ingress permet d'acheminer les données vers les services et d'utiliser des adresses symboliques en place d'adresses IP.</div>
+                    <div class="explanation">Ingress route le trafic HTTP/HTTPS vers les services en utilisant des règles basées sur les URL.</div>
                 </div>
             </div>
 
@@ -621,21 +621,21 @@
                 <div class="question-text">Que contient un ConfigMap ?</div>
                 <div class="options">
                     <label class="option">
-                        <input type="radio" name="q15" value="a"> Des images de conteneurs
+                        <input type="radio" name="q15" value="a"> Images de conteneurs archivées
                     </label>
                     <label class="option">
-                        <input type="radio" name="q15" value="b"> Les configurations nécessaires aux Pods
+                        <input type="radio" name="q15" value="b"> Données de configuration non sensibles
                     </label>
                     <label class="option">
-                        <input type="radio" name="q15" value="c"> Les secrets chiffrés
+                        <input type="radio" name="q15" value="c"> Clés d'accès chiffrées
                     </label>
                     <label class="option">
-                        <input type="radio" name="q15" value="d"> Les définitions de services
+                        <input type="radio" name="q15" value="d"> Définitions de services réseau
                     </label>
                 </div>
                 <button class="validate-btn" onclick="validateAnswer('q15', ['b'], this)">Valider la réponse</button>
                 <div class="result">
-                    <div class="explanation">ConfigMap contient les configurations nécessaires aux Pods, comme des variables d'environnement ou des fichiers de configuration.</div>
+                    <div class="explanation">ConfigMap stocke des données de configuration non sensibles, comme des variables ou fichiers, pour les pods.</div>
                 </div>
             </div>
 
@@ -645,21 +645,21 @@
                 <div class="question-text">Quelle est la différence principale entre ConfigMap et Secret ?</div>
                 <div class="options">
                     <label class="option">
-                        <input type="radio" name="q16" value="a"> ConfigMap est plus rapide
+                        <input type="radio" name="q16" value="a"> ConfigMap est plus performant
                     </label>
                     <label class="option">
-                        <input type="radio" name="q16" value="b"> Secret permet de stocker des données confidentielles chiffrées
+                        <input type="radio" name="q16" value="b"> Secret gère les données sensibles chiffrées
                     </label>
                     <label class="option">
-                        <input type="radio" name="q16" value="c"> ConfigMap fonctionne uniquement avec Docker
+                        <input type="radio" name="q16" value="c"> ConfigMap est limité aux variables
                     </label>
                     <label class="option">
-                        <input type="radio" name="q16" value="d"> Secret est plus volumineux
+                        <input type="radio" name="q16" value="d"> Secret est utilisé pour les services
                     </label>
                 </div>
                 <button class="validate-btn" onclick="validateAnswer('q16', ['b'], this)">Valider la réponse</button>
                 <div class="result">
-                    <div class="explanation">Secret permet de stocker des données confidentielles (mots de passe, clés, etc.) de manière sécurisée.</div>
+                    <div class="explanation">Secret stocke des données sensibles (par exemple, mots de passe) avec un encodage ou chiffrement, contrairement à ConfigMap.</div>
                 </div>
             </div>
 
@@ -669,21 +669,21 @@
                 <div class="question-text">Quel type de volume permet de lier un support de stockage aux Pods ?</div>
                 <div class="options">
                     <label class="option">
-                        <input type="radio" name="q17" value="a"> emptyDir
+                        <input type="radio" name="q17" value="a"> emptyDir, pour le stockage temporaire
                     </label>
                     <label class="option">
-                        <input type="radio" name="q17" value="b"> configMap
+                        <input type="radio" name="q17" value="b"> configMap, pour les configurations
                     </label>
                     <label class="option">
-                        <input type="radio" name="q17" value="c"> hostPath
+                        <input type="radio" name="q17" value="c"> hostPath, pour le stockage local
                     </label>
                     <label class="option">
-                        <input type="radio" name="q17" value="d"> volume
+                        <input type="radio" name="q17" value="d"> persistentVolumeClaim, pour le stockage dynamique
                     </label>
                 </div>
                 <button class="validate-btn" onclick="validateAnswer('q17', ['d'], this)">Valider la réponse</button>
                 <div class="result">
-                    <div class="explanation">Les volumes permettent de lier un support de stockage aux Pods, que ce soit local ou distant.</div>
+                    <div class="explanation">persistentVolumeClaim permet de lier des volumes persistants aux pods pour un stockage durable.</div>
                 </div>
             </div>
 
@@ -693,21 +693,21 @@
                 <div class="question-text">Dans un Deployment, que spécifie le champ "replicas" ?</div>
                 <div class="options">
                     <label class="option">
-                        <input type="radio" name="q18" value="a"> Le nombre de conteneurs par pod
+                        <input type="radio" name="q18" value="a"> Nombre de conteneurs par pod
                     </label>
                     <label class="option">
-                        <input type="radio" name="q18" value="b"> Le nombre de copies du pod à créer
+                        <input type="radio" name="q18" value="b"> Nombre d'instances de pods
                     </label>
                     <label class="option">
-                        <input type="radio" name="q18" value="c"> Le nombre de services
+                        <input type="radio" name="q18" value="c"> Nombre de services associés
                     </label>
                     <label class="option">
-                        <input type="radio" name="q18" value="d"> Le nombre de volumes
+                        <input type="radio" name="q18" value="d"> Nombre de nœuds requis
                     </label>
                 </div>
                 <button class="validate-btn" onclick="validateAnswer('q18', ['b'], this)">Valider la réponse</button>
                 <div class="result">
-                    <div class="explanation">Le champ replicas spécifie le nombre de copies (répliques) du pod qui doivent être créées et maintenues.</div>
+                    <div class="explanation">Le champ replicas définit le nombre d'instances de pods à maintenir dans un Deployment.</div>
                 </div>
             </div>
 
@@ -717,21 +717,21 @@
                 <div class="question-text">Qu'est-ce qu'un Deployment dans Kubernetes ?</div>
                 <div class="options">
                     <label class="option">
-                        <input type="radio" name="q19" value="a"> Un type de volume
+                        <input type="radio" name="q19" value="a"> Un type de stockage persistant
                     </label>
                     <label class="option">
-                        <input type="radio" name="q19" value="b"> Une abstraction au-dessus des Pods pour spécifier une application
+                        <input type="radio" name="q19" value="b"> Un contrôleur gérant des pods réplicables
                     </label>
                     <label class="option">
-                        <input type="radio" name="q19" value="c"> Un protocole réseau
+                        <input type="radio" name="q19" value="c"> Une couche réseau pour les services
                     </label>
                     <label class="option">
-                        <input type="radio" name="q19" value="d"> Un type de service
+                        <input type="radio" name="q19" value="d"> Un type de service externe
                     </label>
                 </div>
                 <button class="validate-btn" onclick="validateAnswer('q19', ['b'], this)">Valider la réponse</button>
                 <div class="result">
-                    <div class="explanation">Un Deployment est une abstraction au-dessus des Pods qui permet de spécifier une application et de la gérer.</div>
+                    <div class="explanation">Un Deployment est un contrôleur qui gère des pods réplicables et leurs mises à jour.</div>
                 </div>
             </div>
 
@@ -741,21 +741,21 @@
                 <div class="question-text">Pour quoi est-il recommandé d'utiliser un StatefulSet ?</div>
                 <div class="options">
                     <label class="option">
-                        <input type="radio" name="q20" value="a"> Applications stateless
+                        <input type="radio" name="q20" value="a"> Applications sans état
                     </label>
                     <label class="option">
-                        <input type="radio" name="q20" value="b"> Applications stateful
+                        <input type="radio" name="q20" value="b"> Applications avec état persistant
                     </label>
                     <label class="option">
-                        <input type="radio" name="q20" value="c"> Services réseau
+                        <input type="radio" name="q20" value="c"> Services réseau temporaires
                     </label>
                     <label class="option">
-                        <input type="radio" name="q20" value="d"> Volumes temporaires
+                        <input type="radio" name="q20" value="d"> Stockage éphémère
                     </label>
                 </div>
                 <button class="validate-btn" onclick="validateAnswer('q20', ['b'], this)">Valider la réponse</button>
                 <div class="result">
-                    <div class="explanation">StatefulSet est recommandé pour les applications stateful qui nécessitent des identités stables et du stockage persistant.</div>
+                    <div class="explanation">StatefulSet est conçu pour les applications avec état, nécessitant des identités stables et un stockage persistant.</div>
                 </div>
             </div>
 
@@ -767,21 +767,21 @@
                 <div class="question-text">Dans un fichier Ingress YAML, que définit l'annotation "nginx.ingress.kubernetes.io/rewrite-target" ?</div>
                 <div class="options">
                     <label class="option">
-                        <input type="radio" name="q21" value="a"> Le port de destination
+                        <input type="radio" name="q21" value="a"> Le port cible du service
                     </label>
                     <label class="option">
-                        <input type="radio" name="q21" value="b"> La réécriture de l'URL de destination
+                        <input type="radio" name="q21" value="b"> La réécriture de l'URL cible
                     </label>
                     <label class="option">
-                        <input type="radio" name="q21" value="c"> Le type de protocole
+                        <input type="radio" name="q21" value="c"> Le protocole de communication
                     </label>
                     <label class="option">
-                        <input type="radio" name="q21" value="d"> Le nom du service
+                        <input type="radio" name="q21" value="d"> Le nom du service backend
                     </label>
                 </div>
                 <button class="validate-btn" onclick="validateAnswer('q21', ['b'], this)">Valider la réponse</button>
                 <div class="result">
-                    <div class="explanation">Cette annotation définit comment réécrire l'URL lors du routage vers le service backend.</div>
+                    <div class="explanation">Cette annotation spécifie comment réécrire l'URL lors du routage vers le service backend.</div>
                 </div>
             </div>
 
@@ -791,21 +791,21 @@
                 <div class="question-text">Que se passe-t-il si un Pod utilise un ConfigMap via configMapKeyRef ?</div>
                 <div class="options">
                     <label class="option">
-                        <input type="radio" name="q22" value="a"> Le pod accède directement au fichier
+                        <input type="radio" name="q22" value="a"> Le pod monte le fichier ConfigMap
                     </label>
                     <label class="option">
-                        <input type="radio" name="q22" value="b"> La valeur de la clé est injectée comme variable d'environnement
+                        <input type="radio" name="q22" value="b"> Une clé est injectée comme variable d'environnement
                     </label>
                     <label class="option">
-                        <input type="radio" name="q22" value="c"> Le pod redémarre automatiquement
+                        <input type="radio" name="q22" value="c"> Le pod redémarre à chaque mise à jour
                     </label>
                     <label class="option">
-                        <input type="radio" name="q22" value="d"> Un volume est créé
+                        <input type="radio" name="q22" value="d"> Un volume est automatiquement créé
                     </label>
                 </div>
                 <button class="validate-btn" onclick="validateAnswer('q22', ['b'], this)">Valider la réponse</button>
                 <div class="result">
-                    <div class="explanation">configMapKeyRef permet d'injecter une valeur spécifique du ConfigMap comme variable d'environnement dans le conteneur.</div>
+                    <div class="explanation">configMapKeyRef injecte une valeur spécifique du ConfigMap comme variable d'environnement dans le conteneur.</div>
                 </div>
             </div>
 
@@ -815,13 +815,13 @@
                 <div class="question-text">Dans un volume de type "cinder", que représente volumeID ?</div>
                 <div class="options">
                     <label class="option">
-                        <input type="radio" name="q23" value="a"> Le nom du volume
+                        <input type="radio" name="q23" value="a"> Le nom du volume dans Kubernetes
                     </label>
                     <label class="option">
-                        <input type="radio" name="q23" value="b"> L'identifiant unique du volume dans OpenStack
+                        <input type="radio" name="q23" value="b"> L'identifiant unique dans OpenStack
                     </label>
                     <label class="option">
-                        <input type="radio" name="q23" value="c"> La taille du volume
+                        <input type="radio" name="q23" value="c"> La capacité totale du volume
                     </label>
                     <label class="option">
                         <input type="radio" name="q23" value="d"> Le type de système de fichiers
@@ -829,7 +829,7 @@
                 </div>
                 <button class="validate-btn" onclick="validateAnswer('q23', ['b'], this)">Valider la réponse</button>
                 <div class="result">
-                    <div class="explanation">volumeID est l'identifiant unique du volume dans l'environnement OpenStack Cinder.</div>
+                    <div class="explanation">volumeID est l'identifiant unique du volume dans OpenStack Cinder.</div>
                 </div>
             </div>
 
@@ -842,18 +842,18 @@
                         <input type="radio" name="q24" value="a"> Réduire la taille de l'image finale
                     </label>
                     <label class="option">
-                        <input type="radio" name="q24" value="b"> Augmenter la sécurité
+                        <input type="radio" name="q24" value="b"> Accélérer le déploiement des pods
                     </label>
                     <label class="option">
-                        <input type="radio" name="q24" value="c"> Améliorer les performances
+                        <input type="radio" name="q24" value="c"> Simplifier la gestion des dépendances
                     </label>
                     <label class="option">
-                        <input type="radio" name="q24" value="d"> Simplifier le débogage
+                        <input type="radio" name="q24" value="d"> Améliorer la compatibilité réseau
                     </label>
                 </div>
                 <button class="validate-btn" onclick="validateAnswer('q24', ['a'], this)">Valider la réponse</button>
                 <div class="result">
-                    <div class="explanation">Les multi-stage builds permettent de séparer la phase de compilation de l'environnement d'exécution, réduisant ainsi la taille de l'image finale.</div>
+                    <div class="explanation">Les multi-stage builds réduisent la taille de l'image en séparant compilation et exécution.</div>
                 </div>
             </div>
 
@@ -863,21 +863,21 @@
                 <div class="question-text">Dans le contexte du développement avec Kubernetes, que représente un "Service Mesh" ?</div>
                 <div class="options">
                     <label class="option">
-                        <input type="radio" name="q25" value="a"> Un type de service Kubernetes
+                        <input type="radio" name="q25" value="a"> Un type de service pour l'équilibrage
                     </label>
                     <label class="option">
-                        <input type="radio" name="q25" value="b"> Une couche d'infrastructure pour la communication entre microservices
+                        <input type="radio" name="q25" value="b"> Une infrastructure pour la communication inter-services
                     </label>
                     <label class="option">
-                        <input type="radio" name="q25" value="c"> Un protocole réseau
+                        <input type="radio" name="q25" value="c"> Un protocole de routage réseau
                     </label>
                     <label class="option">
-                        <input type="radio" name="q25" value="d"> Un type de stockage
+                        <input type="radio" name="q25" value="d"> Un système de stockage distribué
                     </label>
                 </div>
                 <button class="validate-btn" onclick="validateAnswer('q25', ['b'], this)">Valider la réponse</button>
                 <div class="result">
-                    <div class="explanation">Un Service Mesh est une couche d'infrastructure qui gère la communication, la sécurité et l'observabilité entre microservices.</div>
+                    <div class="explanation">Un Service Mesh gère la communication, la sécurité et l'observabilité entre microservices.</div>
                 </div>
             </div>
 
@@ -889,21 +889,21 @@
                 <div class="question-text">Quelles tâches sont comprises dans l'orchestration des conteneurs ? (Sélectionnez toutes les bonnes réponses)</div>
                 <div class="options">
                     <label class="option">
-                        <input type="checkbox" name="q26" value="a"> Planification et placement
+                        <input type="checkbox" name="q26" value="a"> Planification des conteneurs sur les nœuds
                     </label>
                     <label class="option">
-                        <input type="checkbox" name="q26" value="b"> Réplication et mise à l'échelle
+                        <input type="checkbox" name="q26" value="b"> Gestion du scaling et de la réplication
                     </label>
                     <label class="option">
-                        <input type="checkbox" name="q26" value="c"> Gestion des ressources (CPU, mémoire)
+                        <input type="checkbox" name="q26" value="c"> Allocation des ressources CPU et mémoire
                     </label>
                     <label class="option">
-                        <input type="checkbox" name="q26" value="d"> Compilation du code source
+                        <input type="checkbox" name="q26" value="d"> Création des images de conteneurs
                     </label>
                 </div>
                 <button class="validate-btn" onclick="validateAnswer('q26', ['a', 'b', 'c'], this)">Valider la réponse</button>
                 <div class="result">
-                    <div class="explanation">L'orchestration comprend la planification, la réplication, la gestion des ressources, mais pas la compilation du code source.</div>
+                    <div class="explanation">L'orchestration inclut la planification, le scaling et la gestion des ressources, mais pas la création d'images.</div>
                 </div>
             </div>
 
@@ -913,21 +913,21 @@
                 <div class="question-text">Quels sont les composants principaux de l'architecture Kubernetes ? (Sélectionnez toutes les bonnes réponses)</div>
                 <div class="options">
                     <label class="option">
-                        <input type="checkbox" name="q27" value="a"> Master
+                        <input type="checkbox" name="q27" value="a"> Master, pour le contrôle du cluster
                     </label>
                     <label class="option">
-                        <input type="checkbox" name="q27" value="b"> Nodes (anciennement Minions)
+                        <input type="checkbox" name="q27" value="b"> Nodes, exécutant les workloads
                     </label>
                     <label class="option">
-                        <input type="checkbox" name="q27" value="c"> Pods
+                        <input type="checkbox" name="q27" value="c"> Pods, unités de déploiement
                     </label>
                     <label class="option">
-                        <input type="checkbox" name="q27" value="d"> Docker Engine
+                        <input type="checkbox" name="q27" value="d"> Containerd, pour le stockage
                     </label>
                 </div>
                 <button class="validate-btn" onclick="validateAnswer('q27', ['a', 'b', 'c'], this)">Valider la réponse</button>
                 <div class="result">
-                    <div class="explanation">Master, Nodes et Pods sont des composants Kubernetes. Docker Engine est un runtime de conteneurs, pas spécifiquement un composant Kubernetes.</div>
+                    <div class="explanation">Master, Nodes et Pods sont des composants clés. Containerd est un runtime, pas un composant principal.</div>
                 </div>
             </div>
 
@@ -937,21 +937,21 @@
                 <div class="question-text">Quels composants font partie du plan de contrôle Kubernetes ? (Sélectionnez toutes les bonnes réponses)</div>
                 <div class="options">
                     <label class="option">
-                        <input type="checkbox" name="q28" value="a"> kube-scheduler
+                        <input type="checkbox" name="q28" value="a"> kube-scheduler, pour la planification
                     </label>
                     <label class="option">
-                        <input type="checkbox" name="q28" value="b"> kubelet
+                        <input type="checkbox" name="q28" value="b"> kubelet, pour la gestion des nœuds
                     </label>
                     <label class="option">
-                        <input type="checkbox" name="q28" value="c"> REST API
+                        <input type="checkbox" name="q28" value="c"> API Server, pour les interactions
                     </label>
                     <label class="option">
-                        <input type="checkbox" name="q28" value="d"> etcd
+                        <input type="checkbox" name="q28" value="d"> etcd, pour le stockage d'état
                     </label>
                 </div>
                 <button class="validate-btn" onclick="validateAnswer('q28', ['a', 'c', 'd'], this)">Valider la réponse</button>
                 <div class="result">
-                    <div class="explanation">Le scheduler, l'API REST et etcd font partie du plan de contrôle. kubelet s'exécute sur chaque nœud worker.</div>
+                    <div class="explanation">Le plan de contrôle inclut kube-scheduler, l'API Server et etcd. kubelet est spécifique aux nœuds workers.</div>
                 </div>
             </div>
 
@@ -961,21 +961,21 @@
                 <div class="question-text">Quels types de Services Kubernetes permettent l'accès externe ? (Sélectionnez toutes les bonnes réponses)</div>
                 <div class="options">
                     <label class="option">
-                        <input type="checkbox" name="q29" value="a"> ClusterIP
+                        <input type="checkbox" name="q29" value="a"> ClusterIP, pour l'accès interne
                     </label>
                     <label class="option">
-                        <input type="checkbox" name="q29" value="b"> NodePort
+                        <input type="checkbox" name="q29" value="b"> NodePort, exposant un port
                     </label>
                     <label class="option">
-                        <input type="checkbox" name="q29" value="c"> LoadBalancer
+                        <input type="checkbox" name="q29" value="c"> LoadBalancer, pour l'accès cloud
                     </label>
                     <label class="option">
-                        <input type="checkbox" name="q29" value="d"> ExternalName
+                        <input type="checkbox" name="q29" value="d"> ExternalName, pour le DNS externe
                     </label>
                 </div>
                 <button class="validate-btn" onclick="validateAnswer('q29', ['b', 'c'], this)">Valider la réponse</button>
                 <div class="result">
-                    <div class="explanation">NodePort et LoadBalancer permettent l'accès externe. ClusterIP est interne au cluster et ExternalName fait du mapping DNS.</div>
+                    <div class="explanation">NodePort et LoadBalancer permettent l'accès externe. ClusterIP est interne, et ExternalName mappe des DNS.</div>
                 </div>
             </div>
 
@@ -991,7 +991,7 @@
                         <input type="checkbox" name="q30" value="b"> Fichiers de configuration
                     </label>
                     <label class="option">
-                        <input type="checkbox" name="q30" value="c"> Mots de passe chiffrés
+                        <input type="checkbox" name="q30" value="c"> Clés d'API chiffrées
                     </label>
                     <label class="option">
                         <input type="checkbox" name="q30" value="d"> Paramètres d'application
@@ -999,12 +999,9 @@
                 </div>
                 <button class="validate-btn" onclick="validateAnswer('q30', ['a', 'b', 'd'], this)">Valider la réponse</button>
                 <div class="result">
-                    <div class="explanation">ConfigMap contient des configurations non sensibles. Les mots de passe chiffrés sont gérés par les Secrets.</div>
+                    <div class="explanation">ConfigMap contient des données non sensibles comme des variables, fichiers ou paramètres. Les clés chiffrées utilisent Secret.</div>
                 </div>
             </div>
-
-            <!-- Questions 31-40 continuent avec le même format... -->
-            <!-- Je vais ajouter les 10 dernières questions pour compléter les 40 -->
 
             <!-- Question 31 -->
             <div class="question-card">
@@ -1018,15 +1015,15 @@
                         <input type="checkbox" name="q31" value="b"> Partage de données entre conteneurs
                     </label>
                     <label class="option">
-                        <input type="checkbox" name="q31" value="c"> Stockage local ou distant
+                        <input type="checkbox" name="q31" value="c"> Support de stockage local ou cloud
                     </label>
                     <label class="option">
-                        <input type="checkbox" name="q31" value="d"> Chiffrement automatique
+                        <input type="checkbox" name="q31" value="d"> Compression automatique des données
                     </label>
                 </div>
                 <button class="validate-btn" onclick="validateAnswer('q31', ['a', 'b', 'c'], this)">Valider la réponse</button>
                 <div class="result">
-                    <div class="explanation">Les volumes offrent persistance, partage et flexibilité de stockage. Le chiffrement n'est pas automatique.</div>
+                    <div class="explanation">Les volumes offrent persistance, partage et flexibilité de stockage. La compression n'est pas une fonctionnalité native.</div>
                 </div>
             </div>
 
@@ -1036,21 +1033,21 @@
                 <div class="question-text">Quelles sont les caractéristiques d'un Deployment ? (Sélectionnez toutes les bonnes réponses)</div>
                 <div class="options">
                     <label class="option">
-                        <input type="checkbox" name="q32" value="a"> Gestion des répliques
+                        <input type="checkbox" name="q32" value="a"> Gestion des réplicas de pods
                     </label>
                     <label class="option">
-                        <input type="checkbox" name="q32" value="b"> Mises à jour progressives
+                        <input type="checkbox" name="q32" value="b"> Support des mises à jour graduelles
                     </label>
                     <label class="option">
-                        <input type="checkbox" name="q32" value="c"> Abstraction au-dessus des Pods
+                        <input type="checkbox" name="q32" value="c"> Abstraction pour la gestion des pods
                     </label>
                     <label class="option">
-                        <input type="checkbox" name="q32" value="d"> Stockage persistant garanti
+                        <input type="checkbox" name="q32" value="d"> Persistance des données intégrée
                     </label>
                 </div>
                 <button class="validate-btn" onclick="validateAnswer('q32', ['a', 'b', 'c'], this)">Valider la réponse</button>
                 <div class="result">
-                    <div class="explanation">Deployment gère les répliques, les mises à jour et abstrait les Pods. Le stockage persistant nécessite des volumes spécifiques.</div>
+                    <div class="explanation">Deployment gère les réplicas, les mises à jour et abstrait les pods. La persistance nécessite des volumes.</div>
                 </div>
             </div>
 
@@ -1060,192 +1057,435 @@
                 <div class="question-text">Quels composants sont spécifiques aux nœuds workers ? (Sélectionnez toutes les bonnes réponses)</div>
                 <div class="options">
                     <label class="option">
-                        <input type="checkbox" name="q33" value="a"> kubelet
+                        <input type="checkbox" name="q33" value="a"> kubelet, pour la gestion des pods
                     </label>
                     <label class="option">
-                        <input type="checkbox" name="q33" value="b"> kube-proxy
+                        <input type="checkbox" name="q33" value="b"> kube-proxy, pour le réseau
                     </label>
                     <label class="option">
-                        <input type="checkbox" name="q33" value="c"> cAdvisor
+                        <input type="checkbox" name="q33" value="c"> cAdvisor, pour les métriques
                     </label>
                     <label class="option">
-                        <input type="checkbox" name="q33" value="d"> kube-scheduler
+                        <input type="checkbox" name="q33" value="d"> Controller Manager, pour le contrôle
                     </label>
                 </div>
                 <button class="validate-btn" onclick="validateAnswer('q33', ['a', 'b', 'c'], this)">Valider la réponse</button>
                 <div class="result">
-                    <div class="explanation">kubelet, kube-proxy et cAdvisor s'exécutent sur les nœuds workers. kube-scheduler fait partie du plan de contrôle.</div>
+                    <div class="explanation">kubelet, kube-proxy et cAdvisor sont sur les nœuds workers. Controller Manager est dans le plan de contrôle.</div>
                 </div>
             </div>
-<!-- Question 34 -->
-<div class="question-card">
-    <div class="question-number">Question 34</div>
-    <div class="question-text">Quelles sont les bonnes pratiques pour les images de conteneurs ? (Sélectionnez toutes les bonnes réponses)</div>
-    <div class="options">
-        <label class="option">
-            <input type="checkbox" name="q34" value="a"> Utiliser des images légères
-        </label>
-        <label class="option">
-            <input type="checkbox" name="q34" value="b"> Multi-stage builds
-        </label>
-        <label class="option">
-            <input type="checkbox" name="q34" value="c"> Mettre à jour régulièrement
-        </label>
-        <label class="option">
-            <input type="checkbox" name="q34" value="d"> Inclure tous les outils de développement
-        </label>
-    </div>
-    <button class="validate-btn" onclick="validateAnswer('q34', ['a', 'b', 'c'], this)">Valider la réponse</button>
-    <div class="result">
-        <div class="explanation">Images légères, multi-stage builds et mises à jour sont recommandés. Inclure tous les outils de développement augmente inutilement la taille.</div>
-    </div>
-</div>
 
-<!-- Question 35 -->
-<div class="question-card">
-    <div class="question-number">Question 35</div>
-    <div class="question-text">Quels éléments peut contenir un Pod ? (Sélectionnez toutes les bonnes réponses)</div>
-    <div class="options">
-        <label class="option">
-            <input type="checkbox" name="q35" value="a"> Un ou plusieurs conteneurs
-        </label>
-        <label class="option">
-            <input type="checkbox" name="q35" value="b"> Volumes partagés
-        </label>
-        <label class="option">
-            <input type="checkbox" name="q35" value="c"> Adresse IP unique
-        </label>
-        <label class="option">
-            <input type="checkbox" name="q35" value="d"> Plusieurs adresses IP
-        </label>
-    </div>
-    <button class="validate-btn" onclick="validateAnswer('q35', ['a', 'b', 'c'], this)">Valider la réponse</button>
-    <div class="result">
-        <div class="explanation">Un Pod peut contenir plusieurs conteneurs qui partagent des volumes et une adresse IP unique.</div>
-    </div>
-</div>
+            <!-- Question 34 -->
+            <div class="question-card">
+                <div class="question-number">Question 34</div>
+                <div class="question-text">Quelles sont les bonnes pratiques pour les images de conteneurs ? (Sélectionnez toutes les bonnes réponses)</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q34" value="a"> Utiliser des bases d'images minimales
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q34" value="b"> Employer des builds multi-étages
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q34" value="c"> Maintenir les images à jour
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q34" value="d"> Inclure des outils de diagnostic complets
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q34', ['a', 'b', 'c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Images minimales, multi-stage builds et mises à jour sont des bonnes pratiques. Les outils de diagnostic alourdissent les images.</div>
+                </div>
+            </div>
 
-<div class="section-title">Questions de synthèse</div>
+            <!-- Question 35 -->
+            <div class="question-card">
+                <div class="question-number">Question 35</div>
+                <div class="question-text">Quels éléments peut contenir un Pod ? (Sélectionnez toutes les bonnes réponses)</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q35" value="a"> Un ou plusieurs conteneurs
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q35" value="b"> Volumes partagés entre conteneurs
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q35" value="c"> Une adresse IP unique par pod
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q35" value="d"> Plusieurs adresses IP par conteneur
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q35', ['a', 'b', 'c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Un Pod contient des conteneurs, des volumes partagés et une adresse IP unique pour le pod.</div>
+                </div>
+            </div>
 
-<!-- Question 36 -->
-<div class="question-card">
-    <div class="question-number">Question 36</div>
-    <div class="question-text">Quelles sont les étapes typiques du déploiement d'une application avec Kubernetes ? (Sélectionnez toutes les bonnes réponses)</div>
-    <div class="options">
-        <label class="option">
-            <input type="checkbox" name="q36" value="a"> Créer les fichiers YAML de configuration
-        </label>
-        <label class="option">
-            <input type="checkbox" name="q36" value="b"> Appliquer les configurations avec kubectl
-        </label>
-        <label class="option">
-            <input type="checkbox" name="q36" value="c"> Vérifier le déploiement
-        </label>
-        <label class="option">
-            <input type="checkbox" name="q36" value="d"> Compiler le code source
-        </label>
-    </div>
-    <button class="validate-btn" onclick="validateAnswer('q36', ['a', 'b', 'c'], this)">Valider la réponse</button>
-    <div class="result">
-        <div class="explanation">Le déploiement Kubernetes implique la création de configurations, leur application et la vérification. La compilation se fait avant, lors de la création de l'image.</div>
-    </div>
-</div>
+            <div class="section-title">Questions de synthèse</div>
 
-<!-- Question 37 -->
-<div class="question-card">
-    <div class="question-number">Question 37</div>
-    <div class="question-text">Quels sont les avantages de l'orchestration par rapport à la gestion manuelle ? (Sélectionnez toutes les bonnes réponses)</div>
-    <div class="options">
-        <label class="option">
-            <input type="checkbox" name="q37" value="a"> Automatisation du scaling
-        </label>
-        <label class="option">
-            <input type="checkbox" name="q37" value="b"> Haute disponibilité
-        </label>
-        <label class="option">
-            <input type="checkbox" name="q37" value="c"> Gestion centralisée
-        </label>
-        <label class="option">
-            <input type="checkbox" name="q37" value="d"> Réduction des coûts de développement
-        </label>
-    </div>
-    <button class="validate-btn" onclick="validateAnswer('q37', ['a', 'b', 'c'], this)">Valider la réponse</button>
-    <div class="result">
-        <div class="explanation">L'orchestration automatise le scaling, assure la haute disponibilité et centralise la gestion. Elle peut réduire les coûts opérationnels mais pas nécessairement de développement.</div>
-    </div>
-</div>
+            <!-- Question 36 -->
+            <div class="question-card">
+                <div class="question-number">Question 36</div>
+                <div class="question-text">Quelles sont les étapes typiques du déploiement d'une application avec Kubernetes ? (Sélectionnez toutes les bonnes réponses)</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q36" value="a"> Définir les ressources dans des fichiers YAML
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q36" value="b"> Appliquer les configurations via kubectl
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q36" value="c"> Vérifier l'état des déploiements
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q36" value="d"> Compiler les images localement
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q36', ['a', 'b', 'c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le déploiement implique la définition, l'application et la vérification des configurations. La compilation est séparée.</div>
+                </div>
+            </div>
 
-<!-- Question 38 -->
-<div class="question-card">
-    <div class="question-number">Question 38</div>
-    <div class="question-text">Quelles considérations sont importantes pour la sécurité dans Kubernetes ? (Sélectionnez toutes les bonnes réponses)</div>
-    <div class="options">
-        <label class="option">
-            <input type="checkbox" name="q38" value="a"> Utilisation des Secrets pour les données sensibles
-        </label>
-        <label class="option">
-            <input type="checkbox" name="q38" value="b"> Isolation des namespaces
-        </label>
-        <label class="option">
-            <input type="checkbox" name="q38" value="c"> Contrôle d'accès basé sur les rôles (RBAC)
-        </label>
-        <label class="option">
-            <input type="checkbox" name="q38" value="d"> Exécution en tant que root
-        </label>
-    </div>
-    <button class="validate-btn" onclick="validateAnswer('q38', ['a', 'b', 'c'], this)">Valider la réponse</button>
-    <div class="result">
-        <div class="explanation">Secrets, namespaces et RBAC sont essentiels pour la sécurité. L'exécution en tant que root est déconseillée.</div>
-    </div>
-</div>
+            <!-- Question 37 -->
+            <div class="question-card">
+                <div class="question-number">Question 37</div>
+                <div class="question-text">Quels sont les avantages de l'orchestration par rapport à la gestion manuelle ? (Sélectionnez toutes les bonnes réponses)</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q37" value="a"> Scaling automatique des applications
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q37" value="b"> Amélioration de la résilience
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q37" value="c"> Gestion centralisée des ressources
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q37" value="d"> Simplification du code source
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q37', ['a', 'b', 'c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">L'orchestration automatise le scaling, améliore la résilience et centralise la gestion. Le code source n'est pas impacté.</div>
+                </div>
+            </div>
 
-<!-- Question 39 -->
-<div class="question-card">
-    <div class="question-number">Question 39</div>
-    <div class="question-text">Quels facteurs influencent le choix d'une stratégie de déploiement ? (Sélectionnez toutes les bonnes réponses)</div>
-    <div class="options">
-        <label class="option">
-            <input type="checkbox" name="q39" value="a"> Type d'application (stateful/stateless)
-        </label>
-        <label class="option">
-            <input type="checkbox" name="q39" value="b"> Exigences de disponibilité
-        </label>
-        <label class="option">
-            <input type="checkbox" name="q39" value="c"> Contraintes de ressources
-        </label>
-        <label class="option">
-            <input type="checkbox" name="q39" value="d"> Préférences personnelles des développeurs
-        </label>
-    </div>
-    <button class="validate-btn" onclick="validateAnswer('q39', ['a', 'b', 'c'], this)">Valider la réponse</button>
-    <div class="result">
-        <div class="explanation">Le type d'application, les exigences de disponibilité et les contraintes de ressources sont des facteurs techniques importants.</div>
-    </div>
-</div>
+            <!-- Question 38 -->
+            <div class="question-card">
+                <div class="question-number">Question 38</div>
+                <div class="question-text">Quelles considérations sont importantes pour la sécurité dans Kubernetes ? (Sélectionnez toutes les bonnes réponses)</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q38" value="a"> Utiliser des Secrets pour les données sensibles
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q38" value="b"> Isoler les ressources via des namespaces
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q38" value="c"> Implémenter RBAC pour les accès
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q38" value="d"> Exécuter les conteneurs en mode privilégié
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q38', ['a', 'b', 'c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Secrets, namespaces et RBAC sont essentiels. Le mode privilégié est risqué et non recommandé.</div>
+                </div>
+            </div>
 
-<!-- Question 40 -->
-<div class="question-card">
-    <div class="question-number">Question 40</div>
-    <div class="question-text">Quels sont les défis typiques de l'orchestration des conteneurs ? (Sélectionnez toutes les bonnes réponses)</div>
-    <div class="options">
-        <label class="option">
-            <input type="checkbox" name="q40" value="a"> Gestion de la complexité
-        </label>
-        <label class="option">
-            <input type="checkbox" name="q40" value="b"> Monitoring et observabilité
-        </label>
-        <label class="option">
-            <input type="checkbox" name="q40" value="c"> Gestion des états et des données persistantes
-        </label>
-        <label class="option">
-            <input type="checkbox" name="q40" value="d"> Simplicité d'utilisation
-        </label>
-    </div>
-    <button class="validate-btn" onclick="validateAnswer('q40', ['a', 'b', 'c'], this)">Valider la réponse</button>
-    <div class="result">
-        <div class="explanation">La complexité, le monitoring et la gestion des états sont des défis majeurs. La simplicité d'utilisation est un objectif, pas un défi.</div>
-    </div>
-</div>
+            <!-- Question 39 -->
+            <div class="question-card">
+                <div class="question-number">Question 39</div>
+                <div class="question-text">Quels facteurs influencent le choix d'une stratégie de déploiement ? (Sélectionnez toutes les bonnes réponses)</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q39" value="a"> Nature stateful ou stateless de l'application
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q39" value="b"> Exigences de haute disponibilité
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q39" value="c"> Limites des ressources disponibles
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q39" value="d"> Préférences des outils CI/CD
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q39', ['a', 'b', 'c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le type d'application, la disponibilité et les ressources sont clés. Les outils CI/CD sont secondaires.</div>
+                </div>
+            </div>
+
+            <!-- Question 40 -->
+            <div class="question-card">
+                <div class="question-number">Question 40</div>
+                <div class="question-text">Quels sont les défis typiques de l'orchestration des conteneurs ? (Sélectionnez toutes les bonnes réponses)</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q40" value="a"> Gestion de la complexité des configurations
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q40" value="b"> Surveillance et observabilité des services
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q40" value="c"> Gestion des données stateful
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q40" value="d"> Simplification des déploiements
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q40', ['a', 'b', 'c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Complexité, observabilité et données stateful sont des défis. La simplification est un objectif, pas un défi.</div>
+                </div>
+            </div>
+
+            <div class="section-title">Questions avancées supplémentaires</div>
+
+            <!-- Question 41 -->
+            <div class="question-card">
+                <div class="question-number">Question 41</div>
+                <div class="question-text">Quel est le rôle principal d'un NetworkPolicy dans Kubernetes ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q41" value="a"> Configurer les adresses IP des pods
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q41" value="b"> Contrôler le trafic réseau entre pods
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q41" value="c"> Gérer les services LoadBalancer
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q41" value="d"> Définir les routes Ingress
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q41', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">NetworkPolicy définit des règles pour contrôler le trafic réseau entrant et sortant des pods.</div>
+                </div>
+            </div>
+
+            <!-- Question 42 -->
+            <div class="question-card">
+                <div class="question-number">Question 42</div>
+                <div class="question-text">Que fait la commande `kubectl taint nodes node1 key=value:NoSchedule` ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q42" value="a"> Ajoute une étiquette au nœud
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q42" value="b"> Empêche la planification de nouveaux pods
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q42" value="c"> Supprime le nœud du cluster
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q42" value="d"> Redémarre les pods sur le nœud
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q42', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Un taint avec NoSchedule empêche la planification de nouveaux pods sur le nœud, sauf si un toleration est défini.</div>
+                </div>
+            </div>
+
+            <!-- Question 43 -->
+            <div class="question-card">
+                <div class="question-number">Question 43</div>
+                <div class="question-text">Quel est l'objectif principal d'un Custom Resource Definition (CRD) ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q43" value="a"> Étendre l'API Kubernetes avec des ressources personnalisées
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q43" value="b"> Gérer les configurations des pods
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q43" value="c"> Définir des politiques réseau
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q43" value="d"> Surveiller les performances des conteneurs
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q43', ['a'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Un CRD permet de définir des ressources personnalisées pour étendre les fonctionnalités de l'API Kubernetes.</div>
+                </div>
+            </div>
+
+            <!-- Question 44 -->
+            <div class="question-card">
+                <div class="question-number">Question 44</div>
+                <div class="question-text">Dans un contexte RBAC, que représente un ClusterRole ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q44" value="a"> Un ensemble de permissions à l'échelle du cluster
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q44" value="b"> Un rôle limité à un namespace
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q44" value="c"> Une configuration de sécurité pour les pods
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q44" value="d"> Une politique de réseau pour les services
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q44', ['a'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Un ClusterRole définit des permissions valables à l'échelle de tout le cluster, contrairement à un Role limité à un namespace.</div>
+                </div>
+            </div>
+
+            <!-- Question 45 -->
+            <div class="question-card">
+                <div class="question-number">Question 45</div>
+                <div class="question-text">Quel est l'effet d'un HorizontalPodAutoscaler (HPA) ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q45" value="a"> Ajuster le nombre de nœuds dans le cluster
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q45" value="b"> Modifier les ressources allouées aux pods
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q45" value="c"> Adapter le nombre de replicas de pods
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q45" value="d"> Redistribuer les pods entre les nœuds
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q45', ['c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Un HPA ajuste automatiquement le nombre de replicas de pods en fonction des métriques comme CPU ou mémoire.</div>
+                </div>
+            </div>
+
+            <!-- Question 46 -->
+            <div class="question-card">
+                <div class="question-number">Question 46</div>
+                <div class="question-text">Quels sont les avantages d'utiliser un Operator dans Kubernetes ? (Sélectionnez toutes les bonnes réponses)</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q46" value="a"> Automatisation des tâches complexes
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q46" value="b"> Gestion des applications stateful
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q46" value="c"> Extension des fonctionnalités via CRDs
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q46" value="d"> Simplification des configurations réseau
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q46', ['a', 'b', 'c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Les Operators automatisent les tâches, gèrent les applications stateful et utilisent des CRDs. Le réseau n'est pas leur focus.</div>
+                </div>
+            </div>
+
+            <!-- Question 47 -->
+            <div class="question-card">
+                <div class="question-number">Question 47</div>
+                <div class="question-text">Quels éléments sont nécessaires pour configurer un IngressController ? (Sélectionnez toutes les bonnes réponses)</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q47" value="a"> Une ressource Ingress
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q47" value="b"> Un contrôleur Ingress déployé
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q47" value="c"> Des services associés aux pods
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q47" value="d"> Un StatefulSet pour le routage
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q47', ['a', 'b', 'c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Un IngressController nécessite une ressource Ingress, un contrôleur (comme NGINX) et des services. StatefulSet n'est pas requis.</div>
+                </div>
+            </div>
+
+            <!-- Question 48 -->
+            <div class="question-card">
+                <div class="question-number">Question 48</div>
+                <div class="question-text">Quels facteurs influencent la performance d'un cluster Kubernetes ? (Sélectionnez toutes les bonnes réponses)</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q48" value="a"> Configuration des limites de ressources
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q48" value="b"> Choix du CNI (Container Network Interface)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q48" value="c"> Taille et distribution des nœuds
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q48" value="d"> Version de l'image de base
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q48', ['a', 'b', 'c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Les limites de ressources, le CNI et la taille des nœuds impactent la performance. L'image de base affecte la taille, pas directement la performance.</div>
+                </div>
+            </div>
+
+            <!-- Question 49 -->
+            <div class="question-card">
+                <div class="question-number">Question 49</div>
+                <div class="question-text">Quels sont les cas d'utilisation typiques d'un DaemonSet ? (Sélectionnez toutes les bonnes réponses)</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q49" value="a"> Déploiement d'agents de monitoring
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q49" value="b"> Exécution de services réseau sur chaque nœud
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q49" value="c"> Gestion des applications stateful
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q49" value="d"> Collecte de logs sur tous les nœuds
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q49', ['a', 'b', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Un DaemonSet exécute un pod sur chaque nœud pour le monitoring, le réseau ou les logs. Les applications stateful utilisent StatefulSet.</div>
+                </div>
+            </div>
+
+            <!-- Question 50 -->
+            <div class="question-card">
+                <div class="question-number">Question 50</div>
+                <div class="question-text">Quels sont les défis liés à la gestion des secrets dans Kubernetes ? (Sélectionnez toutes les bonnes réponses)</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q50" value="a"> Rotation sécurisée des secrets
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q50" value="b"> Gestion des accès via RBAC
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q50" value="c"> Chiffrement des secrets au repos
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q50" value="d"> Compression des secrets pour l'efficacité
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q50', ['a', 'b', 'c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">La rotation, l'accès et le chiffrement sont des défis. La compression n'est pas pertinente pour les secrets.</div>
+                </div>
+            </div>
 
         </div>
     </div>
