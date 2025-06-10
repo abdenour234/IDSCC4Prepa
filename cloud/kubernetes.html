@@ -1,0 +1,1352 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QCM - Orchestration des Conteneurs</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .quiz-container {
+            padding: 30px;
+        }
+
+        .back-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .section-title {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 15px 20px;
+            margin: 30px 0 20px 0;
+            border-radius: 8px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .question-card {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .question-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-color: #3498db;
+        }
+
+        .question-number {
+            background: #3498db;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .options {
+            margin-bottom: 20px;
+        }
+
+        .option {
+            background: white;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .option:hover {
+            border-color: #3498db;
+            background: #f0f8ff;
+        }
+
+        .option input[type="radio"], .option input[type="checkbox"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+
+        .validate-btn {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .validate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+
+        .validate-btn:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            display: none;
+        }
+
+        .correct {
+            background: #d4edda;
+            border: 2px solid #c3e6cb;
+            color: #155724;
+        }
+
+        .incorrect {
+            background: #f8d7da;
+            border: 2px solid #f5c6cb;
+            color: #721c24;
+        }
+
+        .explanation {
+            margin-top: 10px;
+            font-weight: normal;
+            line-height: 1.6;
+            color: #495057;
+            font-size: 0.95rem;
+        }
+
+        .progress-bar {
+            background: #e9ecef;
+            height: 8px;
+            border-radius: 4px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .stats {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 1.1rem;
+            color: #2c3e50;
+        }
+
+        .final-score {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 30px 0;
+            display: none;
+        }
+
+        .score-excellent {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+        }
+
+        .score-good {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+        }
+
+        .score-poor {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .quiz-container {
+                padding: 20px;
+            }
+            
+            .question-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🐳 Orchestration des Conteneurs</h1>
+            <p>Testez vos connaissances sur Kubernetes et l'orchestration avec 40 questions complètes</p>
+        </div>
+        
+        <div class="quiz-container">
+            <a href="index.html" class="back-btn">← Retour au Cloud Computing</a>
+            
+            <div class="stats">
+                <strong>Progression : <span id="answered">0</span>/40 questions répondues</strong>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar"></div>
+            </div>
+
+            <div class="final-score" id="finalScore">
+                <h2>🎉 Félicitations!</h2>
+                <p>Votre score final : <span id="scorePercentage"></span>%</p>
+                <p id="scoreMessage"></p>
+            </div>
+    
+            <div class="section-title">Questions à choix unique - Niveau débutant</div>
+            
+            <!-- Question 1 -->
+            <div class="question-card">
+                <div class="question-number">Question 1</div>
+                <div class="question-text">Qu'est-ce que l'orchestration des conteneurs ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q1" value="a"> La gestion de la création, l'ordonnancement et le lancement des containers
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q1" value="b"> La création d'images Docker
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q1" value="c"> La compilation de code source
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q1" value="d"> La gestion des utilisateurs système
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q1', ['a'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">L'orchestration des conteneurs comprend la gestion de la création, l'ordonnancement et le lancement des containers.</div>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question-card">
+                <div class="question-number">Question 2</div>
+                <div class="question-text">Quelle est la plus petite unité déployable dans Kubernetes ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q2" value="a"> Container
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q2" value="b"> Pod
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q2" value="c"> Service
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q2" value="d"> Node
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q2', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le Pod est le premier niveau d'abstraction dans Kubernetes et la plus petite unité déployable.</div>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question-card">
+                <div class="question-number">Question 3</div>
+                <div class="question-text">Quel composant Kubernetes est responsable de la planification des pods ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q3" value="a"> kubelet
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q3" value="b"> kube-proxy
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q3" value="c"> kube-scheduler
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q3" value="d"> etcd
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q3', ['c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le kube-scheduler est responsable de l'assignation automatique des pods aux nœuds selon les ressources disponibles.</div>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question-card">
+                <div class="question-number">Question 4</div>
+                <div class="question-text">Dans l'architecture Kubernetes, quel est le rôle du Master ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q4" value="a"> Exécuter les applications
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q4" value="b"> Stocker les données
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q4" value="c"> Fournir une vue unifiée du cluster et contrôler les Minions
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q4" value="d"> Gérer le réseau
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q4', ['c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le Master est le point de contrôle central qui fournit une vue unifiée du cluster et contrôle les Minions.</div>
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="question-card">
+                <div class="question-number">Question 5</div>
+                <div class="question-text">Que signifie "Minion" dans l'architecture Kubernetes classique ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q5" value="a"> Un pod défaillant
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q5" value="b"> Un nœud de travail qui exécute des tâches déléguées par le maître
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q5" value="c"> Un service réseau
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q5" value="d"> Un volume de stockage
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q5', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Les Minions sont des nœuds de travail qui exécutent des tâches déléguées par le maître et peuvent exécuter un ou plusieurs pods.</div>
+                </div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="question-card">
+                <div class="question-number">Question 6</div>
+                <div class="question-text">Quelle commande permet d'appliquer un fichier YAML dans Kubernetes ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q6" value="a"> kubectl create -f nom-fichier.yml
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q6" value="b"> kubectl apply -f nom-fichier.yml
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q6" value="c"> kubectl run -f nom-fichier.yml
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q6" value="d"> kubectl start -f nom-fichier.yml
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q6', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">La commande kubectl apply -f est utilisée pour appliquer des configurations définies dans des fichiers YAML.</div>
+                </div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="question-card">
+                <div class="question-number">Question 7</div>
+                <div class="question-text">Quel composant est responsable de la gestion des Pods et des conteneurs sur chaque nœud ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q7" value="a"> kube-scheduler
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q7" value="b"> kubelet
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q7" value="c"> kube-proxy
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q7" value="d"> etcd
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q7', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">kubelet est en charge de la gestion des Pods et des conteneurs sur chaque nœud.</div>
+                </div>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="question-card">
+                <div class="question-number">Question 8</div>
+                <div class="question-text">Quelle est la fonction principale de kube-proxy ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q8" value="a"> Planifier les pods
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q8" value="b"> Gérer les volumes
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q8" value="c"> Offrir une couche d'abstraction pour la communication avec les pods
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q8" value="d"> Stocker la configuration
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q8', ['c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">kube-proxy offre une couche d'abstraction pour la communication avec les pods.</div>
+                </div>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="question-card">
+                <div class="question-number">Question 9</div>
+                <div class="question-text">Quel composant est utilisé pour surveiller les conteneurs ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q9" value="a"> kubelet
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q9" value="b"> cAdvisor
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q9" value="c"> kube-scheduler
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q9" value="d"> etcd
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q9', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">cAdvisor est utilisé pour surveiller les conteneurs dans l'architecture Kubernetes.</div>
+                </div>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="question-card">
+                <div class="question-number">Question 10</div>
+                <div class="question-text">Dans un fichier YAML de Pod, quelle section définit les conteneurs ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q10" value="a"> metadata
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q10" value="b"> spec
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q10" value="c"> containers
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q10" value="d"> apiVersion
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q10', ['c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">La section containers dans spec définit les conteneurs qui seront exécutés dans le pod.</div>
+                </div>
+            </div>
+
+            <div class="section-title">Questions de difficulté moyenne</div>
+
+            <!-- Question 11 -->
+            <div class="question-card">
+                <div class="question-number">Question 11</div>
+                <div class="question-text">Quel type de Service Kubernetes a une adresse IP statique mais pas d'accès externe par défaut ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q11" value="a"> NodePort
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q11" value="b"> LoadBalancer
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q11" value="c"> ClusterIP
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q11" value="d"> ExternalName
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q11', ['c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">ClusterIP est la configuration par défaut qui fournit une adresse IP statique sans accès externe.</div>
+                </div>
+            </div>
+
+            <!-- Question 12 -->
+            <div class="question-card">
+                <div class="question-number">Question 12</div>
+                <div class="question-text">Qu'est-ce qui différencie un Service NodePort d'un Service ClusterIP ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q12" value="a"> NodePort permet d'avoir un accès externe
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q12" value="b"> NodePort est plus sécurisé
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q12" value="c"> NodePort ne fonctionne qu'avec un seul pod
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q12" value="d"> NodePort n'a pas d'adresse IP
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q12', ['a'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">NodePort permet d'avoir un accès externe contrairement à ClusterIP qui est limité au cluster.</div>
+                </div>
+            </div>
+
+            <!-- Question 13 -->
+            <div class="question-card">
+                <div class="question-number">Question 13</div>
+                <div class="question-text">Dans un Service NodePort, que représente le targetPort ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q13" value="a"> Le port externe du nœud
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q13" value="b"> Le port sur lequel les conteneurs écoutent
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q13" value="c"> Le port du service interne
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q13" value="d"> Le port de l'équilibreur de charge
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q13', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">targetPort est le port sur lequel les conteneurs écoutent à l'intérieur des pods.</div>
+                </div>
+            </div>
+
+            <!-- Question 14 -->
+            <div class="question-card">
+                <div class="question-number">Question 14</div>
+                <div class="question-text">Quelle est la fonction principale d'un Ingress ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q14" value="a"> Gérer les volumes persistants
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q14" value="b"> Permettre d'acheminer les données vers les services en utilisant des adresses symboliques
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q14" value="c"> Créer des pods
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q14" value="d"> Configurer le réseau interne
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q14', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Ingress permet d'acheminer les données vers les services et d'utiliser des adresses symboliques en place d'adresses IP.</div>
+                </div>
+            </div>
+
+            <!-- Question 15 -->
+            <div class="question-card">
+                <div class="question-number">Question 15</div>
+                <div class="question-text">Que contient un ConfigMap ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q15" value="a"> Des images de conteneurs
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q15" value="b"> Les configurations nécessaires aux Pods
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q15" value="c"> Les secrets chiffrés
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q15" value="d"> Les définitions de services
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q15', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">ConfigMap contient les configurations nécessaires aux Pods, comme des variables d'environnement ou des fichiers de configuration.</div>
+                </div>
+            </div>
+
+            <!-- Question 16 -->
+            <div class="question-card">
+                <div class="question-number">Question 16</div>
+                <div class="question-text">Quelle est la différence principale entre ConfigMap et Secret ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q16" value="a"> ConfigMap est plus rapide
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q16" value="b"> Secret permet de stocker des données confidentielles chiffrées
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q16" value="c"> ConfigMap fonctionne uniquement avec Docker
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q16" value="d"> Secret est plus volumineux
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q16', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Secret permet de stocker des données confidentielles (mots de passe, clés, etc.) de manière sécurisée.</div>
+                </div>
+            </div>
+
+            <!-- Question 17 -->
+            <div class="question-card">
+                <div class="question-number">Question 17</div>
+                <div class="question-text">Quel type de volume permet de lier un support de stockage aux Pods ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q17" value="a"> emptyDir
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q17" value="b"> configMap
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q17" value="c"> hostPath
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q17" value="d"> volume
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q17', ['d'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Les volumes permettent de lier un support de stockage aux Pods, que ce soit local ou distant.</div>
+                </div>
+            </div>
+
+            <!-- Question 18 -->
+            <div class="question-card">
+                <div class="question-number">Question 18</div>
+                <div class="question-text">Dans un Deployment, que spécifie le champ "replicas" ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q18" value="a"> Le nombre de conteneurs par pod
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q18" value="b"> Le nombre de copies du pod à créer
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q18" value="c"> Le nombre de services
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q18" value="d"> Le nombre de volumes
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q18', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le champ replicas spécifie le nombre de copies (répliques) du pod qui doivent être créées et maintenues.</div>
+                </div>
+            </div>
+
+            <!-- Question 19 -->
+            <div class="question-card">
+                <div class="question-number">Question 19</div>
+                <div class="question-text">Qu'est-ce qu'un Deployment dans Kubernetes ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q19" value="a"> Un type de volume
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q19" value="b"> Une abstraction au-dessus des Pods pour spécifier une application
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q19" value="c"> Un protocole réseau
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q19" value="d"> Un type de service
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q19', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Un Deployment est une abstraction au-dessus des Pods qui permet de spécifier une application et de la gérer.</div>
+                </div>
+            </div>
+
+            <!-- Question 20 -->
+            <div class="question-card">
+                <div class="question-number">Question 20</div>
+                <div class="question-text">Pour quoi est-il recommandé d'utiliser un StatefulSet ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q20" value="a"> Applications stateless
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q20" value="b"> Applications stateful
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q20" value="c"> Services réseau
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q20" value="d"> Volumes temporaires
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q20', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">StatefulSet est recommandé pour les applications stateful qui nécessitent des identités stables et du stockage persistant.</div>
+                </div>
+            </div>
+
+            <div class="section-title">Questions avancées</div>
+
+            <!-- Question 21 -->
+            <div class="question-card">
+                <div class="question-number">Question 21</div>
+                <div class="question-text">Dans un fichier Ingress YAML, que définit l'annotation "nginx.ingress.kubernetes.io/rewrite-target" ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q21" value="a"> Le port de destination
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q21" value="b"> La réécriture de l'URL de destination
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q21" value="c"> Le type de protocole
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q21" value="d"> Le nom du service
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q21', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Cette annotation définit comment réécrire l'URL lors du routage vers le service backend.</div>
+                </div>
+            </div>
+
+            <!-- Question 22 -->
+            <div class="question-card">
+                <div class="question-number">Question 22</div>
+                <div class="question-text">Que se passe-t-il si un Pod utilise un ConfigMap via configMapKeyRef ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q22" value="a"> Le pod accède directement au fichier
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q22" value="b"> La valeur de la clé est injectée comme variable d'environnement
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q22" value="c"> Le pod redémarre automatiquement
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q22" value="d"> Un volume est créé
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q22', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">configMapKeyRef permet d'injecter une valeur spécifique du ConfigMap comme variable d'environnement dans le conteneur.</div>
+                </div>
+            </div>
+
+            <!-- Question 23 -->
+            <div class="question-card">
+                <div class="question-number">Question 23</div>
+                <div class="question-text">Dans un volume de type "cinder", que représente volumeID ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q23" value="a"> Le nom du volume
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q23" value="b"> L'identifiant unique du volume dans OpenStack
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q23" value="c"> La taille du volume
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q23" value="d"> Le type de système de fichiers
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q23', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">volumeID est l'identifiant unique du volume dans l'environnement OpenStack Cinder.</div>
+                </div>
+            </div>
+
+            <!-- Question 24 -->
+            <div class="question-card">
+                <div class="question-number">Question 24</div>
+                <div class="question-text">Quel est l'avantage principal des multi-stage builds mentionnés dans le cours ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q24" value="a"> Réduire la taille de l'image finale
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q24" value="b"> Augmenter la sécurité
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q24" value="c"> Améliorer les performances
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q24" value="d"> Simplifier le débogage
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q24', ['a'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Les multi-stage builds permettent de séparer la phase de compilation de l'environnement d'exécution, réduisant ainsi la taille de l'image finale.</div>
+                </div>
+            </div>
+
+            <!-- Question 25 -->
+            <div class="question-card">
+                <div class="question-number">Question 25</div>
+                <div class="question-text">Dans le contexte du développement avec Kubernetes, que représente un "Service Mesh" ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q25" value="a"> Un type de service Kubernetes
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q25" value="b"> Une couche d'infrastructure pour la communication entre microservices
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q25" value="c"> Un protocole réseau
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q25" value="d"> Un type de stockage
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q25', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Un Service Mesh est une couche d'infrastructure qui gère la communication, la sécurité et l'observabilité entre microservices.</div>
+                </div>
+            </div>
+
+            <div class="section-title">Questions à choix multiples</div>
+
+            <!-- Question 26 -->
+            <div class="question-card">
+                <div class="question-number">Question 26</div>
+                <div class="question-text">Quelles tâches sont comprises dans l'orchestration des conteneurs ? (Sélectionnez toutes les bonnes réponses)</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q26" value="a"> Planification et placement
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q26" value="b"> Réplication et mise à l'échelle
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q26" value="c"> Gestion des ressources (CPU, mémoire)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q26" value="d"> Compilation du code source
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q26', ['a', 'b', 'c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">L'orchestration comprend la planification, la réplication, la gestion des ressources, mais pas la compilation du code source.</div>
+                </div>
+            </div>
+
+            <!-- Question 27 -->
+            <div class="question-card">
+                <div class="question-number">Question 27</div>
+                <div class="question-text">Quels sont les composants principaux de l'architecture Kubernetes ? (Sélectionnez toutes les bonnes réponses)</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q27" value="a"> Master
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q27" value="b"> Nodes (anciennement Minions)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q27" value="c"> Pods
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q27" value="d"> Docker Engine
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q27', ['a', 'b', 'c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Master, Nodes et Pods sont des composants Kubernetes. Docker Engine est un runtime de conteneurs, pas spécifiquement un composant Kubernetes.</div>
+                </div>
+            </div>
+
+            <!-- Question 28 -->
+            <div class="question-card">
+                <div class="question-number">Question 28</div>
+                <div class="question-text">Quels composants font partie du plan de contrôle Kubernetes ? (Sélectionnez toutes les bonnes réponses)</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q28" value="a"> kube-scheduler
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q28" value="b"> kubelet
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q28" value="c"> REST API
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q28" value="d"> etcd
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q28', ['a', 'c', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le scheduler, l'API REST et etcd font partie du plan de contrôle. kubelet s'exécute sur chaque nœud worker.</div>
+                </div>
+            </div>
+
+            <!-- Question 29 -->
+            <div class="question-card">
+                <div class="question-number">Question 29</div>
+                <div class="question-text">Quels types de Services Kubernetes permettent l'accès externe ? (Sélectionnez toutes les bonnes réponses)</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q29" value="a"> ClusterIP
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q29" value="b"> NodePort
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q29" value="c"> LoadBalancer
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q29" value="d"> ExternalName
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q29', ['b', 'c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">NodePort et LoadBalancer permettent l'accès externe. ClusterIP est interne au cluster et ExternalName fait du mapping DNS.</div>
+                </div>
+            </div>
+
+            <!-- Question 30 -->
+            <div class="question-card">
+                <div class="question-number">Question 30</div>
+                <div class="question-text">Quelles informations peut contenir un ConfigMap ? (Sélectionnez toutes les bonnes réponses)</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q30" value="a"> Variables d'environnement
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q30" value="b"> Fichiers de configuration
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q30" value="c"> Mots de passe chiffrés
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q30" value="d"> Paramètres d'application
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q30', ['a', 'b', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">ConfigMap contient des configurations non sensibles. Les mots de passe chiffrés sont gérés par les Secrets.</div>
+                </div>
+            </div>
+
+            <!-- Questions 31-40 continuent avec le même format... -->
+            <!-- Je vais ajouter les 10 dernières questions pour compléter les 40 -->
+
+            <!-- Question 31 -->
+            <div class="question-card">
+                <div class="question-number">Question 31</div>
+                <div class="question-text">Quels sont les avantages des volumes dans Kubernetes ? (Sélectionnez toutes les bonnes réponses)</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q31" value="a"> Persistance des données
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q31" value="b"> Partage de données entre conteneurs
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q31" value="c"> Stockage local ou distant
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q31" value="d"> Chiffrement automatique
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q31', ['a', 'b', 'c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Les volumes offrent persistance, partage et flexibilité de stockage. Le chiffrement n'est pas automatique.</div>
+                </div>
+            </div>
+
+            <!-- Question 32 -->
+            <div class="question-card">
+                <div class="question-number">Question 32</div>
+                <div class="question-text">Quelles sont les caractéristiques d'un Deployment ? (Sélectionnez toutes les bonnes réponses)</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q32" value="a"> Gestion des répliques
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q32" value="b"> Mises à jour progressives
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q32" value="c"> Abstraction au-dessus des Pods
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q32" value="d"> Stockage persistant garanti
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q32', ['a', 'b', 'c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Deployment gère les répliques, les mises à jour et abstrait les Pods. Le stockage persistant nécessite des volumes spécifiques.</div>
+                </div>
+            </div>
+
+            <!-- Question 33 -->
+            <div class="question-card">
+                <div class="question-number">Question 33</div>
+                <div class="question-text">Quels composants sont spécifiques aux nœuds workers ? (Sélectionnez toutes les bonnes réponses)</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q33" value="a"> kubelet
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q33" value="b"> kube-proxy
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q33" value="c"> cAdvisor
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q33" value="d"> kube-scheduler
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q33', ['a', 'b', 'c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">kubelet, kube-proxy et cAdvisor s'exécutent sur les nœuds workers. kube-scheduler fait partie du plan de contrôle.</div>
+                </div>
+            </div>
+<!-- Question 34 -->
+<div class="question-card">
+    <div class="question-number">Question 34</div>
+    <div class="question-text">Quelles sont les bonnes pratiques pour les images de conteneurs ? (Sélectionnez toutes les bonnes réponses)</div>
+    <div class="options">
+        <label class="option">
+            <input type="checkbox" name="q34" value="a"> Utiliser des images légères
+        </label>
+        <label class="option">
+            <input type="checkbox" name="q34" value="b"> Multi-stage builds
+        </label>
+        <label class="option">
+            <input type="checkbox" name="q34" value="c"> Mettre à jour régulièrement
+        </label>
+        <label class="option">
+            <input type="checkbox" name="q34" value="d"> Inclure tous les outils de développement
+        </label>
+    </div>
+    <button class="validate-btn" onclick="validateAnswer('q34', ['a', 'b', 'c'], this)">Valider la réponse</button>
+    <div class="result">
+        <div class="explanation">Images légères, multi-stage builds et mises à jour sont recommandés. Inclure tous les outils de développement augmente inutilement la taille.</div>
+    </div>
+</div>
+
+<!-- Question 35 -->
+<div class="question-card">
+    <div class="question-number">Question 35</div>
+    <div class="question-text">Quels éléments peut contenir un Pod ? (Sélectionnez toutes les bonnes réponses)</div>
+    <div class="options">
+        <label class="option">
+            <input type="checkbox" name="q35" value="a"> Un ou plusieurs conteneurs
+        </label>
+        <label class="option">
+            <input type="checkbox" name="q35" value="b"> Volumes partagés
+        </label>
+        <label class="option">
+            <input type="checkbox" name="q35" value="c"> Adresse IP unique
+        </label>
+        <label class="option">
+            <input type="checkbox" name="q35" value="d"> Plusieurs adresses IP
+        </label>
+    </div>
+    <button class="validate-btn" onclick="validateAnswer('q35', ['a', 'b', 'c'], this)">Valider la réponse</button>
+    <div class="result">
+        <div class="explanation">Un Pod peut contenir plusieurs conteneurs qui partagent des volumes et une adresse IP unique.</div>
+    </div>
+</div>
+
+<div class="section-title">Questions de synthèse</div>
+
+<!-- Question 36 -->
+<div class="question-card">
+    <div class="question-number">Question 36</div>
+    <div class="question-text">Quelles sont les étapes typiques du déploiement d'une application avec Kubernetes ? (Sélectionnez toutes les bonnes réponses)</div>
+    <div class="options">
+        <label class="option">
+            <input type="checkbox" name="q36" value="a"> Créer les fichiers YAML de configuration
+        </label>
+        <label class="option">
+            <input type="checkbox" name="q36" value="b"> Appliquer les configurations avec kubectl
+        </label>
+        <label class="option">
+            <input type="checkbox" name="q36" value="c"> Vérifier le déploiement
+        </label>
+        <label class="option">
+            <input type="checkbox" name="q36" value="d"> Compiler le code source
+        </label>
+    </div>
+    <button class="validate-btn" onclick="validateAnswer('q36', ['a', 'b', 'c'], this)">Valider la réponse</button>
+    <div class="result">
+        <div class="explanation">Le déploiement Kubernetes implique la création de configurations, leur application et la vérification. La compilation se fait avant, lors de la création de l'image.</div>
+    </div>
+</div>
+
+<!-- Question 37 -->
+<div class="question-card">
+    <div class="question-number">Question 37</div>
+    <div class="question-text">Quels sont les avantages de l'orchestration par rapport à la gestion manuelle ? (Sélectionnez toutes les bonnes réponses)</div>
+    <div class="options">
+        <label class="option">
+            <input type="checkbox" name="q37" value="a"> Automatisation du scaling
+        </label>
+        <label class="option">
+            <input type="checkbox" name="q37" value="b"> Haute disponibilité
+        </label>
+        <label class="option">
+            <input type="checkbox" name="q37" value="c"> Gestion centralisée
+        </label>
+        <label class="option">
+            <input type="checkbox" name="q37" value="d"> Réduction des coûts de développement
+        </label>
+    </div>
+    <button class="validate-btn" onclick="validateAnswer('q37', ['a', 'b', 'c'], this)">Valider la réponse</button>
+    <div class="result">
+        <div class="explanation">L'orchestration automatise le scaling, assure la haute disponibilité et centralise la gestion. Elle peut réduire les coûts opérationnels mais pas nécessairement de développement.</div>
+    </div>
+</div>
+
+<!-- Question 38 -->
+<div class="question-card">
+    <div class="question-number">Question 38</div>
+    <div class="question-text">Quelles considérations sont importantes pour la sécurité dans Kubernetes ? (Sélectionnez toutes les bonnes réponses)</div>
+    <div class="options">
+        <label class="option">
+            <input type="checkbox" name="q38" value="a"> Utilisation des Secrets pour les données sensibles
+        </label>
+        <label class="option">
+            <input type="checkbox" name="q38" value="b"> Isolation des namespaces
+        </label>
+        <label class="option">
+            <input type="checkbox" name="q38" value="c"> Contrôle d'accès basé sur les rôles (RBAC)
+        </label>
+        <label class="option">
+            <input type="checkbox" name="q38" value="d"> Exécution en tant que root
+        </label>
+    </div>
+    <button class="validate-btn" onclick="validateAnswer('q38', ['a', 'b', 'c'], this)">Valider la réponse</button>
+    <div class="result">
+        <div class="explanation">Secrets, namespaces et RBAC sont essentiels pour la sécurité. L'exécution en tant que root est déconseillée.</div>
+    </div>
+</div>
+
+<!-- Question 39 -->
+<div class="question-card">
+    <div class="question-number">Question 39</div>
+    <div class="question-text">Quels facteurs influencent le choix d'une stratégie de déploiement ? (Sélectionnez toutes les bonnes réponses)</div>
+    <div class="options">
+        <label class="option">
+            <input type="checkbox" name="q39" value="a"> Type d'application (stateful/stateless)
+        </label>
+        <label class="option">
+            <input type="checkbox" name="q39" value="b"> Exigences de disponibilité
+        </label>
+        <label class="option">
+            <input type="checkbox" name="q39" value="c"> Contraintes de ressources
+        </label>
+        <label class="option">
+            <input type="checkbox" name="q39" value="d"> Préférences personnelles des développeurs
+        </label>
+    </div>
+    <button class="validate-btn" onclick="validateAnswer('q39', ['a', 'b', 'c'], this)">Valider la réponse</button>
+    <div class="result">
+        <div class="explanation">Le type d'application, les exigences de disponibilité et les contraintes de ressources sont des facteurs techniques importants.</div>
+    </div>
+</div>
+
+<!-- Question 40 -->
+<div class="question-card">
+    <div class="question-number">Question 40</div>
+    <div class="question-text">Quels sont les défis typiques de l'orchestration des conteneurs ? (Sélectionnez toutes les bonnes réponses)</div>
+    <div class="options">
+        <label class="option">
+            <input type="checkbox" name="q40" value="a"> Gestion de la complexité
+        </label>
+        <label class="option">
+            <input type="checkbox" name="q40" value="b"> Monitoring et observabilité
+        </label>
+        <label class="option">
+            <input type="checkbox" name="q40" value="c"> Gestion des états et des données persistantes
+        </label>
+        <label class="option">
+            <input type="checkbox" name="q40" value="d"> Simplicité d'utilisation
+        </label>
+    </div>
+    <button class="validate-btn" onclick="validateAnswer('q40', ['a', 'b', 'c'], this)">Valider la réponse</button>
+    <div class="result">
+        <div class="explanation">La complexité, le monitoring et la gestion des états sont des défis majeurs. La simplicité d'utilisation est un objectif, pas un défi.</div>
+    </div>
+</div>
+
+        </div>
+    </div>
+
+    <script>
+        let answeredQuestions = 0;
+        let correctAnswers = 0;
+        const totalQuestions = 40;
+
+        function validateAnswer(questionName, correctAnswers, button) {
+            const questionCard = button.closest('.question-card');
+            const resultDiv = questionCard.querySelector('.result');
+            const inputs = questionCard.querySelectorAll(`input[name="${questionName}"]`);
+            
+            // Vérifier si la question a déjà été répondue
+            if (button.disabled) return;
+            
+            let selectedAnswers = [];
+            inputs.forEach(input => {
+                if (input.checked) {
+                    selectedAnswers.push(input.value);
+                }
+            });
+
+            if (selectedAnswers.length === 0) {
+                alert('Veuillez sélectionner au moins une réponse !');
+                return;
+            }
+
+            // Vérifier si les réponses sont correctes
+            const isCorrect = arraysEqual(selectedAnswers.sort(), correctAnswers.sort());
+            
+            // Afficher le résultat
+            resultDiv.style.display = 'block';
+            resultDiv.className = isCorrect ? 'result correct' : 'result incorrect';
+            
+            if (isCorrect) {
+                resultDiv.innerHTML = '<strong>✅ Correct !</strong>' + resultDiv.innerHTML;
+                correctAnswers++;
+            } else {
+                resultDiv.innerHTML = '<strong>❌ Incorrect.</strong> Réponse(s) correcte(s) : ' + correctAnswers.join(', ').toUpperCase() + resultDiv.innerHTML;
+            }
+
+            // Désactiver le bouton et marquer comme répondu
+            button.disabled = true;
+            button.textContent = 'Répondu';
+            answeredQuestions++;
+
+            // Mettre à jour la progression
+            updateProgress();
+
+            // Vérifier si toutes les questions sont répondues
+            if (answeredQuestions === totalQuestions) {
+                showFinalScore();
+            }
+        }
+
+        function arraysEqual(a, b) {
+            if (a.length !== b.length) return false;
+            for (let i = 0; i < a.length; i++) {
+                if (a[i] !== b[i]) return false;
+            }
+            return true;
+        }
+
+        function updateProgress() {
+            document.getElementById('answered').textContent = answeredQuestions;
+            const progressPercentage = (answeredQuestions / totalQuestions) * 100;
+            document.getElementById('progressBar').style.width = progressPercentage + '%';
+        }
+
+        function showFinalScore() {
+            const scorePercentage = Math.round((correctAnswers / totalQuestions) * 100);
+            const finalScoreDiv = document.getElementById('finalScore');
+            
+            finalScoreDiv.style.display = 'block';
+            document.getElementById('scorePercentage').textContent = scorePercentage;
+            
+            let scoreMessage = '';
+            let scoreClass = '';
+            
+            if (scorePercentage >= 80) {
+                scoreMessage = 'Excellent ! Vous maîtrisez très bien l\'orchestration des conteneurs ! 🎉';
+                scoreClass = 'score-excellent';
+            } else if (scorePercentage >= 60) {
+                scoreMessage = 'Bon travail ! Vous avez une bonne compréhension du sujet. Continuez à apprendre ! 👍';
+                scoreClass = 'score-good';
+            } else {
+                scoreMessage = 'Il y a encore du travail à faire. Révisez le cours et réessayez ! 📚';
+                scoreClass = 'score-poor';
+            }
+            
+            document.getElementById('scoreMessage').textContent = scoreMessage;
+            finalScoreDiv.className = 'final-score ' + scoreClass;
+            
+            // Faire défiler vers le score final
+            finalScoreDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Initialiser la progression
+        updateProgress();
+    </script>
+</body>
+</html>

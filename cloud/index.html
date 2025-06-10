@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Computing - ENSAO</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 0 40px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .logo {
+            font-size: 3rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 20px;
+        }
+
+        .welcome-section {
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .welcome-title {
+            font-size: 2.5rem;
+            color: #4a5568;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .welcome-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .sections-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .section-card {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .section-card:hover::before {
+            left: 100%;
+        }
+
+        .section-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .section-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .section-card:hover .section-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #4a5568;
+            margin-bottom: 15px;
+        }
+
+        .section-description {
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .start-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        .start-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .locked-section {
+            position: relative;
+            opacity: 0.7;
+            cursor: pointer;
+        }
+
+        .locked-section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.1);
+            border-radius: 15px;
+            pointer-events: none;
+        }
+
+        .lock-overlay {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            opacity: 0.5;
+        }
+
+        .locked-btn {
+            background: linear-gradient(45deg, #9ca3af, #6b7280);
+            cursor: not-allowed;
+        }
+
+        .locked-btn:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        .locked-section:hover {
+            transform: translateY(-5px);
+            opacity: 0.8;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: white;
+            margin: 15% auto;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            color: #4a5568;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .modal-text {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .modal-close {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: rgba(255,255,255,0.8);
+            animation: fadeIn 1s ease-out 0.9s both;
+        }
+
+        .footer-text {
+            font-size: 0.9rem;
+        }
+
+        .highlight {
+            color: #ffd700;
+            font-weight: 600;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .welcome-title {
+                font-size: 2rem;
+            }
+            
+            .welcome-section {
+                padding: 30px 20px;
+            }
+            
+            .section-card {
+                padding: 25px 20px;
+            }
+            
+            .sections-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-weight: 600;
+            z-index: 100;
+        }
+
+        .back-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <a href="../index.html" class="back-btn">← Retour</a>
+    
+    <div class="container">
+        <header>
+            <div class="logo">☁️ Cloud Computing</div>
+            <div class="subtitle">Maîtrisez les technologies cloud et l'orchestration</div>
+        </header>
+
+        <main>
+            <section class="welcome-section">
+                <h1 class="welcome-title">Bienvenue dans le Cloud Computing!</h1>
+                <p class="welcome-text">
+                    Explorez les technologies cloud modernes, de la conteneurisation à l'orchestration en passant par 
+                    les services IaaS et PaaS. Ce module complet vous permettra de maîtriser les concepts essentiels 
+                    du cloud computing et de développer vos compétences pratiques.
+                </p>
+            </section>
+
+            <section class="sections-grid">
+                <a href="orchestration.html" class="section-card">
+                    <div class="section-icon">🐳</div>
+                    <h2 class="section-title">Orchestration des Conteneurs</h2>
+                    <p class="section-description">
+                        Découvrez Kubernetes, Docker et les techniques d'orchestration pour gérer vos applications conteneurisées.
+                    </p>
+                    <button class="start-btn pulse">Commencer</button>
+                </a>
+
+                <div class="section-card locked-section" onclick="showComingSoonMessage()">
+                    <div class="section-icon">🐋</div>
+                    <div class="lock-overlay">🔒</div>
+                    <h2 class="section-title">Docker & Conteneurs</h2>
+                    <p class="section-description">
+                        Apprenez les fondamentaux de Docker, la création d'images et la gestion des conteneurs.
+                    </p>
+                    <button class="start-btn locked-btn">Bientôt disponible</button>
+                </div>
+
+                <div class="section-card locked-section" onclick="showComingSoonMessage()">
+                    <div class="section-icon">🏗️</div>
+                    <div class="lock-overlay">🔒</div>
+                    <h2 class="section-title">Infrastructure as a Service (IaaS)</h2>
+                    <p class="section-description">
+                        Explorez les services d'infrastructure cloud, la virtualisation et la gestion des ressources.
+                    </p>
+                    <button class="start-btn locked-btn">Bientôt disponible</button>
+                </div>
+
+                <div class="section-card locked-section" onclick="showComingSoonMessage()">
+                    <div class="section-icon">⚙️</div>
+                    <div class="lock-overlay">🔒</div>
+                    <h2 class="section-title">Platform as a Service (PaaS)</h2>
+                    <p class="section-description">
+                        Maîtrisez les plateformes cloud pour le développement et le déploiement d'applications.
+                    </p>
+                    <button class="start-btn locked-btn">Bientôt disponible</button>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p class="footer-text">
+                🚀 Développez votre expertise cloud avec nos ressources complètes et pratiques!
+            </p>
+        </footer>
+    </div>
+
+    <!-- Modal for Coming Soon Message -->
+    <div id="comingSoonModal" class="modal">
+        <div class="modal-content">
+            <h2 class="modal-title">🔒 Bientôt disponible!</h2>
+            <p class="modal-text">
+                Cette section est actuellement en développement et sera disponible prochainement, <strong>Inchallah</strong>. 
+                <br><br>
+                Restez connectés pour plus de contenu sur le cloud computing!
+            </p>
+            <button class="modal-close" onclick="closeModal()">Compris!</button>
+        </div>
+    </div>
+
+    <script>
+        // Add smooth scrolling and interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add hover sound effect simulation
+            const cards = document.querySelectorAll('.section-card:not(.locked-section)');
+            
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transition = 'all 0.3s ease';
+                });
+            });
+
+            // Add click animation for available sections
+            const buttons = document.querySelectorAll('.start-btn:not(.locked-btn)');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Create ripple effect
+                    const ripple = document.createElement('span');
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    const x = e.clientX - rect.left - size / 2;
+                    const y = e.clientY - rect.top - size / 2;
+                    
+                    ripple.style.width = ripple.style.height = size + 'px';
+                    ripple.style.left = x + 'px';
+                    ripple.style.top = y + 'px';
+                    ripple.style.position = 'absolute';
+                    ripple.style.borderRadius = '50%';
+                    ripple.style.background = 'rgba(255,255,255,0.6)';
+                    ripple.style.transform = 'scale(0)';
+                    ripple.style.animation = 'ripple 0.6s linear';
+                    ripple.style.pointerEvents = 'none';
+                    
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => {
+                        const parentCard = this.closest('.section-card');
+                        window.location.href = parentCard.href;
+                    }, 300);
+                    
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                });
+            });
+        });
+
+        // Function to show coming soon modal
+        function showComingSoonMessage() {
+            document.getElementById('comingSoonModal').style.display = 'block';
+        }
+
+        // Function to close modal
+        function closeModal() {
+            document.getElementById('comingSoonModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            const modal = document.getElementById('comingSoonModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Add ripple animation to CSS dynamically
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+            
+            .start-btn {
+                position: relative;
+                overflow: hidden;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
