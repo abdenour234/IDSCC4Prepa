@@ -18,6 +18,19 @@
                 padding: 1.5rem;
             }
         }
+        #section-filter {
+            background: #ffffff;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 0.5rem;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        #section-filter:focus {
+            outline: none;
+            border-color: #8b5cf6;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+        }
         .glass-card {
             background: rgba(255, 255, 255, 0.98);
             border-radius: 24px;
@@ -237,18 +250,16 @@
 <body class="p-6">
     <div class="max-w-4xl mx-auto">
         <div class="glass-card p-8">
-            <div class="text-center mb-12">
+            <<div class="text-center mb-12">
                 <h1 class="text-4xl font-bold text-indigo-600 mb-2">QCM Gestion de Projet</h1>
                 <p class="text-gray-600 text-lg">Développé par Hamza Bouda</p>
-            </div>
-
-            <div class="mb-8">
-                <div class="progress-bar">
-                    <div id="progress-value" class="progress-value" style="width: 0%"></div>
-                </div>
-                <div class="flex justify-between mt-2 text-sm text-gray-500">
-                    <span id="question-counter">Question 1/150</span>
-                    <span id="score" class="font-medium">Score : 0/0</span>
+                <!-- Ajout du menu déroulant pour filtrer par section -->
+                <div class="mt-4">
+                    <label for="section-filter" class="text-gray-600 font-medium mr-2">Filtrer par section :</label>
+                    <select id="section-filter" class="p-2 border rounded-lg text-gray-700">
+                        <option value="all">Toutes les sections</option>
+                        <!-- Les sections seront ajoutées dynamiquement par JavaScript -->
+                    </select>
                 </div>
             </div>
 
@@ -291,9 +302,9 @@
                 correct: 0,
                 attempted: 0
             };
-
-            // Structure des questions
-            const questions = [
+            let filteredQuestions = []; // Tableau pour stocker les questions filtrées
+            let allQuestions = [
+                // Structure des questions
                 // Questions Scrum
                 {
                     section: "Scrum",
@@ -1864,18 +1875,45 @@
                     reference: "Guide 3P, Page 100"
                 }
             ];
-
-            const questionsContainer = document.getElementById('questions-container');
+            
+    
+            // Extraire les sections uniques
+            const sections = [...new Set(allQuestions.map(q => q.section))];
+            
+            // Remplir le menu déroulant avec les sections
+            const sectionFilter = document.getElementById('section-filter');
+            sections.forEach(section => {
+                const option = document.createElement('option');
+                option.value = section;
+                option.textContent = section;
+                sectionFilter.appendChild(option);
+            });
+    
+            // Initialiser avec toutes les questions
+            filteredQuestions = [...allQuestions];
+    
             const validateBtn = document.getElementById('validate-btn');
             const nextBtn = document.getElementById('next-btn');
-            const progressBar = document.getElementById('progress-bar');
-            const progressText = document.getElementById('progress-text');
-
+            const prevBtn = document.getElementById('prev-btn');
+    
+            // Fonction pour afficher une question
             function displayQuestion(index) {
-                const question = questions[index];
+                if (filteredQuestions.length === 0) {
+                    document.getElementById('question-container').innerHTML = `
+                        <div class="text-center p-8">
+                            <h2 class="text-2xl font-bold text-indigo-600 mb-4">Aucune question disponible</h2>
+                            <p class="text-gray-600">Veuillez sélectionner une autre section.</p>
+                        </div>`;
+                    validateBtn.disabled = true;
+                    nextBtn.disabled = true;
+                    prevBtn.disabled = true;
+                    return;
+                }
+    
+                const question = filteredQuestions[index];
                 
                 // Mise à jour du compteur de questions et de la section
-                document.getElementById('question-counter').textContent = `Question ${index + 1}/${questions.length}`;
+                document.getElementById('question-counter').textContent = `Question ${index + 1}/${filteredQuestions.length}`;
                 document.getElementById('section-indicator').textContent = question.section;
                 
                 // Affichage de la question
@@ -1896,16 +1934,11 @@
                     
                     if (!question.answered) {
                         optionDiv.addEventListener('click', () => {
-                            // Désélectionner toutes les options
                             document.querySelectorAll('.option-card').forEach(card => {
                                 card.classList.remove('selected', 'border-indigo-500', 'bg-indigo-50');
                             });
-                            
-                            // Sélectionner l'option cliquée
                             optionDiv.classList.add('selected', 'border-indigo-500', 'bg-indigo-50');
-                            
-                            // Activer le bouton de validation
-                            document.getElementById('validate-btn').disabled = false;
+                            validateBtn.disabled = false;
                         });
                     }
                     
@@ -1913,20 +1946,38 @@
                 });
                 
                 // Mise à jour de la barre de progression
-                const progress = ((index + 1) / questions.length) * 100;
+                const progress = ((index + 1) / filteredQuestions.length) * 100;
                 document.getElementById('progress-value').style.width = `${progress}%`;
                 
                 // Mise à jour des boutons
-                document.getElementById('prev-btn').disabled = index === 0;
-                document.getElementById('next-btn').disabled = !question.answered;
-                document.getElementById('validate-btn').disabled = true;
+                prevBtn.disabled = index === 0;
+                nextBtn.disabled = !question.answered;
+                validateBtn.disabled = true;
             }
-
-            document.getElementById('validate-btn').addEventListener('click', () => {
+    
+            // Événement pour le changement de section
+            sectionFilter.addEventListener('change', () => {
+                const selectedSection = sectionFilter.value;
+                currentQuestionIndex = 0;
+                score = { correct: 0, attempted: 0 };
+                document.getElementById('score').textContent = `Score : 0/0`;
+                
+                // Filtrer les questions
+                if (selectedSection === 'all') {
+                    filteredQuestions = [...allQuestions];
+                } else {
+                    filteredQuestions = allQuestions.filter(q => q.section === selectedSection);
+                }
+                
+                displayQuestion(0);
+            });
+    
+            // Gestion de la validation
+            validateBtn.addEventListener('click', () => {
                 const selectedOptionElement = document.querySelector('.option-card.selected');
                 if (!selectedOptionElement) return;
-
-                const question = questions[currentQuestionIndex];
+    
+                const question = filteredQuestions[currentQuestionIndex];
                 const selectedIndex = Array.from(document.querySelectorAll('.option-card')).indexOf(selectedOptionElement);
                 
                 question.answered = true;
@@ -1946,9 +1997,7 @@
                 feedbackContainer.classList.remove('hidden');
                 feedbackContainer.classList.add(isCorrect ? 'feedback-correct' : 'feedback-incorrect');
                 
-                // Affichage de la justification
                 const justificationText = question.justification;
-                
                 const feedbackText = document.getElementById('feedback-text');
                 feedbackText.innerHTML = `
                     <div class="p-4 ${isCorrect ? 'bg-green-50' : 'bg-red-50'} rounded-lg">
@@ -1968,33 +2017,36 @@
                 document.getElementById('score').textContent = `Score : ${score.correct}/${score.attempted}`;
                 
                 // Activation/désactivation des boutons
-                document.getElementById('validate-btn').disabled = true;
-                document.getElementById('next-btn').disabled = false;
+                validateBtn.disabled = true;
+                nextBtn.disabled = false;
             });
-
-            document.getElementById('next-btn').addEventListener('click', () => {
-                if (currentQuestionIndex < questions.length - 1) {
+    
+            // Gestion du bouton "Suivant"
+            nextBtn.addEventListener('click', () => {
+                if (currentQuestionIndex < filteredQuestions.length - 1) {
                     currentQuestionIndex++;
                     displayQuestion(currentQuestionIndex);
                 } else {
                     showFinalResults();
                 }
             });
-
-            document.getElementById('prev-btn').addEventListener('click', () => {
+    
+            // Gestion du bouton "Précédent"
+            prevBtn.addEventListener('click', () => {
                 if (currentQuestionIndex > 0) {
                     currentQuestionIndex--;
                     displayQuestion(currentQuestionIndex);
                 }
             });
-
+    
+            // Affichage des résultats finaux
             function showFinalResults() {
-                const percentage = (score.correct / questions.length) * 100;
+                const percentage = (score.correct / filteredQuestions.length) * 100;
                 const container = document.getElementById('question-container');
                 container.innerHTML = `
                     <div class="text-center p-8">
                         <h2 class="text-2xl font-bold text-indigo-600 mb-4">Quiz terminé !</h2>
-                        <p class="text-xl mb-4">Votre score final : ${score.correct}/${questions.length} (${percentage.toFixed(1)}%)</p>
+                        <p class="text-xl mb-4">Votre score final : ${score.correct}/${filteredQuestions.length} (${percentage.toFixed(1)}%)</p>
                         <div class="space-y-4">
                             <p class="text-gray-600">Consultez les résultats détaillés pour voir vos points forts et les domaines à améliorer.</p>
                             <button onclick="window.location.href='results.html'" class="btn btn-primary">
@@ -2008,16 +2060,16 @@
                 `;
                 
                 // Cacher les boutons de navigation
-                document.getElementById('validate-btn').style.display = 'none';
-                document.getElementById('next-btn').style.display = 'none';
-                document.getElementById('prev-btn').style.display = 'none';
+                validateBtn.style.display = 'none';
+                nextBtn.style.display = 'none';
+                prevBtn.style.display = 'none';
                 document.getElementById('feedback-container').style.display = 'none';
                 
                 // Sauvegarder les résultats
                 localStorage.setItem('qcmScore', score.correct.toString());
-                localStorage.setItem('qcmTotal', questions.length.toString());
+                localStorage.setItem('qcmTotal', filteredQuestions.length.toString());
             }
-
+    
             // Démarrer le quiz
             displayQuestion(0);
         });
