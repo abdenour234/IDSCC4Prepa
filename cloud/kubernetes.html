@@ -1487,13 +1487,254 @@
                 </div>
             </div>
 
+            <div class="section-title">Questions Avancées sur Kubernetes</div>
+
+            <!-- Question 51 -->
+            <div class="question-card">
+                <div class="question-number">Question 51</div>
+                <div class="question-text">Quelle est la principale différence entre un HorizontalPodAutoscaler (HPA) et un VerticalPodAutoscaler (VPA) dans Kubernetes ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q51" value="a"> HPA ajuste le nombre de réplicas des pods, tandis que VPA ajuste les ressources (CPU/mémoire) allouées à chaque pod.
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q51" value="b"> HPA fonctionne uniquement avec des Deployments, tandis que VPA fonctionne avec des StatefulSets.
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q51" value="c"> HPA utilise des métriques réseau, tandis que VPA utilise des métriques de stockage.
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q51" value="d"> HPA est activé par défaut, tandis que VPA nécessite une configuration manuelle du scheduler.
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q51', ['a'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le HPA (HorizontalPodAutoscaler) ajuste dynamiquement le nombre de réplicas d'un pod en fonction des métriques comme l'utilisation du CPU ou de la mémoire. Le VPA (VerticalPodAutoscaler) modifie les limites et les demandes de ressources (CPU/mémoire) d'un pod pour optimiser son allocation. L'option B est incorrecte car les deux peuvent fonctionner avec différents types de ressources. L'option C est erronée car les métriques réseau ou de stockage ne sont pas spécifiques à l'un ou l'autre. L'option D est partiellement vraie, mais VPA ne nécessite pas toujours une reconfiguration du scheduler.</div>
+                </div>
+            </div>
+
+            <!-- Question 52 -->
+            <div class="question-card">
+                <div class="question-number">Question 52</div>
+                <div class="question-text">Lors de la configuration d'un PodDisruptionBudget (PDB), quel paramètre garantit qu'un minimum de pods reste disponible pendant une perturbation volontaire ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q52" value="a"> maxUnavailable
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q52" value="b"> minAvailable
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q52" value="c"> disruptionThreshold
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q52" value="d"> podEvictionPolicy
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q52', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le paramètre minAvailable dans un PodDisruptionBudget spécifie le nombre minimum de pods qui doivent rester disponibles pendant une perturbation volontaire (par exemple, lors d'une mise à jour ou d'un drainage de nœud). maxUnavailable définit le nombre maximum de pods qui peuvent être indisponibles. Les options C et D sont des distracteurs, car disruptionThreshold et podEvictionPolicy n'existent pas dans la configuration d'un PDB.</div>
+                </div>
+            </div>
+
+            <!-- Question 53 -->
+            <div class="question-card">
+                <div class="question-number">Question 53</div>
+                <div class="question-text">Dans un cluster Kubernetes multi-tenant, comment les NetworkPolicies peuvent-elles être utilisées pour isoler les namespaces tout en permettant une communication spécifique entre eux ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q53" value="a"> En définissant des règles basées sur les labels de pods et les sélecteurs de namespace.
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q53" value="b"> En utilisant des annotations sur les services pour restreindre l'accès réseau.
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q53" value="c"> En configurant des règles dans le kube-proxy pour bloquer le trafic inter-namespace.
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q53" value="d"> En appliquant des règles de pare-feu directement sur les nœuds du cluster.
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q53', ['a'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Les NetworkPolicies dans Kubernetes contrôlent le trafic réseau en fonction des labels des pods et des sélecteurs de namespace, offrant un moyen précis d'isoler ou d'autoriser la communication entre namespaces. L'option B est incorrecte car les annotations ne sont pas utilisées pour les NetworkPolicies. L'option C est erronée car kube-proxy ne gère pas directement les NetworkPolicies (cela dépend du CNI). L'option D est incorrecte car les NetworkPolicies sont appliquées au niveau du cluster, pas au niveau des nœuds physiques.</div>
+                </div>
+            </div>
+
+            <!-- Question 54 -->
+            <div class="question-card">
+                <div class="question-number">Question 54</div>
+                <div class="question-text">Quel mécanisme Kubernetes permet de gérer les mises à jour progressives d'un Deployment tout en minimisant les interruptions de service ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q54" value="a"> Recreate Strategy
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q54" value="b"> RollingUpdate Strategy
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q54" value="c"> Blue-Green Deployment
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q54" value="d"> Canary Deployment
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q54', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">La stratégie RollingUpdate dans un Deployment permet de mettre à jour les pods progressivement, en remplaçant les anciens pods par des nouveaux tout en maintenant un certain niveau de disponibilité. La stratégie Recreate (A) arrête tous les pods avant de déployer les nouveaux, causant une interruption. Les options C et D (Blue-Green et Canary) sont des stratégies de déploiement avancées, mais elles ne sont pas des mécanismes natifs des Deployments dans Kubernetes et nécessitent des configurations supplémentaires.</div>
+                </div>
+            </div>
+
+            <!-- Question 55 -->
+            <div class="question-card">
+                <div class="question-number">Question 55</div>
+                <div class="question-text">Quelle est la principale différence entre un Job et un CronJob dans Kubernetes ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q55" value="a"> Un Job exécute une tâche unique, tandis qu'un CronJob exécute des tâches récurrentes selon un planning.
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q55" value="b"> Un Job peut exécuter plusieurs pods en parallèle, tandis qu'un CronJob est limité à un seul pod.
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q55" value="c"> Un Job est utilisé pour des tâches stateful, tandis qu'un CronJob est utilisé pour des tâches stateless.
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q55" value="d"> Un Job nécessite un ConfigMap, tandis qu'un CronJob utilise un Secret.
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q55', ['a'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Un Job est conçu pour exécuter une tâche unique jusqu'à son achèvement, tandis qu'un CronJob exécute des tâches de manière récurrente selon un planning défini (similaire à un cron Linux). L'option B est incorrecte car les deux peuvent exécuter plusieurs pods en parallèle. L'option C est erronée car les deux sont généralement utilisés pour des tâches stateless. L'option D est fausse car ni l'un ni l'autre n'exige spécifiquement un ConfigMap ou un Secret.</div>
+                </div>
+            </div>
+
+            <!-- Question 56 -->
+            <div class="question-card">
+                <div class="question-number">Question 56</div>
+                <div class="question-text">Lors de la configuration d'un StatefulSet, que garantit le champ podManagementPolicy avec la valeur OrderedReady ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q56" value="a"> Les pods sont créés et supprimés en parallèle pour maximiser la vitesse.
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q56" value="b"> Les pods sont créés et deviennent prêts dans un ordre séquentiel (0, 1, 2, …).
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q56" value="c"> Les pods partagent une identité réseau commune.
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q56" value="d"> Les pods sont redimensionnés automatiquement en fonction des ressources disponibles.
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q56', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Avec podManagementPolicy: OrderedReady, un StatefulSet crée et attend que chaque pod soit prêt dans un ordre séquentiel (par exemple, pod-0, puis pod-1, etc.). Cela garantit une gestion ordonnée, utile pour les applications stateful comme les bases de données. L'option A décrit la politique Parallel. L'option C concerne les services de type Headless, pas podManagementPolicy. L'option D est incorrecte car cela relève du HPA, pas du StatefulSet.</div>
+                </div>
+            </div>
+
+            <!-- Question 57 -->
+            <div class="question-card">
+                <div class="question-number">Question 57</div>
+                <div class="question-text">Comment Kubernetes gère-t-il la résolution DNS pour les services dans un cluster multi-tenant avec plusieurs namespaces ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q57" value="a"> En utilisant un format &lt;nom-service&gt;.&lt;namespace&gt;.svc.cluster.local.
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q57" value="b"> En attribuant une adresse IP unique à chaque namespace.
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q57" value="c"> En configurant un serveur DNS externe pour chaque namespace.
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q57" value="d"> En désactivant la résolution DNS pour les services inter-namespace.
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q57', ['a'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Kubernetes utilise un format DNS standard, &lt;nom-service&gt;.&lt;namespace&gt;.svc.cluster.local, pour résoudre les noms des services dans un cluster. Cela permet une communication précise entre services, même dans des namespaces différents. L'option B est incorrecte car les namespaces n'ont pas d'adresses IP. L'option C est erronée car Kubernetes utilise CoreDNS (ou un équivalent) en interne. L'option D est fausse car la résolution DNS est active par défaut.</div>
+                </div>
+            </div>
+
+            <!-- Question 58 -->
+            <div class="question-card">
+                <div class="question-number">Question 58</div>
+                <div class="question-text">Quel est l'impact de définir une affinity de type requiredDuringSchedulingIgnoredDuringExecution dans une spécification de pod ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q58" value="a"> Le pod ne sera planifié que si la règle d'affinité est satisfaite, mais elle est ignorée une fois le pod en cours d'exécution.
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q58" value="b"> Le pod est planifié même si la règle d'affinité n'est pas satisfaite, mais elle est appliquée pendant l'exécution.
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q58" value="c"> La règle d'affinité s'applique uniquement aux pods stateful.
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q58" value="d"> La règle d'affinité est appliquée uniquement pendant la phase de terminaison du pod.
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q58', ['a'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Une règle d'affinité de type requiredDuringSchedulingIgnoredDuringExecution force le scheduler à respecter la règle lors de la planification du pod, mais elle n'est plus prise en compte une fois le pod en cours d'exécution. L'option B décrit une règle de type preferredDuringSchedulingIgnoredDuringExecution. Les options C et D sont incorrectes car les règles d'affinité s'appliquent à tous les types de pods et ne sont pas limitées à la phase de terminaison.</div>
+                </div>
+            </div>
+
+            <!-- Question 59 -->
+            <div class="question-card">
+                <div class="question-number">Question 59</div>
+                <div class="question-text">Dans un scénario où un nœud devient NotReady, que fait le mécanisme de taint et toleration pour gérer les pods sur ce nœud ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q59" value="a"> Les taints empêchent les pods sans tolérations correspondantes d'être planifiés sur le nœud.
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q59" value="b"> Les taints suppriment automatiquement tous les pods du nœud, indépendamment des tolérations.
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q59" value="c"> Les tolérations permettent aux pods d'ignorer les limites de ressources du nœud.
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q59" value="d"> Les taints redirigent le trafic réseau vers un autre nœud.
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q59', ['a'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Les taints sur un nœud empêchent les pods d'être planifiés sur ce nœud, sauf si ces pods possèdent une toleration correspondante. Cela permet de contrôler précisément quels pods peuvent être déployés sur des nœuds spécifiques, comme un nœud NotReady. L'option B est incorrecte car les taints ne suppriment pas les pods existants. L'option C est fausse car les tolérations ne concernent pas les limites de ressources. L'option D est erronée car les taints n'affectent pas le routage réseau.</div>
+                </div>
+            </div>
+
+            <!-- Question 60 -->
+            <div class="question-card">
+                <div class="question-number">Question 60</div>
+                <div class="question-text">Quelle est la différence entre un CustomResourceDefinition (CRD) et un Aggregated API dans Kubernetes ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q60" value="a"> Un CRD étend l'API Kubernetes avec des ressources personnalisées, tandis qu'un Aggregated API permet d'exposer des API externes via le serveur d'API Kubernetes.
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q60" value="b"> Un CRD est utilisé uniquement pour les applications stateful, tandis qu'un Aggregated API est utilisé pour les applications stateless.
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q60" value="c"> Un CRD nécessite un opérateur, tandis qu'un Aggregated API est géré par le kube-scheduler.
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q60" value="d"> Un CRD est limité aux namespaces, tandis qu'un Aggregated API est global au cluster.
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q60', ['a'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Un CustomResourceDefinition (CRD) permet de définir des ressources personnalisées dans Kubernetes, étendant ainsi l'API pour des besoins spécifiques. Un Aggregated API permet d'intégrer des API externes dans le serveur d'API Kubernetes, en les exposant comme des ressources natives. L'option B est incorrecte car les deux peuvent être utilisés pour tout type d'application. L'option C est fausse car un CRD ne nécessite pas toujours un opérateur, et un Aggregated API n'est pas géré par le kube-scheduler. L'option D est erronée car les CRD peuvent être globaux ou limités à un namespace, tout comme les Aggregated APIs.</div>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
         let answeredQuestions = 0;
         let correctAnswers = 0;
-        const totalQuestions = 40;
+        const totalQuestions = 50;
 
         function validateAnswer(questionName, correctAnswers, button) {
             const questionCard = button.closest('.question-card');
