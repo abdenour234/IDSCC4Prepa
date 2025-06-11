@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QCM - Platform as a Service (PaaS)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .quiz-container {
+            padding: 30px;
+        }
+
+        .back-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .section-title {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 15px 20px;
+            margin: 30px 0 20px 0;
+            border-radius: 8px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .question-card {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .question-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-color: #3498db;
+        }
+
+        .question-number {
+            background: #3498db;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .options {
+            margin-bottom: 20px;
+        }
+
+        .option {
+            background: white;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .option:hover {
+            border-color: #3498db;
+            background: #f0f8ff;
+        }
+
+        .option input[type="checkbox"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+
+        .validate-btn {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .validate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+
+        .validate-btn:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            display: none;
+        }
+
+        .correct {
+            background: #d4edda;
+            border: 2px solid #c3e6cb;
+            color: #155724;
+        }
+
+        .incorrect {
+            background: #f8d7da;
+            border: 2px solid #f5c6cb;
+            color: #721c24;
+        }
+
+        .explanation {
+            margin-top: 10px;
+            font-weight: normal;
+            line-height: 1.6;
+            color: #495057;
+            font-size: 0.95rem;
+        }
+
+        .progress-bar {
+            background: #e9ecef;
+            height: 8px;
+            border-radius: 4px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .stats {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 1.1rem;
+            color: #2c3e50;
+        }
+
+        .final-score {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 30px 0;
+            display: none;
+        }
+
+        .score-excellent {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+        }
+
+        .score-good {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+        }
+
+        .score-poor {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .quiz-container {
+                padding: 20px;
+            }
+            
+            .question-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 QCM Platform as a Service (PaaS)</h1>
+            <p>Testez vos connaissances sur les concepts PaaS et les plateformes cloud</p>
+        </div>
+
+        <div class="quiz-container">
+            <a href="index.html" class="back-btn">← Retour au menu</a>
+
+            <div class="section-title">Batch 1 : Concepts fondamentaux PaaS (Questions 1-20)</div>
+
+            <div class="stats">
+                <strong>Questions répondues : <span id="answered">0</span> / <span id="total">20</span></strong>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressBar"></div>
+                </div>
+            </div>
+
+            <!-- Question 1 -->
+            <div class="question-card">
+                <div class="question-number">Question 1</div>
+                <div class="question-text">Quelles sont les principales limitations d'IaaS que PaaS vise à résoudre ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q1" value="a"> Coût élevé de l'infrastructure
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q1" value="b"> Absence de logiciels pré-installés
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q1" value="c"> Nécessité de gérer l'infrastructure manuellement
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q1" value="d"> Manque de sécurité
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q1" value="e"> Complexité de déploiement des applications
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q1', ['b', 'c', 'e'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">PaaS résout les limitations d'IaaS en fournissant des logiciels pré-installés, en automatisant la gestion de l'infrastructure, et en simplifiant le déploiement des applications.</div>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question-card">
+                <div class="question-number">Question 2</div>
+                <div class="question-text">PaaS comprend généralement quels éléments ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q2" value="a"> Système d'exploitation
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q2" value="b"> Langage de programmation
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q2" value="c"> Environnement d'exécution (runtime Java)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q2" value="d"> Base de données (MySQL, Oracle)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q2" value="e"> Hardware physique
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q2', ['a', 'b', 'c', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">PaaS fournit une plateforme complète incluant OS, langages, runtimes et bases de données, mais pas le hardware physique qui relève d'IaaS.</div>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question-card">
+                <div class="question-number">Question 3</div>
+                <div class="question-text">Quelles sont les principales caractéristiques des plateformes PaaS ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q3" value="a"> Multi-tenant
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q3" value="b"> Elasticity (élasticité)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q3" value="c"> Gestion manuelle des serveurs
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q3" value="d"> Rapid deployment (déploiement rapide)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q3" value="e"> Zero footprint
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q3', ['a', 'b', 'd', 'e'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">PaaS se caractérise par le multi-tenancy, l'élasticité, le déploiement rapide et l'absence d'empreinte d'infrastructure (zero footprint). La gestion manuelle va à l'encontre des principes PaaS.</div>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question-card">
+                <div class="question-number">Question 4</div>
+                <div class="question-text">Dans le modèle de responsabilité partagée, que gère le client en PaaS ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q4" value="a"> Applications
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q4" value="b"> Data (données)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q4" value="c"> Runtime
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q4" value="d"> Middleware
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q4" value="e"> Système d'exploitation
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q4', ['a', 'b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">En PaaS, le client ne gère que ses applications et ses données. Le runtime, middleware et OS sont gérés par le fournisseur PaaS.</div>
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="question-card">
+                <div class="question-number">Question 5</div>
+                <div class="question-text">Quels sont des exemples de plateformes PaaS mentionnés dans le cours ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q5" value="a"> Heroku
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q5" value="b"> Google App Engine
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q5" value="c"> AWS Elastic Beanstalk
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q5" value="d"> Amazon EC2
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q5" value="e"> Cloud Foundry
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q5', ['a', 'b', 'c', 'e'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Heroku, Google App Engine, AWS Elastic Beanstalk et Cloud Foundry sont des plateformes PaaS. Amazon EC2 est un service IaaS.</div>
+                </div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="question-card">
+                <div class="question-number">Question 6</div>
+                <div class="question-text">Concernant Google App Engine, quelles affirmations sont correctes ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q6" value="a"> Permet de développer et héberger des applications web dans les centres de données Google
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q6" value="b"> Sorti en avril 2008
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q6" value="c"> Fournit des outils de développement et API pour Python
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q6" value="d"> Nécessite la gestion manuelle des serveurs
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q6" value="e"> Ne supporte que les applications Java
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q6', ['a', 'b', 'c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Google App Engine permet l'hébergement d'applications web Google, est sorti en avril 2008 avec support Python. Il automatise la gestion des serveurs et supporte plusieurs langages.</div>
+                </div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="question-card">
+                <div class="question-number">Question 7</div>
+                <div class="question-text">Quelles sont les caractéristiques avancées des plateformes PaaS ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q7" value="a"> Scalability (évolutivité)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q7" value="b"> Programming model
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q7" value="c"> Metering, monitoring, reporting and billing
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q7" value="d"> Gestion manuelle de l'infrastructure
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q7" value="e"> Support pour applications personnalisées
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q7', ['a', 'b', 'c', 'e'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">PaaS offre la scalabilité, un modèle de programmation, le monitoring/facturation et le support d'applications personnalisées. La gestion manuelle d'infrastructure n'est pas une caractéristique PaaS.</div>
+                </div>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="question-card">
+                <div class="question-number">Question 8</div>
+                <div class="question-text">Cloud Foundry présente quelles caractéristiques ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q8" value="a"> Première PaaS Open Source lancée par VMware en 2011
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q8" value="b"> Utilise BOSH comme outil de préparation d'infrastructure
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q8" value="c"> Uniquement disponible en version propriétaire
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q8" value="d"> Conception débutée en 2009
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q8" value="e"> Limité aux applications Microsoft
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q8', ['a', 'b', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Cloud Foundry est la première PaaS Open Source de VMware (2011), utilise BOSH, et sa conception a commencé en 2009. Elle est open source et multi-plateforme.</div>
+                </div>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="question-card">
+                <div class="question-number">Question 9</div>
+                <div class="question-text">Dans l'architecture OpenShift, quels rôles ont les nœuds "Master" ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q9" value="a"> Traiter les requêtes à l'API d'administration
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q9" value="b"> Réaliser les opérations de build des images
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q9" value="c"> Déploiement des containers
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q9" value="d"> Assurer la résilience des PODs
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q9" value="e"> Exécuter uniquement les applications utilisateur
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q9', ['a', 'b', 'c', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Les nœuds Master gèrent l'API, le build d'images, le déploiement et la résilience des PODs. L'exécution d'applications se fait sur les nœuds Workers.</div>
+                </div>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="question-card">
+                <div class="question-number">Question 10</div>
+                <div class="question-text">OpenShift se caractérise par quels éléments ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q10" value="a"> Plateforme polyglotte pour développement web
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q10" value="b"> Basée sur les technologies de conteneurs
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q10" value="c"> Architecture basée sur les microservices
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q10" value="d"> Utilise Docker comme technologie de conteneurs
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q10" value="e"> Fonctionne uniquement sur Windows
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q10', ['a', 'b', 'c', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">OpenShift est polyglotte, basé sur les conteneurs Docker, utilise une architecture microservices, et fonctionne sur multiple plateformes (pas uniquement Windows).</div>
+                </div>
+            </div>
+
+            <!-- Question 11 -->
+            <div class="question-card">
+                <div class="question-number">Question 11</div>
+                <div class="question-text">Quels sont les modes de construction d'applications dans OpenShift ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q11" value="a"> Mode Custom Build
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q11" value="b"> Mode Docker-File
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q11" value="c"> Mode Source-To-Image (S2I)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q11" value="d"> Mode Virtual Machine
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q11" value="e"> Mode Direct Deploy
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q11', ['a', 'b', 'c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">OpenShift propose trois modes de build : Custom Build, Docker-File et Source-To-Image (S2I). Les modes VM et Direct Deploy ne sont pas des modes de build OpenShift.</div>
+                </div>
+            </div>
+
+            <!-- Question 12 -->
+            <div class="question-card">
+                <div class="question-number">Question 12</div>
+                <div class="question-text">Le mode Custom Build permet quoi ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q12" value="a"> Fournir sa propre logique de build d'une application
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q12" value="b"> Utiliser une image Docker conçue spécifiquement pour le build
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q12" value="c"> Déploiement automatique sans configuration
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q12" value="d"> Utilisation uniquement des outils OpenShift standards
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q12" value="e"> Personnalisation complète du processus de construction
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q12', ['a', 'b', 'e'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le mode Custom Build permet de fournir sa propre logique de build, d'utiliser une image Docker spécialisée, et offre une personnalisation complète du processus de construction.</div>
+                </div>
+            </div>
+
+            <!-- Question 13 -->
+            <div class="question-card">
+                <div class="question-number">Question 13</div>
+                <div class="question-text">Le mode Docker-File dans OpenShift permet :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q13" value="a"> Construction automatique d'un container Docker
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q13" value="b"> Utilisation d'un gestionnaire de code source
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q13" value="c"> Pointage sur un Docker-File et ses dépendances
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q13" value="d"> Fonctionnement sans Docker-File
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q13" value="e"> Déploiement uniquement en local
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q13', ['a', 'b', 'c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le mode Docker-File permet la construction automatique de containers, utilise un gestionnaire de code source, et pointe sur un Docker-File avec ses dépendances.</div>
+                </div>
+            </div>
+
+            <!-- Question 14 -->
+            <div class="question-card">
+                <div class="question-number">Question 14</div>
+                <div class="question-text">Quelles commandes Docker de base sont essentielles ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q14" value="a"> docker images
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q14" value="b"> docker ps
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q14" value="c"> docker build
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q14" value="d"> docker run
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q14" value="e"> docker compile
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q14', ['a', 'b', 'c', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Les commandes essentielles Docker sont images (lister les images), ps (lister les containers), build (construire) et run (exécuter). 'docker compile' n'existe pas.</div>
+                </div>
+            </div>
+
+            <!-- Question 15 -->
+            <div class="question-card">
+                <div class="question-number">Question 15</div>
+                <div class="question-text">Pour la gestion des containers Docker, quelles commandes sont utiles ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q15" value="a"> docker rm containerid (supprimer une instance)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q15" value="b"> docker rmi image-name (supprimer une image)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q15" value="c"> docker stop &lt;name&gt; (arrêter un container)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q15" value="d"> docker exec -it &lt;name&gt; &lt;command&gt; (exécuter une commande)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q15" value="e"> docker delete all (supprimer tout)
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q15', ['a', 'b', 'c', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Les commandes utiles sont rm (supprimer container), rmi (supprimer image), stop (arrêter), et exec (exécuter commande). 'docker delete all' n'existe pas.</div>
+                </div>
+            </div>
+
+            <!-- Question 16 -->
+            <div class="question-card">
+                <div class="question-number">Question 16</div>
+                <div class="question-text">Le mode Source-To-Image (S2I) permet :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q16" value="a"> Construction automatique d'une application
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q16" value="b"> Pousser le code source applicatif directement dans OpenShift
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q16" value="c"> Utilisation uniquement de Docker-Files
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q16" value="d"> Déclenchement automatique lors de changements de code
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q16" value="e"> Intégration avec les gestionnaires de code source
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q16', ['a', 'b', 'd', 'e'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">S2I permet la construction automatique, le push de code source direct, le déclenchement automatique et l'intégration avec les gestionnaires de code. Il ne se limite pas aux Docker-Files.</div>
+                </div>
+            </div>
+
+            <!-- Question 17 -->
+            <div class="question-card">
+                <div class="question-number">Question 17</div>
+                <div class="question-text">Kubernetes dans l'écosystème OpenShift sert à :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q17" value="a"> Orchestration des conteneurs
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q17" value="b"> Gestion des PODs
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q17" value="c"> Compilation du code source
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q17" value="d"> Scheduling des tâches
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q17" value="e"> Gestion de la résilience
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q17', ['a', 'b', 'd', 'e'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Kubernetes gère l'orchestration des conteneurs, les PODs, le scheduling et la résilience. La compilation du code source n'est pas une fonction de Kubernetes.</div>
+                </div>
+            </div>
+
+            <!-- Question 18 -->
+            <div class="question-card">
+                <div class="question-number">Question 18</div>
+                <div class="question-text">Dans l'architecture d'intégration OpenShift-OpenStack, on trouve :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q18" value="a"> OpenStack shared services en bas de pile
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q18" value="b"> Services de compute, networking, storage
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q18" value="c"> KVM et Ironic comme hyperviseurs
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q18" value="d"> Kubernetes au niveau orchestration
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q18" value="e"> Uniquement des machines virtuelles
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q18', ['a', 'b', 'c', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">L'intégration OpenShift-OpenStack comprend les services partagés OpenStack, compute/networking/storage, les hyperviseurs KVM/Ironic, et Kubernetes. Elle ne se limite pas aux VMs.</div>
+                </div>
+            </div>
+
+            <!-- Question 19 -->
+            <div class="question-card">
+                <div class="question-number">Question 19</div>
+                <div class="question-text">AWS Elastic Beanstalk se caractérise par :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q19" value="a"> Déploiement d'applications sans connaître l'infrastructure
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q19" value="b"> Gestion automatique de l'infrastructure sous-jacente
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q19" value="c"> Nécessité de configurer manuellement les serveurs
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q19" value="d"> Support de plusieurs langages de programmation
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q19" value="e"> Intégration avec les autres services AWS
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q19', ['a', 'b', 'd', 'e'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Elastic Beanstalk permet le déploiement sans connaître l'infrastructure, gère automatiquement l'infrastructure, supporte multiple langages et s'intègre avec AWS. Il évite la configuration manuelle.</div>
+                </div>
+            </div>
+
+            <!-- Question 20 -->
+            <div class="question-card">
+                <div class="question-number">Question 20</div>
+                <div class="question-text">Les micro-PaaS basés sur Docker incluent :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q20" value="a"> Flynn
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q20" value="b"> Deis
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q20" value="c"> Dokku (mini-Heroku open source)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q20" value="d"> Docker Compose uniquement
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q20" value="e"> Virtual Box
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q20', ['a', 'b', 'c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Flynn, Deis et Dokku sont des micro-PaaS basés sur Docker. Docker Compose est un outil d'orchestration et Virtual Box est un hyperviseur, pas des PaaS.</div>
+                </div>
+            </div>
+
+            <div class="final-score" id="finalScore">
+                <h2>🎉 Félicitations ! Vous avez terminé le Batch 1</h2>
+                <p>Votre score : <span id="scorePercentage">0</span>%</p>
+                <p id="scoreMessage">Excellent travail sur les concepts PaaS !</p>
+                <br>
+                <p>Passez au Batch 2 pour continuer votre apprentissage !</p>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        let answeredQuestions = 0;
+        let correctAnswers = 0;
+        const totalQuestions = 20;
+
+        function validateAnswer(questionId, correctOptions, button) {
+            const options = document.querySelectorAll(`input[name="${questionId}"]:checked`);
+            const selectedValues = Array.from(options).map(option => option.value);
+            const resultDiv = button.nextElementSibling;
+            const explanationDiv = resultDiv.querySelector('.explanation');
+
+            // Check if the selected answers match the correct ones
+            const isCorrect = selectedValues.length === correctOptions.length &&
+                             selectedValues.every(val => correctOptions.includes(val)) &&
+                             correctOptions.every(val => selectedValues.includes(val));
+
+            // Update result display
+            resultDiv.style.display = 'block';
+            resultDiv.textContent = isCorrect ? 'Correct !' : 'Incorrect !';
+            resultDiv.classList.add(isCorrect ? 'correct' : 'incorrect');
+            resultDiv.appendChild(explanationDiv); // Re-append explanation
+
+            // Disable inputs and button after validation
+            document.querySelectorAll(`input[name="${questionId}"]`).forEach(input => {
+                input.disabled = true;
+            });
+            button.disabled = true;
+
+            // Update progress
+            answeredQuestions++;
+            if (isCorrect) correctAnswers++;
+            updateProgress();
+
+            // Show final score if all questions are answered
+            if (answeredQuestions === totalQuestions) {
+                showFinalScore();
+            }
+        }
+
+        function updateProgress() {
+            const progressBar = document.getElementById('progressBar');
+            const answeredText = document.getElementById('answered');
+            const progressPercentage = (answeredQuestions / totalQuestions) * 100;
+            progressBar.style.width = `${progressPercentage}%`;
+            answeredText.textContent = answeredQuestions;
+        }
+
+        function showFinalScore() {
+            const finalScoreDiv = document.getElementById('finalScore');
+            const scorePercentageSpan = document.getElementById('scorePercentage');
+            const scoreMessage = document.getElementById('scoreMessage');
+            const score = (correctAnswers / totalQuestions) * 100;
+
+            scorePercentageSpan.textContent = score.toFixed(2);
+            finalScoreDiv.style.display = 'block';
+
+            if (score >= 80) {
+                finalScoreDiv.classList.add('score-excellent');
+                scoreMessage.textContent = 'Excellent ! Vous maîtrisez parfaitement les concepts PaaS de base.';
+            } else if (score >= 60) {
+                finalScoreDiv.classList.add('score-good');
+                scoreMessage.textContent = 'Bon travail ! Vous avez une bonne compréhension du PaaS.';
+            } else {
+                finalScoreDiv.classList.add('score-poor');
+                scoreMessage.textContent = 'Continuez vos efforts ! Revisitez les concepts de base du PaaS.';
+            }
+        }
+    </script>
+</body>
+</html>
