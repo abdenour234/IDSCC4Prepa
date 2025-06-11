@@ -1,0 +1,2752 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QCM - Cloud Computing et Virtualisation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .quiz-container {
+            padding: 30px;
+        }
+
+        .back-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .section-title {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 15px 20px;
+            margin: 30px 0 20px 0;
+            border-radius: 8px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .question-card {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .question-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-color: #3498db;
+        }
+
+        .question-number {
+            background: #3498db;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .options {
+            margin-bottom: 20px;
+        }
+
+        .option {
+            background: white;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .option:hover {
+            border-color: #3498db;
+            background: #f0f8ff;
+        }
+
+        .option input[type="radio"], .option input[type="checkbox"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+
+        .validate-btn {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .validate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+
+        .validate-btn:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            display: none;
+        }
+
+        .correct {
+            background: #d4edda;
+            border: 2px solid #c3e6cb;
+            color: #155724;
+        }
+
+        .incorrect {
+            background: #f8d7da;
+            border: 2px solid #f5c6cb;
+            color: #721c24;
+        }
+
+        .explanation {
+            margin-top: 10px;
+            font-weight: normal;
+            line-height: 1.6;
+            color: #495057;
+            font-size: 0.95rem;
+        }
+
+        .progress-bar {
+            background: #e9ecef;
+            height: 8px;
+            border-radius: 4px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .stats {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 1.1rem;
+            color: #2c3e50;
+        }
+
+        .final-score {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 30px 0;
+            display: none;
+        }
+
+        .score-excellent {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+        }
+
+        .score-good {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+        }
+
+        .score-poor {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .quiz-container {
+                padding: 20px;
+            }
+            
+            .question-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>☁️ Cloud Computing et Virtualisation</h1>
+            <p>Testez vos connaissances sur le cloud computing et la virtualisation avec 60 questions</p>
+        </div>
+        
+        <div class="quiz-container">
+            <a href="index.html" class="back-btn">← Retour à l'accueil</a>
+            
+            <div class="stats">
+                <strong>Progression : <span id="answered">0</span>/60 questions répondues</strong>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar"></div>
+            </div>
+
+            <div class="final-score" id="finalScore">
+                <h2>🎉 Félicitations!</h2>
+                <p>Votre score final : <span id="scorePercentage"></span>%</p>
+                <p id="scoreMessage"></p>
+            </div>
+    
+            <div class="section-title">Questions à choix unique/multiple</div>
+
+            <div class="question-card">
+                <div class="question-number">Question 1</div>
+                <div class="question-text">Le mode thick permet :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q1" value="a"> D’allouer la totalité de l’espace
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q1" value="b"> D’allouer l’espace utilisé
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q1" value="c"> D’allouer 50% de l’espace utilisé
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q1', ['a'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le mode thick alloue la totalité de l’espace disque spécifié lors de la création, garantissant des performances constantes.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 2</div>
+                <div class="question-text">Le type de carte VMXNET1 permet une vitesse de :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q2" value="a"> 100 Mbps
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q2" value="b"> 1 Gbps
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q2" value="c"> 10 Gbps
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q2', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">La carte VMXNET1 est une carte réseau virtuelle optimisée pour la virtualisation, offrant une vitesse de 1 Gbps.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 3</div>
+                <div class="question-text">L’installation du système d’exploitation sur une VM se fait par :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q3" value="a"> Une image ISO
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q3" value="b"> Un fichier .exe
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q3" value="c"> Un fichier setup
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q3', ['a'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">L’installation d’un système d’exploitation sur une machine virtuelle se fait généralement à l’aide d’une image ISO montée comme un disque virtuel.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 4</div>
+                <div class="question-text">Vmtools permet de gérer :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q4" value="a"> Les périphériques
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q4" value="b"> La version hardware
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q4" value="c"> La version du vcenter
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q4" value="d"> Les deux
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q4', ['d'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">VMware Tools améliore la gestion des périphériques et permet des fonctionnalités comme la synchronisation de l’heure ou l’optimisation des performances matérielles.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 5</div>
+                <div class="question-text">L’option remove from inventory permet de :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q5" value="a"> Supprimer la VM des disques
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q5" value="b"> Supprimer la VM de l’inventaire
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q5" value="c"> Supprimer la langue de la VM
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q5', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">L’option 'remove from inventory' supprime la machine virtuelle de l’inventaire de vCenter sans supprimer ses fichiers du disque.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 6</div>
+                <div class="question-text">A partir de la version 6.5 la PSC est devenue :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q6" value="a"> Intégré avec le Vcenter
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q6" value="b"> Un serveur séparé
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q6', ['a'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">À partir de la version 6.5, la Platform Services Controller (PSC) est intégrée au vCenter Server pour simplifier la gestion.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 7</div>
+                <div class="question-text">La PSC permet de gérer :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q7" value="a"> Les licences
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q7" value="b"> Créer les VM
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q7" value="c"> Les deux
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q7', ['a'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">La Platform Services Controller (PSC) gère des services comme les licences, l’authentification unique (SSO) et les certificats, mais pas la création de VM.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 8</div>
+                <div class="question-text">La virtualisation permet :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q8" value="a"> De consolider les serveurs physiques
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q8" value="b"> Faciliter l’administration des serveurs
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q8" value="c"> Les deux
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q8', ['c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">La virtualisation permet de consolider les serveurs physiques en réduisant le nombre de machines nécessaires et facilite leur administration.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 9</div>
+                <div class="question-text">La portabilité des applications est faisable avec :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q9" value="a"> La Virtualisation
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q9" value="b"> Les serveurs physiques
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q9" value="c"> Cloud hybride
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q9" value="d"> IaaS
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q9', ['a'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">La virtualisation permet la portabilité des applications en encapsulant l’environnement d’exécution, facilitant leur déplacement entre systèmes.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 10</div>
+                <div class="question-text">L’utilisation du réseau utilise les :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q10" value="a"> NIC Physiques
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q10" value="b"> Fichier Swap de la VM
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q10" value="c"> Les VMNIC
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q10" value="d"> Les datastore
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q10', ['c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Les VMNIC sont des interfaces réseau virtuelles utilisées pour connecter les machines virtuelles aux réseaux physiques.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 11</div>
+                <div class="question-text">Le service cloud Amazon est classé parmi :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q11" value="a"> Cloud privé
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q11" value="b"> Cloud public
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q11" value="c"> Un serveur Windows ou Linux
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q11', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Amazon Web Services (AWS) est un fournisseur de cloud public, offrant des services accessibles à tous via Internet.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 12</div>
+                <div class="question-text">Une machine virtuelle est définie comme :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q12" value="a"> Un ensemble de fichiers
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q12" value="b"> Un fichier
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q12" value="c"> Un fichier .VMDK
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q12" value="d"> Fichier de configuration
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q12', ['a'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Une machine virtuelle est un ensemble de fichiers, incluant le fichier .VMDK (disque) et le fichier de configuration (.VMX).</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 13</div>
+                <div class="question-text">Le fichier .VMDK désigne :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q13" value="a"> Le disque de la VM
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q13" value="b"> Le réseau des VMs
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q13" value="c"> Le réseau inter-site
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q13', ['a'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le fichier .VMDK représente le disque virtuel d’une machine virtuelle, stockant ses données.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 14</div>
+                <div class="question-text">Le compte [email protected] est créé :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q14" value="a"> Durant l’installation du vCenter
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q14" value="b"> Après l’installation du vCenter
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q14" value="c"> Avant l’installation du vCenter
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q14', ['a'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le compte [email protected] est créé automatiquement lors de l’installation de vCenter pour l’administration initiale.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 15</div>
+                <div class="question-text">Le port groupe de type Vmkernel est créé pour :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q15" value="a"> Le réseau du management
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q15" value="b"> Le réseau des VMs
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q15" value="c"> Le réseau inter-site
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q15', ['a'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le port groupe de type VMkernel est utilisé pour le réseau de gestion, vMotion, ou le stockage IP (comme iSCSI).</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 16</div>
+                <div class="question-text">Le Tag du VLAN au niveau du virtuel Switch est utilisé dans le cas du mode :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q16" value="a"> Trunk
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q16" value="b"> Access
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q16" value="c"> Les deux
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q16', ['a'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le tag VLAN est utilisé en mode Trunk pour permettre le passage de plusieurs VLANs à travers le commutateur virtuel.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 17</div>
+                <div class="question-text">Le Vswitch standard est créé pour :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q17" value="a"> Un seul ESXi
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q17" value="b"> Pour plusieurs ESXi à la fois
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q17" value="c"> Pour le vCenter
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q17', ['a'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Un vSwitch standard est configuré sur un seul hôte ESXi, contrairement au vSwitch distribué qui peut être partagé entre plusieurs ESXi.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 18</div>
+                <div class="question-text">Le type de datastore VMFS est utilisé dans le cas d’un stockage :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q18" value="a"> iSCSI
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q18" value="b"> NFS
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q18" value="c"> Les deux
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q18', ['a'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le datastore VMFS est utilisé principalement avec le stockage iSCSI ou Fibre Channel, tandis que NFS utilise un protocole différent.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 19</div>
+                <div class="question-text">Le disque de type RDM est créé au niveau de la :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q19" value="a"> Datastore
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q19" value="b"> Baie de stockage
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q19" value="c"> Disques locaux du ESXi
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q19', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le disque RDM (Raw Device Mapping) est créé au niveau de la baie de stockage pour permettre un accès direct au matériel physique.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 20</div>
+                <div class="question-text">La snap se réalise par :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q20" value="a"> La création d’un nouveau disque
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q20" value="b"> La copie du disque VMDK
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q20" value="c"> Un pointeur du disque VMDK
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q20', ['c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Un snapshot (snap) crée un pointeur vers l’état actuel du disque VMDK, permettant de sauvegarder l’état de la VM sans copier tout le disque.</div>
+                </div>
+            </div>
+            <div class="question-card">
+                <div class="question-number">Question 1</div>
+                <div class="question-text">______ décrit un service cloud accessible uniquement à un nombre limité de personnes.</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q21" value="a"> Centre de données
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q21" value="b"> Cloud public
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q21" value="c"> Cloud privé
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q21" value="d"> Virtualisation
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q21', ['c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Un cloud privé est accessible uniquement à un groupe restreint, généralement une organisation spécifique.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 2</div>
+                <div class="question-text">Quelle caractéristique du cloud computing permet de modifier la taille ou le volume pour répondre aux besoins des utilisateurs ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q22" value="a"> Sécurité
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q22" value="b"> Scalabilité
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q22" value="c"> Économies de coûts
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q22" value="d"> Virtualisation
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q22', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">La scalabilité permet d’ajuster les ressources (taille ou volume) en fonction des besoins des utilisateurs.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 3</div>
+                <div class="question-text">Lorsqu’on ajoute une pile de logiciels, telle qu’un système d’exploitation et des applications, on parle du modèle :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q23" value="a"> SaaS
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q23" value="b"> PaaS
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q23" value="c"> IaaS
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q23" value="d"> Toutes les réponses sont vraies
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q23', ['c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">IaaS fournit une infrastructure incluant systèmes d’exploitation et applications, que l’utilisateur peut configurer.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 4</div>
+                <div class="question-text">Le cloud computing est principalement utilisé pour :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q24" value="a"> Fournir des services sur Internet
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q24" value="b"> Fournir des services localement
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q24" value="c"> Fournir des services hors ligne
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q24" value="d"> Aucune de ces réponses
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q24', ['a'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le cloud computing fournit des services accessibles via Internet, comme le stockage, la puissance de calcul ou les applications.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 5</div>
+                <div class="question-text">Quel est l’avantage principal du cloud computing ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q25" value="a"> Coût élevé
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q25" value="b"> Flexibilité et scalabilité
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q25" value="c"> Maintenance complexe
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q25" value="d"> Sécurité faible
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q25', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le cloud computing offre flexibilité et scalabilité, permettant d’adapter les ressources aux besoins sans investissements massifs.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 6</div>
+                <div class="question-text">Quel type de cloud est géré par une organisation tierce ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q26" value="a"> Cloud privé
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q26" value="b"> Cloud public
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q26" value="c"> Cloud hybride
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q26" value="d"> Cloud communautaire
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q26', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le cloud public est géré par une organisation tierce, comme AWS ou Azure, et est accessible à tous via Internet.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 7</div>
+                <div class="question-text">Lequel des éléments suivants est un exemple de SaaS ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q27" value="a"> Google Drive
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q27" value="b"> Amazon EC2
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q27" value="c"> Microsoft Azure
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q27" value="d"> VMware
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q27', ['a'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Google Drive est un exemple de SaaS, fournissant une application accessible directement via le cloud.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 8</div>
+                <div class="question-text">Lequel des éléments suivants est un exemple de PaaS ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q28" value="a"> Salesforce
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q28" value="b"> Google App Engine
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q28" value="c"> Dropbox
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q28" value="d"> Amazon S3
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q28', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Google App Engine est un exemple de PaaS, offrant une plateforme pour développer et déployer des applications.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 9</div>
+                <div class="question-text">Lequel des éléments suivants est un exemple de IaaS ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q29" value="a"> Microsoft Office 365
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q29" value="b"> Amazon EC2
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q29" value="c"> Google Docs
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q29" value="d"> Slack
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q29', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Amazon EC2 est un exemple de IaaS, fournissant une infrastructure virtuelle comme des machines virtuelles.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 10</div>
+                <div class="question-text">Quel est le principal défi du cloud computing ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q30" value="a"> Accessibilité
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q30" value="b"> Sécurité des données
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q30" value="c"> Coût faible
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q30" value="d"> Performance constante
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q30', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">La sécurité des données est un défi majeur du cloud computing, en raison du stockage externe et du partage des ressources.</div>
+                </div>
+            </div>
+            <div class="question-card">
+                <div class="question-number">Question 11</div>
+                <div class="question-text">Lequel des concepts de cloud computing suivants est lié à la mutualisation et au partage de ressources ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q31" value="a"> Polymorphisme
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q31" value="b"> Abstraction
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q31" value="c"> Virtualisation
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q31" value="d"> Toutes les réponses sont vraies
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q31', ['c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">La virtualisation permet la mutualisation et le partage des ressources matérielles entre plusieurs machines virtuelles.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 12</div>
+                <div class="question-text">Quel est le nom du protocole qui spécifie l’échange de messages basé sur XML ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q32" value="a"> SOAP
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q32" value="b"> REST
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q32" value="c"> HTTP
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q32" value="d"> SMTP
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q32', ['a'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">SOAP (Simple Object Access Protocol) est un protocole basé sur XML pour l’échange de messages structurés.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 13</div>
+                <div class="question-text">Quel est le modèle de déploiement qui combine cloud public et privé ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q33" value="a"> Cloud communautaire
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q33" value="b"> Cloud hybride
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q33" value="c"> Cloud distribué
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q33" value="d"> Cloud centralisé
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q33', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le cloud hybride combine les avantages du cloud public et privé pour une flexibilité accrue.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 14</div>
+                <div class="question-text">Quelle technologie est essentielle pour le cloud computing ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q34" value="a"> Virtualisation
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q34" value="b"> Intelligence artificielle
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q34" value="c"> Blockchain
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q34" value="d"> Réalité augmentée
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q34', ['a'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">La virtualisation est la technologie de base du cloud computing, permettant de créer des ressources virtuelles partagées.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 15</div>
+                <div class="question-text">Quel est l’objectif principal de la virtualisation dans le cloud ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q35" value="a"> Augmenter les coûts
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q35" value="b"> Optimiser l’utilisation des ressources
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q35" value="c"> Réduire la sécurité
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q35" value="d"> Complexifier la gestion
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q35', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">La virtualisation optimise l’utilisation des ressources matérielles en les partageant entre plusieurs machines virtuelles.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 16</div>
+                <div class="question-text">Lequel des éléments suivants est un fournisseur de cloud public ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q36" value="a"> VMware
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q36" value="b"> Amazon Web Services
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q36" value="c"> Oracle Database
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q36" value="d"> SAP
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q36', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Amazon Web Services (AWS) est un fournisseur de cloud public offrant une large gamme de services cloud.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 17</div>
+                <div class="question-text">Quel est le rôle d’un hyperviseur dans la virtualisation ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q37" value="a"> Gérer les bases de données
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q37" value="b"> Gérer les machines virtuelles
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q37" value="c"> Gérer les réseaux
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q37" value="d"> Gérer les applications
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q37', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">L’hyperviseur est responsable de la gestion des machines virtuelles, en allouant les ressources matérielles.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 18</div>
+                <div class="question-text">Quel type de virtualisation permet de créer plusieurs instances d’un système d’exploitation ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q38" value="a"> Virtualisation de serveur
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q38" value="b"> Virtualisation de réseau
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q38" value="c"> Virtualisation de stockage
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q38" value="d"> Virtualisation d’application
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q38', ['a'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">La virtualisation de serveur permet de créer plusieurs instances d’un système d’exploitation sur un seul serveur physique.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 19</div>
+                <div class="question-text">Lequel des éléments suivants est un risque du cloud computing ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q39" value="a"> Perte de contrôle des données
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q39" value="b"> Performance accrue
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q39" value="c"> Coût réduit
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q39" value="d"> Disponibilité garantie
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q39', ['a'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">La perte de contrôle des données est un risque majeur du cloud computing, en raison du stockage externe.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 20</div>
+                <div class="question-text">Quelle est la principale différence entre cloud public et cloud privé ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q40" value="a"> Coût
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q40" value="b"> Accessibilité
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q40" value="c"> Propriété et gestion
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q40" value="d"> Performance
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q40', ['c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">La principale différence réside dans la propriété et la gestion : le cloud privé est géré par l’organisation, tandis que le cloud public est géré par un tiers.</div>
+                </div>
+            </div>
+            <div class="question-card">
+                <div class="question-number">Question 21</div>
+                <div class="question-text">Quelle est la technologie utilisée pour distribuer les demandes de service aux ressources ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q41" value="a"> Load division
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q41" value="b"> Load scheduling
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q41" value="c"> Load balancing
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q41" value="d"> Aucune de ces réponses n’est vraie
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q41', ['c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le load balancing distribue les demandes de service aux ressources pour optimiser les performances et la disponibilité.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 22</div>
+             <div class="question-text">Amazon Web Services (AWS) est un exemple de :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q42" value="a"> IaaS
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q42" value="b"> PaaS
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q42" value="c"> SaaS
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q42" value="d"> Toutes les réponses sont vraies
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q42', ['d'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">AWS propose des services IaaS (EC2), PaaS (Elastic Beanstalk), et SaaS (comme Amazon WorkMail), couvrant tous les modèles.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 23</div>
+                <div class="question-text">Quel est le principal avantage de la scalabilité dans le cloud ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q43" value="a"> Réduction des coûts fixes
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q43" value="b"> Augmentation des temps d’arrêt
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q43" value="c"> Complexité accrue
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q43" value="d"> Sécurité réduite
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q43', ['a'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">La scalabilité permet de réduire les coûts fixes en ajustant les ressources aux besoins réels, évitant le surprovisionnement.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 24</div>
+                <div class="question-text">Lequel des éléments suivants est un exemple de virtualisation ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q44" value="a"> VMware vSphere
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q44" value="b"> Microsoft Word
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q44" value="c"> Adobe Photoshop
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q44" value="d"> Google Chrome
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q44', ['a'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">VMware vSphere est une plateforme de virtualisation permettant de créer et gérer des machines virtuelles.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 25</div>
+                <div class="question-text">Quel est le rôle des conteneurs dans le cloud computing ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q45" value="a"> Remplacer les hyperviseurs
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q45" value="b"> Fournir une virtualisation légère
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q45" value="c"> Gérer les bases de données
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q45" value="d"> Sécuriser les réseaux
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q45', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Les conteneurs offrent une virtualisation légère, partageant le noyau de l’OS hôte pour une exécution rapide et efficace.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 26</div>
+                <div class="question-text">Lequel des éléments suivants est un défi de la virtualisation ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q46" value="a"> Gestion simplifiée
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q46" value="b"> Performance réduite
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q46" value="c"> Coût élevé initial
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q46" value="d"> Sécurité accrue
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q46', ['c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le coût initial élevé de mise en place de la virtualisation (infrastructure et licences) est un défi majeur.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 27</div>
+                <div class="question-text">Quel type de cloud est utilisé par plusieurs organisations ayant des besoins similaires ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q47" value="a"> Cloud public
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q47" value="b"> Cloud privé
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q47" value="c"> Cloud communautaire
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q47" value="d"> Cloud hybride
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q47', ['c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le cloud communautaire est conçu pour plusieurs organisations partageant des besoins similaires, comme des exigences de sécurité.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 28</div>
+                <div class="question-text">Lequel des éléments suivants est un exemple de fournisseur PaaS ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q48" value="a"> Google Compute Engine
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q48" value="b"> Microsoft Azure App Service
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q48" value="c"> Dropbox
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q48" value="d"> Salesforce
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q48', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Microsoft Azure App Service est une plateforme PaaS pour le développement et le déploiement d’applications.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 29</div>
+                <div class="question-text">Quelle est la principale fonction d’un datacenter dans le cloud ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q49" value="a"> Fournir des applications
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q49" value="b"> Héberger l’infrastructure
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q49" value="c"> Gérer les utilisateurs
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q49" value="d"> Développer des logiciels
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q49', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Un datacenter dans le cloud héberge l’infrastructure physique, comme les serveurs et le stockage, pour les services cloud.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 30</div>
+                <div class="question-text">Quel est l’impact de la virtualisation sur l’utilisation des serveurs ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q50" value="a"> Réduction de l’efficacité
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q50" value="b"> Augmentation de l’utilisation
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q50" value="c"> Aucun impact
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q50" value="d"> Augmentation des coûts
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q50', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">La virtualisation augmente l’utilisation des serveurs en permettant à plusieurs machines virtuelles de partager les mêmes ressources physiques.</div>
+                </div>
+            </div>
+            <div class="question-card">
+                <div class="question-number">Question 31</div>
+                <div class="question-text">_______ fournit des machines virtuelles, un stockage virtuel, une infrastructure virtuelle et d’autres actifs matériels.</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q51" value="a"> IaaS
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q51" value="b"> SaaS
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q51" value="c"> PaaS
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q51" value="d"> Toutes les réponses sont vraies
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q51', ['a'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">IaaS fournit une infrastructure virtuelle, incluant machines virtuelles, stockage et réseaux.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 32</div>
+                <div class="question-text">Lequel des modèles suivants est le modèle de service le plus raffiné et le plus restrictif ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q52" value="a"> SaaS
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q52" value="b"> PaaS
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q52" value="c"> IaaS
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q52" value="d"> Toutes les réponses sont vraies
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q52', ['a'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">SaaS est le modèle le plus raffiné et restrictif, car l’utilisateur n’a qu’un accès limité à l’application sans contrôle sur l’infrastructure.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 33</div>
+                <div class="question-text">Toutes les applications du cloud computing souffrent du ______ à leur connectivité WAN.</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q53" value="a"> Propagation
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q53" value="b"> Latence
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q53" value="c"> Bruit
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q53" value="d"> Aucune de ces réponses
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q53', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">La latence est un problème courant pour les applications cloud en raison des connexions WAN, affectant la vitesse de transmission des données.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 34</div>
+                <div class="question-text">Quel est le principal avantage du modèle IaaS ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q54" value="a"> Gestion complète par le fournisseur
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q54" value="b"> Flexibilité pour personnaliser l’infrastructure
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q54" value="c"> Applications prêtes à l’emploi
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q54" value="d"> Développement simplifié
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q54', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">IaaS offre une grande flexibilité pour personnaliser l’infrastructure, comme les machines virtuelles et le stockage.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 35</div>
+                <div class="question-text">Lequel des éléments suivants est un exemple de virtualisation de stockage ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q55" value="a"> VMware vSAN
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q55" value="b"> Microsoft SQL Server
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q55" value="c"> Apache Web Server
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q55" value="d"> Oracle Database
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q55', ['a'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">VMware vSAN est une solution de virtualisation de stockage, agrégeant les disques locaux en un pool de stockage partagé.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 36</div>
+                <div class="question-text">Quel est le rôle principal d’un Virtual Switch dans la virtualisation ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q56" value="a"> Gérer les disques virtuels
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q56" value="b"> Connecter les machines virtuelles au réseau
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q56" value="c"> Gérer les hyperviseurs
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q56" value="d"> Sécuriser les données
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q56', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Un Virtual Switch connecte les machines virtuelles au réseau physique ou à d’autres VM sur le même hôte.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 37</div>
+                <div class="question-text">Lequel des éléments suivants est un avantage de la virtualisation de réseau ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q57" value="a"> Augmentation des coûts matériels
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q57" value="b"> Simplification de la gestion réseau
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q57" value="c"> Réduction de la flexibilité
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q57" value="d"> Complexité accrue
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q57', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">La virtualisation de réseau simplifie la gestion en permettant la configuration logicielle des réseaux sans modifier le matériel physique.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 38</div>
+                <div class="question-text">Quel est le principal défi de la migration vers le cloud ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q58" value="a"> Compatibilité des applications
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q58" value="b"> Performance garantie
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q58" value="c"> Coût réduit
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q58" value="d"> Sécurité accrue
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q58', ['a'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">La compatibilité des applications est un défi majeur lors de la migration vers le cloud, car certaines applications peuvent nécessiter des ajustements pour fonctionner correctement.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 39</div>
+                <div class="question-text">Lequel des éléments suivants est un exemple de fournisseur SaaS ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q59" value="a"> Google Workspace
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q59" value="b"> Amazon EC2
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q59" value="c"> Microsoft Azure
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q59" value="d"> VMware vSphere
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q59', ['a'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Google Workspace est un exemple de SaaS, offrant des applications comme Gmail et Google Docs directement via le cloud.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 40</div>
+                <div class="question-text">Quelle est la principale différence entre un hyperviseur de type 1 et de type 2 ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q60" value="a"> Performance
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q60" value="b"> Coût
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q60" value="c"> Installation sur matériel ou OS
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q60" value="d"> Sécurité
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q60', ['c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Un hyperviseur de type 1 s’exécute directement sur le matériel (natif), tandis qu’un hyperviseur de type 2 s’exécute sur un système d’exploitation hôte.</div>
+                </div>
+            </div>
+            <div class="question-card">
+                <div class="question-number">Question 41</div>
+                <div class="question-text">Qu’est-ce que le Cloud Computing ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q61" value="a"> Un progiciel
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q61" value="b"> Tableur
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q61" value="c"> Storing data remotely
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q61" value="d"> IT management
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q61" value="e"> Cube OLAP
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q61', ['c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le Cloud Computing consiste à stocker et accéder aux données et services à distance via Internet.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 42</div>
+                <div class="question-text">Lesquelles de ces traductions françaises désignent le Cloud Computing ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q62" value="a"> Informatique en nuage
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q62" value="b"> Informatique dématérialisée
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q62" value="c"> Informatique distribuée
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q62" value="d"> Toutes les réponses sont vraies
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q62', ['d'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Les termes « informatique en nuage », « informatique dématérialisée » et « informatique distribuée » sont tous utilisés pour décrire le Cloud Computing.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 43</div>
+                <div class="question-text">Quels sont les principaux modèles de service du Cloud Computing ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q63" value="a"> SaaS, PaaS, IaaS
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q63" value="b"> SaaS, DaaS, CaaS
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q63" value="c"> IaaS, NaaS, PaaS
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q63" value="d"> Toutes les réponses sont vraies
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q63', ['a'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Les principaux modèles de service du Cloud Computing sont SaaS (Software as a Service), PaaS (Platform as a Service) et IaaS (Infrastructure as a Service).</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 44</div>
+                <div class="question-text">Quel modèle de déploiement est accessible à tous via Internet ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q64" value="a"> Cloud privé
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q64" value="b"> Cloud public
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q64" value="c"> Cloud hybride
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q64" value="d"> Cloud communautaire
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q64', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le cloud public est accessible à tous via Internet, géré par des fournisseurs comme AWS ou Azure.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 45</div>
+                <div class="question-text">Quel est l’avantage principal du Cloud Computing pour les entreprises ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q65" value="a"> Coût élevé
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q65" value="b"> Flexibilité et réduction des coûts
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q65" value="c"> Maintenance complexe
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q65" value="d"> Sécurité faible
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q65', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le Cloud Computing offre flexibilité et réduction des coûts en éliminant le besoin d’investissements matériels coûteux.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 46</div>
+                <div class="question-text">Lequel des éléments suivants est un exemple de SaaS ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q66" value="a"> Microsoft Office 365
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q66" value="b"> Amazon EC2
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q66" value="c"> Google Compute Engine
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q66" value="d"> VMware vSphere
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q66', ['a'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Microsoft Office 365 est un exemple de SaaS, offrant des applications accessibles via le cloud sans gestion d’infrastructure.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 47</div>
+                <div class="question-text">Quel est le rôle de la virtualisation dans le Cloud Computing ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q67" value="a"> Augmenter les coûts
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q67" value="b"> Optimiser l’utilisation des ressources
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q67" value="c"> Réduire la sécurité
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q67" value="d"> Complexifier la gestion
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q67', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">La virtualisation optimise l’utilisation des ressources en permettant à plusieurs machines virtuelles de partager le même matériel.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 48</div>
+                <div class="question-text">Quel type de cloud est géré par une organisation pour ses propres besoins ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q68" value="a"> Cloud public
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q68" value="b"> Cloud privé
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q68" value="c"> Cloud communautaire
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q68" value="d"> Cloud hybride
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q68', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le cloud privé est géré par une organisation pour répondre à ses propres besoins, offrant un contrôle accru.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 49</div>
+                <div class="question-text">Lequel des éléments suivants est un risque du Cloud Computing ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q69" value="a"> Perte de contrôle des données
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q69" value="b"> Performance accrue
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q69" value="c"> Coût réduit
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q69" value="d"> Disponibilité garantie
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q69', ['a'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">La perte de contrôle des données est un risque majeur du Cloud Computing, surtout dans les clouds publics.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 50</div>
+                <div class="question-text">Quel est le principal défi de la migration vers le cloud ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q70" value="a"> Compatibilité des applications
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q70" value="b"> Performance garantie
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q70" value="c"> Coût réduit
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q70" value="d"> Sécurité accrue
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q70', ['a'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">La compatibilité des applications est un défi clé lors de la migration vers le cloud, nécessitant souvent des ajustements.</div>
+                </div>
+            </div>
+            <div class="question-card">
+                <div class="question-number">Question 51</div>
+                <div class="question-text">Infrastructure partagée :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q71" value="a"> Common
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q71" value="b"> Reserved
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q71" value="c"> Multi-tenant
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q71" value="d"> Dedicated
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q71', ['c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Une infrastructure partagée est appelée multi-tenant, car plusieurs utilisateurs ou organisations partagent les mêmes ressources.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 52</div>
+                <div class="question-text">Quel est le modèle de service le plus courant ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q72" value="a"> SaaS
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q72" value="b"> PaaS
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q72" value="c"> IaaS
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q72" value="d"> Toutes les réponses sont vraies
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q72', ['a'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">SaaS est le modèle de service le plus courant, car il est utilisé par un large public pour des applications comme les suites bureautiques ou les outils collaboratifs.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 53</div>
+                <div class="question-text">Quel est l’objectif principal de la virtualisation ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q73" value="a"> Réduire l’efficacité
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q73" value="b"> Optimiser l’utilisation des ressources
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q73" value="c"> Augmenter les coûts
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q73" value="d"> Complexifier la gestion
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q73', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">L’objectif principal de la virtualisation est d’optimiser l’utilisation des ressources matérielles en les partageant entre plusieurs machines virtuelles.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 54</div>
+                <div class="question-text">Quel type de cloud combine les avantages du public et du privé ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q74" value="a"> Cloud communautaire
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q74" value="b"> Cloud hybride
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q74" value="c"> Cloud distribué
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q74" value="d"> Cloud centralisé
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q74', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le cloud hybride combine les avantages du cloud public (scalabilité) et du cloud privé (contrôle et sécurité).</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 55</div>
+                <div class="question-text">Lequel des éléments suivants est un exemple de fournisseur IaaS ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q75" value="a"> Google Workspace
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q75" value="b"> Amazon EC2
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q75" value="c"> Salesforce
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q75" value="d"> Dropbox
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q75', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Amazon EC2 est un exemple de fournisseur IaaS, offrant des machines virtuelles et une infrastructure personnalisable.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 56</div>
+                <div class="question-text">Quel est le rôle d’un hyperviseur ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q76" value="a"> Gérer les bases de données
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q76" value="b"> Gérer les machines virtuelles
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q76" value="c"> Gérer les réseaux
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q76" value="d"> Gérer les applications
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q76', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Un hyperviseur gère les machines virtuelles en allouant les ressources matérielles et en assurant leur isolation.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 57</div>
+                <div class="question-text">Quel est l’avantage de la scalabilité dans le cloud ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q77" value="a"> Réduction des coûts fixes
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q77" value="b"> Augmentation des temps d’arrêt
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q77" value="c"> Complexité accrue
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q77" value="d"> Sécurité réduite
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q77', ['a'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">La scalabilité dans le cloud permet de réduire les coûts fixes en ajustant les ressources aux besoins réels.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 58</div>
+                <div class="question-text">Lequel des éléments suivants est un exemple de virtualisation ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q78" value="a"> VMware vSphere
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q78" value="b"> Microsoft Word
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q78" value="c"> Adobe Photoshop
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q78" value="d"> Google Chrome
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q78', ['a'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">VMware vSphere est une plateforme de virtualisation permettant de créer et gérer des machines virtuelles.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 59</div>
+                <div class="question-text">Quel est le principal défi de la virtualisation ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q79" value="a"> Gestion simplifiée
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q79" value="b"> Performance réduite
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q79" value="c"> Coût élevé initial
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q79" value="d"> Sécurité accrue
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q79', ['c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le coût initial élevé de mise en place de la virtualisation (infrastructure et licences) est un défi majeur.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 60</div>
+                <div class="question-text">Quelle est la principale différence entre cloud public et cloud privé ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q80" value="a"> Coût
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q80" value="b"> Accessibilité
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q80" value="c"> Propriété et gestion
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q80" value="d"> Performance
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q80', ['c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">La principale différence réside dans la propriété et la gestion : le cloud privé est géré par l’organisation, tandis que le cloud public est géré par un tiers.</div>
+                </div>
+            </div>
+            <div class="question-card">
+                <div class="question-number">Question 61</div>
+                <div class="question-text">Qu’est-ce que la virtualisation ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q81" value="a"> Représentation matérielle d’un logiciel
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q81" value="b"> Représentation virtuelle d’un système matériel
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q81', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">La virtualisation crée une représentation virtuelle d’un système matériel, comme des serveurs ou des réseaux, à l’aide d’un logiciel.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 62</div>
+                <div class="question-text">Quelles applications de la virtualisation sont vraies ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q82" value="a"> Virtualisation de serveur
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q82" value="b"> Virtualisation de réseau
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q82" value="c"> Virtualisation de stockage
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q82" value="d"> Virtualisation d’applications
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q82', ['a', 'b', 'c', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Toutes les options (virtualisation de serveur, réseau, stockage et applications) sont des applications valides de la virtualisation.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 63</div>
+                <div class="question-text">Quels sont les intérêts de la virtualisation ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q83" value="a"> Mise en place peu coûteuse
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q83" value="b"> Économie sur le matériel utilisé
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q83" value="c"> Sécurisation et/ou isolation de réseau
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q83" value="d"> Toutes les réponses sont vraies
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q83', ['d'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">La virtualisation permet une mise en place économique, réduit les coûts matériels et améliore la sécurité via l’isolation des réseaux.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 64</div>
+                <div class="question-text">Vrai ou faux : L’hyperviseur est une couche de virtualisation.</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q84" value="a"> Vrai
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q84" value="b"> Faux
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q84', ['a'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Vrai. L’hyperviseur est une couche logicielle qui permet la virtualisation en gérant les machines virtuelles.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 65</div>
+                <div class="question-text">L’hyperviseur de type 2 est-il natif ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q85" value="a"> Oui
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q85" value="b"> Non
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q85', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Non. Un hyperviseur de type 2 s’exécute sur un système d’exploitation hôte, contrairement à un hyperviseur de type 1 qui est natif.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 66</div>
+                <div class="question-text">La virtualisation d’OS concerne :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q86" value="a"> La virtualisation de serveur
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q86" value="b"> La virtualisation de poste de travail
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q86" value="c"> Les deux
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q86', ['c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">La virtualisation d’OS concerne à la fois la virtualisation de serveur et la virtualisation de poste de travail, permettant l’exécution de plusieurs systèmes d’exploitation.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 67</div>
+                <div class="question-text">La principale forme de virtualisation de poste de travail est :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q87" value="a"> Streaming d’OS
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q87" value="b"> VDI (Virtual Desktop Infrastructure)
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q87', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">VDI (Virtual Desktop Infrastructure) est la principale forme de virtualisation de poste de travail, offrant des bureaux virtuels centralisés.</div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-number">Question 68</div>
+                <div class="question-text">Vrai ou faux : La virtualisation d’applications ne s’exécute pas en local.</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q88" value="a"> Vrai
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q88" value="b"> Faux
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q88', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Faux. La virtualisation d’applications peut s’exécuter localement, encapsulant l’application pour l’isoler du système d’exploitation hôte.</div>
+                </div>
+            </div>
+            <div class="question-card">
+    <div class="question-number">Question 61</div>
+    <div class="question-text">Qu’est-ce que la virtualisation ?</div>
+    <div class="options">
+        <label class="option">
+            <input type="radio" name="q81" value="a"> Représentation matérielle d’un logiciel
+        </label>
+        <label class="option">
+            <input type="radio" name="q81" value="b"> Représentation virtuelle d’un système matériel
+        </label>
+    </div>
+    <button class="validate-btn" onclick="validateAnswer('q81', ['b'], this)">Valider la réponse</button>
+    <div class="result">
+        <div class="explanation">La virtualisation crée une représentation virtuelle d’un système matériel, comme des serveurs ou des réseaux, à l’aide d’un logiciel.</div>
+    </div>
+</div>
+
+<div class="question-card">
+    <div class="question-number">Question 62</div>
+    <div class="question-text">Quelles applications de la virtualisation sont vraies ?</div>
+    <div class="options">
+        <label class="option">
+            <input type="radio" name="q82" value="a"> Virtualisation de serveur
+        </label>
+        <label class="option">
+            <input type="radio" name="q82" value="b"> Virtualisation de réseau
+        </label>
+        <label class="option">
+            <input type="radio" name="q82" value="c"> Virtualisation de stockage
+        </label>
+        <label class="option">
+            <input type="radio" name="q82" value="d"> Virtualisation d’applications
+        </label>
+    </div>
+    <button class="validate-btn" onclick="validateAnswer('q82', ['a', 'b', 'c', 'd'], this)">Valider la réponse</button>
+    <div class="result">
+        <div class="explanation">Toutes les options (virtualisation de serveur, réseau, stockage et applications) sont des applications valides de la virtualisation.</div>
+    </div>
+</div>
+
+<div class="question-card">
+    <div class="question-number">Question 63</div>
+    <div class="question-text">Quels sont les intérêts de la virtualisation ?</div>
+    <div class="options">
+        <label class="option">
+            <input type="radio" name="q83" value="a"> Mise en place peu coûteuse
+        </label>
+        <label class="option">
+            <input type="radio" name="q83" value="b"> Économie sur le matériel utilisé
+        </label>
+        <label class="option">
+            <input type="radio" name="q83" value="c"> Sécurisation et/ou isolation de réseau
+        </label>
+        <label class="option">
+            <input type="radio" name="q83" value="d"> Toutes les réponses sont vraies
+        </label>
+    </div>
+    <button class="validate-btn" onclick="validateAnswer('q83', ['d'], this)">Valider la réponse</button>
+    <div class="result">
+        <div class="explanation">La virtualisation permet une mise en place économique, réduit les coûts matériels et améliore la sécurité via l’isolation des réseaux.</div>
+    </div>
+</div>
+
+<div class="question-card">
+    <div class="question-number">Question 64</div>
+    <div class="question-text">Vrai ou faux : L’hyperviseur est une couche de virtualisation.</div>
+    <div class="options">
+        <label class="option">
+            <input type="radio" name="q84" value="a"> Vrai
+        </label>
+        <label class="option">
+            <input type="radio" name="q84" value="b"> Faux
+        </label>
+    </div>
+    <button class="validate-btn" onclick="validateAnswer('q84', ['a'], this)">Valider la réponse</button>
+    <div class="result">
+        <div class="explanation">Vrai. L’hyperviseur est une couche logicielle qui permet la virtualisation en gérant les machines virtuelles.</div>
+    </div>
+</div>
+
+<div class="question-card">
+    <div class="question-number">Question 65</div>
+    <div class="question-text">L’hyperviseur de type 2 est-il natif ?</div>
+    <div class="options">
+        <label class="option">
+            <input type="radio" name="q85" value="a"> Oui
+        </label>
+        <label class="option">
+            <input type="radio" name="q85" value="b"> Non
+        </label>
+    </div>
+    <button class="validate-btn" onclick="validateAnswer('q85', ['b'], this)">Valider la réponse</button>
+    <div class="result">
+        <div class="explanation">Non. Un hyperviseur de type 2 s’exécute sur un système d’exploitation hôte, contrairement à un hyperviseur de type 1 qui est natif.</div>
+    </div>
+</div>
+
+<div class="question-card">
+    <div class="question-number">Question 66</div>
+    <div class="question-text">La virtualisation d’OS concerne :</div>
+    <div class="options">
+        <label class="option">
+            <input type="radio" name="q86" value="a"> La virtualisation de serveur
+        </label>
+        <label class="option">
+            <input type="radio" name="q86" value="b"> La virtualisation de poste de travail
+        </label>
+        <label class="option">
+            <input type="radio" name="q86" value="c"> Les deux
+        </label>
+    </div>
+    <button class="validate-btn" onclick="validateAnswer('q86', ['c'], this)">Valider la réponse</button>
+    <div class="result">
+        <div class="explanation">La virtualisation d’OS concerne à la fois la virtualisation de serveur et la virtualisation de poste de travail, permettant l’exécution de plusieurs systèmes d’exploitation.</div>
+    </div>
+</div>
+
+<div class="question-card">
+    <div class="question-number">Question 67</div>
+    <div class="question-text">La principale forme de virtualisation de poste de travail est :</div>
+    <div class="options">
+        <label class="option">
+            <input type="radio" name="q87" value="a"> Streaming d’OS
+        </label>
+        <label class="option">
+            <input type="radio" name="q87" value="b"> VDI (Virtual Desktop Infrastructure)
+        </label>
+    </div>
+    <button class="validate-btn" onclick="validateAnswer('q87', ['b'], this)">Valider la réponse</button>
+    <div class="result">
+        <div class="explanation">VDI (Virtual Desktop Infrastructure) est la principale forme de virtualisation de poste de travail, offrant des bureaux virtuels centralisés.</div>
+    </div>
+</div>
+
+<div class="question-card">
+    <div class="question-number">Question 68</div>
+    <div class="question-text">Vrai ou faux : La virtualisation d’applications ne s’exécute pas en local.</div>
+    <div class="options">
+        <label class="option">
+            <input type="radio" name="q88" value="a"> Vrai
+        </label>
+        <label class="option">
+            <input type="radio" name="q88" value="b"> Faux
+        </label>
+    </div>
+    <button class="validate-btn" onclick="validateAnswer('q88', ['b'], this)">Valider la réponse</button>
+    <div class="result">
+        <div class="explanation">Faux. La virtualisation d’applications peut s’exécuter localement, encapsulant l’application pour l’isoler du système d’exploitation hôte.</div>
+    </div>
+</div>
+<div class="question-card">
+    <div class="question-number">Question 69</div>
+    <div class="question-text">Qu’est-ce que le Cloud Computing ?</div>
+    <div class="options">
+        <label class="option">
+            <input type="radio" name="q89" value="a"> Un progiciel
+        </label>
+        <label class="option">
+            <input type="radio" name="q89" value="b"> Une méthode de stockage de données
+        </label>
+        <label class="option">
+            <input type="radio" name="q89" value="c"> Une technique de gestion d’applications informatiques en entreprise
+        </label>
+    </div>
+    <button class="validate-btn" onclick="validateAnswer('q89', ['b'], this)">Valider la réponse</button>
+    <div class="result">
+        <div class="explanation">Le Cloud Computing est une méthode de stockage et d’accès aux données et services à distance via Internet.</div>
+    </div>
+</div>
+
+<div class="question-card">
+    <div class="question-number">Question 70</div>
+    <div class="question-text">Modes d’utilisation du Cloud Computing :</div>
+    <div class="options">
+        <label class="option">
+            <input type="radio" name="q90" value="a"> SaaS : Applicative
+        </label>
+        <label class="option">
+            <input type="radio" name="q90" value="b"> PaaS : Plateforme
+        </label>
+        <label class="option">
+            <input type="radio" name="q90" value="c"> IaaS : Externalisation des serveurs
+        </label>
+        <label class="option">
+            <input type="radio" name="q90" value="d"> Toutes les réponses sont vraies
+        </label>
+    </div>
+    <button class="validate-btn" onclick="validateAnswer('q90', ['d'], this)">Valider la réponse</button>
+    <div class="result">
+        <div class="explanation">SaaS fournit des applications, PaaS des plateformes de développement, et IaaS l’externalisation des serveurs, tous étant des modes d’utilisation du cloud.</div>
+    </div>
+</div>
+
+<div class="question-card">
+    <div class="question-number">Question 71</div>
+    <div class="question-text">Quel est l’avantage principal du Cloud Computing ?</div>
+    <div class="options">
+        <label class="option">
+            <input type="radio" name="q91" value="a"> Réduction des coûts
+        </label>
+        <label class="option">
+            <input type="radio" name="q91" value="b"> Augmentation des coûts
+        </label>
+        <label class="option">
+            <input type="radio" name="q91" value="c"> Complexité accrue
+        </label>
+        <label class="option">
+            <input type="radio" name="q91" value="d"> Sécurité réduite
+        </label>
+    </div>
+    <button class="validate-btn" onclick="validateAnswer('q91', ['a'], this)">Valider la réponse</button>
+    <div class="result">
+        <div class="explanation">Le principal avantage du Cloud Computing est la réduction des coûts grâce à l’élimination des investissements matériels initiaux.</div>
+    </div>
+</div>
+
+<div class="question-card">
+    <div class="question-number">Question 72</div>
+    <div class="question-text">Quel type de cloud est le plus sécurisé ?</div>
+    <div class="options">
+        <label class="option">
+            <input type="radio" name="q92" value="a"> Cloud public
+        </label>
+        <label class="option">
+            <input type="radio" name="q92" value="b"> Cloud privé
+        </label>
+        <label class="option">
+            <input type="radio" name="q92" value="c"> Cloud hybride
+        </label>
+        <label class="option">
+            <input type="radio" name="q92" value="d"> Cloud communautaire
+        </label>
+    </div>
+    <button class="validate-btn" onclick="validateAnswer('q92', ['b'], this)">Valider la réponse</button>
+    <div class="result">
+        <div class="explanation">Le cloud privé est considéré comme le plus sécurisé, car il est géré par l’organisation et offre un contrôle total sur les données.</div>
+    </div>
+</div>
+<div class="question-card">
+    <div class="question-number">Question 73</div>
+    <div class="question-text">Qui décrit un service cloud accessible uniquement à un nombre limité de personnes ?</div>
+    <div class="options">
+        <label class="option">
+            <input type="radio" name="q93" value="a"> Data center
+        </label>
+        <label class="option">
+            <input type="radio" name="q93" value="b"> Cloud public
+        </label>
+        <label class="option">
+            <input type="radio" name="q93" value="c"> Cloud privé
+        </label>
+        <label class="option">
+            <input type="radio" name="q93" value="d"> Virtualisation
+        </label>
+    </div>
+    <button class="validate-btn" onclick="validateAnswer('q93', ['c'], this)">Valider la réponse</button>
+    <div class="result">
+        <div class="explanation">Un cloud privé est accessible uniquement à un groupe restreint, généralement une organisation spécifique.</div>
+    </div>
+</div>
+
+<div class="question-card">
+    <div class="question-number">Question 74</div>
+    <div class="question-text">Quelle fonctionnalité du cloud computing permet au service de changer de taille ou de volume afin de répondre aux besoins des utilisateurs ?</div>
+    <div class="options">
+        <label class="option">
+            <input type="radio" name="q94" value="a"> Sécurité
+        </label>
+        <label class="option">
+            <input type="radio" name="q94" value="b"> Scalabilité
+        </label>
+        <label class="option">
+            <input type="radio" name="q94" value="c"> Économies de coûts
+        </label>
+        <label class="option">
+            <input type="radio" name="q94" value="d"> Virtualisation
+        </label>
+    </div>
+    <button class="validate-btn" onclick="validateAnswer('q94', ['b'], this)">Valider la réponse</button>
+    <div class="result">
+        <div class="explanation">La scalabilité permet d’ajuster les ressources (taille ou volume) en fonction des besoins des utilisateurs.</div>
+    </div>
+</div>
+
+<div class="question-card">
+    <div class="question-number">Question 75</div>
+    <div class="question-text">Lorsqu’on ajoute une pile de logiciels, telle qu’un système d’exploitation et des applications :</div>
+    <div class="options">
+        <label class="option">
+            <input type="radio" name="q95" value="a"> SaaS
+        </label>
+        <label class="option">
+            <input type="radio" name="q95" value="b"> PaaS
+        </label>
+        <label class="option">
+            <input type="radio" name="q95" value="c"> IaaS
+        </label>
+        <label class="option">
+            <input type="radio" name="q95" value="d"> Toutes les réponses sont vraies
+        </label>
+    </div>
+    <button class="validate-btn" onclick="validateAnswer('q95', ['c'], this)">Valider la réponse</button>
+    <div class="result">
+        <div class="explanation">IaaS fournit une infrastructure incluant systèmes d’exploitation et applications, que l’utilisateur peut configurer.</div>
+    </div>
+</div>
+
+<div class="question-card">
+    <div class="question-number">Question 76</div>
+    <div class="question-text">Lequel des modèles suivants est le modèle du service le plus raffiné et le plus restrictif ?</div>
+    <div class="options">
+        <label class="option">
+            <input type="radio" name="q96" value="a"> SaaS
+        </label>
+        <label class="option">
+            <input type="radio" name="q96" value="b"> PaaS
+        </label>
+        <label class="option">
+            <input type="radio" name="q96" value="c"> IaaS
+        </label>
+        <label class="option">
+            <input type="radio" name="q96" value="d"> Toutes les réponses sont vraies
+        </label>
+    </div>
+    <button class="validate-btn" onclick="validateAnswer('q96', ['a'], this)">Valider la réponse</button>
+    <div class="result">
+        <div class="explanation">SaaS est le modèle le plus raffiné et restrictif, car l’utilisateur n’a qu’un accès limité à l’application sans contrôle sur l’infrastructure.</div>
+    </div>
+</div>
+
+<div class="question-card">
+    <div class="question-number">Question 77</div>
+    <div class="question-text">Toutes les applications du cloud computing souffrent du ______ à leur connectivité WAN :</div>
+    <div class="options">
+        <label class="option">
+            <input type="radio" name="q97" value="a"> Propagation
+        </label>
+        <label class="option">
+            <input type="radio" name="q97" value="b"> Latence
+        </label>
+        <label class="option">
+            <input type="radio" name="q97" value="c"> Bruit
+        </label>
+        <label class="option">
+            <input type="radio" name="q97" value="d"> Aucune de ces réponses
+        </label>
+    </div>
+    <button class="validate-btn" onclick="validateAnswer('q97', ['b'], this)">Valider la réponse</button>
+    <div class="result">
+        <div class="explanation">La latence est un problème courant pour les applications cloud en raison des connexions WAN, affectant la vitesse de transmission des données.</div>
+    </div>
+</div>
+<div class="question-card">
+    <div class="question-number">Question 73</div>
+    <div class="question-text">Qui décrit un service cloud accessible uniquement à un nombre limité de personnes ?</div>
+    <div class="options">
+        <label class="option">
+            <input type="radio" name="q93" value="a"> Data center
+        </label>
+        <label class="option">
+            <input type="radio" name="q93" value="b"> Cloud public
+        </label>
+        <label class="option">
+            <input type="radio" name="q93" value="c"> Cloud privé
+        </label>
+        <label class="option">
+            <input type="radio" name="q93" value="d"> Virtualisation
+        </label>
+    </div>
+    <button class="validate-btn" onclick="validateAnswer('q93', ['c'], this)">Valider la réponse</button>
+    <div class="result">
+        <div class="explanation">Un cloud privé est accessible uniquement à un groupe restreint, généralement une organisation spécifique.</div>
+    </div>
+</div>
+
+<div class="question-card">
+    <div class="question-number">Question 74</div>
+    <div class="question-text">Quelle fonctionnalité du cloud computing permet au service de changer de taille ou de volume afin de répondre aux besoins des utilisateurs ?</div>
+    <div class="options">
+        <label class="option">
+            <input type="radio" name="q94" value="a"> Sécurité
+        </label>
+        <label class="option">
+            <input type="radio" name="q94" value="b"> Scalabilité
+        </label>
+        <label class="option">
+            <input type="radio" name="q94" value="c"> Économies de coûts
+        </label>
+        <label class="option">
+            <input type="radio" name="q94" value="d"> Virtualisation
+        </label>
+    </div>
+    <button class="validate-btn" onclick="validateAnswer('q94', ['b'], this)">Valider la réponse</button>
+    <div class="result">
+        <div class="explanation">La scalabilité permet d’ajuster les ressources (taille ou volume) en fonction des besoins des utilisateurs.</div>
+    </div>
+</div>
+
+<div class="question-card">
+    <div class="question-number">Question 75</div>
+    <div class="question-text">Lorsqu’on ajoute une pile de logiciels, telle qu’un système d’exploitation et des applications :</div>
+    <div class="options">
+        <label class="option">
+            <input type="radio" name="q95" value="a"> SaaS
+        </label>
+        <label class="option">
+            <input type="radio" name="q95" value="b"> PaaS
+        </label>
+        <label class="option">
+            <input type="radio" name="q95" value="c"> IaaS
+        </label>
+        <label class="option">
+            <input type="radio" name="q95" value="d"> Toutes les réponses sont vraies
+        </label>
+    </div>
+    <button class="validate-btn" onclick="validateAnswer('q95', ['c'], this)">Valider la réponse</button>
+    <div class="result">
+        <div class="explanation">IaaS fournit une infrastructure incluant systèmes d’exploitation et applications, que l’utilisateur peut configurer.</div>
+    </div>
+</div>
+
+<div class="question-card">
+    <div class="question-number">Question 76</div>
+    <div class="question-text">Lequel des modèles suivants est le modèle du service le plus raffiné et le plus restrictif ?</div>
+    <div class="options">
+        <label class="option">
+            <input type="radio" name="q96" value="a"> SaaS
+        </label>
+        <label class="option">
+            <input type="radio" name="q96" value="b"> PaaS
+        </label>
+        <label class="option">
+            <input type="radio" name="q96" value="c"> IaaS
+        </label>
+        <label class="option">
+            <input type="radio" name="q96" value="d"> Toutes les réponses sont vraies
+        </label>
+    </div>
+    <button class="validate-btn" onclick="validateAnswer('q96', ['a'], this)">Valider la réponse</button>
+    <div class="result">
+        <div class="explanation">SaaS est le modèle le plus raffiné et restrictif, car l’utilisateur n’a qu’un accès limité à l’application sans contrôle sur l’infrastructure.</div>
+    </div>
+</div>
+
+<div class="question-card">
+    <div class="question-number">Question 77</div>
+    <div class="question-text">Toutes les applications du cloud computing souffrent du ______ à leur connectivité WAN :</div>
+    <div class="options">
+        <label class="option">
+            <input type="radio" name="q97" value="a"> Propagation
+        </label>
+        <label class="option">
+            <input type="radio" name="q97" value="b"> Latence
+        </label>
+        <label class="option">
+            <input type="radio" name="q97" value="c"> Bruit
+        </label>
+        <label class="option">
+            <input type="radio" name="q97" value="d"> Aucune de ces réponses
+        </label>
+    </div>
+    <button class="validate-btn" onclick="validateAnswer('q97', ['b'], this)">Valider la réponse</button>
+    <div class="result">
+        <div class="explanation">La latence est un problème courant pour les applications cloud en raison des connexions WAN, affectant la vitesse de transmission des données.</div>
+    </div>
+</div>
+
+</div>
+        </div>
+    </div>
+
+    <script>
+        let answeredQuestions = 0;
+        let correctAnswers = 0;
+        const totalQuestions = 60;
+
+        function validateAnswer(questionName, correctOptions, button) {
+            const options = document.querySelectorAll(`input[name="${questionName}"]:checked`);
+            const resultDiv = button.nextElementSibling;
+            let selectedValues = Array.from(options).map(opt => opt.value);
+
+            // For radio buttons, ensure only one option is selected
+            if (options[0]?.type === 'radio' && selectedValues.length > 1) {
+                selectedValues = [selectedValues[selectedValues.length - 1]];
+            }
+
+            // Check if the selected options match the correct ones
+            const isCorrect = selectedValues.length === correctOptions.length &&
+                selectedValues.every(val => correctOptions.includes(val)) &&
+                correctOptions.every(val => selectedValues.includes(val));
+
+            // Display result
+            resultDiv.style.display = 'block';
+            resultDiv.className = `result ${isCorrect ? 'correct' : 'incorrect'}`;
+            resultDiv.innerHTML = `<strong>${isCorrect ? 'Correct!' : 'Incorrect'}</strong><br>
+                <div class="explanation">${resultDiv.querySelector('.explanation').innerHTML}</div>`;
+
+            // Disable inputs and button after validation
+            document.querySelectorAll(`input[name="${questionName}"]`).forEach(input => input.disabled = true);
+            button.disabled = true;
+
+            // Update progress
+            answeredQuestions++;
+            correctAnswers += isCorrect ? 1 : 0;
+            document.getElementById('answered').textContent = answeredQuestions;
+            const progressPercent = (answeredQuestions / totalQuestions) * 100;
+            document.getElementById('progressBar').style.width = `${progressPercent}%`;
+
+            // Show final score if all questions are answered
+            if (answeredQuestions === totalQuestions) {
+                const scorePercent = (correctAnswers / totalQuestions) * 100;
+                const finalScoreDiv = document.getElementById('finalScore');
+                finalScoreDiv.style.display = 'block';
+                document.getElementById('scorePercentage').textContent = scorePercent.toFixed(2);
+
+                let scoreMessage = '';
+                let scoreClass = '';
+                if (scorePercent >= 80) {
+                    scoreMessage = 'Excellent travail ! Vous maîtrisez le cloud computing et la virtualisation.';
+                    scoreClass = 'score-excellent';
+                } else if (scorePercent >= 50) {
+                    scoreMessage = 'Bon travail, mais il y a encore des domaines à améliorer.';
+                    scoreClass = 'score-good';
+                } else {
+                    scoreMessage = 'Vous devriez revoir les concepts de base du cloud et de la virtualisation.';
+                    scoreClass = 'score-poor';
+                }
+
+                finalScoreDiv.className = `final-score ${scoreClass}`;
+                document.getElementById('scoreMessage').textContent = scoreMessage;
+
+                // Scroll to the final score
+                finalScoreDiv.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    </script>
+</body>
+</html>
