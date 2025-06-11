@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Systèmes Distribués</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            padding: 30px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .section-filter {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .section-filter select {
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 25px;
+            border: 2px solid #e9ecef;
+            cursor: pointer;
+            background: white;
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .section-filter select:hover {
+            border-color: #3498db;
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.2);
+        }
+
+        .question-container {
+            margin-bottom: 30px;
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .question-container:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-color: #3498db;
+        }
+
+        .question {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .options label {
+            display: block;
+            padding: 15px;
+            margin: 10px 0;
+            background: white;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .options input[type="radio"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+
+        .options label:hover {
+            border-color: #3498db;
+            background: #f0f8ff;
+            transform: translateY(-2px);
+        }
+
+        .buttons {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .buttons button {
+            padding: 12px 25px;
+            margin: 0 10px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .validate-btn {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .validate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+
+        .next-btn {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .next-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+
+        .correction {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .correct {
+            background: #d4edda;
+            border: 2px solid #c3e6cb;
+            color: #155724;
+        }
+
+        .incorrect {
+            background: #f8d7da;
+            border: 2px solid #f5c6cb;
+            color: #721c24;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .progress-bar {
+            background: #e9ecef;
+            height: 8px;
+            border-radius: 4px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .stats {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 1.1rem;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Quiz Systèmes Distribués</h1>
+        <div class="section-filter">
+            <label for="section-select">Choisir une section :</label>
+            <select id="section-select">
+                <option value="all">Toutes les sections</option>
+                <option value="Contexte et Motivations">Contexte et Motivations</option>
+                <option value="Modélisation">Modélisation</option>
+                <option value="Algorithmes Distribués">Algorithmes Distribués</option>
+                <option value="Horloges Logiques">Horloges Logiques</option>
+                <option value="Exclusion Mutuelle">Exclusion Mutuelle</option>
+                <option value="RMI vs MPI">RMI vs MPI</option>
+                <option value="Points clés">Points clés</option>
+            </select>
+        </div>
+        <div class="question-container" id="question-container"></div>
+        <div class="buttons">
+            <button class="validate-btn" id="validate-btn">Valider</button>
+            <button class="next-btn" id="next-btn" style="display: none;">Suivant</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+    // 1. Contexte et Motivations des Systèmes Distribués
+    {
+        section: "Contexte et Motivations",
+        question: "Pourquoi la scalabilité verticale présente-t-elle des limites dans un système informatique moderne ?",
+        options: [
+            "a) Elle augmente indéfiniment les performances sans surcoût.",
+            "b) Elle réduit le nombre de points de défaillance.",
+            "c) Elle conduit à des coûts élevés et est limitée par des contraintes physiques du serveur unique.",
+            "d) Elle favorise une meilleure répartition de la charge applicative."
+        ],
+        correctAnswer: "c",
+        explanation: "La scalabilité verticale (scale-up) consiste à augmenter les ressources d'un serveur unique (CPU, RAM, etc.). Cependant, elle est limitée par des contraintes physiques (puissance maximale d'un processeur, taille de la RAM) et des coûts exponentiels pour des améliorations marginales [cite: 238, 239]."
+    },
+    {
+        section: "Contexte et Motivations",
+        question: "Quelle est la principale motivation de l'utilisation de la scalabilité horizontale (scale-out) dans les systèmes distribués ?",
+        options: [
+            "a) Réduire la complexité de l'architecture du système.",
+            "b) Augmenter le coût unitaire par nœud pour garantir une meilleure qualité.",
+            "c) Permettre une extension continue des capacités en ajoutant des serveurs pour répartir la charge.",
+            "d) Centraliser le contrôle des ressources pour une gestion simplifiée."
+        ],
+        correctAnswer: "c",
+        explanation: "La scalabilité horizontale (scale-out) permet d'ajouter des serveurs pour répartir la charge, offrant une extension continue des capacités du système, ce qui est idéal pour gérer des charges croissantes [cite: 240, 241]."
+    },
+    {
+        section: "Contexte et Motivations",
+        question: "Un système distribué est défini comme une collection d'ordinateurs indépendants qui apparaissent à l'utilisateur comme un système cohérent. Qu'implique 'indépendants' dans ce contexte ?",
+        options: [
+            "a) Chaque machine partage la même mémoire physique et horloge globale.",
+            "b) La communication se fait principalement par des appels de procédures distantes et partage de registres CPU.",
+            "c) Chaque machine possède sa propre mémoire et horloge locale, communiquant uniquement par échange de messages.",
+            "d) Les machines fonctionnent de manière isolée sans aucune collaboration."
+        ],
+        correctAnswer: "c",
+        explanation: "Dans un système distribué, 'indépendants' signifie que chaque machine a sa propre mémoire et horloge locale, sans mémoire partagée, et communique uniquement par messages [cite: 249, 250]."
+    },
+    {
+        section: "Contexte et Motivations",
+        question: "Quelle affirmation est fausse concernant les avantages de la scalabilité horizontale ?",
+        options: [
+            "a) Elle permet une meilleure répartition de la charge.",
+            "b) Elle offre la possibilité d'extension continue.",
+            "c) Elle réduit le coût par nœud.",
+            "d) Elle élimine la nécessité d'une architecture distribuée pour la coordination."
+        ],
+        correctAnswer: "d",
+        explanation: "La scalabilité horizontale nécessite une architecture distribuée pour coordonner les nœuds, contrairement à l'affirmation d'élimination de cette nécessité. Les autres options sont des avantages réels [cite: 7, 8]."
+    },
+    {
+        section: "Contexte et Motivations",
+        question: "La disponibilité et la tolérance aux pannes sont cruciales pour les services à haute disponibilité (banques, réseaux sociaux). Quelle est la solution préconisée par les systèmes distribués pour atteindre cet objectif ?",
+        options: [
+            "a) Centraliser toutes les données sur un seul serveur principal pour une gestion simplifiée.",
+            "b) Redonder chaque composant d'un serveur unique.",
+            "c) Multiplier les répliques (copies) de données et d'instances applicatives pour éviter qu'une panne locale ne paralyse l'ensemble.",
+            "d) Diminuer le nombre d'utilisateurs simultanés pour réduire le risque de panne."
+        ],
+        correctAnswer: "c",
+        explanation: "Les systèmes distribués utilisent la réplication des données et des instances pour garantir qu'une panne locale n'affecte pas l'ensemble du système, assurant ainsi une haute disponibilité [cite: 11]."
+    },
+    {
+        section: "Contexte et Motivations",
+        question: "Quelle est une conséquence directe de l'augmentation constante du nombre d'utilisateurs sur Internet ?",
+        options: [
+            "a) Une diminution du volume des données et du trafic transitant sur les réseaux.",
+            "b) Une stabilité du graphe complexe des routeurs.",
+            "c) Une croissance rapide du volume des données et du trafic transitant sur les réseaux.",
+            "d) Un passage exclusif à la scalabilité verticale."
+        ],
+        correctAnswer: "c",
+        explanation: "L'augmentation du nombre d'utilisateurs entraîne une croissance exponentielle du volume de données et du trafic sur les réseaux, nécessitant des architectures distribuées pour gérer cette charge [cite: 2]."
+    },
+
+    // 2. Modélisation d'un Système Distribué
+    {
+        section: "Modélisation",
+        question: "Dans la modélisation d'un système distribué, qu'est-ce qu'un 'état global' ?",
+        options: [
+            "a) L'état d'un site individuel incluant ses variables locales et sa mémoire.",
+            "b) La somme des états locaux de tous les sites, plus l'état des messages en transit dans les canaux.",
+            "c) Un état statique et immuable du système à son démarrage.",
+            "d) La connaissance a priori qu'un site a de l'état de tous les autres sites."
+        ],
+        correctAnswer: "b",
+        explanation: "L'état global d'un système distribué inclut les états locaux de tous les sites (mémoire, variables) ainsi que l'état des messages en transit dans les canaux de communication [cite: 264]."
+    },
+    {
+        section: "Modélisation",
+        question: "Un canal de communication dans un système distribué peut être décrit comme 'fiable' ou 'non fiable'. Que garantit un canal 'fiable' ?",
+        options: [
+            "a) L'ordre des messages est toujours maintenu, mais pas leur livraison.",
+            "b) La livraison des messages est garantie, même en cas de panne du récepteur.",
+            "c) Les messages sont toujours unidirectionnels et synchrones.",
+            "d) La taille des tampons (buffers) est illimitée, empêchant toute perte de message due à l'engorgement."
+        ],
+        correctAnswer: "b",
+        explanation: "Un canal fiable garantit la livraison des messages, même en cas de panne temporaire, mais ne garantit pas nécessairement l'ordre ou la synchronie [cite: 259]."
+    },
+    {
+        section: "Modélisation",
+        question: "Chaque site dans un système distribué possède un état local et est identifié de manière unique. Quelle est une caractéristique essentielle de la connaissance des sites entre eux ?",
+        options: [
+            "a) Chaque site a une connaissance a priori et complète de l'état de tous les autres sites.",
+            "b) Chaque site n'a pas de connaissance a priori de l'état des autres sites.",
+            "c) Les sites partagent obligatoirement une mémoire au sens matériel pour coordonner leurs états.",
+            "d) La connaissance de l'état des autres sites est déterminée par une horloge globale."
+        ],
+        correctAnswer: "b",
+        explanation: "Dans un système distribué, les sites n'ont pas de connaissance a priori de l'état des autres sites, ce qui nécessite des échanges de messages pour coordonner leurs actions [cite: 23]."
+    },
+    {
+        section: "Modélisation",
+        question: "Quelle est la principale différence entre un canal de communication synchrone et asynchrone ?",
+        options: [
+            "a) Un canal synchrone garantit la livraison des messages, tandis qu'un canal asynchrone ne le fait pas.",
+            "b) Un canal synchrone assure l'ordre FIFO, alors qu'un canal asynchrone ne garantit aucun ordre.",
+            "c) Un canal synchrone nécessite une synchronisation directe entre l'émetteur et le récepteur pour l'envoi/réception, alors qu'un canal asynchrone utilise une file d'attente.",
+            "d) Un canal synchrone est toujours unidirectionnel, contrairement au canal asynchrone."
+        ],
+        correctAnswer: "c",
+        explanation: "Un canal synchrone exige une synchronisation directe (l'émetteur attend la réception), tandis qu'un canal asynchrone utilise une file d'attente, permettant à l'émetteur de continuer sans attendre [cite: 28]."
+    },
+    {
+        section: "Modélisation",
+        question: "Quel type d'événement décrit un changement de l'état d'un processus sans communication externe (par exemple, l'exécution d'une instruction atomique) ?",
+        options: [
+            "a) Événement d'émission.",
+            "b) Événement de réception.",
+            "c) Événement global.",
+            "d) Événement local."
+        ],
+        correctAnswer: "d",
+        explanation: "Un événement local est un changement d'état interne à un processus, comme l'exécution d'une instruction, sans interaction avec d'autres processus [cite: 31]."
+    },
+    {
+        section: "Modélisation",
+        question: "Si un canal de communication garantit la livraison des messages et leur ordre FIFO (First-In, First-Out), quelle propriété de canal est combinée ?",
+        options: [
+            "a) Bidirectionnel et synchrone.",
+            "b) Fiable et avec garantie d'ordre (FIFO).",
+            "c) Non fiable et asynchrone.",
+            "d) Unidirectionnel et sans ordre."
+        ],
+        correctAnswer: "b",
+        explanation: "Un canal fiable garantit la livraison des messages, et la propriété FIFO assure que les messages sont livrés dans l'ordre d'émission [cite: 25, 26]."
+    },
+
+    // 3. Algorithmes Distribués (Calcul de plus court chemin)
+    {
+        section: "Algorithmes Distribués",
+        question: "L'algorithme de Dijkstra, appliqué au routage, est un algorithme de type 'Link-State'. Quel est son principal prérequis ?",
+        options: [
+            "a) Chaque nœud ne connaît que ses voisins immédiats et leurs coûts.",
+            "b) Chaque nœud doit connaître la topologie complète du graphe, y compris les coûts de toutes les arêtes.",
+            "c) Les coûts des liens doivent être statiques et ne jamais changer.",
+            "d) Il nécessite un serveur central pour construire l'arbre couvrant."
+        ],
+        correctAnswer: "b",
+        explanation: "L'algorithme de Dijkstra, utilisé dans les protocoles 'Link-State' comme OSPF, nécessite que chaque nœud connaisse la topologie complète du réseau pour calculer les plus courts chemins [cite: 274]."
+    },
+    {
+        section: "Algorithmes Distribués",
+        question: "L'algorithme de Bellman-Ford (Distance-Vector) est couramment utilisé dans les protocoles de routage. Quelle est sa principale caractéristique concernant la connaissance de la topologie ?",
+        options: [
+            "a) Il requiert une connaissance complète de la topologie du réseau par chaque nœud.",
+            "b) Chaque nœud connaît la distance (coût) uniquement vers ses voisins directs, et non la topologie globale.",
+            "c) Il utilise un arbre couvrant de plus court chemin construit à partir d'un nœud source unique.",
+            "d) Il met à jour les distances uniquement lorsque la topologie est stable."
+        ],
+        correctAnswer: "b",
+        explanation: "L'algorithme de Bellman-Ford (Distance-Vector) repose sur l'échange d'informations de distance avec les voisins directs, sans nécessiter une connaissance globale de la topologie [cite: 279]."
+    },
+    {
+        section: "Algorithmes Distribués",
+        question: "Quel est l'objectif principal du protocole HELLO dans un réseau de routeurs ?",
+        options: [
+            "a) Calculer la table de routage globale du réseau en temps réel.",
+            "b) Diffuser les changements topologiques majeurs à l'ensemble du réseau.",
+            "c) Établir et maintenir la table de voisinage locale pour chaque routeur.",
+            "d) Déterminer le chemin le plus court entre deux points quelconques du réseau."
+        ],
+        correctAnswer: "c",
+        explanation: "Le protocole HELLO permet à chaque routeur de découvrir et maintenir une table de ses voisins directs, essentielle pour construire la topologie locale [cite: 285]."
+    },
+    {
+        section: "Algorithmes Distribués",
+        question: "Lorsqu'un nœud détecte une panne de lien via le protocole HELLO, quel est l'effet immédiat sur le réseau après inondation du message de panne ?",
+        options: [
+            "a) Tous les routeurs reconstruisent leur table de routage complète à partir de zéro.",
+            "b) Le nœud redevient le point de défaillance unique du système.",
+            "c) Chaque nœud met à jour sa base locale pour refléter que la liaison est cassée, et les routes sont recalculées en conséquence.",
+            "d) La panne est ignorée par les autres nœuds jusqu'à une nouvelle connexion."
+        ],
+        correctAnswer: "c",
+        explanation: "Lorsqu'une panne est détectée, le protocole HELLO déclenche une inondation pour informer les nœuds, qui mettent à jour leur base topologique et recalculent les routes [cite: 296, 297]."
+    },
+    {
+        section: "Algorithmes Distribués",
+        question: "Le protocole OSPF (Open Shortest Path First) est un corrélat de quel algorithme de routage ?",
+        options: [
+            "a) Algorithme de Bellman-Ford.",
+            "b) Algorithme de Dijkstra.",
+            "c) Protocole HELLO.",
+            "d) Algorithme de Flooding."
+        ],
+        correctAnswer: "b",
+        explanation: "OSPF est un protocole de type 'Link-State' qui utilise l'algorithme de Dijkstra pour calculer les plus courts chemins à partir de la topologie complète [cite: 45]."
+    },
+    {
+        section: "Algorithmes Distribués",
+        question: "Quel protocole de routage envoie périodiquement des messages contenant l'ID du nœud et la liste des voisins connus sur chaque lien ?",
+        options: [
+            "a) Bellman-Ford.",
+            "b) Dijkstra.",
+            "c) Protocole HELLO.",
+            "d) BGP (Border Gateway Protocol)."
+        ],
+        correctAnswer: "c",
+        explanation: "Le protocole HELLO envoie périodiquement des messages avec l'ID du nœud et la liste de ses voisins pour maintenir la table de voisinage [cite: 52]."
+    },
+    {
+        section: "Algorithmes Distribués",
+        question: "Lorsque la base topologique d'un routeur est modifiée (par exemple, un changement de coût ou une nouvelle arête), quel algorithme de routage doit être exécuté si la topologie complète est connue ?",
+        options: [
+            "a) Bellman-Ford.",
+            "b) Protocole HELLO.",
+            "c) Dijkstra.",
+            "d) Flooding."
+        ],
+        correctAnswer: "c",
+        explanation: "Si la topologie complète est connue, l'algorithme de Dijkstra est utilisé pour recalculer les plus courts chemins à partir des nouvelles informations [cite: 63]."
+    },
+    {
+        section: "Algorithmes Distribués",
+        question: "Dans la modélisation d'un réseau de routeurs par un graphe, que représentent les arêtes ?",
+        options: [
+            "a) Les routeurs (sites).",
+            "b) Les liaisons physiques (canaux de communication).",
+            "c) Les tables de routage.",
+            "d) Les coûts de routage."
+        ],
+        correctAnswer: "b",
+        explanation: "Dans un graphe modélisant un réseau, les arêtes représentent les liaisons physiques (canaux de communication) entre les routeurs [cite: 35]."
+    },
+    {
+        section: "Algorithmes Distribués",
+        question: "Que se passe-t-il si un nœud ne reçoit plus de message HELLO d'un voisin dans un certain délai (timeout) ?",
+        options: [
+            "a) Il continue à considérer le lien comme fonctionnel.",
+            "b) Il déclare le lien comme 'panne' et déclenche la diffusion de cette information.",
+            "c) Il augmente le coût de ce lien de manière arbitraire.",
+            "d) Il envoie un message de test au voisin pour vérifier la connectivité."
+        ],
+        correctAnswer: "b",
+        explanation: "Si un nœud ne reçoit plus de messages HELLO dans le délai imparti, il considère le lien comme rompu et diffuse cette information via inondation [cite: 54]."
+    },
+    {
+        section: "Algorithmes Distribués",
+        question: "L'objectif de l'inondation (flooding) est de diffuser rapidement à l'ensemble du réseau toute nouvelle information sur la topologie. Quelle information est typiquement véhiculée par ces messages ?",
+        options: [
+            "a) Le vecteur de distance complet de chaque nœud.",
+            "b) Un message de la forme (ARÊTE, A, B, coût, n°_d'inondation) lors d'un changement d'arête ou de panne.",
+            "c) Des requêtes d'accès à la section critique.",
+            "d) Des horodatages logiques de Lamport."
+        ],
+        correctAnswer: "b",
+        explanation: "L'inondation diffuse des messages contenant des informations sur les changements topologiques, comme l'ajout ou la suppression d'une arête, avec son coût et un numéro d'inondation [cite: 57]."
+    },
+
+    // 4. Horloges Logiques et Causalité
+    {
+        section: "Horloges Logiques",
+        question: "Dans un système distribué, pourquoi l'absence d'une horloge globale parfaitement synchronisée est-elle une problématique majeure ?",
+        options: [
+            "a) Elle empêche toute communication entre les sites.",
+            "b) Elle rend impossible l'horodatage des événements locaux.",
+            "c) Elle rend difficile la détermination d'un ordre cohérent des événements sur tous les sites, notamment pour des décisions de priorité.",
+            "d) Elle n'affecte que les performances et non la logique du système."
+        ],
+        correctAnswer: "c",
+        explanation: "Sans horloge globale, il est difficile d'établir un ordre cohérent des événements entre sites, ce qui complique les décisions basées sur la priorité ou la causalité [cite: 302, 304]."
+    },
+    {
+        section: "Horloges Logiques",
+        question: "Selon la relation de causalité ($a \\rightarrow b$), si l'événement 'a' est l'émission d'un message 'm' et 'b' est la réception du même message 'm', que peut-on affirmer ?",
+        options: [
+            "a) Les événements 'a' et 'b' sont concurrents.",
+            "b) L'événement 'b' précède causalement l'événement 'a'.",
+            "c) L'événement 'a' précède causalement l'événement 'b'.",
+            "d) Leur ordre dépend uniquement de leurs horodatages physiques."
+        ],
+        correctAnswer: "c",
+        explanation: "Si $a$ est l'émission d'un message et $b$ sa réception, alors $a \\rightarrow b$, car l'émission précède causalement la réception [cite: 305]."
+    },
+    {
+        section: "Horloges Logiques",
+        question: "Considérant l'horloge logique de Lamport, si un événement 'a' se produit sur le site $S_i$ et un événement 'b' sur le site $S_j$, et $H(a) < H(b)$, est-ce que cela implique $a \\rightarrow b$ ?",
+        options: [
+            "a) Oui, toujours. L'horloge de Lamport garantit un ordre total strict.",
+            "b) Non, pas nécessairement. L'horloge de Lamport garantit seulement que si $a \\rightarrow b$, alors $H(a) < H(b)$, mais l'inverse n'est pas toujours vrai.",
+            "c) Seulement si $i = j$.",
+            "d) Uniquement si $H(a) = H(b)$ et $i < j$."
+        ],
+        correctAnswer: "b",
+        explanation: "L'horloge de Lamport garantit que si $a \\rightarrow b$, alors $H(a) < H(b)$, mais l'inverse n'est pas vrai : $H(a) < H(b)$ n'implique pas nécessairement $a \\rightarrow b$ [cite: 309, 320]."
+    },
+    {
+        section: "Horloges Logiques",
+        question: "Quel est l'un des inconvénients majeurs de l'horloge vectorielle par rapport à l'horloge de Lamport ?",
+        options: [
+            "a) Elle ne permet pas de capturer la causalité exacte des événements.",
+            "b) Sa taille est constante quelle que soit le nombre de sites ($N$).",
+            "c) Elle entraîne un encombrement mémoire et une bande passante élevée due à l'échange d'un vecteur entier à chaque message (taille $N$).",
+            "d) Elle ne permet pas de détecter la concurrence entre événements."
+        ],
+        correctAnswer: "c",
+        explanation: "L'horloge vectorielle nécessite l'échange d'un vecteur de taille $N$ (nombre de sites), ce qui augmente l'encombrement mémoire et la bande passante par rapport à l'horloge scalaire de Lamport [cite: 326]."
+    },
+    {
+        section: "Horloges Logiques",
+        question: "L'horloge matricielle est une extension de l'horloge vectorielle. Quel est son principal avantage ?",
+        options: [
+            "a) Elle réduit considérablement l'encombrement mémoire par rapport à l'horloge vectorielle.",
+            "b) Elle représente toutes les dépendances causales, y compris les dépendances transitives entre événements.",
+            "c) Elle simplifie le processus de mise à jour des horodatages.",
+            "d) Elle permet de détecter la concurrence avec une complexité en $O(N)$."
+        ],
+        correctAnswer: "b",
+        explanation: "L'horloge matricielle capture toutes les dépendances causales, y compris les dépendances transitives, offrant une vue plus complète des relations entre événements [cite: 328, 332]."
+    },
+    {
+        section: "Horloges Logiques",
+        question: "La relation de causalité ($a \\rightarrow b$) est transitive. Cela signifie que :",
+        options: [
+            "a) Si $a$ et $b$ sont des événements locaux sur le même site, alors $a \\rightarrow b$.",
+            "b) Si $a$ est l'émission d'un message $m$ et $b$ la réception de $m$, alors $a \\rightarrow b$.",
+            "c) Si $a \\rightarrow c$ et $c \\rightarrow b$, alors $a \\rightarrow b$.",
+            "d) Les événements $a$ et $b$ sont toujours concurrents."
+        ],
+        correctAnswer: "c",
+        explanation: "La transitivité de la relation de causalité signifie que si $a \\rightarrow c$ et $c \\rightarrow b$, alors $a \\rightarrow b$ [cite: 74]."
+    },
+    {
+        section: "Horloges Logiques",
+        question: "Selon les règles de l'horloge logique de Lamport, lorsqu'un site $j$ reçoit un message $(T, i)$, comment met-il à jour son horloge $H_j$ ?",
+        options: [
+            "a) $H_j \\leftarrow H_j + 1$.",
+            "b) $H_j \\leftarrow T$.",
+            "c) $H_j \\leftarrow \\text{max}(H_j, T) + 1$.",
+            "d) $H_j \\leftarrow \\text{min}(H_j, T) + 1$."
+        ],
+        correctAnswer: "c",
+        explanation: "Lors de la réception d'un message avec horodatage $T$, le site $j$ met à jour son horloge $H_j$ en prenant le maximum entre $H_j$ et $T$, puis incrémente de 1 pour refléter l'événement [cite: 81]."
+    },
+    {
+        section: "Horloges Logiques",
+        question: "L'horloge de Lamport ne peut pas déterminer si deux événements sont concurrents. Quel est l'outil logique qui permet de détecter la concurrence ?",
+        options: [
+            "a) La relation d'ordre total des horodatages de Lamport.",
+            "b) La comparaison des identifiants de site en cas d'horodatage égal.",
+            "c) L'horloge vectorielle.",
+            "d) Le temps de transmission des messages."
+        ],
+        correctAnswer: "c",
+        explanation: "L'horloge vectorielle permet de détecter la concurrence en comparant les vecteurs d'horodatages, contrairement à l'horloge de Lamport qui ne capture que l'ordre causal partiel [cite: 92]."
+    },
+    {
+        section: "Horloges Logiques",
+        question: "Dans le cas d'égalité d'horodatages Lamport $T_1 = T_2$ entre deux événements $(T_1, i)$ et $(T_2, j)$, comment l'ordre total est-il déterminé ?",
+        options: [
+            "a) L'événement avec le plus grand identifiant de site précède.",
+            "b) L'événement avec le plus petit identifiant de site précède ($(T,i) < (T,j)$ si $i < j$).",
+            "c) Les événements sont considérés comme concurrents.",
+            "d) Le système attend une intervention manuelle pour déterminer l'ordre."
+        ],
+        correctAnswer: "b",
+        explanation: "En cas d'égalité des horodatages Lamport, l'ordre total est déterminé par l'identifiant du site : $(T,i) < (T,j)$ si $i < j$ [cite: 83]."
+    },
+    {
+        section: "Horloges Logiques",
+        question: "Quel est l'un des inconvénients majeurs de l'horloge matricielle ?",
+        options: [
+            "a) Elle ne capture pas les dépendances transitives.",
+            "b) Sa complexité mémoire est de $O(N)$.",
+            "c) Sa complexité mémoire est de $O(N^2)$ et le coût de mise à jour est élevé.",
+            "d) Elle ne permet pas d'assurer la délivrance transitivement causale."
+        ],
+        correctAnswer: "c",
+        explanation: "L'horloge matricielle a une complexité mémoire de $O(N^2)$ et un coût de mise à jour élevé, car elle stocke une matrice pour chaque site [cite: 100, 101]."
+    },
+
+    // 5. Exclusion Mutuelle Distribuée
+    {
+        section: "Exclusion Mutuelle",
+        question: "Dans le contexte de l'exclusion mutuelle distribuée, quelle est la propriété de 'vivacité' (liveness) recherchée ?",
+        options: [
+            "a) Garantir qu'au plus un seul processus est dans sa section critique à un instant donné.",
+            "b) S'assurer que tout processus souhaitant entrer en section critique finit par y entrer dans un temps fini.",
+            "c) Éviter la centralisation du contrôle pour prévenir les points uniques de défaillance.",
+            "d) Permettre à plusieurs processus d'accéder à la ressource partagée simultanément."
+        ],
+        correctAnswer: "b",
+        explanation: "La vivacité (liveness) garantit que tout processus demandant l'accès à la section critique finira par y accéder, évitant la famine [cite: 340]."
+    },
+    {
+        section: "Exclusion Mutuelle",
+        question: "L'algorithme centralisé pour l'exclusion mutuelle est simple à implémenter. Cependant, quel est son inconvénient majeur ?",
+        options: [
+            "a) Il nécessite un nombre important d'échanges de messages pour chaque demande.",
+            "b) Le serveur coordinateur peut devenir un goulot d'étranglement et un point unique de défaillance.",
+            "c) Il ne garantit pas la sécurité de l'accès à la section critique.",
+            "d) Il est difficile à déboguer en raison de sa nature distribuée."
+        ],
+        correctAnswer: "b",
+        explanation: "L'algorithme centralisé repose sur un serveur coordinateur, qui peut devenir un goulot d'étranglement et un point unique de défaillance, bloquant le système en cas de panne [cite: 354, 355]."
+    },
+    {
+        section: "Exclusion Mutuelle",
+        question: "L'algorithme de Bakery de Lamport imite la prise de ticket dans une boulangerie. Un des inconvénients de cet algorithme est :",
+        options: [
+            "a) Sa dépendance à un serveur central pour la distribution des tickets.",
+            "b) Une communication intensive, nécessitant la lecture des variables de tous les autres processus ($O(N)$ messages).",
+            "c) L'impossibilité de garantir la vivacité en cas de forte charge.",
+            "d) La nécessité de synchroniser les horloges physiques de tous les processus."
+        ],
+        correctAnswer: "b",
+        explanation: "L'algorithme de Bakery nécessite que chaque processus lise les variables de tous les autres pour déterminer l'ordre, ce qui entraîne une communication intensive en $O(N)$ messages [cite: 367]."
+    },
+    {
+        section: "Exclusion Mutuelle",
+        question: "Dans l'algorithme basé sur un jeton dans un anneau virtuel, quel est l'un des principaux inconvénients ?",
+        options: [
+            "a) Il ne garantit pas la sécurité, car plusieurs nœuds peuvent détenir le jeton simultanément.",
+            "b) Le délai d'entrée en section critique peut être variable et potentiellement long si le jeton vient de passer.",
+            "c) Il nécessite un mécanisme d'élection complexe pour démarrer le système.",
+            "d) La perte du jeton est automatiquement gérée sans intervention."
+        ],
+        correctAnswer: "b",
+        explanation: "Dans un anneau virtuel, si le jeton vient de passer, un processus peut devoir attendre longtemps avant de recevoir le jeton, ce qui entraîne des délais variables [cite: 375]."
+    },
+    {
+        section: "Exclusion Mutuelle",
+        question: "L'algorithme de Ricart-Agrawala est basé sur les horodatages logiques. Combien de messages sont nécessaires pour une seule entrée en section critique ?",
+        options: [
+            "a) N messages (N-1 requêtes et 1 réponse).",
+            "b) $2 \\times (N - 1)$ messages (N-1 requêtes et N-1 réponses).",
+            "c) 1 message si le processus est le seul à demander.",
+            "d) Un nombre variable de messages, dépendant du nombre de processus concurrents."
+        ],
+        correctAnswer: "b",
+        explanation: "L'algorithme de Ricart-Agrawala nécessite $N-1$ requêtes envoyées à tous les autres processus et $N-1$ réponses pour autoriser l'entrée en section critique, soit $2 \\times (N-1)$ messages [cite: 408]."
+    },
+    {
+        section: "Exclusion Mutuelle",
+        question: "Dans l'algorithme centralisé d'exclusion mutuelle, comment le serveur gère-t-il les demandes d'accès à la section critique ?",
+        options: [
+            "a) Il les refuse si la ressource est déjà occupée.",
+            "b) Il les met en file d'attente selon leur ordre d'arrivée.",
+            "c) Il envoie l'autorisation au demandeur le plus proche.",
+            "d) Il demande à tous les autres processus de voter pour l'accès."
+        ],
+        correctAnswer: "b",
+        explanation: "Le serveur centralisé gère les demandes en les plaçant dans une file d'attente selon leur ordre d'arrivée, garantissant l'équité [cite: 116]."
+    },
+    {
+        section: "Exclusion Mutuelle",
+        question: "L'algorithme de Bakery de Lamport garantit la sécurité (un seul processus en SC à la fois) et la vivacité (pas de starvation). Quel est son inconvénient majeur ?",
+        options: [
+            "a) La nécessité d'un serveur central pour attribuer les numéros.",
+            "b) Une communication intensive due à la lecture des variables de tous les autres processus.",
+            "c) L'impossibilité de gérer plus de deux processus.",
+            "d) La dépendance à une horloge physique globale."
+        ],
+        correctAnswer: "b",
+        explanation: "L'algorithme de Bakery nécessite une communication intensive, car chaque processus doit lire les variables de tous les autres pour déterminer l'ordre d'accès [cite: 133]."
+    },
+    {
+        section: "Exclusion Mutuelle",
+        question: "Dans l'algorithme basé sur un jeton dans un anneau virtuel, si un nœud reçoit le jeton et ne souhaite pas entrer en SC, que fait-il ?",
+        options: [
+            "a) Il garde le jeton jusqu'à ce qu'il en ait besoin.",
+            "b) Il détruit le jeton.",
+            "c) Il le transfère immédiatement à son successeur.",
+            "d) Il renvoie le jeton à son prédécesseur."
+        ],
+        correctAnswer: "c",
+        explanation: "Si un nœud ne souhaite pas entrer en section critique, il transfère immédiatement le jeton à son successeur dans l'anneau virtuel pour maintenir la circulation [cite: 136]."
+    },
+    {
+        section: "Exclusion Mutuelle",
+        question: "L'algorithme de Ricart-Agrawala est un algorithme sans serveur central ni jeton. Sur quoi est-il basé pour l'ordre des requêtes ?",
+        options: [
+            "a) Des priorités statiques pré-assignées aux processus.",
+            "b) L'horodatage logique (Lamport).",
+            "c) Un système d'élection du leader.",
+            "d) La disponibilité physique de la ressource."
+        ],
+        correctAnswer: "b",
+        explanation: "L'algorithme de Ricart-Agrawala utilise les horodatages logiques de Lamport pour ordonner les requêtes d'accès à la section critique [cite: 158]."
+    },
+    {
+        section: "Exclusion Mutuelle",
+        question: "Lequel des objectifs suivants n'est pas une propriété recherchée pour un algorithme d'exclusion mutuelle distribuée ?",
+        options: [
+            "a) Sécurité (pas deux processus dans la SC simultanément).",
+            "b) Vivacité (tout processus souhaitant entrer en SC finit par y entrer).",
+            "c) Centralisation (un nœud unique de contrôle).",
+            "d) Équitabilité (pas de famine)."
+        ],
+        correctAnswer: "c",
+        explanation: "La centralisation n'est pas une propriété recherchée, car elle introduit un point unique de défaillance, contrairement à la sécurité, la vivacité et l'équitabilité [cite: 105, 106, 107, 108]."
+    },
+    {
+        section: "Exclusion Mutuelle",
+        question: "Dans l'algorithme centralisé d'exclusion mutuelle, si le serveur coordinateur tombe en panne, que se passe-t-il pour le système ?",
+        options: [
+            "a) Le système continue à fonctionner normalement.",
+            "b) Un nouveau serveur est élu automatiquement et la file d'attente est restaurée.",
+            "c) Tout le système est bloqué (point unique de défaillance).",
+            "d) Les processus peuvent accéder directement à la ressource partagée."
+        ],
+        correctAnswer: "c",
+        explanation: "La panne du serveur coordinateur bloque tout le système, car il représente un point unique de défaillance [cite: 120]."
+    },
+    {
+        section: "Exclusion Mutuelle",
+        question: "L'algorithme de Suzuki-Kasami est une variante optimisée de l'algorithme basé sur un jeton. Quel est son principal avantage en termes de messages par rapport à l'algorithme de Ricart-Agrawala ?",
+        options: [
+            "a) Il nécessite toujours $2 \\times (N-1)$ messages par entrée en SC.",
+            "b) Il réduit le nombre de messages à une requête initiale en $O(N)$ puis un transfert de jeton en $O(1)$.",
+            "c) Il n'envoie aucun message.",
+            "d) Il n'est pas basé sur l'échange de messages."
+        ],
+        correctAnswer: "b",
+        explanation: "L'algorithme de Suzuki-Kasami réduit le nombre de messages en utilisant un jeton, avec une requête initiale en $O(N)$ et un transfert de jeton en $O(1)$, contrairement à Ricart-Agrawala qui nécessite $2 \\times (N-1)$ messages [cite: 153]."
+    },
+
+    // 6. RMI vs MPI
+    {
+        section: "RMI vs MPI",
+        question: "Quelle est la principale différence d'abstraction entre RMI et MPI ?",
+        options: [
+            "a) RMI est une norme basée sur l'échange explicite de messages, tandis que MPI est un appel de méthode à distance orienté objet.",
+            "b) RMI est une abstraction de haut niveau orientée objet, tandis que MPI est de bas niveau avec gestion explicite des messages.",
+            "c) RMI permet le contrôle fin de la communication, alors que MPI est transparent pour le développeur.",
+            "d) RMI est multi-langage, tandis que MPI est limité à Java."
+        ],
+        correctAnswer: "b",
+        explanation: "RMI offre une abstraction orientée objet pour les appels de méthodes distants, tandis que MPI repose sur une gestion explicite des messages, adaptée au calcul haute performance [cite: 429]."
+    },
+    {
+        section: "RMI vs MPI",
+        question: "Quel est le cas d'usage typique pour MPI (Message Passing Interface) ?",
+        options: [
+            "a) Les applications d'entreprise distribuées basées sur Java.",
+            "b) Le calcul scientifique intensif et les supercalculateurs (HPC).",
+            "c) Le développement de services web RESTful.",
+            "d) La gestion de bases de données distribuées transactionnelles."
+        ],
+        correctAnswer: "b",
+        explanation: "MPI est principalement utilisé pour le calcul scientifique intensif et les supercalculateurs, où des performances élevées sont nécessaires [cite: 420, 427]."
+    },
+    {
+        section: "RMI vs MPI",
+        question: "Lequel des inconvénients suivants est associé à RMI ?",
+        options: [
+            "a) Une courbe d'apprentissage très raide due à sa programmation bas niveau.",
+            "b) Des performances très élevées optimisées pour les interconnexions haute vitesse.",
+            "c) Une limitation à l'écosystème Java, rendant l'interopérabilité avec d'autres langages plus complexe.",
+            "d) La gestion manuelle des buffers et de la synchronisation."
+        ],
+        correctAnswer: "c",
+        explanation: "RMI est limité à l'écosystème Java, ce qui complique l'interopérabilité avec d'autres langages, contrairement à MPI qui est plus flexible [cite: 418]."
+    },
+    {
+        section: "RMI vs MPI",
+        question: "Quel est le langage de programmation principalement associé à RMI ?",
+        options: [
+            "a) C.",
+            "b) Fortran.",
+            "c) Java.",
+            "d) Python."
+        ],
+        correctAnswer: "c",
+        explanation: "RMI (Remote Method Invocation) est principalement associé à Java, où il est utilisé pour les appels de méthodes distants dans des applications distribuées [cite: 177]."
+    },
+    {
+        section: "RMI vs MPI",
+        question: "Quelle caractéristique est un avantage de MPI par rapport à RMI ?",
+        options: [
+            "a) La transparence de la programmation orientée objet.",
+            "b) La gestion automatique de la sérialisation des objets.",
+            "c) Des performances très élevées, optimisées pour le calcul haute performance (HPC).",
+            "d) Une courbe d'apprentissage plus facile due à son niveau d'abstraction."
+        ],
+        correctAnswer: "c",
+        explanation: "MPI est optimisé pour le calcul haute performance (HPC), offrant des performances élevées sur des supercalculateurs grâce à une gestion fine des communications [cite: 193]."
+    },
+    {
+        section: "RMI vs MPI",
+        question: "Quel est le principal cas d'usage pour RMI (Remote Method Invocation) ?",
+        options: [
+            "a) Le calcul haute performance sur supercalculateurs.",
+            "b) Les applications distribuées écrites en Java.",
+            "c) La programmation système de bas niveau en C/C++.",
+            "d) La gestion de bases de données relationnelles embarquées."
+        ],
+        correctAnswer: "b",
+        explanation: "RMI est principalement utilisé pour les applications distribuées en Java, permettant des appels de méthodes à distance dans un environnement orienté objet [cite: 196]."
+    },
+    {
+        section: "RMI vs MPI",
+        question: "MPI permet d'implémenter des communications de divers types. Lequel des types suivants est une communication collective ?",
+        options: [
+            "a) MPI_Send.",
+            "b) MPI_Recv.",
+            "c) Broadcast.",
+            "d) MPI_Comm_rank."
+        ],
+        correctAnswer: "c",
+        explanation: "Le Broadcast est une communication collective en MPI, où un message est envoyé de manière simultanée à tous les processus d'un groupe [cite: 192]."
+    },
+
+    // 7. Points clés
+    {
+        section: "Points clés",
+        question: "Quel terme décrit le fait que ni l'événement 'a' ne précède causalement 'b', ni 'b' ne précède causalement 'a' ?",
+        options: [
+            "a) Ordre total.",
+            "b) Horodatage unique.",
+            "c) Événements concurrents.",
+            "d) Relation transitive."
+        ],
+        correctAnswer: "c",
+        explanation: "Lorsque ni $a \\rightarrow b$ ni $b \\rightarrow a$, les événements $a$ et $b$ sont dits concurrents, car ils n'ont pas de relation causale [cite: 308, 439]."
+    },
+    {
+        section: "Points clés",
+        question: "En ce qui concerne les algorithmes de routage, quelle est la fonction principale de l'inondation (flooding) ?",
+        options: [
+            "a) Détecter les voisins immédiats et maintenir leur état.",
+            "b) Diffuser rapidement toute nouvelle information topologique (nouveau lien, panne) à l'ensemble du réseau.",
+            "c) Calculer le plus court chemin en se basant sur une topologie partielle.",
+            "d) Réduire la charge du réseau en évitant les diffusions inutiles."
+        ],
+        correctAnswer: "b",
+        explanation: "L'inondation (flooding) diffuse rapidement les changements topologiques, comme un nouveau lien ou une panne, à tous les nœuds du réseau [cite: 290, 443]."
+    },
+    {
+        section: "Points clés",
+        question: "Dans un système distribué, les 'sites' sont aussi appelés :",
+        options: [
+            "a) Arêtes.",
+            "b) Canaux.",
+            "c) Événements.",
+            "d) Processus."
+        ],
+        correctAnswer: "d",
+        explanation: "Dans un système distribué, les 'sites' sont souvent appelés processus, car ils représentent les entités computationnelles indépendantes [cite: 19]."
+    },
+    {
+        section: "Points clés",
+        question: "Quelle est la principale mesure utilisée dans les algorithmes de routage pour comparer les chemins ?",
+        options: [
+            "a) Le nombre de processeurs sur chaque routeur.",
+            "b) Le coût (charge, délai, congestion) de chaque arête.",
+            "c) La distance géographique entre les routeurs.",
+            "d) La taille de la mémoire tampon (buffer) de chaque routeur."
+        ],
+        correctAnswer: "b",
+        explanation: "Les algorithmes de routage comparent les chemins en fonction du coût des arêtes, qui peut inclure la charge, le délai ou la congestion [cite: 36]."
+    }
+];
+        let currentQuestionIndex = 0;
+        let filteredQuestions = questions;
+        let selectedSection = "all";
+
+        const sectionSelect = document.getElementById("section-select");
+        const questionContainer = document.getElementById("question-container");
+        const validateBtn = document.getElementById("validate-btn");
+        const nextBtn = document.getElementById("next-btn");
+
+        // Filtrer les questions par section
+        sectionSelect.addEventListener("change", () => {
+            selectedSection = sectionSelect.value;
+            filteredQuestions = selectedSection === "all" 
+                ? questions 
+                : questions.filter(q => q.section === selectedSection);
+            currentQuestionIndex = 0;
+            displayQuestion();
+        });
+
+        // Afficher une question
+        function displayQuestion() {
+            if (filteredQuestions.length === 0) {
+                questionContainer.innerHTML = "<p>Aucune question disponible pour cette section.</p>";
+                validateBtn.style.display = "none";
+                nextBtn.style.display = "none";
+                return;
+            }
+
+            const q = filteredQuestions[currentQuestionIndex];
+            questionContainer.innerHTML = `
+                <div class="question">${q.question}</div>
+                <div class="options">
+                    ${q.options.map(opt => `
+                        <label>
+                            <input type="radio" name="option" value="${opt.charAt(0)}">
+                            ${opt}
+                        </label>
+                    `).join("")}
+                </div>
+                <div class="correction" id="correction"></div>
+            `;
+            validateBtn.style.display = "inline-block";
+            nextBtn.style.display = "none";
+        }
+
+        // Valider la réponse
+        validateBtn.addEventListener("click", () => {
+            const selectedOption = document.querySelector("input[name='option']:checked");
+            const correctionDiv = document.getElementById("correction");
+            if (!selectedOption) {
+                correctionDiv.innerHTML = "Veuillez sélectionner une réponse.";
+                correctionDiv.className = "correction incorrect";
+                correctionDiv.style.display = "block";
+                return;
+            }
+
+            const q = filteredQuestions[currentQuestionIndex];
+            const isCorrect = selectedOption.value === q.correctAnswer;
+            correctionDiv.innerHTML = `
+                ${isCorrect ? "Correct !" : "Incorrect."} <br>
+                Explication : ${q.explanation}
+            `;
+            correctionDiv.className = `correction ${isCorrect ? "correct" : "incorrect"}`;
+            correctionDiv.style.display = "block";
+            validateBtn.style.display = "none";
+            nextBtn.style.display = "inline-block";
+        });
+
+        // Passer à la question suivante
+        nextBtn.addEventListener("click", () => {
+            currentQuestionIndex = (currentQuestionIndex + 1) % filteredQuestions.length;
+            displayQuestion();
+        });
+
+        // Initialiser le quiz
+        displayQuestion();
+    </script>
+</body>
+</html>
