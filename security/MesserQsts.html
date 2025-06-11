@@ -1,0 +1,1132 @@
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: #667eea; /* Changed to a single solid color */
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        /* animation: backgroundShift 10s ease-in-out infinite alternate; */ /* Commented out */
+    }
+
+    /* @keyframes backgroundShift {
+        0% { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        25% { background: linear-gradient(135deg, #4ecdc4 0%, #45b7d1 100%); }
+        50% { background: linear-gradient(135deg, #feca57 0%, #ff6b6b 100%); }
+        75% { background: linear-gradient(135deg, #a2ccb6 0%, #06a77d 100%); }
+        100% { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+    } */ /* Commented out the entire keyframes rule */
+
+    .container {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 40px;
+        border-radius: 24px;
+        box-shadow: 
+            0 20px 40px rgba(0, 0, 0, 0.1),
+            0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+        width: 100%;
+        max-width: 800px;
+        position: relative;
+        overflow: hidden;
+        animation: containerFloat 6s ease-in-out infinite alternate;
+    }
+
+    @keyframes containerFloat {
+        0% { transform: translateY(0px); }
+        100% { transform: translateY(-10px); }
+    }
+
+    .container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57);
+        background-size: 300% 100%;
+        animation: gradientShift 3s ease-in-out infinite;
+    }
+
+    @keyframes gradientShift {
+        0%, 100% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+    }
+
+    h1 {
+        text-align: center;
+        color: #2c3e50;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 30px;
+        position: relative;
+        animation: titleGlow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes titleGlow {
+        0% { text-shadow: 0 0 20px rgba(102, 126, 234, 0.3); }
+        100% { text-shadow: 0 0 30px rgba(118, 75, 162, 0.5); }
+    }
+
+    .progress-bar {
+        width: 100%;
+        height: 8px;
+        background: rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        margin-bottom: 30px;
+        overflow: hidden;
+    }
+
+    .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #4ecdc4, #45b7d1);
+        border-radius: 10px;
+        transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+    }
+
+    .progress-fill::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+        animation: progressShimmer 2s infinite;
+    }
+
+    @keyframes progressShimmer {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+    }
+
+    #quiz {
+        margin-bottom: 30px;
+        animation: quizSlideIn 0.6s ease-out;
+    }
+
+    @keyframes quizSlideIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    #question {
+        font-size: 1.3rem;
+        margin-bottom: 25px;
+        color: #2c3e50;
+        line-height: 1.6;
+        font-weight: 500;
+        padding: 20px;
+        background: linear-gradient(135deg, rgba(255,255,255,0.8), rgba(255,255,255,0.4));
+        border-radius: 16px;
+        border: 1px solid rgba(255,255,255,0.3);
+        animation: questionPulse 0.8s ease-out;
+    }
+
+    @keyframes questionPulse {
+        0% {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+        100% {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    #options {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 15px; /* Space between grid items */
+        margin-bottom: 25px;
+    }
+
+    .option {
+        margin: 0; /* Remove individual margins as grid gap will handle spacing */
+        padding: 15px 20px; /* Reduced padding for more compactness */
+        border: 2px solid rgba(0, 0, 0, 0.1);
+        border-radius: 16px;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7));
+        position: relative;
+        overflow: hidden;
+        animation: optionSlideIn 0.5s ease-out;
+        animation-fill-mode: both;
+        display: flex;
+        align-items: center;
+    }
+
+    .option:nth-child(1) { animation-delay: 0.1s; }
+    .option:nth-child(2) { animation-delay: 0.2s; }
+    .option:nth-child(3) { animation-delay: 0.3s; }
+    .option:nth-child(4) { animation-delay: 0.4s; }
+    .option:nth-child(5) { animation-delay: 0.5s; }
+    .option:nth-child(6) { animation-delay: 0.6s; }
+    .option:nth-child(7) { animation-delay: 0.7s; }
+
+    @keyframes optionSlideIn {
+        from {
+            opacity: 0;
+            transform: translateX(-30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    .option::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+        transition: left 0.5s;
+    }
+
+    .option:hover {
+        border-color: #4ecdc4;
+        transform: translateY(-3px) scale(1.02);
+        box-shadow: 0 12px 30px rgba(78, 205, 196, 0.3);
+    }
+
+    .option:hover::before {
+        left: 100%;
+    }
+
+    .option.selected {
+        border-color: #45b7d1;
+        background: linear-gradient(135deg, rgba(69, 183, 209, 0.3), rgba(78, 205, 196, 0.2));
+        transform: scale(1.025);
+        box-shadow: 0 10px 25px rgba(69, 183, 209, 0.4);
+    }
+
+    .option input {
+        margin-right: 20px;
+        transform: scale(1.4);
+        accent-color: #45b7d1;
+    }
+
+    button {
+        background: linear-gradient(135deg, #4ecdc4, #45b7d1);
+        color: white;
+        border: none;
+        padding: 16px 32px;
+        border-radius: 50px;
+        cursor: pointer;
+        margin: 10px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 4px 15px rgba(69, 183, 209, 0.3);
+    }
+
+    button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+        transition: left 0.5s;
+    }
+
+    button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(69, 183, 209, 0.4);
+    }
+
+    button:hover::before {
+        left: 100%;
+    }
+
+    button:active {
+        transform: translateY(0);
+    }
+
+    button:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+    }
+
+    #result {
+        margin-top: 25px;
+        font-size: 1.2rem;
+        color: #2c3e50;
+        padding: 20px;
+        border-radius: 16px;
+        animation: resultFadeIn 0.5s ease-out;
+        line-height: 1.6;
+    }
+
+    @keyframes resultFadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    #score {
+        margin-top: 30px;
+        font-size: 1.8rem;
+        font-weight: 700;
+        text-align: center;
+        padding: 25px;
+        border-radius: 20px;
+        background: linear-gradient(135deg, rgba(78, 205, 196, 0.2), rgba(69, 183, 209, 0.2));
+        border: 2px solid rgba(78, 205, 196, 0.3);
+        animation: scoreReveal 1s ease-out;
+    }
+
+    @keyframes scoreReveal {
+        0% {
+            opacity: 0;
+            transform: scale(0.8) rotateY(90deg);
+        }
+        100% {
+            opacity: 1;
+            transform: scale(1) rotateY(0deg);
+        }
+    }
+
+    .correct {
+        color: #27ae60;
+        font-weight: 600;
+        animation: correctPulse 0.6s ease-out;
+    }
+
+    @keyframes correctPulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+    }
+
+    .incorrect {
+        color: #e74c3c;
+        font-weight: 600;
+        animation: incorrectShake 0.6s ease-out;
+    }
+
+    @keyframes incorrectShake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        75% { transform: translateX(5px); }
+    }
+
+    .buttons-container {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-top: 25px;
+    }
+
+    .question-counter {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 10px 20px;
+        border-radius: 25px;
+        font-weight: 600;
+        color: #2c3e50;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .celebration {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1000;
+    }
+
+    .confetti {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background: #ff6b6b;
+        animation: confetti-fall 3s linear infinite;
+    }
+
+    @keyframes confetti-fall {
+        0% {
+            transform: translateY(-100vh) rotate(0deg);
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(100vh) rotate(360deg);
+            opacity: 0;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            padding: 20px;
+            margin: 10px;
+        }
+        
+        h1 {
+            font-size: 2rem;
+        }
+        
+        #question {
+            font-size: 1.1rem;
+        }
+        
+        .option {
+            padding: 15px 20px;
+        }
+        
+        button {
+            padding: 14px 28px;
+            font-size: 1rem;
+        }
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="question-counter">
+        <span id="counter">1 / 36</span>
+        <span id="correctCount" style="margin-left: 15px; color: #27ae60;">Correct: 0</span>
+        <span id="incorrectCount" style="margin-left: 15px; color: #e74c3c;">Incorrect: 0</span>
+        <span id="remainingCount" style="margin-left: 15px; color: #4a5568;">Restant: 0</span>
+    </div>
+    
+    <h1>🔐 Quiz de Sécurité Informatique</h1>
+    
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+    
+    <div id="quiz">
+        <div id="question"></div>
+        <div id="options"></div>
+        <div class="buttons-container">
+            <button id="submit" onclick="checkAnswer()">✓ Soumettre</button>
+            <button id="next" onclick="nextQuestion()" style="display: none;">➤ Question suivante</button>
+        </div>
+    </div>
+    
+    <div id="result"></div>
+    <div id="score"></div>
+    
+    <div class="buttons-container">
+        <button id="restart" onclick="restartQuiz()" style="display: none;">🔄 Recommencer</button>
+    </div>
+</div>
+
+<div class="celebration" id="celebration"></div>
+    <script >
+        const questions = [
+    {
+        question: "Vous avez engagé un tiers pour recueillir des informations sur les serveurs et les données de votre entreprise. Le tiers n'aura pas accès direct à votre réseau interne mais pourra recueillir des informations à partir de toute autre source. Quel terme décrit le mieux cette approche ?",
+        options: ["A. Backdoor testing", "B. Passive footprinting", "C. OS fingerprinting", "D. Partially known environment"],
+        correct: ["B"],
+        explanation: "Le 'passive footprinting' consiste à recueillir des informations sans interagir directement avec les systèmes cibles, ce qui correspond à la description donnée."
+    },
+    {
+        question: "Parmi ces protocoles, lesquels utilisent TLS pour assurer une communication sécurisée ? (Choisissez DEUX)",
+        options: ["A. HTTPS", "B. SSH", "C. FTPS", "D. SNMPv2", "E. DNSSEC", "F. SRTP"],
+        correct: ["A", "C"],
+        explanation: "HTTPS (HTTP over TLS) et FTPS (FTP over TLS) utilisent tous deux TLS pour sécuriser les communications."
+    },
+    {
+        question: "Parmi ces acteurs de menace, lequel serait le plus susceptible d'attaquer des systèmes pour un gain financier direct ?",
+        options: ["A. Organized crime", "B. Hacktivist", "C. Nation state", "D. Competitor"],
+        correct: ["A"],
+        explanation: "Les groupes criminels organisés ciblent souvent les systèmes pour des gains financiers directs."
+    },
+    {
+        question: "Un incident de sécurité s'est produit sur un serveur de fichiers. Quelles sources de données devraient être recueillies pour traiter la volatilité du stockage des fichiers ? (Choisissez DEUX)",
+        options: ["A. Partition data", "B. Kernel statistics", "C. ROM data", "D. Temporary file systems", "E. Process table"],
+        correct: ["A", "D"],
+        explanation: "Les données des partitions et des systèmes de fichiers temporaires sont volatiles et doivent être recueillies rapidement après un incident."
+    },
+    {
+        question: "Un IPS a détecté une forte augmentation du trafic provenant d'imprimantes tout-en-un. Après recherche, une vulnérabilité a été identifiée, permettant à un tiers de contrôler ces appareils à distance. Quelle catégorie décrit le mieux ces appareils ?",
+        options: ["A. IoT", "B. RTOS", "C. MFD", "D. SoC"],
+        correct: ["C"],
+        explanation: "Les imprimantes tout-en-un sont des appareils multifonctions (MFD)."
+    },
+    {
+        question: "Quelle norme fournit des informations sur la confidentialité et la gestion des PII ?",
+        options: ["A. ISO 31000", "B. ISO 27002", "C. ISO 27701", "D. ISO 27001"],
+        correct: ["C"],
+        explanation: "L'ISO 27701 se concentre sur la gestion des données personnelles (PII) et la confidentialité."
+    },
+    {
+        question: "Elizabeth, une administratrice de sécurité, s'inquiète de l'exfiltration de données via des supports de stockage externes. Quelle serait la meilleure façon de prévenir cette méthode d'exfiltration ?",
+        options: [
+            "A. Créer une politique de sécurité pour empêcher l'utilisation de supports amovibles",
+            "B. Surveiller l'utilisation des supports amovibles dans les logs du firewall",
+            "C. N'autoriser que les applications qui n'utilisent pas de supports amovibles",
+            "D. Définir une règle de blocage des supports amovibles dans l'UTM"
+        ],
+        correct: ["A"],
+        explanation: "Une politique de sécurité interdisant les supports amovibles est la méthode la plus efficace."
+    },
+    {
+        question: "Un CISO souhaite réduire le temps de réponse lors des incidents de sécurité, mais l'entreprise n'a pas le budget pour embaucher plus d'ingénieurs. Quelle solution l'aiderait à répondre à ce besoin ?",
+        options: ["A. ISO 27701", "B. PKI", "C. IaaS", "D. SOAR"],
+        correct: ["D"],
+        explanation: "Le SOAR permet d'automatiser les réponses aux incidents, réduisant ainsi le temps de réponse."
+    },
+    {
+        question: "Une compagnie d'assurance a créé des politiques pour gérer les violations de données. L'équipe de sécurité doit implémenter des mesures pour répondre à ces exigences : Enregistrer et archiver l'accès à tous les appareils, Signaler immédiatement tout accès en dehors des heures de travail, Limiter l'accès aux données au pays uniquement, Créer des logs et rapports d'audit à partir d'une seule base de données. Quelles mesures devraient être mises en œuvre ? (Choisissez TROIS)",
+        options: [
+            "A. Restreindre l'accès par adresse IP et localisation GPS",
+            "B. Exiger une pièce d'identité gouvernementale lors de l'intégration",
+            "C. Ajouter une complexité supplémentaire pour les mots de passe",
+            "D. Effectuer des audits mensuels des permissions",
+            "E. Consolider tous les logs dans un SIEM",
+            "F. Archiver les clés de chiffrement des comptes désactivés",
+            "G. Activer des restrictions horaires sur le serveur d'authentification"
+        ],
+        correct: ["A", "E", "G"],
+        explanation: "A. Restreint l'accès géographique. E. Consolide les logs dans un SIEM. G. Limite l'accès aux heures normales de travail."
+    },
+    {
+        question: "Rodney, un ingénieur de sécurité, consulte cet enregistrement dans les logs du firewall : UTC 04/05/2018 03:09:15809 AV Gateway Alert 136.127.92.171 80 -> 10.16.10.14 60818 Gateway Anti-Virus Alert: XPACK.A_7854 (Trojan) blocked. Que peut-on observer à partir de ces informations ?",
+        options: [
+            "A. L'adresse IP de la victime est 136.127.92.171",
+            "B. Un téléchargement a été bloqué depuis un serveur web",
+            "C. Une attaque DDoS par botnet a été bloquée",
+            "D. Le Trojan a été bloqué, mais pas le fichier"
+        ],
+        correct: ["B"],
+        explanation: "Le log indique qu'un Trojan a été bloqué lors d'une tentative de téléchargement depuis le port 80 (HTTP)."
+    },
+    {
+        question: "Un utilisateur se connecte à un site tiers et reçoit ce message : Your connection is not private. NET::ERR_CERT_INVALID. Quelle attaque est la cause la plus probable de ce message ?",
+        options: ["A. Brute force", "B. DoS", "C. On-path", "D. Disassociation"],
+        correct: ["C"],
+        explanation: "Ce message indique un problème de certificat, souvent causé par une attaque 'on-path'."
+    },
+    {
+        question: "Quelle est la meilleure façon de permettre une connexion à un site web en utilisant les identifiants d'un site tiers ?",
+        options: ["A. Federation", "B. 802.1X", "C. PEAP", "D. EAP-FAST"],
+        correct: ["A"],
+        explanation: "La fédération d'identité permet d'utiliser les identifiants d'un site tiers pour se connecter."
+    },
+    {
+        question: "Un administrateur système travaille sur un contrat qui spécifie un temps de disponibilité minimal pour des firewalls exposés à Internet. Il doit connaître la fréquence à laquelle le matériel est susceptible de tomber en panne entre les réparations. Quel terme décrit le mieux cette information ?",
+        options: ["A. MTBF", "B. RTO", "C. MTTR", "D. MTTF"],
+        correct: ["A"],
+        explanation: "Le MTBF mesure le temps moyen entre les pannes d'un équipement."
+    },
+    {
+        question: "Un attaquant appelle le helpdesk d'une entreprise et se fait passer pour le directeur du département de fabrication. Il prétend avoir oublié son mot de passe et demande une réinitialisation urgente pour une réunion importante. Quel type d'attaque décrit le mieux cet appel ?",
+        options: ["A. Social engineering", "B. Tailgating", "C. Vishing", "D. On-path"],
+        correct: ["C"],
+        explanation: "Le vishing est une forme d'ingénierie sociale par téléphone."
+    },
+    {
+        question: "Un administrateur de sécurité utilise EAP-FAST pour l'authentification sans fil. L'équipe réseau doit désormais prendre en charge des protocoles d'authentification supplémentaires dans un tunnel chiffré. Quelle solution répond à ce besoin ?",
+        options: ["A. EAP-TLS", "B. PEAP", "C. EAP-TTLS", "D. EAP-MSCHAPv2"],
+        correct: ["B"],
+        explanation: "PEAP crée un tunnel chiffré pour l'authentification."
+    },
+    {
+        question: "Quels services sont couramment fournis par un CASB ? (Choisissez DEUX)",
+        options: [
+            "A. Liste des appareils Windows internes non patchés",
+            "B. Liste des applications utilisées",
+            "C. Stockage centralisé des logs",
+            "D. Liste des pannes réseau du mois précédent",
+            "E. Vérification des transferts de données chiffrés",
+            "F. Connectivité VPN pour les utilisateurs distants"
+        ],
+        correct: ["B", "E"],
+        explanation: "Un CASB (Cloud Access Security Broker) surveille les applications cloud et vérifie les transferts sécurisés."
+    },
+    {
+        question: "Le système d'exploitation embarqué d'une horloge pointeuse est configuré pour réinitialiser le système de fichiers et redémarrer en cas d'erreur. Une erreur survient lors du démarrage, provoquant un redémarrage en boucle. Quel terme décrit le mieux ce problème ?",
+        options: ["A. DLL injection", "B. Resource exhaustion", "C. Race condition", "D. Weak configuration"],
+        correct: ["D"],
+        explanation: "Une configuration inappropriée (comme une réinitialisation automatique) cause ce problème."
+    },
+    {
+        question: "Un audit a révélé que les politiques de mot de passe n'incluent pas de restrictions sur les tentatives ou le changement périodique. Quelles mesures corrigeront ces problèmes ? (Choisissez DEUX)",
+        options: [
+            "A. Password complexity",
+            "B. Password expiration",
+            "C. Password history",
+            "D. Password lockout",
+            "E. Password recovery"
+        ],
+        correct: ["B", "D"],
+        explanation: "B. Impose un changement périodique. D. Bloque les comptes après plusieurs tentatives."
+    },
+    {
+        question: "Quel type de contrôle de sécurité est associé à une bannière de connexion ?",
+        options: ["A. Preventive", "B. Detergent", "C. Corrective", "D. Detective", "E. Compensating", "F. Physical"],
+        correct: ["A"],
+        explanation: "Une bannière de connexion prévient les utilisations non autorisées en informant des conditions d'accès."
+    },
+    {
+        question: "Une équipe de sécurité reçoit un rapport de scan de vulnérabilités non authentifié. Que contiendra ce rapport ?",
+        options: [
+            "A. Un résumé des fichiers avec des assignations de groupe invalides",
+            "B. Une liste des fichiers du système d'exploitation non patchés",
+            "C. La version du logiciel du serveur web",
+            "D. Une liste des comptes utilisateurs locaux"
+        ],
+        correct: ["C"],
+        explanation: "Un scan non authentifié peut identifier des versions logicielles exposées."
+    },
+    {
+        question: "Un responsable documente des étapes pour traiter les commandes si la connexion Internet principale échoue. Quel terme décrit le mieux ces étapes ?",
+        options: ["A. Communication plan", "B. Continuity of operations", "C. Stakeholder management", "D. Tabletop exercise"],
+        correct: ["B"],
+        explanation: "Il s'agit d'un plan de continuité des opérations."
+    },
+    {
+        question: "Un administrateur de sécurité s'inquiète de l'exfiltration de données via des stations de charge malveillantes. Quelle est la meilleure façon de se protéger ?",
+        options: ["A. USB data blocker", "B. Personal firewall", "C. MFA", "D. FDE"],
+        correct: ["A"],
+        explanation: "Un bloqueur de données USB empêche le transfert de données tout en permettant la charge."
+    },
+    {
+        question: "Une entreprise souhaite protéger les données sur les ordinateurs portables utilisés sur le terrain. Quelle est la meilleure solution ?",
+        options: ["A. MAC", "B. SED", "C. CASB", "D. SOAR"],
+        correct: ["B"],
+        explanation: "Un SED (Self-Encrypting Drive) chiffre automatiquement les données stockées."
+    },
+    {
+        question: "Un serveur de fichiers a une sauvegarde complète chaque lundi à 1h et des sauvegardes incrémentielles du mardi au vendredi. Combien de jeux de sauvegarde sont nécessaires pour une restauration complète le jeudi après-midi ?",
+        options: ["A. 2", "B. 3", "C. 4", "D. 1"],
+        correct: ["C"],
+        explanation: "Il faut la sauvegarde complète du lundi et les incrémentielles du mardi, mercredi et jeudi."
+    },
+    {
+        question: "Une entreprise crée une politique de sécurité pour les appareils mobiles : Verrouillage automatique après un temps défini, Localisation traçable pour les équipes de vente, Séparation complète des données personnelles et professionnelles. Quelle est la meilleure façon d'établir ces règles ?",
+        options: ["A. Containerization", "B. Biometrics", "C. COPE", "D. VDI", "E. Geofencing", "F. MDM"],
+        correct: ["F"],
+        explanation: "Un MDM (Mobile Device Management) permet de gérer ces politiques sur les appareils mobiles."
+    },
+    {
+        question: "Un scan de vulnérabilités mensuel ne détecte pas une vulnérabilité critique pourtant non patchée. Que décrit ce résultat ?",
+        options: ["A. Exploit", "B. Credentialed", "C. Zero-day attack", "D. False negative"],
+        correct: ["D"],
+        explanation: "Un faux négatif se produit quand une vulnérabilité n'est pas détectée."
+    },
+    {
+        question: "Un administrateur de sécurité ajoute des contrôles d'authentification. Quelles mesures devrait-il implémenter ? (Choisissez DEUX)",
+        options: [
+            "A. TOTP",
+            "B. Least privilege",
+            "C. Role-based awareness training",
+            "D. Separation of duties",
+            "E. Job rotation",
+            "F. Smart Card"
+        ],
+        correct: ["A", "F"],
+        explanation: "A. TOTP (Time-Based One-Time Password) renforce l'authentification. F. Les smart cards ajoutent un facteur d'authentification."
+    },
+    {
+        question: "Un administrateur réseau souhaite que chaque utilisateur s'authentifie avec son identifiant et mot de passe pour se connecter au réseau sans fil. Quelle configuration est nécessaire ?",
+        options: ["A. WPA2-PSK", "B. 802.1X", "C. WPS", "D. WPA2-AES"],
+        correct: ["B"],
+        explanation: "Le protocole 802.1X permet une authentification individuelle."
+    },
+    {
+        question: "Un administrateur de sécurité doit identifier les références à un fichier Javascript dans le code HTML d'une page web. Quels outils utiliser ? (Choisissez DEUX)",
+        options: ["A. tail", "B. openssl", "C. scanless", "D. grep", "E. Nmap", "F. curl", "G. head"],
+        correct: ["D", "F"],
+        explanation: "D. grep pour rechercher du texte. F. curl pour récupérer le code HTML."
+    },
+    {
+        question: "Un utilisateur attribue des droits d'accès en lecture seule à un fichier pour trois personnes. Quel modèle de contrôle d'accès est utilisé ?",
+        options: ["A. DAC", "B. MAC", "C. ABAC", "D. RBAC"],
+        correct: ["A"],
+        explanation: "Le DAC (Discretionary Access Control) permet aux propriétaires de définir les permissions."
+    },
+    {
+        question: "Un utilisateur distant reçoit un SMS demandant ses identifiants VPN. Quel terme décrit ce message ?",
+        options: ["A. Brute force", "B. Prepending", "C. Typosquatting", "D. Smishing"],
+        correct: ["D"],
+        explanation: "Le smishing est une tentative de phishing par SMS."
+    },
+    {
+        question: "Une politique exige qu'un manager valide chaque transaction avec un bon-cadeau. Certaines transactions sont traitées sans approbation. Quelle mesure appliquer ?",
+        options: [
+            "A. Utiliser un WAF pour surveiller les transactions",
+            "B. Désactiver les transactions avec bons pour les caissiers",
+            "C. Implémenter une politique DAC",
+            "D. Exiger un code PIN pour le caissier et un autre pour le manager"
+        ],
+        correct: ["D"],
+        explanation: "Cela sépare les tâches entre caissier et manager."
+    },
+    {
+        question: "Quelles affirmations sont vraies pour une rainbow table ? (Choisissez DEUX)",
+        options: [
+            "A. La table est construite en temps réel pendant l'attaque",
+            "B. Les rainbow tables sont l'attaque en ligne la plus efficace",
+            "C. Les rainbow tables nécessitent beaucoup de CPU pendant l'attaque",
+            "D. Des tables différentes sont nécessaires pour différents algorithmes de hachage",
+            "E. Une rainbow table est inutile si les mots de passe sont salés"
+        ],
+        correct: ["D", "E"],
+        explanation: "D. Les tables dépendent de l'algorithme de hachage. E. Le salting rend les rainbow tables inefficaces."
+    },
+    {
+        question: "Un administrateur remarque que les visiteurs du site web de la banque sont redirigés vers une autre IP. Quelle attaque est la plus probable ?",
+        options: ["A. Disassociation", "B. DDoS", "C. Buffer overflow", "D. DNS poisoning"],
+        correct: ["D"],
+        explanation: "L'empoisonnement DNS redirige les utilisateurs vers de fausses adresses IP."
+    },
+    {
+        question: "Quel modèle de cloud partage des ressources entre un data center privé et des services cloud externes ?",
+        options: ["A. SaaS", "B. Community", "C. Hybrid", "D. Containerization"],
+        correct: ["C"],
+        explanation: "Le cloud hybride combine des ressources privées et publiques."
+    },
+    {
+        question: "Une entreprise embauche des saisonniers dont l'accès doit être désactivé après leur départ. Comment vérifier que les anciens employés ne peuvent plus accéder aux systèmes ?",
+        options: [
+            "A. Confirmer qu'aucun compte non autorisé n'a des droits administrateur",
+            "B. Valider la politique de verrouillage de compte",
+            "C. Valider les procédures pour les employés partants",
+            "D. Créer un rapport des authentifications sur 24 heures"
+        ],
+        correct: ["C"],
+        explanation: "Vérifier les procédures de départ est la meilleure façon de s'assurer que les accès sont bien désactivés."
+    },
+    {
+        question: "Quel modèle de déploiement cloud partagerait des ressources entre un data center virtualisé privé et des services cloud externes ?",
+        options: ["A. SaaS", "B. Community", "C. Hybrid", "D. Containerization"],
+        correct: ["C"],
+        explanation: "Le modèle Hybrid combine l'infrastructure privée avec des ressources cloud publiques pour plus de flexibilité."
+    },
+    {
+        question: "Une entreprise embauche de nombreux employés saisonniers, et leur accès système doit être désactivé à leur départ. Quelle est la MEILLEURE façon de vérifier qu'ils n'ont plus accès ?",
+        options: ["A. Confirmer qu'aucun compte non autorisé n'a un accès administrateur", "B. Valider la politique de verrouillage de compte", "C. Valider les processus pour tous les départs d'employés", "D. Créer un rapport montrant toutes les authentifications pendant 24h"],
+        correct: ["D"],
+        explanation: "Permet de détecter si un ancien employé accède encore au système malgré les restrictions."
+    },
+    {
+        question: "Un administrateur réseau installe un nouvel access point, mais seuls certains appareils peuvent s'y connecter. Les autres le voient mais échouent à s'y connecter. Quelle fonctionnalité est PROBABLEMENT activée ?",
+        options: ["A. MAC filtering", "B. SSID broadcast suppression", "C. 802.1X authentication", "D. Anti-spoofing"],
+        correct: ["A"],
+        explanation: "Le MAC filtering limite les connexions aux appareils avec des adresses MAC autorisées."
+    },
+    {
+        question: "Un administrateur de sécurité a collecté les infos suivantes :<br><br>Proto Recv-Q Send-Q Local Address Foreign Address (state)<br>tcp6 … ESTABLISHED<br>Quelle commande a généré ces infos ?",
+        options: ["A. tracert", "B. netstat", "C. dig", "D. netcat"],
+        correct: ["B"],
+        explanation: "La commande netstat montre les connexions réseau actives."
+    },
+    {
+        question: "Un attaquant fait planter un serveur en envoyant un paquet spécifique. Le système doit redémarrer. Quelle est cette attaque ?",
+        options: ["A. Privilege escalation", "B. Spoofing", "C. Replay attack", "D. DoS"],
+        correct: ["D"],
+        explanation: "C'est une attaque DoS (Denial of Service) qui rend le système indisponible."
+    },
+    {
+        question: "Un administrateur met en place de nouveaux serveurs après une fuite de données. Quelle phase de l'incident response est-ce ?",
+        options: ["A. Lessons learned", "B. Isolation and containment", "C. Reconstitution", "D. Precursors"],
+        correct: ["C"],
+        explanation: "La reconstitution permet de restaurer les systèmes après un incident."
+    },
+    {
+        question: "Une entreprise a déplacé une application d'inventaire vers un service PaaS. Quelle est la MEILLEURE solution pour gérer les politiques de sécurité ?",
+        options: ["A. DLP", "B. SIEM", "C. IPS", "D. CASB"],
+        correct: ["D"],
+        explanation: "Un CASB (Cloud Access Security Broker) gère la sécurité et les politiques entre les utilisateurs et les services cloud."
+    },
+    {
+        question: "Une vulnérabilité a été découverte dans un firewall. Le fournisseur n'a pas prévu de correctif. Comment décrire cette situation ?",
+        options: ["A. Lack of vendor support", "B. Improper input handling", "C. Improper key management", "D. End-of-life"],
+        correct: ["A"],
+        explanation: "Cela signifie que le fournisseur n'offre plus de support, ce qui rend le système vulnérable."
+    },
+    {
+        question: "Une entreprise simule une catastrophe lors d'une réunion pour discuter des processus. Comment appelle-t-on cet exercice ?",
+        options: ["A. After-action report", "B. Business impact analysis", "C. Alternate business practice", "D. Tabletop exercise"],
+        correct: ["D"],
+        explanation: "Un tabletop exercise est une discussion simulée pour tester les plans de réponse aux incidents."
+    },
+    {
+        question: "Comment identifier les ordinateurs infectés par un malware spécifique sur le réseau ?",
+        options: ["A. Honeynet", "B. Data masking", "C. DNS sinkhole", "D. DLP"],
+        correct: ["C"],
+        explanation: "Un DNS sinkhole redirige les requêtes vers un serveur contrôlé pour identifier les hôtes infectés."
+    },
+    {
+        question: "Un administrateur isole un système infecté en le retirant du réseau. Quelle étape du processus de réponse suit-il ?",
+        options: ["A. Lessons learned", "B. Containment", "C. Detection", "D. Reconstitution"],
+        correct: ["B"],
+        explanation: "La containment vise à limiter la propagation d'un incident."
+    },
+    {
+        question: "Comment rendre toutes les données d'un appareil mobile irrécupérables en cas de perte ou vol ?",
+        options: ["A. Containerization", "B. Geofencing", "C. Screen locks", "D. Remote wipe"],
+        correct: ["D"],
+        explanation: "La fonction remote wipe efface à distance les données de l'appareil."
+    },
+    {
+        question: "Un administrateur analyse un ransomware sur un serveur web. Quel fichier journal est utile pour voir le contenu mémoire ?",
+        options: ["A. Web", "B. Packet", "C. Dump", "D. DNS"],
+        correct: ["C"],
+        explanation: "Un dump contient des données brutes de la mémoire vive à analyser."
+    },
+    {
+        question: "Quelle partie du démarrage PC vérifie la signature numérique du noyau de l'OS ?",
+        options: ["A. Measured Boot", "B. Trusted Boot", "C. Secure Boot", "D. POST"],
+        correct: ["C"],
+        explanation: "Le Secure Boot garantit que seul un OS signé peut démarrer."
+    },
+    {
+        question: "Quelle option décrit le mieux l'authentification à deux facteurs ?",
+        options: ["A. Une imprimante utilise un mot de passe et un code PIN", "B. Une porte nécessite une empreinte digitale", "C. Une appli exige un code TOTP", "D. Un domaine Windows demande un identifiant, mot de passe et smart card"],
+        correct: ["D"],
+        explanation: "Cela combine deux facteurs : quelque chose que l'on sait (mot de passe) + quelque chose que l'on a (smart card)."
+    },
+    {
+        question: "Une entreprise veut déployer une app mobile à des employés avec divers appareils. Quel modèle de déploiement est le plus adapté ?",
+        options: ["A. Corporate-owned", "B. COPE", "C. VDI", "D. BYOD"],
+        correct: ["B"],
+        explanation: "COPE (Corporate-Owned, Personally Enabled) offre un bon équilibre entre contrôle et flexibilité."
+    },
+    {
+        question: "L'installation d'un UPS dans un data center est quel type de contrôle ?",
+        options: ["A. Compensating", "B. Preventive", "C. Administrative", "D. Detective"],
+        correct: ["B"],
+        explanation: "Un UPS (alimentation de secours) empêche une interruption système."
+    },
+    {
+        question: "Quelle technologie est idéale pour suivre la progression de pièces sur une ligne de production ?",
+        options: ["A. Quantum computing", "B. Blockchain", "C. Hashing", "D. Asymmetric encryption"],
+        correct: ["B"],
+        explanation: "La blockchain permet une traçabilité fiable et immuable des données."
+    },
+    {
+        question: "Dans quel ordre doit-on collecter les données volatiles avant d'éteindre un serveur ?",
+        options: ["A. CPU registers, temporary files, memory, remote monitoring data", "B. Memory, CPU registers, remote monitoring data, temporary files", "C. Memory, CPU registers, temporary files, remote monitoring data", "D. CPU registers, memory, temporary files, remote monitoring data"],
+        correct: ["D"],
+        explanation: "Les données les plus volatiles (ex. CPU registers) doivent être collectées en premier."
+    },
+    {
+        question: "Une administratrice Linux télécharge une ISO avec une valeur SHA256 affichée. À quoi sert cette valeur ?",
+        options: ["A. Vérifie que le fichier n'a pas été corrompu pendant le transfert", "B. Fournit une clé pour décrypter l'ISO après téléchargement", "C. Authentifie le site comme distributeur officiel", "D. Confirme que le fichier ne contient pas de malware"],
+        correct: ["A"],
+        explanation: "Le hash SHA256 permet de vérifier l'intégrité du fichier téléchargé."
+    },
+    {
+        question: "Une politique de sécurité exige que seuls les utilisateurs dans le bâtiment puissent se connecter. Quelle solution est la meilleure ?",
+        options: ["A. TOTP", "B. Biometric scanner", "C. PIN", "D. SMS"],
+        correct: ["B"],
+        explanation: "Un biometric scanner impose une présence physique pour l'authentification."
+    },
+    {
+        question: "Une base de données dans le cloud est accessible sans authentification. Quelle vulnérabilité est en cause ?",
+        options: ["A. Improper error handling", "B. Open permissions", "C. Race condition", "D. Memory leak"],
+        correct: ["B"],
+        explanation: "Des open permissions permettent l'accès non autorisé aux ressources."
+    },
+    {
+        question: "Un e-mail externe promet un bonus et demande des identifiants Windows. Comment qualifier cet e-mail ?",
+        options: ["A. Whaling", "B. Vishing", "C. Smishing", "D. Phishing"],
+        correct: ["D"],
+        explanation: "Il s'agit de phishing : tromper l'utilisateur pour voler ses identifiants."
+    },
+    {
+        question: "L'installation d'un NGFW est une stratégie de gestion de risque de quel type ?",
+        options: ["A. Transference", "B. Mitigation", "C. Acceptance", "D. Risk-avoidance"],
+        correct: ["B"],
+        explanation: "Mitigation réduit l'impact d'un risque à l'aide de mesures techniques."
+    },
+    {
+        question: "Comment confirmer la baseline sécurisée d'une application déployée ?",
+        options: ["A. Comparer l'application de prod avec celle du sandbox", "B. Effectuer une integrity measurement", "C. Comparer avec la version précédente", "D. Faire un test QA"],
+        correct: ["B"],
+        explanation: "Une integrity measurement valide l'état sécurisé d'un système."
+    },
+    {
+        question: "Un transfert financier est retardé car un comptable était absent. Quelle méthode aurait évité ce blocage ?",
+        options: ["A. Split knowledge", "B. Least privilege", "C. Job rotation", "D. Dual control"],
+        correct: ["D"],
+        explanation: "Dual control exige deux personnes pour valider une action critique."
+    },
+    {
+        question: "Un analyste détecte des sessions avec TTL=0 vers le firewall, puis vers le serveur DMZ. Que se passe-t-il ?",
+        options: ["A. Scan de vulnérabilité", "B. Requêtes DNS", "C. Banner grabbing", "D. Traceroute"],
+        correct: ["D"],
+        explanation: "Le TTL = 0 est typique d'un traceroute qui teste le chemin réseau."
+    },
+    {
+        question: "Un attaquant injecte trop de données dans une API, causant l'exécution de code arbitraire. Quel est ce type d'attaque ?",
+        options: ["A. Buffer overflow", "B. Replay attack", "C. Session hijacking", "D. DDoS"],
+        correct: ["A"],
+        explanation: "Un buffer overflow se produit lorsqu'un tampon mémoire déborde."
+    },
+    {
+        question: "Une entreprise veut stocker des clés pour restaurer les données. Quelle clé faut-il mettre en escrow ?",
+        options: ["A. Private", "B. CA", "C. Session", "D. Public"],
+        correct: ["A"],
+        explanation: "La clé privée permet de déchiffrer les données ; elle est placée en escrow pour la récupération."
+    },
+    {
+        question: "Un site distant veut une authentification unique par jour. Quel protocole choisir ?",
+        options: ["A. TACACS+", "B. LDAPS", "C. Kerberos", "D. 802.1X"],
+        correct: ["C"],
+        explanation: "Kerberos permet un Single Sign-On (SSO) après une seule authentification initiale."
+    },
+    {
+        question: "Une entreprise veut séparer deux réseaux via le même switch sans nouveau matériel. Quelle solution utiliser ?",
+        options: ["A. VPN", "B. Air gap", "C. Personal firewall", "D. VLAN"],
+        correct: ["D"],
+        explanation: "Les VLANs permettent de séparer logiquement des réseaux sur la même infrastructure."
+    },
+    {
+        question: "Un utilisateur ne peut plus imprimer en local une fois connecté au VPN. Pourquoi ?",
+        options: ["A. VPN utilise IPSec au lieu de SSL", "B. Le VPN bloque le trafic vers l'imprimante", "C. VPN est stateful", "D. Tunnel VPN en full tunnel"],
+        correct: ["D"],
+        explanation: "En full tunnel, tout le trafic passe par le VPN, y compris celui vers les imprimantes locales."
+    },
+    {
+        question: "Pourquoi placer des serveurs dans une cage de Faraday dans un data center ?",
+        options: ["A. Protection contre les champs électromagnétiques", "B. Restreindre l'accès physique", "C. Refroidissement additionnel", "D. Protection incendie"],
+        correct: ["A"],
+        explanation: "Une cage de Faraday bloque les signaux électromagnétiques."
+    },
+    {
+        question: "Un patch a réintroduit une vulnérabilité précédemment corrigée. Quelle solution mettre en place ?",
+        options: ["A. Templates", "B. Elasticity", "C. Master image", "D. Continuous monitoring"],
+        correct: ["C"],
+        explanation: "Une master image garantit un état système cohérent lors des déploiements."
+    },
+    {
+        question: "Comment garantir des hash uniques pour les mots de passe ?",
+        options: ["A. Salting", "B. Obfuscation", "C. Key stretching", "D. Digital signature"],
+        correct: ["A"],
+        explanation: "Le salting ajoute des données aléatoires avant le hachage pour éviter les duplications."
+    },
+    {
+        question: "Quelle méthode cryptographique ajoute de la confiance à un certificat numérique ?",
+        options: ["A. X.509", "B. Hash", "C. Symmetric encryption", "D. Digital signature"],
+        correct: ["D"],
+        explanation: "Une signature numérique garantit l'authenticité du certificat."
+    },
+    {
+        question: "Que faut-il inclure dans une salle serveur pour garantir la redondance ? (2 réponses)",
+        options: ["A. SIEM", "B. Temperature monitors", "C. RAID arrays", "D. Dual power supplies", "E. Hot and cold aisles", "F. Biometric locks"],
+        correct: ["C", "D"],
+        explanation: "RAID protège contre la perte de disque, et des alims doubles assurent l'alimentation continue."
+    },
+    {
+        question: "Qui gère les droits d'accès aux données client dans une entreprise ?",
+        options: ["A. Data processor", "B. Data owner", "C. Privacy officer", "D. Data custodian"],
+        correct: ["B"],
+        explanation: "Le data owner décide qui peut accéder aux données et avec quels droits."
+    },
+    {
+        question: "Une classification 'PII' est ajoutée à un CMS. Pourquoi ?",
+        options: ["A. Intégration système de santé", "B. Catégorisation simplifiée", "C. Conformité étendue à la vie privée", "D. Réduction du temps de recherche"],
+        correct: ["C"],
+        explanation: "La catégorie PII aide à se conformer aux lois sur la protection des données personnelles."
+    },
+    {
+        question: "Comment stocker en toute sécurité les certificats de serveurs web ?",
+        options: ["A. HSM", "B. Full disk encryption", "C. TPM", "D. UEFI BIOS"],
+        correct: ["A"],
+        explanation: "Un HSM (Hardware Security Module) est conçu pour stocker les clés cryptographiques de manière sécurisée."
+    },
+    {
+        question: "Que peut-on déduire du log IPS suivant ?<br><br>```<br>Cross-Site Scripting in JSON Data  <br>222.43.112.74 → 64.235.145.35  <br>User Agent: curl  <br>&lt;script&gt;alert(2)&lt;/script&gt;<br>```<br><br>",
+        options: ["A. Alerte due à un User Agent malformé", "B. Alerte générée par un script intégré", "C. IP de l'attaquant : 222.43.112.74", "D. IP de l'attaquant : 64.235.145.35", "E. Alerte due à un port client invalide"],
+        correct: ["B", "C"],
+        explanation: "Le script malicieux déclenche une alerte XSS, l'IP source (attaquant) est 222.43.112.74."
+    },
+    {
+        question: "Quelle métrique représente la perte monétaire si un seul événement se produit ?",
+        options: ["A. ALE", "B. SLE", "C. RTO", "D. ARO"],
+        correct: ["B"],
+        explanation: "SLE (Single Loss Expectancy) = perte financière unique par événement."
+    },
+    {
+        question: "Un utilisateur tape : ' OR '1'='1 dans un champ de recherche. Tous les enregistrements s'affichent. Quel type d'attaque ?",
+        options: ["A. CSRF", "B. Buffer overflow", "C. SQL injection", "D. SSL stripping"],
+        correct: ["C"],
+        explanation: "Il s'agit d'une injection SQL qui contourne les requêtes prévues."
+    },
+    {
+        question: "Un utilisateur voit sa souris bouger seule après avoir ouvert une feuille Excel. Quelle est la cause probable ?",
+        options: ["A. On-path", "B. Worm", "C. RAT", "D. Logic bomb"],
+        correct: ["C"],
+        explanation: "Un RAT (Remote Access Trojan) permet un contrôle distant du système."
+    },
+    {
+        question: "Une entreprise stocke des cartes bancaires pour paiements mensuels. Quelle norme s'applique ?",
+        options: ["A. GDPR", "B. ISO 27001", "C. PCI DSS", "D. CSA CCM"],
+        correct: ["C"],
+        explanation: "PCI DSS est la norme de sécurité pour le stockage de données de carte de paiement."
+    },
+    {
+        question: "Un rapport montre des communications aléatoires depuis des IP externes vers des postes internes. Cause probable ?",
+        options: ["A. ARP poisoning", "B. Backdoor", "C. Polymorphic virus", "D. Trojan horse"],
+        correct: ["B"],
+        explanation: "Des backdoors permettent un accès caché depuis l'extérieur."
+    },
+    {
+        question: "Un DLP alerte sur des numéros de carte envoyés en pièce jointe. Quelle est la source probable de cette alerte ?",
+        options: ["A. IPS", "B. DLP", "C. SMTP", "D. IPsec"],
+        correct: ["B"],
+        explanation: "Un DLP (Data Loss Prevention) détecte les données sensibles qui sortent de l'entreprise."
+    },
+    {
+        question: "Une VM sans mot de passe est exposée dans une zone surveillée. Pourquoi cette configuration ?",
+        options: ["A. Serveur honeypot", "B. Stockage cloud distant", "C. Serveur VPN", "D. Sandbox de développement"],
+        correct: ["A"],
+        explanation: "Un honeypot attire les attaquants pour observer leur comportement."
+    },
+    {
+        question: "Une entreprise utilise SMTP sans chiffrement. Comment sécuriser les e-mails sans toucher aux serveurs ?",
+        options: ["A. Secure IMAP", "B. S/MIME", "C. SSL sur le serveur", "D. VPN entre les clients"],
+        correct: ["B"],
+        explanation: "S/MIME chiffre les e-mails entre clients, indépendamment du serveur."
+    },
+    {
+        question: "Comment déployer des applications sans avoir besoin d'une VM par instance ?",
+        options: ["A. Containerization", "B. IaaS", "C. Proxies", "D. CASB"],
+        correct: ["A"],
+        explanation: "La containerization (ex. Docker) isole les apps sans surcharge de VM."
+    },
+    {
+        question: "Comment tester un nouveau serveur en environnement de test pour repérer les failles ?",
+        options: ["A. Tabletop exercise", "B. Vulnerability scanner", "C. Password cracker", "D. Penetration test"],
+        correct: ["D"],
+        explanation: "Un penetration test simule une attaque réelle pour évaluer la sécurité du système."
+    }
+];
+
+let currentQuestion = 0;
+let score = 0;
+let correctAnswersCount = 0;
+let incorrectAnswersCount = 0;
+let selectedAnswers = [];
+
+function loadQuestion() {
+    const q = questions[currentQuestion];
+    document.getElementById('question').innerText = `A${currentQuestion + 6}. ${q.question}`;
+    const optionsDiv = document.getElementById('options');
+    optionsDiv.innerHTML = '';
+
+    q.options.forEach((option, index) => {
+        const label = document.createElement('label');
+        label.className = 'option';
+        const input = document.createElement('input');
+        input.type = q.correct.length > 1 ? 'checkbox' : 'radio';
+        input.name = 'option';
+        input.value = option.charAt(0);
+        label.appendChild(input);
+        label.appendChild(document.createTextNode(option));
+        optionsDiv.appendChild(label);
+    });
+
+    document.getElementById('submit').style.display = 'block';
+    document.getElementById('next').style.display = 'none';
+    document.getElementById('result').innerHTML = '';
+
+    updateQuestionCounts();
+}
+
+function checkAnswer() {
+    const inputs = document.querySelectorAll('input[name="option"]:checked');
+    selectedAnswers = Array.from(inputs).map(input => input.value);
+
+    if (selectedAnswers.length === 0) {
+        document.getElementById('result').innerHTML = '<span class="incorrect">Veuillez sélectionner au moins une réponse.</span>';
+        return;
+    }
+
+    const q = questions[currentQuestion];
+    const isCorrect = selectedAnswers.length === q.correct.length && selectedAnswers.every(answer => q.correct.includes(answer));
+
+    document.getElementById('result').innerHTML = isCorrect
+        ? '<span class="correct">Correct !</span>'
+        : '<span class="incorrect">Incorrect.</span>';
+    document.getElementById('result').innerHTML += `<br>Explication : ${q.explanation}`;
+    document.getElementById('submit').style.display = 'none';
+    document.getElementById('next').style.display = 'block';
+
+    if (isCorrect) {
+        score++;
+        correctAnswersCount++;
+    } else {
+        incorrectAnswersCount++;
+    }
+    updateQuestionCounts();
+}
+
+function nextQuestion() {
+    currentQuestion++;
+    if (currentQuestion < questions.length) {
+        loadQuestion();
+    } else {
+        document.getElementById('quiz').style.display = 'none';
+        document.getElementById('score').innerText = `Score final : ${score} / ${questions.length}`;
+        document.getElementById('restart').style.display = 'block';
+        updateQuestionCounts();
+    }
+}
+
+function restartQuiz() {
+    currentQuestion = 0;
+    score = 0;
+    correctAnswersCount = 0;
+    incorrectAnswersCount = 0;
+    document.getElementById('quiz').style.display = 'block';
+    document.getElementById('score').innerText = '';
+    document.getElementById('restart').style.display = 'none';
+    loadQuestion();
+}
+
+function updateQuestionCounts() {
+    document.getElementById('counter').innerText = `${currentQuestion + 1} / ${questions.length}`;
+    document.getElementById('correctCount').innerText = `Correct: ${correctAnswersCount}`;
+    document.getElementById('incorrectCount').innerText = `Incorrect: ${incorrectAnswersCount}`;
+    document.getElementById('remainingCount').innerText = `Restant: ${questions.length - currentQuestion - (currentQuestion === questions.length ? 0 : 1)}`;
+
+    if (currentQuestion === questions.length) {
+        document.getElementById('counter').innerText = `${questions.length} / ${questions.length}`;
+        document.getElementById('remainingCount').innerText = `Restant: 0`;
+    }
+}
+
+document.addEventListener('DOMContentLoaded', loadQuestion);
+    </script>
+</body>
+</html>
