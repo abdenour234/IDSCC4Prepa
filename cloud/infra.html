@@ -1,0 +1,1974 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QCM - Infrastructures des Centres de Données</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .quiz-container {
+            padding: 30px;
+        }
+
+        .back-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .section-title {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 15px 20px;
+            margin: 30px 0 20px 0;
+            border-radius: 8px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .question-card {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .question-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-color: #3498db;
+        }
+
+        .question-number {
+            background: #3498db;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .options {
+            margin-bottom: 20px;
+        }
+
+        .option {
+            background: white;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .option:hover {
+            border-color: #3498db;
+            background: #f0f8ff;
+        }
+
+        .option input[type="radio"], .option input[type="checkbox"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+
+        .validate-btn {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .validate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+
+        .validate-btn:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            display: none;
+        }
+
+        .correct {
+            background: #d4edda;
+            border: 2px solid #c3e6cb;
+            color: #155724;
+        }
+
+        .incorrect {
+            background: #f8d7da;
+            border: 2px solid #f5c6cb;
+            color: #721c24;
+        }
+
+        .explanation {
+            margin-top: 10px;
+            font-weight: normal;
+            line-height: 1.6;
+            color: #495057;
+            font-size: 0.95rem;
+        }
+
+        .progress-bar {
+            background: #e9ecef;
+            height: 8px;
+            border-radius: 4px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .stats {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 1.1rem;
+            color: #2c3e50;
+        }
+
+        .final-score {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 30px 0;
+            display: none;
+        }
+
+        .score-excellent {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+        }
+
+        .score-good {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+        }
+
+        .score-poor {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .quiz-container {
+                padding: 20px;
+            }
+            
+            .question-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🖥️ Infrastructures des Centres de Données</h1>
+            <p>Testez vos connaissances sur les serveurs, le stockage, les réseaux et plus avec 60 questions</p>
+        </div>
+        
+        <div class="quiz-container">
+            <a href="index.html" class="back-btn">← Retour au Cloud Computing</a>
+            
+            <div class="stats">
+                <strong>Progression : <span id="answered">0</span>/60 questions répondues</strong>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar"></div>
+            </div>
+
+            <div class="final-score" id="finalScore">
+                <h2>🎉 Félicitations!</h2>
+                <p>Votre score final : <span id="scorePercentage"></span>%</p>
+                <p id="scoreMessage"></p>
+            </div>
+    
+            <div class="section-title">Questions à choix unique/multiple</div>
+
+            <!-- Question 1 -->
+            <div class="question-card">
+                <div class="question-number">Question 1</div>
+                <div class="question-text">Quel type de serveur est monté dans une armoire standard de 19 pouces ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q1" value="a"> Serveur en rack
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q1" value="b"> Serveur tour
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q1" value="c"> Serveur blade
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q1" value="d"> Serveur hyperscale
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q1" value="e"> Serveur sans boîtier
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q1', ['a'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Les serveurs en rack sont conçus pour être montés dans des armoires standard de 19 pouces, optimisant l'espace et facilitant l'intégration dans les datacenters.</div>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question-card">
+                <div class="question-number">Question 2</div>
+                <div class="question-text">Quels avantages sont associés aux serveurs blade ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q2" value="a"> Faible consommation énergétique
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q2" value="b"> Haute densité
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q2" value="c"> Refroidissement autonome
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q2" value="d"> Maintenance facilitée (hot-swap)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q2" value="e"> Pas besoin de châssis
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q2', ['b', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Les serveurs blade offrent une haute densité en regroupant plusieurs lames dans un châssis, et leur conception hot-swap facilite la maintenance sans interruption.</div>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question-card">
+                <div class="question-number">Question 3</div>
+                <div class="question-text">Quels sont les inconvénients des serveurs tour ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q3" value="a"> Faible densité
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q3" value="b"> Complexité d’administration
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q3" value="c"> Encombrement important
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q3" value="d"> Refroidissement passif seulement
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q3" value="e"> Incompatibilité avec les cartes PCIe
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q3', ['a', 'c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Les serveurs tour occupent beaucoup d'espace (faible densité) et ont un encombrement important, ce qui les rend moins adaptés aux grands datacenters.</div>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question-card">
+                <div class="question-number">Question 4</div>
+                <div class="question-text">Quelle(s) caractéristique(s) distingue(nt) le stockage DAS ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q4" value="a"> Connecté directement au serveur
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q4" value="b"> Accès partagé entre plusieurs hôtes
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q4" value="c"> Connexion via SATA/SAS/NVMe
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q4" value="d"> Idéal pour les bases de données critiques en réseau
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q4" value="e"> Nécessite une architecture Fibre Channel
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q4', ['a', 'c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le stockage DAS (Direct-Attached Storage) est connecté directement au serveur via des interfaces comme SATA, SAS ou NVMe, sans réseau intermédiaire.</div>
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="question-card">
+                <div class="question-number">Question 5</div>
+                <div class="question-text">Lequel des systèmes suivants est typiquement utilisé pour le stockage de fichiers partagés ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q5" value="a"> DAS
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q5" value="b"> SAN
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q5" value="c"> NAS
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q5" value="d"> Objets S3
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q5" value="e"> RAID
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q5', ['c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le NAS (Network-Attached Storage) est conçu pour le partage de fichiers sur un réseau, contrairement au DAS ou SAN qui ont d'autres cas d'usage.</div>
+                </div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="question-card">
+                <div class="question-number">Question 6</div>
+                <div class="question-text">Dans une architecture Leaf-Spine, quels composants sont présents ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q6" value="a"> Switchs Leaf
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q6" value="b"> Routeurs périphériques
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q6" value="c"> Switchs Spine
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q6" value="d"> Firewalls virtuels
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q6" value="e"> Câbles OM4
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q6', ['a', 'c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">L'architecture Leaf-Spine repose sur des switchs Leaf (connectés aux serveurs) et des switchs Spine (connectant les Leaf entre eux).</div>
+                </div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="question-card">
+                <div class="question-number">Question 7</div>
+                <div class="question-text">Quel est un avantage principal de l’architecture Leaf-Spine ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q7" value="a"> Faible latence
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q7" value="b"> Isolation thermique accrue
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q7" value="c"> Réduction du trafic est-ouest
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q7" value="d"> Résilience réseau
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q7" value="e"> Nécessite peu de câblage
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q7', ['a', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">L'architecture Leaf-Spine offre une faible latence grâce à un minimum de sauts réseau et une résilience élevée avec des chemins redondants.</div>
+                </div>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="question-card">
+                <div class="question-number">Question 8</div>
+                <div class="question-text">Quels protocoles sont couramment utilisés pour le routage dans un datacenter moderne ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q8" value="a"> BGP
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q8" value="b"> VXLAN
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q8" value="c"> EVPN
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q8" value="d"> OSPF
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q8" value="e"> DNS
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q8', ['a', 'c', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">BGP, EVPN et OSPF sont utilisés pour le routage dans les datacenters modernes, tandis que VXLAN est un protocole d'encapsulation et DNS est pour la résolution de noms.</div>
+                </div>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="question-card">
+                <div class="question-number">Question 9</div>
+                <div class="question-text">Que signifie le concept de redondance N+1 dans un datacenter ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q9" value="a"> Un groupe électrogène de secours pour N unités
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q9" value="b"> Deux groupes pour chaque unité
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q9" value="c"> Un seul chemin électrique
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q9" value="d"> Aucun point de défaillance
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q9" value="e"> Utilisation d’énergie solaire uniquement
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q9', ['a'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">La redondance N+1 signifie qu'il y a une unité supplémentaire (par exemple, un groupe électrogène) pour N unités opérationnelles, assurant la continuité en cas de panne.</div>
+                </div>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="question-card">
+                <div class="question-number">Question 10</div>
+                <div class="question-text">Quels sont les composants typiques d’un système de distribution d’énergie dans un centre de données ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q10" value="a"> UPS (onduleurs)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q10" value="b"> Groupes électrogènes
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q10" value="c"> PDU (Power Distribution Units)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q10" value="d"> Onduleurs solaires uniquement
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q10" value="e"> Refroidisseurs à eau
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q10', ['a', 'b', 'c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Les systèmes de distribution d'énergie incluent les UPS pour la continuité, les groupes électrogènes pour les pannes prolongées, et les PDU pour distribuer l'énergie aux équipements.</div>
+                </div>
+            </div>
+
+            <!-- Question 11 -->
+            <div class="question-card">
+                <div class="question-number">Question 11</div>
+                <div class="question-text">Quelles techniques permettent de refroidir efficacement les serveurs ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q11" value="a"> Allées chaudes/froides
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q11" value="b"> Refroidissement liquide (cold plate)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q11" value="c"> Immersion dans fluide diélectrique
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q11" value="d"> Refroidissement par air passif uniquement
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q11" value="e"> Boîtiers ventilés sans CRAC
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q11', ['a', 'b', 'c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Les allées chaudes/froides, le refroidissement liquide (cold plate) et l'immersion dans un fluide diélectrique sont des techniques efficaces pour gérer la chaleur des serveurs.</div>
+                </div>
+            </div>
+
+            <!-- Question 12 -->
+            <div class="question-card">
+                <div class="question-number">Question 12</div>
+                <div class="question-text">Quels avantages offre le refroidissement par immersion ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q12" value="a"> Réduction du besoin en ventilateurs
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q12" value="b"> Conductivité thermique élevée
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q12" value="c"> Convient aux très hautes densités
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q12" value="d"> Moins de bruit
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q12" value="e"> Nécessite de l’air sec
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q12', ['a', 'b', 'c', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le refroidissement par immersion réduit les ventilateurs, offre une haute conductivité thermique, supporte des densités élevées et diminue le bruit.</div>
+                </div>
+            </div>
+
+            <!-- Question 13 -->
+            <div class="question-card">
+                <div class="question-number">Question 13</div>
+                <div class="question-text">Quel est l’objectif principal des recommandations ASHRAE TC 9.9 ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q13" value="a"> Optimiser les flux réseau
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q13" value="b"> Spécifier les plages thermiques recommandées
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q13" value="c"> Garantir une humidité contrôlée
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q13" value="d"> Réduire la latence serveur
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q13" value="e"> Réguler la taille des racks
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q13', ['b', 'c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">ASHRAE TC 9.9 fournit des recommandations pour les plages thermiques et l'humidité dans les datacenters afin d'assurer un fonctionnement optimal des équipements.</div>
+                </div>
+            </div>
+
+            <!-- Question 14 -->
+            <div class="question-card">
+                <div class="question-number">Question 14</div>
+                <div class="question-text">Quels éléments sont souvent utilisés pour assurer la sécurité physique d’un datacenter ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q14" value="a"> SAS d’entrée à double porte
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q14" value="b"> Contrôle biométrique
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q14" value="c"> Badge RFID uniquement
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q14" value="d"> Caméras de surveillance (CCTV)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q14" value="e"> Détecteurs de fumée et d’inondation
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q14', ['a', 'b', 'd', 'e'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">La sécurité physique inclut des SAS d’entrée, des contrôles biométriques, des caméras CCTV et des détecteurs de fumée/inondation pour protéger les datacenters.</div>
+                </div>
+            </div>
+
+            <!-- Question 15 -->
+            <div class="question-card">
+                <div class="question-number">Question 15</div>
+                <div class="question-text">Que garantit la conformité à la norme ISO 27001 dans un datacenter ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q15" value="a"> Surveillance constante
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q15" value="b"> Audits réguliers de sécurité
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q15" value="c"> Blocage automatique des ports USB
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q15" value="d"> Plan de gestion des accès
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q15" value="e"> Respect des bonnes pratiques ITIL
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q15', ['a', 'b', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">ISO 27001 garantit une surveillance continue, des audits réguliers et une gestion rigoureuse des accès pour sécuriser les données et l'infrastructure.</div>
+                </div>
+            </div>
+
+            <!-- Question 16 -->
+            <div class="question-card">
+                <div class="question-number">Question 16</div>
+                <div class="question-text">Quels sont les rôles typiques des trois couches du modèle 3-tiers ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q16" value="a"> Accès – pour connecter les serveurs
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q16" value="b"> Distribution – pour les services partagés
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q16" value="c"> Cœur – pour la connectivité externe
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q16" value="d"> Refroidissement – pour l’air conditionné
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q16" value="e"> Sécurité – pour les pare-feux
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q16', ['a', 'b', 'c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le modèle 3-tiers comprend l'accès (connexion des serveurs), la distribution (services partagés) et le cœur (connectivité externe).</div>
+                </div>
+            </div>
+
+            <!-- Question 17 -->
+            <div class="question-card">
+                <div class="question-number">Question 17</div>
+                <div class="question-text">Quels sont les avantages de l’edge computing ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q17" value="a"> Réduction de la latence
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q17" value="b"> Traitement en local des données
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q17" value="c"> Dépendance maximale au cloud central
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q17" value="d"> Meilleure tolérance aux pannes locales
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q17" value="e"> Évite tout besoin de datacenter central
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q17', ['a', 'b', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">L'edge computing réduit la latence, traite les données localement et améliore la tolérance aux pannes locales, mais ne supprime pas le besoin de datacenters centraux.</div>
+                </div>
+            </div>
+
+            <!-- Question 18 -->
+            <div class="question-card">
+                <div class="question-number">Question 18</div>
+                <div class="question-text">Quels hyperviseurs appartiennent à la catégorie Type 1 ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q18" value="a"> VMware ESXi
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q18" value="b"> KVM
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q18" value="c"> Hyper-V
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q18" value="d"> Docker
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q18" value="e"> VirtualBox
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q18', ['a', 'b', 'c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Les hyperviseurs de Type 1 (VMware ESXi, KVM, Hyper-V) s'exécutent directement sur le matériel, tandis que VirtualBox est de Type 2 et Docker est un moteur de conteneurs.</div>
+                </div>
+            </div>
+
+            <!-- Question 19 -->
+            <div class="question-card">
+                <div class="question-number">Question 19</div>
+                <div class="question-text">Quels avantages Kubernetes apporte-t-il à la gestion des conteneurs ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q19" value="a"> Déploiement automatique
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q19" value="b"> Migration à chaud des VMs
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q19" value="c"> Tolérance aux pannes
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q19" value="d"> Scalabilité automatique
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q19" value="e"> Planification des pods
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q19', ['a', 'c', 'd', 'e'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Kubernetes automatise le déploiement, la scalabilité, la tolérance aux pannes et la planification des pods, mais ne gère pas directement la migration à chaud des VMs.</div>
+                </div>
+            </div>
+
+            <!-- Question 20 -->
+            <div class="question-card">
+                <div class="question-number">Question 20</div>
+                <div class="question-text">Quelles sont les fonctions des namespaces dans Kubernetes ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q20" value="a"> Isolation logique entre applications
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q20" value="b"> Affectation de quotas de ressources
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q20" value="c"> Séparation physique des nœuds
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q20" value="d"> Gestion de la sécurité RBAC
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q20" value="e"> Création de réseaux overlay
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q20', ['a', 'b', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Les namespaces dans Kubernetes isolent logiquement les applications, affectent des quotas de ressources et facilitent la gestion de la sécurité via RBAC.</div>
+                </div>
+            </div>
+
+            <!-- Question 21 -->
+            <div class="question-card">
+                <div class="question-number">Question 21</div>
+                <div class="question-text">Quelles techniques assurent la haute disponibilité dans un datacenter ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q21" value="a"> Réplication RAID
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q21" value="b"> Load balancing actif-actif
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q21" value="c"> Refroidissement passif
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q21" value="d"> Clustering des serveurs
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q21" value="e"> Mono-chemin réseau
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q21', ['a', 'b', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">La haute disponibilité est assurée par la réplication RAID, le load balancing actif-actif et le clustering des serveurs, mais pas par un refroidissement passif ou un mono-chemin réseau.</div>
+                </div>
+            </div>
+
+            <!-- Question 22 -->
+            <div class="question-card">
+                <div class="question-number">Question 22</div>
+                <div class="question-text">Quels sont les avantages d’un cluster actif-actif ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q22" value="a"> Redondance continue
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q22" value="b"> Répartition de charge
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q22" value="c"> Perte de données lors de bascule
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q22" value="d"> Temps d’arrêt nul en cas de panne
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q22" value="e"> Migration automatique de VM
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q22', ['a', 'b', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Un cluster actif-actif offre une redondance continue, une répartition de charge et un temps d'arrêt nul en cas de panne, mais ne cause pas de perte de données ni ne migre automatiquement les VMs.</div>
+                </div>
+            </div>
+
+            <!-- Question 23 -->
+            <div class="question-card">
+                <div class="question-number">Question 23</div>
+                <div class="question-text">Qu'est-ce qu'un point de défaillance unique (SPOF) ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q23" value="a"> Un composant dont la panne arrête tout le système
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q23" value="b"> Un switch sans redondance
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q23" value="c"> Une solution de clustering
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q23" value="d"> Une technologie de refroidissement
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q23" value="e"> Une stratégie de migration de VM
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q23', ['a', 'b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Un SPOF (Single Point of Failure) est un composant critique, comme un switch sans redondance, dont la panne entraîne l'arrêt du système.</div>
+                </div>
+            </div>
+
+            <!-- Question 24 -->
+            <div class="question-card">
+                <div class="question-number">Question 24</div>
+                <div class="question-text">Quels systèmes permettent un stockage distribué évolutif ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q24" value="a"> Ceph
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q24" value="b"> GlusterFS
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q24" value="c"> HDFS
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q24" value="d"> RAID 0
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q24" value="e"> NAS local
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q24', ['a', 'b', 'c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Ceph, GlusterFS et HDFS sont des systèmes de stockage distribué évolutif, contrairement au RAID 0 ou au NAS local qui ne sont pas conçus pour cela.</div>
+                </div>
+            </div>
+
+            <!-- Question 25 -->
+            <div class="question-card">
+                <div class="question-number">Question 25</div>
+                <div class="question-text">Quelles sont les caractéristiques du stockage objet comme Amazon S3 ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q25" value="a"> API HTTP/REST
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q25" value="b"> Données stockées en blocs
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q25" value="c"> Accès via Fiber Channel
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q25" value="d"> Scalabilité horizontale
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q25" value="e"> Métadonnées associées aux objets
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q25', ['a', 'd', 'e'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le stockage objet comme S3 utilise une API HTTP/REST, offre une scalabilité horizontale et associe des métadonnées aux objets, mais n'utilise pas de blocs ni Fibre Channel.</div>
+                </div>
+            </div>
+
+            <!-- Question 26 -->
+            <div class="question-card">
+                <div class="question-number">Question 26</div>
+                <div class="question-text">Quels supports sont recommandés pour des données “chaudes” ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q26" value="a"> SSD SATA
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q26" value="b"> Disques NVMe
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q26" value="c"> HDD classiques
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q26" value="d"> Bande magnétique
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q26" value="e"> Cloud Glacier
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q26', ['a', 'b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Les SSD SATA et NVMe sont rapides et adaptés aux données chaudes (fréquemment accédées), contrairement aux HDD, bandes ou Glacier pour les données froides.</div>
+                </div>
+            </div>
+
+            <!-- Question 27 -->
+            <div class="question-card">
+                <div class="question-number">Question 27</div>
+                <div class="question-text">Quels niveaux de RAID offrent à la fois performance et redondance ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q27" value="a"> RAID 0
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q27" value="b"> RAID 1
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q27" value="c"> RAID 5
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q27" value="d"> RAID 6
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q27" value="e"> RAID 10
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q27', ['c', 'd', 'e'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">RAID 5, RAID 6 et RAID 10 combinent performance (grâce au striping ou mirroring) et redondance, contrairement à RAID 0 (pas de redondance) ou RAID 1 (moins performant).</div>
+                </div>
+            </div>
+
+            <!-- Question 28 -->
+            <div class="question-card">
+                <div class="question-number">Question 28</div>
+                <div class="question-text">Quel niveau RAID offre la meilleure tolérance aux pannes ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q28" value="a"> RAID 0
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q28" value="b"> RAID 1
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q28" value="c"> RAID 5
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q28" value="d"> RAID 6
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q28" value="e"> RAID 10
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q28', ['d'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">RAID 6 offre la meilleure tolérance aux pannes grâce à une double parité, permettant la perte de deux disques sans perte de données.</div>
+                </div>
+            </div>
+
+            <!-- Question 29 -->
+            <div class="question-card">
+                <div class="question-number">Question 29</div>
+                <div class="question-text">Quels sont les inconvénients du RAID 0 ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q29" value="a"> Aucune redondance
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q29" value="b"> Perte de toutes les données si un disque tombe
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q29" value="c"> Écriture très lente
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q29" value="d"> Haute sécurité
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q29" value="e"> Nécessite au moins 3 disques
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q29', ['a', 'b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">RAID 0 n’offre aucune redondance, et la panne d’un disque entraîne la perte totale des données, mais il est performant et ne nécessite que 2 disques.</div>
+                </div>
+            </div>
+
+            <!-- Question 30 -->
+            <div class="question-card">
+                <div class="question-number">Question 30</div>
+                <div class="question-text">Quel niveau RAID combine striping et mirroring ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q30" value="a"> RAID 0
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q30" value="b"> RAID 1
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q30" value="c"> RAID 5
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q30" value="d"> RAID 6
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q30" value="e"> RAID 10
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q30', ['e'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">RAID 10 combine le striping (RAID 0) pour la performance et le mirroring (RAID 1) pour la redondance, offrant un bon équilibre entre les deux.</div>
+                </div>
+            </div>
+
+            <!-- Question 31 -->
+            <div class="question-card">
+                <div class="question-number">Question 31</div>
+                <div class="question-text">Quels outils sont utilisés pour la supervision dans les datacenters ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q31" value="a"> Nagios
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q31" value="b"> Zabbix
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q31" value="c"> Ansible
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q31" value="d"> Prometheus
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q31" value="e"> Grafana
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q31', ['a', 'b', 'd', 'e'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Nagios, Zabbix, Prometheus et Grafana sont des outils de supervision, tandis qu'Ansible est utilisé pour l'automatisation, pas pour la supervision.</div>
+                </div>
+            </div>
+
+            <!-- Question 32 -->
+            <div class="question-card">
+                <div class="question-number">Question 32</div>
+                <div class="question-text">Quels indicateurs sont couramment surveillés dans un datacenter ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q32" value="a"> Température des racks
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q32" value="b"> Humidité relative
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q32" value="c"> Consommation électrique
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q32" value="d"> Temps de réponse du réseau
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q32" value="e"> Vitesse du ventilateur GPU
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q32', ['a', 'b', 'c', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Les datacenters surveillent la température, l'humidité, la consommation électrique et les performances réseau, mais la vitesse des ventilateurs GPU est moins courante.</div>
+                </div>
+            </div>
+
+            <!-- Question 33 -->
+            <div class="question-card">
+                <div class="question-number">Question 33</div>
+                <div class="question-text">Quelles solutions permettent la gestion de l’infrastructure physique (DCIM) ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q33" value="a"> Sondes thermiques
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q33" value="b"> Planification de maintenance
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q33" value="c"> Visualisation 3D des racks
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q33" value="d"> VirtualBox
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q33" value="e"> Capteurs de fumée
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q33', ['a', 'b', 'c', 'e'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Les solutions DCIM incluent des sondes thermiques, la planification de maintenance, la visualisation 3D des racks et les capteurs de fumée, mais pas VirtualBox.</div>
+                </div>
+            </div>
+
+            <!-- Question 34 -->
+            <div class="question-card">
+                <div class="question-number">Question 34</div>
+                <div class="question-text">Quelles sont les pratiques de maintenance sans interruption ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q34" value="a"> Hot-swap des disques
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q34" value="b"> Mise à jour rolling
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q34" value="c"> Migration à chaud des VMs
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q34" value="d"> Redémarrage manuel
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q34" value="e"> Coupure temporaire du PDU
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q34', ['a', 'b', 'c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le hot-swap, les mises à jour rolling et la migration à chaud des VMs permettent une maintenance sans interruption, contrairement au redémarrage manuel ou à la coupure du PDU.</div>
+                </div>
+            </div>
+
+            <!-- Question 35 -->
+            <div class="question-card">
+                <div class="question-number">Question 35</div>
+                <div class="question-text">Quel niveau Tier garantit la maintenabilité sans interruption de service ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q35" value="a"> Tier I
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q35" value="b"> Tier II
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q35" value="c"> Tier III
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q35" value="d"> Tier IV
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q35" value="e"> Tier 0
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q35', ['c', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Les niveaux Tier III et Tier IV permettent la maintenance sans interruption grâce à des systèmes redondants, contrairement aux niveaux inférieurs.</div>
+                </div>
+            </div>
+
+            <!-- Question 36 -->
+            <div class="question-card">
+                <div class="question-number">Question 36</div>
+                <div class="question-text">Quels composants sont généralement redondés pour la maintenance continue ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q36" value="a"> Chemins électriques
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q36" value="b"> Systèmes de refroidissement
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q36" value="c"> Groupes électrogènes
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q36" value="d"> Interfaces VGA
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q36" value="e"> Liaisons réseau
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q36', ['a', 'b', 'c', 'e'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Les chemins électriques, systèmes de refroidissement, groupes électrogènes et liaisons réseau sont redondés pour assurer une maintenance continue.</div>
+                </div>
+            </div>
+
+            <!-- Question 37 -->
+            <div class="question-card">
+                <div class="question-number">Question 37</div>
+                <div class="question-text">Quelles pratiques contribuent à réduire l’empreinte carbone des datacenters ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q37" value="a"> Utilisation d’air extérieur froid
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q37" value="b"> Groupes électrogènes diesel
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q37" value="c"> Recyclage de chaleur
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q37" value="d"> Énergie solaire et éolienne
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q37" value="e"> Refroidissement par immersion
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q37', ['a', 'c', 'd', 'e'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">L’air extérieur, le recyclage de chaleur, les énergies renouvelables et le refroidissement par immersion réduisent l’empreinte carbone, contrairement aux générateurs diesel.</div>
+                </div>
+            </div>
+
+            <!-- Question 38 -->
+            <div class="question-card">
+                <div class="question-number">Question 38</div>
+                <div class="question-text">Quels indicateurs permettent d’évaluer l’efficacité énergétique d’un datacenter ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q38" value="a"> PUE (Power Usage Effectiveness)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q38" value="b"> DCiE
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q38" value="c"> TCO
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q38" value="d"> KPI environnementaux
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q38" value="e"> QOS
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q38', ['a', 'b', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">PUE, DCiE et les KPI environnementaux mesurent l’efficacité énergétique, tandis que TCO concerne les coûts et QOS la qualité de service.</div>
+                </div>
+            </div>
+
+            <!-- Question 39 -->
+            <div class="question-card">
+                <div class="question-number">Question 39</div>
+                <div class="question-text">Quels lieux géographiques sont favorables aux datacenters écologiques ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q39" value="a"> Canada
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q39" value="b"> Scandinavie
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q39" value="c"> Équateur
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q39" value="d"> Finlande
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q39" value="e"> Sahara
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q39', ['a', 'b', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le Canada, la Scandinavie et la Finlande offrent des climats froids et des énergies renouvelables, idéaux pour des datacenters écologiques, contrairement à l’Équateur ou le Sahara.</div>
+                </div>
+            </div>
+
+            <!-- Question 40 -->
+            <div class="question-card">
+                <div class="question-number">Question 40</div>
+                <div class="question-text">Quelles normes contribuent à la durabilité énergétique des datacenters ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q40" value="a"> ASHRAE 90.4
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q40" value="b"> ISO 50001
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q40" value="c"> PCI DSS
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q40" value="d"> LEED
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q40" value="e"> GDPR
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q40', ['a', 'b', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">ASHRAE 90.4, ISO 50001 et LEED sont des normes pour l’efficacité énergétique et la durabilité, tandis que PCI DSS et GDPR concernent la sécurité des données.</div>
+                </div>
+            </div>
+
+            <!-- Question 41 -->
+            <div class="question-card">
+                <div class="question-number">Question 41</div>
+                <div class="question-text">Quels éléments sont typiquement intégrés dans une appliance hyperconvergée ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q41" value="a"> Serveurs
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q41" value="b"> Stockage
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q41" value="c"> Réseau fibre passive
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q41" value="d"> Hyperviseur
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q41" value="e"> Pare-feu physique
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q41', ['a', 'b', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Une appliance hyperconvergée intègre des serveurs, du stockage et un hyperviseur, mais pas de réseau fibre passive ni de pare-feu physique.</div>
+                </div>
+            </div>
+
+            <!-- Question 42 -->
+            <div class="question-card">
+                <div class="question-number">Question 42</div>
+                <div class="question-text">Quels sont les avantages de l’hyperconvergence ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q42" value="a"> Simplicité d’intégration
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q42" value="b"> Réduction du câblage
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q42" value="c"> Flexibilité totale entre stockage et calcul
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q42" value="d"> Automatisation native
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q42" value="e"> Moins de points de panne
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q42', ['a', 'b', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">L’hyperconvergence simplifie l’intégration, réduit le câblage et offre une automatisation native, mais n’élimine pas totalement les points de panne.</div>
+                </div>
+            </div>
+
+            <!-- Question 43 -->
+            <div class="question-card">
+                <div class="question-number">Question 43</div>
+                <div class="question-text">Quels sont les inconvénients de l’hyperconvergence ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q43" value="a"> Coût élevé par nœud
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q43" value="b"> Pas de séparation fine des ressources
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q43" value="c"> Dépendance au logiciel central
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q43" value="d"> Nécessite un SAN externe
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q43" value="e"> Incompatibilité avec Kubernetes
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q43', ['a', 'b', 'c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">L’hyperconvergence a un coût élevé, une dépendance au logiciel central et une séparation limitée des ressources, mais est compatible avec Kubernetes et ne nécessite pas de SAN externe.</div>
+                </div>
+            </div>
+
+            <!-- Question 44 -->
+            <div class="question-card">
+                <div class="question-number">Question 44</div>
+                <div class="question-text">Quels composants matériels sont développés par AWS ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q44" value="a"> Processeurs Graviton (ARM)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q44" value="b"> Plateforme Nitro
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q44" value="c"> FPGA Xilinx
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q44" value="d"> GPU Nvidia A100
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q44" value="e"> Chip quantique Ocelot
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q44', ['a', 'b', 'e'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">AWS développe les processeurs Graviton, la plateforme Nitro et des puces quantiques comme Ocelot, mais utilise des FPGA Xilinx et GPU Nvidia sans les développer.</div>
+                </div>
+            </div>
+
+            <!-- Question 45 -->
+            <div class="question-card">
+                <div class="question-number">Question 45</div>
+                <div class="question-text">Quelle(s) initiative(s) matérielle(s) Azure a-t-elle adoptée(s) ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q45" value="a"> Project Olympus
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q45" value="b"> FPGA dans les switches
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q45" value="c"> Hyperviseur Nitro
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q45" value="d"> Infrastructure Flex-ILT
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q45" value="e"> Processeurs EPYC custom
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q45', ['a', 'b', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+            <!-- Question 45 (continued) -->
+            <div class="result">
+                <div class="explanation">Azure a adopté Project Olympus pour des serveurs open-source, utilise des FPGA dans les switches et développe l’infrastructure Flex-ILT, mais Nitro est spécifique à AWS.</div>
+            </div>
+        </div>
+
+        <!-- Question 46 -->
+        <div class="question-card">
+            <div class="question-number">Question 46</div>
+            <div class="question-text">Quelles sont les particularités de Google Cloud en matière de matériel ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="checkbox" name="q46" value="a"> Utilisation de TPU
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q46" value="b"> Machines virtuelles avec CPU Skylake
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q46" value="c"> Intégration à Open Compute Project
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q46" value="d"> Usage exclusif de Kubernetes
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q46" value="e"> Serveurs bare-metal sans hyperviseur
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q46', ['a', 'b', 'c'], this)">Valider la réponse</button>
+            <div class="result">
+                <div class="explanation">Google Cloud utilise des TPU pour l’IA, des CPU Skylake pour les VMs et contribue à l’Open Compute Project, mais n’utilise pas exclusivement Kubernetes ni des serveurs sans hyperviseur.</div>
+            </div>
+        </div>
+
+        <!-- Question 47 -->
+        <div class="question-card">
+            <div class="question-number">Question 47</div>
+            <div class="question-text">Quelles technologies influencent l’évolution des datacenters ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="checkbox" name="q47" value="a"> Processeurs ARM
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q47" value="b"> Refroidissement liquide
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q47" value="c"> Quantum computing
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q47" value="d"> Infrastructure monolithique
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q47" value="e"> Photonic interconnects
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q47', ['a', 'b', 'c', 'e'], this)">Valider la réponse</button>
+            <div class="result">
+                <div class="explanation">Les processeurs ARM, le refroidissement liquide, le quantum computing et les interconnexions photoniques sont des technologies émergentes, contrairement aux infrastructures monolithiques.</div>
+            </div>
+        </div>
+
+        <!-- Question 48 -->
+        <div class="question-card">
+            <div class="question-number">Question 48</div>
+            <div class="question-text">Quels avantages offrent les interconnexions photoniques ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="checkbox" name="q48" value="a"> Réduction de latence
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q48" value="b"> Augmentation de la bande passante
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q48" value="c"> Transmission électrique sans perte
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q48" value="d"> Moins de chaleur générée
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q48" value="e"> Virtualisation des signaux optiques
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q48', ['a', 'b', 'd'], this)">Valider la réponse</button>
+            <div class="result">
+                <div class="explanation">Les interconnexions photoniques réduisent la latence, augmentent la bande passante et génèrent moins de chaleur, mais la transmission reste optique, non électrique.</div>
+            </div>
+        </div>
+
+        <!-- Question 49 -->
+        <div class="question-card">
+            <div class="question-number">Question 49</div>
+            <div class="question-text">Quels sont les objectifs d’un datacenter autonome basé sur l’IA ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="checkbox" name="q49" value="a"> Auto-régulation énergétique
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q49" value="b"> Maintenance prédictive
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q49" value="c"> Réduction des interventions humaines
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q49" value="d"> Refroidissement manuel
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q49" value="e"> Isolation physique totale
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q49', ['a', 'b', 'c'], this)">Valider la réponse</button>
+            <div class="result">
+                <div class="explanation">Un datacenter autonome basé sur l’IA vise l’auto-régulation énergétique, la maintenance prédictive et la réduction des interventions humaines, mais pas le refroidissement manuel.</div>
+            </div>
+        </div>
+
+        <!-- Question 50 -->
+        <div class="question-card">
+            <div class="question-number">Question 50</div>
+            <div class="question-text">Quels usages du quantum computing sont envisagés dans le cloud ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="checkbox" name="q50" value="a"> Calculs non classiques
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q50" value="b"> Correction d’erreurs quantiques
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q50" value="c"> Sauvegarde rapide de données
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q50" value="d"> Simulation de molécules complexes
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q50" value="e"> Routage SD-WAN intelligent
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q50', ['a', 'b', 'd'], this)">Valider la réponse</button>
+            <div class="result">
+                <div class="explanation">Le quantum computing est utilisé pour des calculs non classiques, la correction d’erreurs quantiques et la simulation de molécules, mais pas pour la sauvegarde ou le routage SD-WAN.</div>
+            </div>
+        </div>
+
+        <!-- Question 51 -->
+        <div class="question-card">
+            <div class="question-number">Question 51</div>
+            <div class="question-text">Quel est le rôle principal d’un onduleur (UPS) dans un datacenter ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="checkbox" name="q51" value="a"> Fournir une alimentation continue lors des microcoupures
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q51" value="b"> Alimenter les systèmes de secours pendant plusieurs jours
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q51" value="c"> Protéger contre les surtensions
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q51" value="d"> Stabiliser la tension en cas de fluctuation
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q51" value="e"> Refroidir les batteries du datacenter
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q51', ['a', 'c', 'd'], this)">Valider la réponse</button>
+            <div class="result">
+                <div class="explanation">Les UPS protègent contre les microcoupures, les surtensions et stabilisent la tension, mais ne sont pas conçus pour alimenter sur plusieurs jours ni refroidir.</div>
+            </div>
+        </div>
+
+        <!-- Question 52 -->
+        <div class="question-card">
+            <div class="question-number">Question 52</div>
+            <div class="question-text">Que permettent les groupes électrogènes diesel dans un datacenter ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="checkbox" name="q52" value="a"> Maintenir les charges critiques durant une longue panne
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q52" value="b"> Assurer l’alimentation sans interruption en complément des UPS
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q52" value="c"> Garantir le refroidissement et le fonctionnement réseau
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q52" value="d"> Réduire le coût énergétique global
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q52" value="e"> Se substituer à la source d’alimentation principale
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q52', ['a', 'b', 'c'], this)">Valider la réponse</button>
+            <div class="result">
+                <div class="explanation">Les groupes électrogènes diesel maintiennent les charges critiques, complètent les UPS et assurent le fonctionnement du refroidissement et du réseau, mais ne réduisent pas les coûts énergétiques.</div>
+            </div>
+        </div>
+
+        <!-- Question 53 -->
+        <div class="question-card">
+            <div class="question-number">Question 53</div>
+            <div class="question-text">Quels éléments composent une chaîne d’alimentation résiliente dans un cloud ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="checkbox" name="q53" value="a"> Double alimentation par baie
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q53" value="b"> UPS en N+1
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q53" value="c"> Plusieurs générateurs
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q53" value="d"> Une seule PDU centrale
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q53" value="e"> Système d'alerte par SMS
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q53', ['a', 'b', 'c'], this)">Valider la réponse</button>
+            <div class="result">
+                <div class="explanation">Une chaîne d’alimentation résiliente inclut une double alimentation par baie, des UPS en N+1 et plusieurs générateurs, mais pas une seule PDU ni un système d’alerte SMS.</div>
+            </div>
+        </div>
+
+        <!-- Question 54 -->
+        <div class="question-card">
+            <div class="question-number">Question 54</div>
+            <div class="question-text">Quelles fonctionnalités sont assurées par Kubernetes ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="checkbox" name="q54" value="a"> Déploiement de conteneurs
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q54" value="b"> Migration de VMs legacy automatiquement
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q54" value="c"> Autoscaling des pods
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q54" value="d"> Surveillance des nœuds
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q54" value="e"> Reprise automatique en cas d’échec
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q54', ['a', 'c', 'd', 'e'], this)">Valider la réponse</button>
+            <div class="result">
+                <div class="explanation">Kubernetes gère le déploiement, l’autoscaling, la surveillance des nœuds et la reprise automatique, mais ne migre pas automatiquement les VMs legacy.</div>
+            </div>
+        </div>
+
+        <!-- Question 55 -->
+        <div class="question-card">
+            <div class="question-number">Question 55</div>
+            <div class="question-text">Quels mécanismes assurent l’isolation dans Kubernetes ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="checkbox" name="q55" value="a"> Namespaces
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q55" value="b"> RBAC
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q55" value="c"> VLAN
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q55" value="d"> Network Policies
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q55" value="e"> Firewalls matériels
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q55', ['a', 'b', 'd'], this)">Valider la réponse</button>
+            <div class="result">
+                <div class="explanation">Namespaces, RBAC et Network Policies assurent l’isolation logique et sécurisée dans Kubernetes, tandis que VLAN et firewalls matériels sont des solutions réseau externes.</div>
+            </div>
+        </div>
+
+        <!-- Question 56 -->
+        <div class="question-card">
+            <div class="question-number">Question 56</div>
+            <div class="question-text">Qu’est-ce que KubeVirt permet de faire ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="checkbox" name="q56" value="a"> Exécuter des VMs dans Kubernetes
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q56" value="b"> Fusionner des conteneurs et des hyperviseurs
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q56" value="c"> Gérer des workloads mixtes sur un même cluster
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q56" value="d"> Déployer automatiquement des VMs bare-metal
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q56" value="e"> Optimiser les coûts de conteneurisation
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q56', ['a', 'b', 'c'], this)">Valider la réponse</button>
+            <div class="result">
+                <div class="explanation">KubeVirt permet d’exécuter des VMs dans Kubernetes, de fusionner conteneurs et hyperviseurs, et de gérer des workloads mixtes, mais ne déploie pas automatiquement des VMs bare-metal.</div>
+            </div>
+        </div>
+
+        <!-- Question 57 -->
+        <div class="question-card">
+            <div class="question-number">Question 57</div>
+            <div class="question-text">Quels composants constituent une topologie Leaf-Spine ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="checkbox" name="q57" value="a"> Switches Leaf (ToR)
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q57" value="b"> Switches Spine (core)
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q57" value="c"> Câblage vertical unique
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q57" value="d"> Routeurs traditionnels
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q57" value="e"> Liens uplink redondants
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q57', ['a', 'b', 'e'], this)">Valider la réponse</button>
+            <div class="result">
+                <div class="explanation">La topologie Leaf-Spine inclut des switches Leaf (ToR), des switches Spine (core) et des liens uplink redondants, mais pas de câblage unique ni de routeurs traditionnels.</div>
+            </div>
+        </div>
+
+        <!-- Question 58 -->
+        <div class="question-card">
+            <div class="question-number">Question 58</div>
+            <div class="question-text">Quels sont les avantages du modèle Leaf-Spine ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="checkbox" name="q58" value="a"> Faible latence
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q58" value="b"> Évolutivité horizontale
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q58" value="c"> Réduction des sauts réseau
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q58" value="d"> Protocoles Spanning Tree
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q58" value="e"> Tous les chemins actifs
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q58', ['a', 'b', 'c', 'e'], this)">Valider la réponse</button>
+            <div class="result">
+                <div class="explanation">Le modèle Leaf-Spine offre une faible latence, une évolutivité horizontale, moins de sauts réseau et utilise tous les chemins actifs, mais évite Spanning Tree grâce à des protocoles modernes.</div>
+            </div>
+        </div>
+
+        <!-- Question 59 -->
+        <div class="59">
+            <div class="question-number">Question 59</div>
+            <div class="question-text">Quels protocoles facilitent le routage dans une architecture Leaf-Spine ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="checkbox" name="q59" value="a"> BGP
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q59" value="b"> OSPF
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q59" value="c"> RIP
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q59" value="d"> EVPN
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q59" value="e"> IS-IS
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q59', ['a', 'b', 'd', 'e'], this)">Valider la réponse</button>
+            <div class="result">
+                <div class="explanation">BGP, OSPF, EVPN et IS-IS sont utilisés pour le routage dans les architectures Leaf-Spine, tandis que RIP est moins adapté aux datacenters modernes.</div>
+            </div>
+        </div>
+
+        <!-- Question 60 -->
+        <div class="question-card">
+            <div class="question-number">Question 60</div>
+            <div class="question-text">Quelles sont les caractéristiques de VXLAN dans un réseau overlay ?</div>
+            <div class="options">
+                <label class="option">
+                    <input type="checkbox" name="q60" value="a"> Permet un réseau logique sur un réseau physique
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q60" value="b"> Utilise UDP pour l’encapsulation
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q60" value="c"> Incompatible avec la mobilité des VMs
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q60" value="d"> Nécessite un hyperviseur VMware
+                </label>
+                <label class="option">
+                    <input type="checkbox" name="q60" value="e"> S’intègre avec BGP pour l’isolation des tenants
+                </label>
+            </div>
+            <button class="validate-btn" onclick="validateAnswer('q60', ['a', 'b', 'e'], this)">Valider la réponse</button>
+            <div class="result">
+                <div class="explanation">VXLAN crée un réseau logique sur un réseau physique via UDP et s’intègre avec BGP pour l’isolation des tenants, tout en supportant la mobilité des VMs et n’étant pas limité à VMware.</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    let answeredQuestions = 0;
+    let correctAnswers = 0;
+    const totalQuestions = 60;
+
+    function validateAnswer(questionId, correctOptions, button) {
+        const options = document.querySelectorAll(`input[name="${questionId}"]:checked`);
+        const selectedValues = Array.from(options).map(option => option.value);
+        const resultDiv = button.nextElementSibling;
+        const explanationDiv = resultDiv.querySelector('.explanation');
+
+        // Check if the selected answers match the correct ones
+        const isCorrect = selectedValues.length === correctOptions.length &&
+                         selectedValues.every(val => correctOptions.includes(val)) &&
+                         correctOptions.every(val => selectedValues.includes(val));
+
+        // Update result display
+        resultDiv.style.display = 'block';
+        resultDiv.textContent = isCorrect ? 'Correct !' : 'Incorrect !';
+        resultDiv.classList.add(isCorrect ? 'correct' : 'incorrect');
+        resultDiv.appendChild(explanationDiv); // Re-append explanation
+
+        // Disable inputs and button after validation
+        document.querySelectorAll(`input[name="${questionId}"]`).forEach(input => {
+            input.disabled = true;
+        });
+        button.disabled = true;
+
+        // Update progress
+        answeredQuestions++;
+        if (isCorrect) correctAnswers++;
+        updateProgress();
+
+        // Show final score if all questions are answered
+        if (answeredQuestions === totalQuestions) {
+            showFinalScore();
+        }
+    }
+
+    function updateProgress() {
+        const progressBar = document.getElementById('progressBar');
+        const answeredText = document.getElementById('answered');
+        const progressPercentage = (answeredQuestions / totalQuestions) * 100;
+        progressBar.style.width = `${progressPercentage}%`;
+        answeredText.textContent = answeredQuestions;
+    }
+
+    function showFinalScore() {
+        const finalScoreDiv = document.getElementById('finalScore');
+        const scorePercentageSpan = document.getElementById('scorePercentage');
+        const scoreMessage = document.getElementById('scoreMessage');
+        const score = (correctAnswers / totalQuestions) * 100;
+
+        scorePercentageSpan.textContent = score.toFixed(2);
+        finalScoreDiv.style.display = 'block';
+
+        if (score >= 80) {
+            finalScoreDiv.classList.add('score-excellent');
+            scoreMessage.textContent = 'Excellent ! Vous maîtrisez les concepts des centres de données.';
+        } else if (score >= 50) {
+            finalScoreDiv.classList.add('score-good');
+            scoreMessage.textContent = 'Bon travail ! Quelques révisions pourraient améliorer votre score.';
+        } else {
+            finalScoreDiv.classList.add('score-poor');
+            scoreMessage.textContent = 'Il y a du potentiel ! Reprenez les bases pour progresser.';
+        }
+    }
+</script>
+</body>
+</html>
