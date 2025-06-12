@@ -265,7 +265,7 @@
             <div class="section-title">Batch 1 : Concepts fondamentaux PaaS (Questions 1-20)</div>
 
             <div class="stats">
-                <strong>Questions répondues : <span id="answered">0</span> / <span id="total">20</span></strong>
+                <strong>Questions répondues : <span id="answered">0</span> / <span id="total">30</span></strong>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressBar"></div>
                 </div>
@@ -810,6 +810,275 @@
                     <div class="explanation">Flynn, Deis et Dokku sont des micro-PaaS basés sur Docker. Docker Compose est un outil d'orchestration et Virtual Box est un hyperviseur, pas des PaaS.</div>
                 </div>
             </div>
+            <!-- Question 21 -->
+            <div class="question-card">
+                <div class="question-number">Question 21</div>
+                <div class="question-text">Quelles commandes S2I (Source-To-Image) sont correctes ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q21" value="a"> s2i create &lt;image name&gt; &lt;destination directory&gt;
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q21" value="b"> s2i build &lt;source location&gt; &lt;builder image&gt; [&lt;tag&gt;]
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q21" value="c"> s2i rebuild &lt;image name&gt; [&lt;new-tag-name&gt;]
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q21" value="d"> s2i deploy &lt;image&gt; &lt;target&gt;
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q21" value="e"> s2i version
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q21', ['a', 'b', 'c', 'e'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Les commandes S2I valides sont create, build, rebuild et version. La commande deploy n'existe pas dans S2I.</div>
+                </div>
+            </div>
+
+            <!-- Question 22 -->
+            <div class="question-card">
+                <div class="question-number">Question 22</div>
+                <div class="question-text">Dans l'écosystème PaaS, quels sont les avantages du multi-tenancy ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q22" value="a"> Partage efficace des ressources
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q22" value="b"> Réduction des coûts opérationnels
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q22" value="c"> Isolation sécurisée entre les tenants
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q22" value="d"> Performance dédiée garantie pour chaque tenant
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q22" value="e"> Scalabilité automatique
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q22', ['a', 'b', 'c', 'e'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le multi-tenancy permet le partage des ressources, réduit les coûts, assure l'isolation sécurisée et la scalabilité. Les performances ne sont pas dédiées mais partagées.</div>
+                </div>
+            </div>
+
+            <!-- Question 23 -->
+            <div class="question-card">
+                <div class="question-number">Question 23</div>
+                <div class="question-text">Quelles sont les caractéristiques de l'elasticity en PaaS ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q23" value="a"> Adaptation automatique aux charges de travail
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q23" value="b"> Provisionnement dynamique des ressources
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q23" value="c"> Configuration manuelle requise
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q23" value="d"> Optimisation des coûts selon l'utilisation
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q23" value="e"> Réponse rapide aux pics de demande
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q23', ['a', 'b', 'd', 'e'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">L'elasticity se caractérise par l'adaptation automatique, le provisionnement dynamique, l'optimisation des coûts et la réponse rapide. La configuration manuelle va à l'encontre de l'automatisation.</div>
+                </div>
+            </div>
+
+            <!-- Question 24 -->
+            <div class="question-card">
+                <div class="question-number">Question 24</div>
+                <div class="question-text">Le concept "Zero Footprint" en PaaS signifie :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q24" value="a"> Absence d'infrastructure à gérer côté client
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q24" value="b"> Déploiement sans installation locale
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q24" value="c"> Impossibilité de personnaliser l'environnement
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q24" value="d"> Réduction de l'empreinte carbone
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q24" value="e"> Maintenance transparente pour l'utilisateur
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q24', ['a', 'b', 'd', 'e'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Zero Footprint signifie pas d'infrastructure à gérer, déploiement sans installation, réduction de l'empreinte carbone et maintenance transparente. La personnalisation reste possible.</div>
+                </div>
+            </div>
+
+            <!-- Question 25 -->
+            <div class="question-card">
+                <div class="question-number">Question 25</div>
+                <div class="question-text">Dans Google App Engine, quels composants sont utilisés ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q25" value="a"> Google Load Balancer
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q25" value="b"> Cloud SQL pour les bases de données
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q25" value="c"> Cloud Datastore pour le NoSQL
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q25" value="d"> Memcache pour la mise en cache
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q25" value="e"> Apache Tomcat comme serveur d'applications
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q25', ['a', 'b', 'c', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Google App Engine utilise ses propres composants : Load Balancer, Cloud SQL, Cloud Datastore et Memcache. Il n'utilise pas Apache Tomcat mais son propre runtime.</div>
+                </div>
+            </div>
+
+            <!-- Question 26 -->
+            <div class="question-card">
+                <div class="question-number">Question 26</div>
+                <div class="question-text">AWS Elastic Beanstalk supporte quels environnements ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q26" value="a"> Java avec Apache Tomcat
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q26" value="b"> .NET avec IIS
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q26" value="c"> Python avec Django/Flask
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q26" value="d"> Node.js
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q26" value="e"> Uniquement les applications containerisées
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q26', ['a', 'b', 'c', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Elastic Beanstalk supporte Java/Tomcat, .NET/IIS, Python/Django/Flask, et Node.js. Il ne se limite pas aux applications containerisées.</div>
+                </div>
+            </div>
+
+            <!-- Question 27 -->
+            <div class="question-card">
+                <div class="question-number">Question 27</div>
+                <div class="question-text">Dans OpenShift, les "Nodes" ont pour responsabilités :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q27" value="a"> Héberger les PODs
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q27" value="b"> Exécuter les containers d'applications
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q27" value="c"> Gérer les Container Registry
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q27" value="d"> Traiter les requêtes API d'administration
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q27" value="e"> Assurer l'exécution des workloads
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q27', ['a', 'b', 'c', 'e'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Les Nodes hébergent les PODs, exécutent les containers, gèrent les registries et assurent les workloads. Les requêtes API sont traitées par les Masters.</div>
+                </div>
+            </div>
+
+            <!-- Question 28 -->
+            <div class="question-card">
+                <div class="question-number">Question 28</div>
+                <div class="question-text">Kubernetes apporte à OpenShift quelles fonctionnalités ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q28" value="a"> Orchestration des containers
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q28" value="b"> Service discovery
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q28" value="c"> Load balancing automatique
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q28" value="d"> Rolling updates
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q28" value="e"> Compilation du code source
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q28', ['a', 'b', 'c', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Kubernetes fournit l'orchestration, service discovery, load balancing et rolling updates. La compilation du code n'est pas une fonction de Kubernetes.</div>
+                </div>
+            </div>
+
+            <!-- Question 29 -->
+            <div class="question-card">
+                <div class="question-number">Question 29</div>
+                <div class="question-text">Les avantages du mode Source-To-Image (S2I) incluent :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q29" value="a"> Build reproductible
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q29" value="b"> Sécurité renforcée par isolation
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q29" value="c"> Intégration continue simplifiée
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q29" value="d"> Support de multiples langages
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q29" value="e"> Nécessité d'un Dockerfile
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q29', ['a', 'b', 'c', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">S2I offre des builds reproductibles, la sécurité par isolation, l'intégration continue simplifiée et le support multi-langages. Il ne nécessite pas de Dockerfile.</div>
+                </div>
+            </div>
+
+            <!-- Question 30 -->
+            <div class="question-card">
+                <div class="question-number">Question 30</div>
+                <div class="question-text">Dans une architecture microservices avec PaaS, on trouve :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q30" value="a"> Décomposition en services indépendants
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q30" value="b"> Communication via APIs REST
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q30" value="c"> Déploiement indépendant de chaque service
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q30" value="d"> Scalabilité granulaire par service
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q30" value="e"> Base de données partagée obligatoire
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q30', ['a', 'b', 'c', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Les microservices se caractérisent par la décomposition en services indépendants, communication API REST, déploiement indépendant et scalabilité granulaire. Les bases de données ne sont pas obligatoirement partagées.</div>
+                </div>
+            </div>
 
             <div class="final-score" id="finalScore">
                 <h2>🎉 Félicitations ! Vous avez terminé le Batch 1</h2>
@@ -825,7 +1094,7 @@
     <script>
         let answeredQuestions = 0;
         let correctAnswers = 0;
-        const totalQuestions = 20;
+        const totalQuestions = 30;
 
         function validateAnswer(questionId, correctOptions, button) {
             const options = document.querySelectorAll(`input[name="${questionId}"]:checked`);
