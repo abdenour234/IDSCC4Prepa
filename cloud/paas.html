@@ -273,10 +273,10 @@
         <div class="quiz-container">
             <a href="index.html" class="back-btn">← Retour au menu</a>
 
-            <div class="section-title">Batch 1 : Concepts fondamentaux PaaS (Questions 1-20)</div>
+            <div class="section-title">Partie PaaS (Questions 1-60)</div>
 
             <div class="stats">
-                <strong>Questions répondues : <span id="answered">0</span> / <span id="total">30</span></strong>
+                <strong>Questions répondues : <span id="answered">0</span> / <span id="total">60</span></strong>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressBar"></div>
                 </div>
@@ -1911,7 +1911,7 @@
     <script>
         let answeredQuestions = 0;
         let correctAnswers = 0;
-        const totalQuestions = 30;
+        const totalQuestions = 60;
 
         function validateAnswer(questionId, correctOptions, button) {
             const options = document.querySelectorAll(`input[name="${questionId}"]:checked`);
