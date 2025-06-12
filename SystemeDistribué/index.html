@@ -500,7 +500,7 @@
     },
     {
         section: "Horloges Logiques",
-        question: "Selon la relation de causalité ($a \\rightarrow b$), si l'événement 'a' est l'émission d'un message 'm' et 'b' est la réception du même message 'm', que peut-on affirmer ?",
+        question: "Selon la relation de causalité (a ----> b), si l'événement 'a' est l'émission d'un message 'm' et 'b' est la réception du même message 'm', que peut-on affirmer ?",
         options: [
             "a) Les événements 'a' et 'b' sont concurrents.",
             "b) L'événement 'b' précède causalement l'événement 'a'.",
@@ -508,19 +508,19 @@
             "d) Leur ordre dépend uniquement de leurs horodatages physiques."
         ],
         correctAnswer: "c",
-        explanation: "Si $a$ est l'émission d'un message et $b$ sa réception, alors $a \\rightarrow b$, car l'émission précède causalement la réception [cite: 305]."
+        explanation: "Si $a$ est l'émission d'un message et $b$ sa réception, alors $a \\------> b$, car l'émission précède causalement la réception [cite: 305]."
     },
     {
         section: "Horloges Logiques",
-        question: "Considérant l'horloge logique de Lamport, si un événement 'a' se produit sur le site $S_i$ et un événement 'b' sur le site $S_j$, et $H(a) < H(b)$, est-ce que cela implique $a \\rightarrow b$ ?",
+        question: "Considérant l'horloge logique de Lamport, si un événement 'a' se produit sur le site $S_i$ et un événement 'b' sur le site $S_j$, et $H(a) < H(b)$, est-ce que cela implique $a \\------> b$ ?",
         options: [
             "a) Oui, toujours. L'horloge de Lamport garantit un ordre total strict.",
-            "b) Non, pas nécessairement. L'horloge de Lamport garantit seulement que si $a \\rightarrow b$, alors $H(a) < H(b)$, mais l'inverse n'est pas toujours vrai.",
+            "b) Non, pas nécessairement. L'horloge de Lamport garantit seulement que si $a \\------> b$, alors $H(a) < H(b)$, mais l'inverse n'est pas toujours vrai.",
             "c) Seulement si $i = j$.",
             "d) Uniquement si $H(a) = H(b)$ et $i < j$."
         ],
         correctAnswer: "b",
-        explanation: "L'horloge de Lamport garantit que si $a \\rightarrow b$, alors $H(a) < H(b)$, mais l'inverse n'est pas vrai : $H(a) < H(b)$ n'implique pas nécessairement $a \\rightarrow b$ [cite: 309, 320]."
+        explanation: "L'horloge de Lamport garantit que si $a \\------> b$, alors $H(a) < H(b)$, mais l'inverse n'est pas vrai : $H(a) < H(b)$ n'implique pas nécessairement $a \\------> b$ [cite: 309, 320]."
     },
     {
         section: "Horloges Logiques",
@@ -548,15 +548,15 @@
     },
     {
         section: "Horloges Logiques",
-        question: "La relation de causalité ($a \\rightarrow b$) est transitive. Cela signifie que :",
+        question: "La relation de causalité ($a \\------> b$) est transitive. Cela signifie que :",
         options: [
-            "a) Si $a$ et $b$ sont des événements locaux sur le même site, alors $a \\rightarrow b$.",
-            "b) Si $a$ est l'émission d'un message $m$ et $b$ la réception de $m$, alors $a \\rightarrow b$.",
-            "c) Si $a \\rightarrow c$ et $c \\rightarrow b$, alors $a \\rightarrow b$.",
+            "a) Si $a$ et $b$ sont des événements locaux sur le même site, alors $a \\------> b$.",
+            "b) Si $a$ est l'émission d'un message $m$ et $b$ la réception de $m$, alors $a \\------> b$.",
+            "c) Si $a \\------> c$ et $c \\------> b$, alors $a \\------> b$.",
             "d) Les événements $a$ et $b$ sont toujours concurrents."
         ],
         correctAnswer: "c",
-        explanation: "La transitivité de la relation de causalité signifie que si $a \\rightarrow c$ et $c \\rightarrow b$, alors $a \\rightarrow b$ [cite: 74]."
+        explanation: "La transitivité de la relation de causalité signifie que si $a \\------> c$ et $c \\------> b$, alors $a \\------> b$ [cite: 74]."
     },
     {
         section: "Horloges Logiques",
@@ -850,7 +850,7 @@
             "d) Relation transitive."
         ],
         correctAnswer: "c",
-        explanation: "Lorsque ni $a \\rightarrow b$ ni $b \\rightarrow a$, les événements $a$ et $b$ sont dits concurrents, car ils n'ont pas de relation causale [cite: 308, 439]."
+        explanation: "Lorsque ni $a \\------> b$ ni $b \\------> a$, les événements $a$ et $b$ sont dits concurrents, car ils n'ont pas de relation causale [cite: 308, 439]."
     },
     {
         section: "Points clés",
