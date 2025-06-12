@@ -250,6 +250,17 @@
                 padding: 20px;
             }
         }
+        .result strong {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 1.1rem;
+        }
+
+        .result span {
+        display: block;
+        margin: 4px 0;
+        font-weight: 500;
+    }
     </style>
 </head>
 <body>
@@ -1079,7 +1090,813 @@
                     <div class="explanation">Les microservices se caractérisent par la décomposition en services indépendants, communication API REST, déploiement indépendant et scalabilité granulaire. Les bases de données ne sont pas obligatoirement partagées.</div>
                 </div>
             </div>
+            <!-- Question 31 -->
+            <div class="question-card">
+                <div class="question-number">Question 31</div>
+                <div class="question-text">Les métriques importantes en PaaS incluent :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q31" value="a"> CPU et mémoire par application
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q31" value="b"> Nombre de requêtes par seconde
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q31" value="c"> Temps de réponse des applications
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q31" value="d"> Utilisation du stockage
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q31" value="e"> Température des serveurs physiques
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q31', ['a', 'b', 'c', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">En PaaS, on mesure CPU/mémoire, requêtes/seconde, temps de réponse et stockage au niveau applicatif. La température des serveurs relève de l'infrastructure physique (IaaS).</div>
+                </div>
+            </div>
 
+            <!-- Question 32 -->
+            <div class="question-card">
+                <div class="question-number">Question 32</div>
+                <div class="question-text">Pour la facturation (billing) en PaaS, quels éléments sont mesurés ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q32" value="a"> Temps d'exécution des applications
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q32" value="b"> Bande passante consommée
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q32" value="c"> Espace de stockage utilisé
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q32" value="d"> Nombre d'instances actives
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q32" value="e"> Nombre de développeurs
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q32', ['a', 'b', 'c', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">La facturation PaaS se base sur l'usage des ressources : temps d'exécution, bande passante, stockage et instances. Le nombre de développeurs n'est généralement pas facturé.</div>
+                </div>
+            </div>
+
+            <!-- Question 33 -->
+            <div class="question-card">
+                <div class="question-number">Question 33</div>
+                <div class="question-text">Docker en mode détaché (daemon) se caractérise par :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q33" value="a"> docker run -d &lt;image&gt;
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q33" value="b"> Exécution en arrière-plan
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q33" value="c"> docker run --daemon &lt;image&gt;
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q33" value="d"> Retour immédiat de la commande
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q33" value="e"> Container qui continue sans terminal attaché
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q33', ['a', 'b', 'd', 'e'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le mode détaché utilise -d (pas --daemon), exécute en arrière-plan, retourne immédiatement et fonctionne sans terminal attaché.</div>
+                </div>
+            </div>
+
+            <!-- Question 34 -->
+            <div class="question-card">
+                <div class="question-number">Question 34</div>
+                <div class="question-text">Les commandes de mapping de ports Docker incluent :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q34" value="a"> docker run -p 8080:80 (port spécifique)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q34" value="b"> docker run -P (port aléatoire)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q34" value="c"> docker port &lt;container-name&gt; (info mapping)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q34" value="d"> docker expose 80 (exposer directement)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q34" value="e"> Redirection du port container vers host
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q34', ['a', 'b', 'c', 'e'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Docker utilise -p pour ports spécifiques, -P pour ports aléatoires, port pour info, et redirige vers l'host. 'docker expose' n'existe pas comme commande runtime.</div>
+                </div>
+            </div>
+
+            <!-- Question 35 -->
+            <div class="question-card">
+                <div class="question-number">Question 35</div>
+                <div class="question-text">Les bonnes pratiques de sécurité en PaaS comprennent :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q35" value="a"> Isolation des tenants
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q35" value="b"> Chiffrement des données en transit
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q35" value="c"> Authentification forte
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q35" value="d"> Audit trail des accès
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q35" value="e"> Accès root par défaut
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q35', ['a', 'b', 'c', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Les bonnes pratiques incluent l'isolation, le chiffrement, l'authentification forte et l'audit. L'accès root par défaut est une faille de sécurité majeure.</div>
+                </div>
+            </div>
+
+            <!-- Question 36 -->
+            <div class="question-card">
+                <div class="question-number">Question 36</div>
+                <div class="question-text">Cloud Foundry utilise BOSH pour :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q36" value="a"> Déploiement d'infrastructure
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q36" value="b"> Gestion du cycle de vie des VMs
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q36" value="c"> Monitoring des services
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q36" value="d"> Mise à jour automatique des composants
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q36" value="e"> Développement d'applications
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q36', ['a', 'b', 'c', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">BOSH gère le déploiement d'infrastructure, le cycle de vie des VMs, le monitoring et les mises à jour. Il ne sert pas au développement d'applications.</div>
+                </div>
+            </div>
+
+            <!-- Question 37 -->
+            <div class="question-card">
+                <div class="question-number">Question 37</div>
+                <div class="question-text">Dans l'intégration OpenStack-OpenShift, Ironic sert à :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q37" value="a"> Provisionnement de serveurs bare metal
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q37" value="b"> Gestion d'infrastructure physique
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q37" value="c"> Virtualisation avec hyperviseur
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q37" value="d"> Déploiement direct sur hardware
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q37" value="e"> Alternative à KVM pour certains workloads
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q37', ['a', 'b', 'd', 'e'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Ironic gère le bare metal, l'infrastructure physique, le déploiement direct sur hardware et sert d'alternative à KVM. Il ne fait pas de virtualisation.</div>
+                </div>
+            </div>
+
+            <!-- Question 38 -->
+            <div class="question-card">
+                <div class="question-number">Question 38</div>
+                <div class="question-text">Les patterns de déploiement en PaaS incluent :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q38" value="a"> Blue-Green deployment
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q38" value="b"> Rolling updates
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q38" value="c"> Canary releases
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q38" value="d"> A/B testing
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q38" value="e"> Manual deployment uniquement
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q38', ['a', 'b', 'c', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">PaaS supporte Blue-Green, Rolling updates, Canary releases et A/B testing. Le déploiement manuel n'est pas un pattern moderne recommendé.</div>
+                </div>
+            </div>
+
+            <!-- Question 39 -->
+            <div class="question-card">
+                <div class="question-number">Question 39</div>
+                <div class="question-text">Heroku dynos se caractérisent par :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q39" value="a"> Containers légers pour applications
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q39" value="b"> Scaling horizontal automatique
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q39" value="c"> Isolation des processus
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q39" value="d"> Persistance de données locale
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q39" value="e"> Redémarrage automatique en cas d'erreur
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q39', ['a', 'b', 'c', 'e'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Les dynos Heroku sont des containers légers, avec scaling automatique, isolation des processus et redémarrage automatique. Ils ne persistent pas les données localement.</div>
+                </div>
+            </div>
+
+            <!-- Question 40 -->
+            <div class="question-card">
+                <div class="question-number">Question 40</div>
+                <div class="question-text">Les défis du PaaS incluent :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q40" value="a"> Vendor lock-in potentiel
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q40" value="b"> Limitations des langages supportés
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q40" value="c"> Contraintes de configuration
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q40" value="d"> Dépendance à la connectivité réseau
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q40" value="e"> Coût toujours plus élevé qu'on-premise
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q40', ['a', 'b', 'c', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Les défis PaaS incluent le vendor lock-in, les limitations de langages, les contraintes de config et la dépendance réseau. Le coût n'est pas toujours plus élevé qu'on-premise.</div>
+                </div>
+            </div>
+            <!-- Question 41 -->
+            <div class="question-card">
+                <div class="question-number">Question 41</div>
+                <div class="question-text">Dans l'architecture HTTP/HTTPS pour PaaS, quels éléments sont essentiels ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q41" value="a"> Terminaison SSL/TLS au load balancer
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q41" value="b"> Support HTTP/2 pour la performance
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q41" value="c"> Headers X-Forwarded-For pour l'IP réelle
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q41" value="d"> Communication en plain HTTP uniquement
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q41" value="e"> Compression gzip/brotli automatique
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q41', ['a', 'b', 'c', 'e'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Les PaaS modernes implémentent la terminaison SSL/TLS, HTTP/2, les headers X-Forwarded et la compression automatique. Le plain HTTP seul n'est plus recommandé.</div>
+                </div>
+            </div>
+
+            <!-- Question 42 -->
+            <div class="question-card">
+                <div class="question-number">Question 42</div>
+                <div class="question-text">Les protocoles de communication inter-services en microservices PaaS incluent :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q42" value="a"> gRPC pour les communications haute performance
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q42" value="b"> Message queues (RabbitMQ, Apache Kafka)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q42" value="c"> WebSockets pour la communication temps réel
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q42" value="d"> FTP pour le transfert de fichiers
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q42" value="e"> Service mesh avec Istio/Linkerd
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q42', ['a', 'b', 'c', 'e'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Les communications modernes utilisent gRPC, message queues, WebSockets et service mesh. FTP est obsolète pour les microservices modernes.</div>
+                </div>
+            </div>
+
+            <!-- Question 43 -->
+            <div class="question-card">
+                <div class="question-number">Question 43</div>
+                <div class="question-text">Dans Docker networking, quels modes sont disponibles ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q43" value="a"> Bridge (réseau isolé par défaut)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q43" value="b"> Host (partage l'interface réseau de l'hôte)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q43" value="c"> None (pas d'interface réseau)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q43" value="d"> Overlay (multi-host avec Docker Swarm)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q43" value="e"> Direct (accès physique aux cartes réseau)
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q43', ['a', 'b', 'c', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Docker supporte bridge, host, none et overlay networking. Le mode "direct" n'existe pas dans Docker.</div>
+                </div>
+            </div>
+
+            <!-- Question 44 -->
+            <div class="question-card">
+                <div class="question-number">Question 44</div>
+                <div class="question-text">Les mécanismes d'authentification en PaaS comprennent :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q44" value="a"> OAuth 2.0 / OpenID Connect
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q44" value="b"> JWT (JSON Web Tokens)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q44" value="c"> SAML 2.0 pour l'entreprise
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q44" value="d"> Basic Authentication via HTTP
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q44" value="e"> LDAP/Active Directory intégration
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q44', ['a', 'b', 'c', 'e'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Les PaaS modernes utilisent OAuth2/OIDC, JWT, SAML et LDAP/AD. Basic Auth HTTP n'est pas sécurisé pour la production.</div>
+                </div>
+            </div>
+
+            <!-- Question 45 -->
+            <div class="question-card">
+                <div class="question-number">Question 45</div>
+                <div class="question-text">Dans Kubernetes networking, quels concepts sont fondamentaux ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q45" value="a"> CNI (Container Network Interface)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q45" value="b"> Services (ClusterIP, NodePort, LoadBalancer)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q45" value="c"> Ingress Controllers pour exposition externe
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q45" value="d"> Network Policies pour la sécurité
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q45" value="e"> Pont réseau automatique sans configuration
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q45', ['a', 'b', 'c', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Kubernetes utilise CNI, Services, Ingress et Network Policies. Le pont automatique sans config n'existe pas - CNI doit être configuré.</div>
+                </div>
+            </div>
+
+            <!-- Question 46 -->
+            <div class="question-card">
+                <div class="question-number">Question 46</div>
+                <div class="question-text">Les techniques de persistence en containers PaaS incluent :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q46" value="a"> Volumes Docker (bind mounts, volumes, tmpfs)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q46" value="b"> Persistent Volumes (PV) et Persistent Volume Claims (PVC)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q46" value="c"> StatefulSets pour applications avec état
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q46" value="d"> Stockage local uniquement dans le container
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q46" value="e"> Storage Classes pour le provisionnement dynamique
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q46', ['a', 'b', 'c', 'e'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">La persistence utilise volumes Docker, PV/PVC, StatefulSets et Storage Classes. Le stockage local seul dans le container n'est pas persistant.</div>
+                </div>
+            </div>
+
+            <!-- Question 47 -->
+            <div class="question-card">
+                <div class="question-number">Question 47</div>
+                <div class="question-text">Les protocols de monitoring et observabilité en PaaS comprennent :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q47" value="a"> Prometheus/OpenMetrics pour les métriques
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q47" value="b"> OpenTelemetry pour les traces distribuées
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q47" value="c"> Structured logging (JSON, logfmt)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q47" value="d"> SNMP pour surveillance réseau
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q47" value="e"> Health checks HTTP/TCP pour liveness/readiness
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q47', ['a', 'b', 'c', 'e'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">L'observabilité moderne utilise Prometheus, OpenTelemetry, structured logging et health checks. SNMP est plus adapté à l'infrastructure réseau traditionnelle.</div>
+                </div>
+            </div>
+
+            <!-- Question 48 -->
+            <div class="question-card">
+                <div class="question-number">Question 48</div>
+                <div class="question-text">Dans OpenShift/Kubernetes, les mécanismes de sécurité incluent :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q48" value="a"> RBAC (Role-Based Access Control)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q48" value="b"> Pod Security Standards/Security Context Constraints
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q48" value="c"> Network Policies pour l'isolation réseau
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q48" value="d"> Secrets pour les données sensibles
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q48" value="e"> Accès privilégié par défaut pour tous les pods
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q48', ['a', 'b', 'c', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">La sécurité K8s/OpenShift utilise RBAC, Pod Security, Network Policies et Secrets. L'accès privilégié par défaut serait une faille majeure.</div>
+                </div>
+            </div>
+
+            <!-- Question 49 -->
+            <div class="question-card">
+                <div class="question-number">Question 49</div>
+                <div class="question-text">Les techniques de load balancing en PaaS incluent :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q49" value="a"> Round Robin (distribution cyclique)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q49" value="b"> Least Connections (moins de connexions actives)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q49" value="c"> Weighted Round Robin (poids par instance)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q49" value="d"> Session Affinity/Sticky Sessions
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q49" value="e"> Random distribution uniquement
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q49', ['a', 'b', 'c', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le load balancing PaaS utilise Round Robin, Least Connections, Weighted RR et Session Affinity. La distribution aléatoire pure n'est pas un algorithme standard.</div>
+                </div>
+            </div>
+
+            <!-- Question 50 -->
+            <div class="question-card">
+                <div class="question-number">Question 50</div>
+                <div class="question-text">Dans les architectures cloud-native, les patterns de résilience comprennent :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q50" value="a"> Circuit Breaker (protection contre les défaillances)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q50" value="b"> Retry avec exponential backoff
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q50" value="c"> Bulkhead (isolation des ressources)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q50" value="d"> Timeout et deadline propagation
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q50" value="e"> Retry infini jusqu'au succès
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q50', ['a', 'b', 'c', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">La résilience cloud-native utilise Circuit Breaker, retry avec backoff, bulkhead et timeouts. Le retry infini peut causer des cascading failures.</div>
+                </div>
+            </div>
+            <!-- Question 51 -->
+            <div class="question-card">
+                <div class="question-number">Question 51</div>
+                <div class="question-text">Dans les architectures event-driven PaaS, quels composants sont essentiels ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q51" value="a"> Event Store pour la persistence des événements
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q51" value="b"> Message Brokers (Apache Kafka, RabbitMQ, NATS)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q51" value="c"> Event Sourcing patterns
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q51" value="d"> CQRS (Command Query Responsibility Segregation)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q51" value="e"> Base de données relationnelle uniquement
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q51', ['a', 'b', 'c', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">L'event-driven architecture utilise Event Store, Message Brokers, Event Sourcing et CQRS. Les bases relationnelles seules ne suffisent pas pour cette architecture.</div>
+                </div>
+            </div>
+
+            <!-- Question 52 -->
+            <div class="question-card">
+                <div class="question-number">Question 52</div>
+                <div class="question-text">Les protocols de service mesh incluent :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q52" value="a"> Envoy Proxy avec xDS APIs
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q52" value="b"> mTLS (mutual TLS) automatique
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q52" value="c"> Circuit breaking et retry policies
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q52" value="d"> Distributed tracing avec Jaeger/Zipkin
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q52" value="e"> Communication HTTP plain uniquement
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q52', ['a', 'b', 'c', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Les service mesh utilisent Envoy/xDS, mTLS automatique, circuit breaking et distributed tracing. HTTP plain seul n'est pas sécurisé pour les service mesh.</div>
+                </div>
+            </div>
+
+            <!-- Question 53 -->
+            <div class="question-card">
+                <div class="question-number">Question 53</div>
+                <div class="question-text">Dans Kubernetes, les Custom Resource Definitions (CRDs) permettent :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q53" value="a"> Étendre l'API Kubernetes avec de nouveaux types
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q53" value="b"> Créer des controllers personnalisés (Operators)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q53" value="c"> Validation OpenAPI Schema des ressources
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q53" value="d"> Versioning et conversion automatique
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q53" value="e"> Remplacer complètement l'API core Kubernetes
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q53', ['a', 'b', 'c', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Les CRDs étendent l'API, permettent les operators, validation schema et versioning. Ils n'remplacent pas l'API core mais l'étendent.</div>
+                </div>
+            </div>
+
+            <!-- Question 54 -->
+            <div class="question-card">
+                <div class="question-number">Question 54</div>
+                <div class="question-text">Les techniques d'auto-scaling en PaaS comprennent :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q54" value="a"> Horizontal Pod Autoscaler (HPA) basé sur CPU/mémoire
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q54" value="b"> Vertical Pod Autoscaler (VPA) pour optimiser les ressources
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q54" value="c"> Custom metrics via Prometheus Adapter
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q54" value="d"> Cluster Autoscaler pour les nœuds
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q54" value="e"> Scaling manuel uniquement via crontab
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q54', ['a', 'b', 'c', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">L'auto-scaling utilise HPA, VPA, custom metrics et cluster autoscaler. Le scaling manuel via crontab n'est pas de l'auto-scaling intelligent.</div>
+                </div>
+            </div>
+
+            <!-- Question 55 -->
+            <div class="question-card">
+                <div class="question-number">Question 55</div>
+                <div class="question-text">Dans les pipelines CI/CD pour PaaS, quels outils sont couramment intégrés ?</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q55" value="a"> GitOps avec ArgoCD/Flux
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q55" value="b"> Tekton Pipelines pour Kubernetes-native CI/CD
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q55" value="c"> Container registries (Harbor, ACR, ECR)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q55" value="d"> Vulnerability scanning (Trivy, Clair)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q55" value="e"> Déploiement FTP manuel uniquement
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q55', ['a', 'b', 'c', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Les pipelines modernes utilisent GitOps, Tekton, container registries et vulnerability scanning. Le déploiement FTP manuel est obsolète pour les PaaS.</div>
+                </div>
+            </div>
+
+            <!-- Question 56 -->
+            <div class="question-card">
+                <div class="question-number">Question 56</div>
+                <div class="question-text">Les patterns de configuration en cloud-native incluent :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q56" value="a"> ConfigMaps pour configuration non-sensible
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q56" value="b"> Secrets avec chiffrement at-rest (etcd)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q56" value="c"> External Secrets Operator (AWS Secrets Manager, Vault)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q56" value="d"> Environment variables injection
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q56" value="e"> Configuration hardcodée dans l'image
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q56', ['a', 'b', 'c', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">La configuration cloud-native utilise ConfigMaps, Secrets chiffrés, External Secrets et env vars. La configuration hardcodée viole les principes 12-factor.</div>
+                </div>
+            </div>
+
+            <!-- Question 57 -->
+            <div class="question-card">
+                <div class="question-number">Question 57</div>
+                <div class="question-text">Les mécanismes de zero-downtime deployment incluent :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q57" value="a"> Rolling updates avec readiness/liveness probes
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q57" value="b"> Blue-green deployment avec traffic switching
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q57" value="c"> Canary releases avec progressive traffic shifting
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q57" value="d"> Graceful shutdown avec SIGTERM handling
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q57" value="e"> Arrêt brutal de tous les services (SIGKILL)
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q57', ['a', 'b', 'c', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le zero-downtime utilise rolling updates, blue-green, canary et graceful shutdown. L'arrêt brutal (SIGKILL) cause des interruptions de service.</div>
+                </div>
+            </div>
+
+            <!-- Question 58 -->
+            <div class="question-card">
+                <div class="question-number">Question 58</div>
+                <div class="question-text">Dans l'orchestration avec Kubernetes, les scheduling contraints incluent :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q58" value="a"> Node selectors et node affinity
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q58" value="b"> Pod affinity et anti-affinity
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q58" value="c"> Taints et tolerations
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q58" value="d"> Resource requests et limits
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q58" value="e"> Placement aléatoire sans contraintes
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q58', ['a', 'b', 'c', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le scheduling K8s utilise node selectors, affinity/anti-affinity, taints/tolerations et resource constraints. Le placement aléatoire sans contraintes n'est pas optimal.</div>
+                </div>
+            </div>
+
+            <!-- Question 59 -->
+            <div class="question-card">
+                <div class="question-number">Question 59</div>
+                <div class="question-text">Les mécanismes de service discovery en microservices comprennent :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q59" value="a"> DNS-based discovery (CoreDNS dans K8s)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q59" value="b"> Service registries (Consul, etcd)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q59" value="c"> Load balancer health checks
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q59" value="d"> Client-side discovery avec circuit breakers
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q59" value="e"> Adresses IP hardcodées dans le code
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q59', ['a', 'b', 'c', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le service discovery utilise DNS, service registries, health checks et client-side discovery. Les IPs hardcodées violent les principes cloud-native.</div>
+                </div>
+            </div>
+
+            <!-- Question 60 -->
+            <div class="question-card">
+                <div class="question-number">Question 60</div>
+                <div class="question-text">Les techniques d'optimisation des performances PaaS incluent :</div>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q60" value="a"> Connection pooling et keep-alive HTTP
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q60" value="b"> Caching multi-layer (Redis, CDN, application)
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q60" value="c"> Async/non-blocking I/O patterns
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q60" value="d"> Resource limits et QoS classes
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q60" value="e"> Blocking synchronous calls pour tout
+                    </label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q60', ['a', 'b', 'c', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">L'optimisation performance utilise connection pooling, caching multi-layer, async I/O et QoS. Les appels synchrones bloquants limitent les performances à grande échelle.</div>
+                </div>
+            </div>
             <div class="final-score" id="finalScore">
                 <h2>🎉 Félicitations ! Vous avez terminé le Batch 1</h2>
                 <p>Votre score : <span id="scorePercentage">0</span>%</p>
@@ -1102,16 +1919,29 @@
             const resultDiv = button.nextElementSibling;
             const explanationDiv = resultDiv.querySelector('.explanation');
 
-            // Check if the selected answers match the correct ones
+                // Check if the selected answers match the correct ones
             const isCorrect = selectedValues.length === correctOptions.length &&
-                             selectedValues.every(val => correctOptions.includes(val)) &&
-                             correctOptions.every(val => selectedValues.includes(val));
+                     selectedValues.every(val => correctOptions.includes(val)) &&
+                     correctOptions.every(val => selectedValues.includes(val));
 
             // Update result display
             resultDiv.style.display = 'block';
-            resultDiv.textContent = isCorrect ? 'Correct !' : 'Incorrect !';
+            
+        // Format correct answers display
+            const correctAnswersText = correctOptions.sort().join(', ');
+            const selectedAnswersText = selectedValues.sort().join(', ');
+    
+            if (isCorrect) {
+                resultDiv.innerHTML = `<strong style="color: #155724;">✅ Correct !</strong><br>
+                                    <span style="font-size: 0.9rem;">Bonnes réponses : ${correctAnswersText}</span>`;
+            } else {
+                resultDiv.innerHTML = `<strong style="color: #721c24;">❌ Incorrect !</strong><br>
+                                    <span style="font-size: 0.9rem;">Vos réponses : ${selectedAnswersText || 'Aucune'}</span><br>
+                                    <span style="font-size: 0.9rem; color: #155724;">Bonnes réponses : ${correctAnswersText}</span>`;
+            }
+    
             resultDiv.classList.add(isCorrect ? 'correct' : 'incorrect');
-            resultDiv.appendChild(explanationDiv); // Re-append explanation
+            resultDiv.appendChild(explanationDiv); // Re-append explanation/ Re-append explanation
 
             // Disable inputs and button after validation
             document.querySelectorAll(`input[name="${questionId}"]`).forEach(input => {
