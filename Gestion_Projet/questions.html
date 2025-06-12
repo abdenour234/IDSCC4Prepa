@@ -330,7 +330,7 @@
             // Structure des questions (your provided questions array)
              // Structure des questions
              const pre_questions = [
-    // Questions Scrum (modifiées)
+    // Questions Scrum
     {
         section: "Scrum",
         question: "Quel est le rôle principal du Scrum Master ?",
@@ -365,7 +365,8 @@
             { text: "Un graphique illustrant l'avancement des travaux réalisés", correct: false }
         ],
         justification: "Le Product Backlog est la liste priorisée des exigences du produit.",
-        reference: "Guide Scrum 2020, Page 71"
+        reference: "Guide Scrum 2020, Page 71",
+        keyword: "(Product Backlog)"
     },
     {
         section: "Scrum",
@@ -413,7 +414,8 @@
             { text: "Un moment pour analyser et optimiser les méthodes de travail", correct: true }
         ],
         justification: "La Sprint Retrospective vise à améliorer les processus pour le prochain Sprint.",
-        reference: "Guide Scrum 2020, Page 71"
+        reference: "Guide Scrum 2020, Page 71",
+        keyword: "(Sprint Retrospective)"
     },
     {
         section: "Scrum",
@@ -425,7 +427,8 @@
             { text: "Un graphique montrant le travail restant au fil du temps", correct: true }
         ],
         justification: "Le Burndown Chart montre l'avancement en traçant le travail restant.",
-        reference: "Guide Scrum 2020, Page 73"
+        reference: "Guide Scrum 2020, Page 73",
+        keyword: "(Burndown Chart)"
     },
     {
         section: "Scrum",
@@ -535,7 +538,264 @@
         justification: "Le Daily Scrum est limité à 15 minutes pour rester efficace.",
         reference: "Guide Scrum, Page 42"
     },
-    // Questions XP (modifiées)
+    {
+        section: "Scrum",
+        question: "Comment gérer les imprévus dans un Sprint ?",
+        options: [
+            { text: "Ajuster le Sprint Backlog avec le Product Owner", correct: true },
+            { text: "Prolonger la durée du Sprint pour tout intégrer", correct: false },
+            { text: "Ignorer les imprévus jusqu'à la prochaine planification", correct: false },
+            { text: "Ajouter des ressources pour accélérer les tâches", correct: false }
+        ],
+        justification: "Les imprévus sont gérés en ajustant le Sprint Backlog.",
+        reference: "Guide Scrum, Page 60"
+    },
+    {
+        section: "Scrum",
+        question: "Comment gérer les dépendances entre équipes Scrum ?",
+        options: [
+            { text: "Coordonner via Scrum of Scrums et des réunions", correct: true },
+            { text: "Fusionner toutes les équipes en une seule unité", correct: false },
+            { text: "Travailler indépendamment sans coordination", correct: false },
+            { text: "Ignorer les dépendances pour rester focalisé", correct: false }
+        ],
+        justification: "Scrum of Scrums gère les dépendances entre équipes.",
+        reference: "Guide Scrum, Page 65",
+        keyword: "(Scrum of Scrums)"
+    },
+    {
+        section: "Scrum",
+        question: "Qu'est-ce qu'un Sprint Goal ?",
+        options: [
+            { text: "Un objectif unifié guidant le travail du Sprint", correct: true },
+            { text: "Une liste détaillée des tâches à accomplir", correct: false },
+            { text: "Un indicateur mesurant la productivité", correct: false },
+            { text: "Une échéance fixe pour livrer l'incrément", correct: false }
+        ],
+        justification: "Le Sprint Goal donne une direction cohérente au Sprint.",
+        reference: "Guide Scrum, Page 75"
+    },
+    {
+        section: "Scrum",
+        question: "Comment gérer un Product Backlog avec des priorités changeantes ?",
+        options: [
+            { text: "Réévaluer régulièrement avec le Product Owner et les parties prenantes", correct: true },
+            { text: "Ignorer les changements pour maintenir le plan initial", correct: false },
+            { text: "Laisser l'équipe décider des priorités indépendamment", correct: false },
+            { text: "Fixer les priorités initiales sans ajustements ultérieurs", correct: false }
+        ],
+        justification: "Le Product Backlog est réévalué régulièrement pour refléter les priorités.",
+        reference: "Guide Scrum 2020, Page 73"
+    },
+    {
+        section: "Scrum",
+        question: "Quel est l’objectif de la Sprint Review ?",
+        options: [
+            { text: "Présenter l’incrément et recueillir les retours", correct: true },
+            { text: "Corriger immédiatement les bugs identifiés", correct: false },
+            { text: "Évaluer les performances individuelles de l’équipe", correct: false },
+            { text: "Planifier les tâches pour le prochain Sprint", correct: false }
+        ],
+        justification: "La Sprint Review montre l’incrément et ajuste le Backlog.",
+        reference: "Guide Scrum 2020, Page 70",
+        keyword: "(Sprint Review)"
+    },
+    {
+        section: "Scrum",
+        question: "Que faire si un Sprint Goal devient obsolète ?",
+        options: [
+            { text: "Arrêter le Sprint après consultation du Product Owner", correct: true },
+            { text: "Continuer le Sprint sans ajuster l’objectif", correct: false },
+            { text: "Prolonger le Sprint pour atteindre l’objectif", correct: false },
+            { text: "Ignorer l’objectif et ajouter de nouvelles tâches", correct: false }
+        ],
+        justification: "Un Sprint obsolète peut être arrêté pour replanifier.",
+        reference: "Guide Scrum 2020, Page 68"
+    },
+    {
+        section: "Scrum",
+        question: "Comment améliorer la transparence dans Scrum ?",
+        options: [
+            { text: "Maintenir des artefacts clairs et accessibles à tous", correct: true },
+            { text: "Réduire les réunions pour simplifier la communication", correct: false },
+            { text: "Déléguer la communication au Scrum Master uniquement", correct: false },
+            { text: "Limiter l’accès au Product Backlog au Product Owner", correct: false }
+        ],
+        justification: "La transparence repose sur des artefacts ouverts et clairs.",
+        reference: "Guide Scrum 2020, Page 67"
+    },
+    {
+        section: "Scrum",
+        question: "Quel est le rôle des parties prenantes dans la Sprint Review ?",
+        options: [
+            { text: "Fournir des retours pour ajuster le Product Backlog", correct: true },
+            { text: "Planifier les tâches du prochain Sprint", correct: false },
+            { text: "Corriger les bugs identifiés pendant la démonstration", correct: false },
+            { text: "Diriger la réunion pour valider l’incrément", correct: false }
+        ],
+        justification: "Les parties prenantes donnent des retours lors de la Review.",
+        reference: "Guide Scrum 2020, Page 70"
+    },
+    {
+        section: "Scrum",
+        question: "Comment estimer l’effort dans Scrum ?",
+        options: [
+            { text: "Utiliser des points d’histoire lors du planning poker", correct: true },
+            { text: "Compter les heures de travail prévues par tâche", correct: false },
+            { text: "Évaluer en fonction des délais imposés", correct: false },
+            { text: "Basé sur l’expérience individuelle des développeurs", correct: false }
+        ],
+        justification: "Le planning poker utilise des points d’histoire pour estimer.",
+        reference: "Guide Scrum 2020, Page 74",
+        keyword: "(Planning Poker)"
+    },
+    {
+        section: "Scrum",
+        question: "Pourquoi limiter la taille des équipes Scrum ?",
+        options: [
+            { text: "Faciliter la communication et l’auto-organisation", correct: true },
+            { text: "Réduire les coûts en limitant les ressources", correct: false },
+            { text: "Accélérer les livraisons avec moins de tâches", correct: false },
+            { text: "Simplifier la gestion des réunions quotidiennes", correct: false }
+        ],
+        justification: "Les petites équipes favorisent la collaboration et l’efficacité.",
+        reference: "Guide Scrum 2020, Page 68"
+    },
+    {
+        section: "Scrum",
+        question: "Que faire si l’équipe manque de compétences spécifiques ?",
+        options: [
+            { text: "Former l’équipe ou intégrer un expert temporairement", correct: true },
+            { text: "Ignorer la lacune pour respecter les délais", correct: false },
+            { text: "Prolonger le Sprint pour combler les lacunes", correct: false },
+            { text: "Déléguer la tâche au Product Owner", correct: false }
+        ],
+        justification: "L’équipe peut se former ou intégrer une expertise.",
+        reference: "Guide Scrum 2020, Page 69"
+    },
+    {
+        section: "Scrum",
+        question: "Quel est l’impact d’un Daily Scrum mal géré ?",
+        options: [
+            { text: "Perte de synchronisation et accumulation d’obstacles", correct: true },
+            { text: "Réduction du temps consacré aux réunions", correct: false },
+            { text: "Amélioration de l’autonomie des développeurs", correct: false },
+            { text: "Augmentation de la vélocité de l’équipe", correct: false }
+        ],
+        justification: "Un Daily Scrum inefficace nuit à la coordination.",
+        reference: "Guide Scrum 2020, Page 69"
+    },
+    {
+        section: "Scrum",
+        question: "Comment gérer des attentes irréalistes des parties prenantes ?",
+        options: [
+            { text: "Négocier avec le Product Owner pour clarifier les priorités", correct: true },
+            { text: "Ignorer les attentes pour se concentrer sur le Sprint", correct: false },
+            { text: "Prolonger le Sprint pour répondre à toutes les attentes", correct: false },
+            { text: "Accepter toutes les demandes pour éviter les conflits", correct: false }
+        ],
+        justification: "La négociation via le Product Owner aligne les attentes.",
+        reference: "Guide Scrum 2020, Page 71"
+    },
+    {
+        section: "Scrum",
+        question: "Comment Scrum gère-t-il les équipes distribuées géographiquement ?",
+        options: [
+            { text: "En utilisant des outils collaboratifs et en adaptant les cérémonies", correct: true },
+            { text: "En regroupant toutes les équipes sur un même site physique", correct: false },
+            { text: "En supprimant les réunions pour simplifier la coordination", correct: false },
+            { text: "En travaillant indépendamment sans synchronisation", correct: false }
+        ],
+        justification: "Scrum adapte les cérémonies avec des outils pour les équipes distribuées.",
+        reference: "Guide Scrum, Page 70"
+    },
+    {
+        section: "Scrum",
+        question: "Quel est l’impact d’un changement d’équipe en plein Sprint ?",
+        options: [
+            { text: "Cela peut affecter la vélocité et la dynamique d’équipe", correct: true },
+            { text: "Cela n’a aucun effet sur la progression du Sprint", correct: false },
+            { text: "Cela prolonge automatiquement la durée du Sprint", correct: false },
+            { text: "Cela nécessite une redéfinition du Product Backlog", correct: false }
+        ],
+        justification: "Un changement d’équipe perturbe la cohésion et la vélocité.",
+        reference: "Guide Scrum, Page 75"
+    },
+    {
+        section: "Scrum",
+        question: "Que faire si le Product Owner est absent temporairement ?",
+        options: [
+            { text: "Déléguer ses responsabilités à un représentant compétent", correct: true },
+            { text: "Suspendre le Sprint jusqu’à son retour", correct: false },
+            { text: "Laisser le Scrum Master prioriser le Backlog", correct: false },
+            { text: "Ignorer le Product Backlog pour avancer", correct: false }
+        ],
+        justification: "Un représentant peut assumer les tâches du Product Owner.",
+        reference: "Guide Scrum, Page 80"
+    },
+    {
+        section: "Scrum",
+        question: "Comment mesurer la vélocité dans Scrum ?",
+        options: [
+            { text: "En sommant les points d’effort terminés par Sprint", correct: true },
+            { text: "En calculant le temps total passé sur les tâches", correct: false },
+            { text: "En comptant le nombre de réunions organisées", correct: false },
+            { text: "En évaluant le nombre de bugs résolus", correct: false }
+        ],
+        justification: "La vélocité est la somme des points d’effort achevés.",
+        reference: "Guide Scrum, Page 85"
+    },
+    {
+        section: "Scrum",
+        question: "Quel est le rôle de la Definition of Done ?",
+        options: [
+            { text: "Définir les critères pour qu’un item soit terminé", correct: true },
+            { text: "Planifier les tâches à accomplir dans le Sprint", correct: false },
+            { text: "Évaluer la performance individuelle des développeurs", correct: false },
+            { text: "Prioriser les éléments du Product Backlog", correct: false }
+        ],
+        justification: "La Definition of Done assure la qualité des incréments.",
+        reference: "Guide Scrum, Page 72",
+        keyword: "(Definition of Done)"
+    },
+    {
+        section: "Scrum",
+        question: "Comment gérer un Sprint avec trop d’imprévus ?",
+        options: [
+            { text: "Négocier avec le Product Owner pour ajuster le scope", correct: true },
+            { text: "Étendre la durée du Sprint pour tout compléter", correct: false },
+            { text: "Ignorer les imprévus pour respecter l’objectif initial", correct: false },
+            { text: "Ajouter des membres pour accélérer le travail", correct: false }
+        ],
+        justification: "Le scope est ajusté avec le Product Owner en cas d’imprévus.",
+        reference: "Guide Scrum, Page 60"
+    },
+    {
+        section: "Scrum",
+        question: "Quel est le but principal du Scrum of Scrums ?",
+        options: [
+            { text: "Coordonner les efforts entre plusieurs équipes Scrum", correct: true },
+            { text: "Planifier les Sprints pour une seule équipe", correct: false },
+            { text: "Évaluer la performance globale des développeurs", correct: false },
+            { text: "Prioriser le Product Backlog pour tous les projets", correct: false }
+        ],
+        justification: "Scrum of Scrums synchronise les équipes multiples.",
+        reference: "Guide Scrum, Page 65",
+        keyword: "(Scrum of Scrums)"
+    },
+    {
+        section: "Scrum",
+        question: "Comment gérer un conflit entre Product Owner et équipe ?",
+        options: [
+            { text: "Le Scrum Master facilite une résolution collaborative", correct: true },
+            { text: "Le Product Owner impose sa décision finale", correct: false },
+            { text: "L’équipe ignore les demandes du Product Owner", correct: false },
+            { text: "Le conflit est reporté au prochain Sprint", correct: false }
+        ],
+        justification: "Le Scrum Master aide à résoudre les conflits.",
+        reference: "Guide Scrum, Page 67"
+    },
+    // Questions XP
     {
         section: "XP",
         question: "Quelle est la durée typique des itérations en XP ?",
@@ -558,19 +818,21 @@
             { text: "Travailler en équipe pour planifier les tâches techniques", correct: false }
         ],
         justification: "Le Pair Programming implique deux développeurs travaillant ensemble sur le code.",
-        reference: "Extreme Programming Explained, Page 75"
+        reference: "Extreme Programming Explained, Page 75",
+        keyword: "(Pair Programming)"
     },
     {
         section: "XP",
         question: "Quelle pratique XP consiste à écrire les tests avant le code ?",
         options: [
-            { text: "Une technique pour collaborer en binôme sur les tests", correct: false },
+            { text: "Une technique pour collaborer en binôme sur les sauvegardes", correct: false },
             { text: "Un processus pour analyser les besoins avant de coder", correct: false },
             { text: "Une approche où les tests précèdent l'écriture du code", correct: true },
             { text: "Une méthode pour intégrer fréquemment le code produit", correct: false }
         ],
         justification: "Le TDD (Test-Driven Development) écrit les tests avant le code.",
-        reference: "Extreme Programming Explained, Page 76"
+        reference: "Extreme Programming Explained, Page 76",
+        keyword: "(TDD)"
     },
     {
         section: "XP",
@@ -606,7 +868,8 @@
             { text: "Une planification collaborative pour organiser les tâches", correct: false }
         ],
         justification: "L'intégration continue détecte les erreurs rapidement en testant souvent.",
-        reference: "Extreme Programming Explained, Page 76"
+        reference: "Extreme Programming Explained, Page 76",
+        keyword: "(Continuous Integration)"
     },
     {
         section: "XP",
@@ -630,7 +893,8 @@
             { text: "Superviser l'équipe pour garantir le respect des délais", correct: false }
         ],
         justification: "Le client sur site donne un feedback rapide et des clarifications.",
-        reference: "Extreme Programming Explained, Page 80"
+        reference: "Extreme Programming Explained, Page 80",
+        keyword: "(On-Site Customer)"
     },
     {
         section: "XP",
@@ -666,7 +930,8 @@
             { text: "Un planning dicté par la direction sans consultation", correct: false }
         ],
         justification: "Le Planning Game est une planification collaborative en XP.",
-        reference: "Extreme Programming Explained, Page 85"
+        reference: "Extreme Programming Explained, Page 85",
+        keyword: "(Planning Game)"
     },
     {
         section: "XP",
@@ -678,7 +943,8 @@
             { text: "Une restriction aux seniors pour les modifications", correct: false }
         ],
         justification: "Le Collective Ownership permet à tous de modifier le code.",
-        reference: "Extreme Programming Explained, Page 90"
+        reference: "Extreme Programming Explained, Page 90",
+        keyword: "(Collective Ownership)"
     },
     {
         section: "XP",
@@ -690,9 +956,253 @@
             { text: "Concentrer les efforts sur une livraison finale unique", correct: false }
         ],
         justification: "Small Releases livre souvent des versions fonctionnelles.",
+        reference: "Extreme Programming Explained, Page 95",
+        keyword: "(Small Releases)"
+    },
+    {
+        section: "XP",
+        question: "Comment XP gère-t-il les changements de priorités ?",
+        options: [
+            { text: "Ajuster via le Planning Game et les itérations", correct: true },
+            { text: "Refuser les changements pour maintenir le plan", correct: false },
+            { text: "Interrompre le développement pour replanifier", correct: false },
+            { text: "Ignorer les nouvelles priorités jusqu'à la fin", correct: false }
+        ],
+        justification: "XP s'adapte aux priorités via le Planning Game.",
+        reference: "Extreme Programming Explained, Page 110"
+    },
+    {
+        section: "XP",
+        question: "Qu'est-ce que le 'Refactoring' dans XP ?",
+        options: [
+            { text: "Améliorer le code sans modifier son comportement", correct: true },
+            { text: "Réécrire entièrement le code pour plus de clarté", correct: false },
+            { text: "Corriger les bugs détectés pendant les tests", correct: false },
+            { text: "Ajouter des fonctionnalités pour répondre aux besoins", correct: false }
+        ],
+        justification: "Le Refactoring améliore la structure du code.",
+        reference: "Extreme Programming Explained, Page 115",
+        keyword: "(Refactoring)"
+    },
+    {
+        section: "XP",
+        question: "Comment XP gère-t-il la dette technique accumulée ?",
+        options: [
+            { text: "En améliorant continuellement le code via refactoring", correct: true },
+            { text: "En ignorant la dette pour livrer plus rapidement", correct: false },
+            { text: "En ajoutant des ressources pour corriger les problèmes", correct: false },
+            { text: "En reportant les corrections à la fin du projet", correct: false }
+        ],
+        justification: "Le refactoring continu réduit la dette technique en XP.",
+        reference: "Extreme Programming Explained, Page 125"
+    },
+    {
+        section: "XP",
+        question: "Pourquoi XP insiste-t-il sur les tests automatisés ?",
+        options: [
+            { text: "Pour assurer la qualité et faciliter les modifications", correct: true },
+            { text: "Pour réduire les coûts des tests manuels", correct: false },
+            { text: "Pour accélérer la livraison sans vérification", correct: false },
+            { text: "Pour remplacer toute intervention humaine", correct: false }
+        ],
+        justification: "Les tests automatisés soutiennent le refactoring et la qualité.",
+        reference: "Extreme Programming Explained, Page 130"
+    },
+    {
+        section: "XP",
+        question: "Qu'est-ce que le Continuous Deployment en XP ?",
+        options: [
+            { text: "Déployer automatiquement chaque changement validé", correct: true },
+            { text: "Livrer manuellement à la fin de chaque itération", correct: false },
+            { text: "Attendre la fin du projet pour un déploiement", correct: false },
+            { text: "Déployer mensuellement après revue complète", correct: false }
+        ],
+        justification: "Continuous Deployment automatise les déploiements fréquents.",
+        reference: "Extreme Programming Explained, Page 135",
+        keyword: "(Continuous Deployment)"
+    },
+    {
+        section: "XP",
+        question: "Comment XP gère-t-il un client indisponible ?",
+        options: [
+            { text: "En utilisant un proxy client pour les décisions", correct: true },
+            { text: "En arrêtant le développement jusqu'à son retour", correct: false },
+            { text: "En ignorant les besoins client pour avancer", correct: false },
+            { text: "En déléguant au développeur principal", correct: false }
+        ],
+        justification: "Un proxy peut remplacer temporairement le client.",
+        reference: "Extreme Programming Explained, Page 120"
+    },
+    {
+        section: "XP",
+        question: "Quel est l’avantage principal du Pair Programming ?",
+        options: [
+            { text: "Améliorer la qualité du code par la revue continue", correct: true },
+            { text: "Accélérer le développement par un travail parallèle", correct: false },
+            { text: "Réduire les coûts en limitant les ressources", correct: false },
+            { text: "Simplifier la gestion des tâches techniques", correct: false }
+        ],
+        justification: "Pair Programming améliore la qualité par la collaboration.",
+        reference: "Extreme Programming Explained, Page 75"
+    },
+    {
+        section: "XP",
+        question: "Comment XP priorise-t-il les fonctionnalités ?",
+        options: [
+            { text: "Via le Planning Game avec le client sur site", correct: true },
+            { text: "En suivant un plan fixe établi au départ", correct: false },
+            { text: "En laissant les développeurs décider seuls", correct: false },
+            { text: "En attendant les retours des utilisateurs", correct: false }
+        ],
+        justification: "Le Planning Game priorise avec le client.",
+        reference: "Extreme Programming Explained, Page 85"
+    },
+    {
+        section: "XP",
+        question: "Quel est le rôle des stand-up meetings en XP ?",
+        options: [
+            { text: "Coordonner quotidiennement les efforts de l'équipe", correct: true },
+            { text: "Planifier les itérations avec le client sur site", correct: false },
+            { text: "Évaluer les performances individuelles", correct: false },
+            { text: "Revoir les tests automatisés existants", correct: false }
+        ],
+        justification: "Les stand-ups synchronisent l'équipe quotidiennement.",
+        reference: "Extreme Programming Explained, Page 77"
+    },
+    {
+        section: "XP",
+        question: "Comment XP gère-t-il les délais serrés ?",
+        options: [
+            { text: "En livrant des versions petites et fréquentes", correct: true },
+            { text: "En prolongeant les itérations pour tout inclure", correct: false },
+            { text: "En réduisant la qualité pour aller plus vite", correct: false },
+            { text: "En ajoutant des développeurs au projet", correct: false }
+        ],
+        justification: "Small Releases permet de respecter les délais.",
         reference: "Extreme Programming Explained, Page 95"
     },
-    // Questions PRINCE2 (modifiées)
+    {
+        section: "XP",
+        question: "Pourquoi XP insiste-t-il sur un rythme soutenable ?",
+        options: [
+            { text: "Prévenir l’épuisement et maintenir la productivité", correct: true },
+            { text: "Réduire les coûts en limitant les heures", correct: false },
+            { text: "Simplifier la gestion des ressources humaines", correct: false },
+            { text: "Accélérer les livraisons à court terme", correct: false }
+        ],
+        justification: "Un rythme soutenable évite le burnout et soutient la performance.",
+        reference: "Extreme Programming Explained, Page 140"
+    },
+    {
+        section: "XP",
+        question: "Comment XP gère-t-il les bugs détectés en production ?",
+        options: [
+            { text: "Corriger rapidement via des tests et déploiements fréquents", correct: true },
+            { text: "Ignorer les bugs mineurs pour avancer", correct: false },
+            { text: "Déléguer les corrections au client sur site", correct: false },
+            { text: "Reporter les corrections à la prochaine itération", correct: false }
+        ],
+        justification: "XP corrige rapidement grâce à l’intégration continue.",
+        reference: "Extreme Programming Explained, Page 135"
+    },
+    {
+        section: "XP",
+        question: "Quel est l’objectif des User Stories en XP ?",
+        options: [
+            { text: "Décrire les besoins du client de manière concise", correct: true },
+            { text: "Remplacer la documentation formelle du projet", correct: false },
+            { text: "Planifier l’ensemble des tâches techniques", correct: false },
+            { text: "Documenter les tests pour chaque fonctionnalité", correct: false }
+        ],
+        justification: "Les User Stories capturent les besoins client simplement.",
+        reference: "Extreme Programming Explained, Page 85",
+        keyword: "(User Stories)"
+    },
+    {
+        section: "XP",
+        question: "Comment XP favorise-t-il la confiance avec le client ?",
+        options: [
+            { text: "En livrant fréquemment et en impliquant le client", correct: true },
+            { text: "En réduisant les interactions pour plus d’efficacité", correct: false },
+            { text: "En fixant des délais stricts sans ajustements", correct: false },
+            { text: "En produisant une documentation détaillée", correct: false }
+        ],
+        justification: "Les livraisons fréquentes et l’implication renforcent la confiance.",
+        reference: "Extreme Programming Explained, Page 80"
+    },
+    {
+        section: "XP",
+        question: "Quel est le rôle du feedback dans XP ?",
+        options: [
+            { text: "Ajuster le développement pour répondre aux besoins", correct: true },
+            { text: "Planifier les itérations futures uniquement", correct: false },
+            { text: "Évaluer les performances individuelles des développeurs", correct: false },
+            { text: "Documenter les erreurs pour référence future", correct: false }
+        ],
+        justification: "Le feedback guide les ajustements rapides en XP.",
+        reference: "Extreme Programming Explained, Page 76"
+    },
+    {
+        section: "XP",
+        question: "Pourquoi XP privilégie-t-il les solutions simples ?",
+        options: [
+            { text: "Réduire la complexité et faciliter les modifications", correct: true },
+            { text: "Éviter toute planification à long terme", correct: false },
+            { text: "Accélérer le développement en ignorant les détails", correct: false },
+            { text: "Minimiser les coûts en limitant les fonctionnalités", correct: false }
+        ],
+        justification: "La simplicité réduit les efforts et les risques.",
+        reference: "Extreme Programming Explained, Page 82"
+    },
+    {
+        section: "XP",
+        question: "Comment XP gère-t-il les conflits d’équipe ?",
+        options: [
+            { text: "Résoudre via une communication ouverte et collaborative", correct: true },
+            { text: "Ignorer les conflits pour rester focalisé", correct: false },
+            { text: "Imposer une décision par le chef d’équipe", correct: false },
+            { text: "Déléguer la résolution au client sur site", correct: false }
+        ],
+        justification: "La communication ouverte résout les conflits en XP.",
+        reference: "Extreme Programming Explained, Page 77"
+    },
+    {
+        section: "XP",
+        question: "Quel est l’impact de l’absence de tests automatisés en XP ?",
+        options: [
+            { text: "Augmentation des bugs et complexité du refactoring", correct: true },
+            { text: "Réduction du temps consacré aux tests", correct: false },
+            { text: "Simplification de la gestion du projet", correct: false },
+            { text: "Amélioration de la vitesse de livraison", correct: false }
+        ],
+        justification: "Sans tests automatisés, la qualité et la maintenance souffrent.",
+        reference: "Extreme Programming Explained, Page 130"
+    },
+    {
+        section: "XP",
+        question: "Comment XP gère-t-il les itérations courtes ?",
+        options: [
+            { text: "En planifiant des livraisons fréquentes et incrémentales", correct: true },
+            { text: "En fixant des objectifs à long terme", correct: false },
+            { text: "En réduisant les tests pour accélérer", correct: false },
+            { text: "En prolongeant les itérations pour plus de stabilité", correct: false }
+        ],
+        justification: "Les itérations courtes favorisent des livraisons rapides.",
+        reference: "Extreme Programming Explained, Page 74"
+    },
+    {
+        section: "XP",
+        question: "Quel est le rôle du coach en XP ?",
+        options: [
+            { text: "Guider l’équipe dans l’adoption des pratiques XP", correct: true },
+            { text: "Gérer les tâches quotidiennes des développeurs", correct: false },
+            { text: "Prioriser le backlog avec le client", correct: false },
+            { text: "Produire la documentation technique", correct: false }
+        ],
+        justification: "Le coach soutient l’équipe dans les pratiques XP.",
+        reference: "Extreme Programming Explained, Page 77"
+    },
+    // Questions PRINCE2
     {
         section: "PRINCE2",
         question: "Quel est le principe fondamental de PRINCE2 concernant la justification continue ?",
@@ -703,7 +1213,8 @@
             { text: "Planifier rigoureusement pour éviter tout changement", correct: false }
         ],
         justification: "La justification commerciale continue est essentielle en PRINCE2.",
-        reference: "PRINCE2 Guide, Page 12"
+        reference: "PRINCE2 Guide, Page 12",
+        keyword: "(Continued Business Justification)"
     },
     {
         section: "PRINCE2",
@@ -729,7 +1240,353 @@
         justification: "Une exception survient quand une tolérance est dépassée.",
         reference: "PRINCE2 Guide, Page 89"
     },
-    // Questions Cycle en V (modifiées)
+    {
+        section: "PRINCE2",
+        question: "Quels sont les 7 principes de PRINCE2 ?",
+        options: [
+            { text: "Justification continue, Leçons, Rôles, Étapes, Exception, Produits, Adaptation", correct: true },
+            { text: "Coût, Délai, Qualité, Risque, Communication, Ressources, Scope", correct: false },
+            { text: "Initiation, Planification, Exécution, Contrôle, Clôture, Test, Suivi", correct: false },
+            { text: "Budget, Équipe, Temps, Documentation, Validation, Livraison, Fin", correct: false }
+        ],
+        justification: "Les 7 principes guident la mise en œuvre de PRINCE2.",
+        reference: "PRINCE2 Guide, Page 20"
+    },
+    {
+        section: "PRINCE2",
+        question: "Qu'est-ce qu'une tolérance dans PRINCE2 ?",
+        options: [
+            { text: "Une marge acceptable pour les écarts dans les objectifs", correct: true },
+            { text: "Un retard autorisé sans impact sur le projet", correct: false },
+            { text: "Un dépassement budgétaire prévu dans le plan", correct: false },
+            { text: "Un ajustement du scope approuvé par l'équipe", correct: false }
+        ],
+        justification: "Les tolérances définissent les limites d'autorité du chef de projet.",
+        reference: "PRINCE2 Guide, Page 85"
+    },
+    {
+        section: "PRINCE2",
+        question: "Quel est le rôle du Comité de Pilotage dans PRINCE2 ?",
+        options: [
+            { text: "Superviser stratégiquement et approuver les décisions clés", correct: true },
+            { text: "Gérer quotidiennement les activités de l'équipe projet", correct: false },
+            { text: "Produire les livrables selon les spécifications définies", correct: false },
+            { text: "Tester les produits pour garantir leur conformité", correct: false }
+        ],
+        justification: "Le Comité de Pilotage (Project Board) prend les décisions stratégiques.",
+        reference: "PRINCE2 Guide, Page 45",
+        keyword: "(Project Board)"
+    },
+    {
+        section: "PRINCE2",
+        question: "Quels sont les processus de PRINCE2 ?",
+        options: [
+            { text: "Élaborer, Diriger, Initialiser, Contrôler, Gérer, Livrer, Clore", correct: true },
+            { text: "Démarrer, Planifier, Exécuter, Contrôler, Valider, Clôturer", correct: false },
+            { text: "Planifier, Faire, Vérifier, Agir, Évaluer, Terminer", correct: false },
+            { text: "Analyser, Concevoir, Développer, Tester, Livrer, Suivre", correct: false }
+        ],
+        justification: "PRINCE2 suit 7 processus structurés pour gérer le projet.",
+        reference: "PRINCE2 Guide, Page 30"
+    },
+    {
+        section: "PRINCE2",
+        question: "Comment PRINCE2 gère-t-il les changements ?",
+        options: [
+            { text: "Via un processus formel d'évaluation et d'approbation", correct: true },
+            { text: "En acceptant tous les changements sans analyse préalable", correct: false },
+            { text: "En refusant systématiquement toute modification demandée", correct: false },
+            { text: "En ignorant les changements pour respecter le plan initial", correct: false }
+        ],
+        justification: "PRINCE2 contrôle les changements avec un processus dédié.",
+        reference: "PRINCE2 Guide, Page 55"
+    },
+    {
+        section: "PRINCE2",
+        question: "Qu'est-ce qu'une séquence de management dans PRINCE2 ?",
+        options: [
+            { text: "Une période définie par le Project Board pour gérer", correct: true },
+            { text: "Une phase technique alignée sur les livrables", correct: false },
+            { text: "Une série de tests pour valider les produits", correct: false },
+            { text: "Une réunion régulière pour coordonner les équipes", correct: false }
+        ],
+        justification: "Une séquence de management est une période définie par le Project Board.",
+        reference: "PRINCE2 Guide, Page 60",
+        keyword: "(Management Stage)"
+    },
+    {
+        section: "PRINCE2",
+        question: "Quel est le rôle du Business Case dans PRINCE2 ?",
+        options: [
+            { text: "Justifier continuellement la viabilité du projet", correct: true },
+            { text: "Décrire techniquement les spécifications des livrables", correct: false },
+            { text: "Planifier les tests pour garantir la qualité finale", correct: false },
+            { text: "Répertorier les risques potentiels du projet", correct: false }
+        ],
+        justification: "Le Business Case justifie le projet tout au long de son cycle.",
+        reference: "PRINCE2 Guide, Page 40",
+        keyword: "(Business Case)"
+    },
+    {
+        section: "PRINCE2",
+        question: "Comment PRINCE2 gère-t-il la qualité ?",
+        options: [
+            { text: "Via des revues planifiées et des critères définis", correct: true },
+            { text: "En testant uniquement les produits à la fin", correct: false },
+            { text: "Sans gestion formelle de la qualité", correct: false },
+            { text: "Par un contrôle informel au fil du projet", correct: false }
+        ],
+        justification: "PRINCE2 planifie la qualité avec des revues structurées.",
+        reference: "PRINCE2 Guide, Page 100"
+    },
+    {
+        section: "PRINCE2",
+        question: "Comment PRINCE2 s’adapte-t-il à un environnement agile ?",
+        options: [
+            { text: "En intégrant des livraisons incrémentales et flexibles", correct: true },
+            { text: "En restant rigide pour maintenir le contrôle", correct: false },
+            { text: "En supprimant les processus de gestion", correct: false },
+            { text: "En ignorant les principes agiles", correct: false }
+        ],
+        justification: "PRINCE2 peut adopter des pratiques agiles comme les incréments.",
+        reference: "PRINCE2 Agile Guide, Page 50"
+    },
+    {
+        section: "PRINCE2",
+        question: "Quel est le rôle du Project Assurance dans PRINCE2 ?",
+        options: [
+            { text: "Vérifier l’alignement du projet avec ses objectifs", correct: true },
+            { text: "Gérer les tâches quotidiennes de l’équipe", correct: false },
+            { text: "Produire les livrables selon le planning", correct: false },
+            { text: "Planifier les tests pour garantir la qualité", correct: false }
+        ],
+        justification: "Project Assurance garantit l’alignement avec les objectifs.",
+        reference: "PRINCE2 Guide, Page 120",
+        keyword: "(Project Assurance)"
+    },
+    {
+        section: "PRINCE2",
+        question: "Qu’est-ce qu’un Product Description dans PRINCE2 ?",
+        options: [
+            { text: "Une définition détaillée d’un livrable spécifique", correct: true },
+            { text: "Un plan stratégique pour tout le projet", correct: false },
+            { text: "Un rapport sur l’état d’avancement", correct: false },
+            { text: "Une liste des risques identifiés", correct: false }
+        ],
+        justification: "Product Description décrit un livrable avec ses critères.",
+        reference: "PRINCE2 Guide, Page 125",
+        keyword: "(Product Description)"
+    },
+    {
+        section: "PRINCE2",
+        question: "Comment PRINCE2 gère-t-il les parties prenantes ?",
+        options: [
+            { text: "Via une communication structurée et des rôles clairs", correct: true },
+            { text: "En les excluant pour simplifier la gestion", correct: false },
+            { text: "En leur déléguant la gestion quotidienne", correct: false },
+            { text: "En ignorant leurs demandes pour rester focalisé", correct: false }
+        ],
+        justification: "PRINCE2 implique les parties prenantes de manière structurée.",
+        reference: "PRINCE2 Guide, Page 45"
+    },
+    {
+        section: "PRINCE2",
+        question: "Quel est l’avantage de la gestion par étapes ?",
+        options: [
+            { text: "Permettre un contrôle régulier et des décisions", correct: true },
+            { text: "Accélérer le projet en réduisant les revues", correct: false },
+            { text: "Simplifier la documentation à chaque phase", correct: false },
+            { text: "Éliminer la besoin de tolérances", correct: false }
+        ],
+        justification: "La gestion par étapes offre un contrôle à intervalles.",
+        reference: "PRINCE2 Guide, Page 60"
+    },
+    {
+        section: "PRINCE2",
+        question: "Comment PRINCE2 gère-t-il un échec de tolérance ?",
+        options: [
+            { text: "En escaladant via la gestion par exception", correct: true },
+            { text: "En ajustant les tolérances sans escalade", correct: false },
+            { text: "En ignorant l’échec pour continuer", correct: false },
+            { text: "En arrêtant immédiatement le projet", correct: false }
+        ],
+        justification: "La gestion par exception escalade les dépassements.",
+        reference: "PRINCE2 Guide, Page 89",
+        keyword: "(Management by Exception)"
+    },
+    {
+        section: "PRINCE2",
+        question: "Quel est le rôle du sponsor dans PRINCE2 ?",
+        options: [
+            { text: "Fournir des ressources et approuver les décisions", correct: true },
+            { text: "Gérer les tâches opérationnelles du projet", correct: false },
+            { text: "Produire les livrables selon les spécifications", correct: false },
+            { text: "Tester les produits pour leur conformité", correct: false }
+        ],
+        justification: "Le sponsor soutient le projet stratégiquement.",
+        reference: "PRINCE2 Guide, Page 45"
+    },
+    {
+        section: "PRINCE2",
+        question: "Comment PRINCE2 assure-t-il la traçabilité ?",
+        options: [
+            { text: "Via une documentation liée aux livrables", correct: true },
+            { text: "En évitant toute documentation formelle", correct: false },
+            { text: "En déléguant la traçabilité à l’équipe", correct: false },
+            { text: "En testant uniquement à la fin", correct: false }
+        ],
+        justification: "La traçabilité est assurée par une documentation structurée.",
+        reference: "PRINCE2 Guide, Page 40"
+    },
+    {
+        section: "PRINCE2",
+        question: "Pourquoi PRINCE2 insiste-t-il sur les leçons apprises ?",
+        options: [
+            { text: "Améliorer les projets futurs grâce à l’expérience", correct: true },
+            { text: "Réduire les coûts en évitant les revues", correct: false },
+            { text: "Simplifier la gestion des risques actuels", correct: false },
+            { text: "Documenter les erreurs pour responsabiliser l’équipe", correct: false }
+        ],
+        justification: "Les leçons apprises optimisent les projets futurs.",
+        reference: "PRINCE2 Guide, Page 130",
+        keyword: "(Lessons Learned)"
+    },
+    {
+        section: "PRINCE2",
+        question: "Quel est le rôle du chef de projet dans PRINCE2 ?",
+        options: [
+            { text: "Gérer quotidiennement le projet dans les tolérances", correct: true },
+            { text: "Approuver stratégiquement les décisions clés", correct: false },
+            { text: "Tester les produits pour leur conformité", correct: false },
+            { text: "Produire les livrables selon les spécifications", correct: false }
+        ],
+        justification: "Le chef de projet gère le projet au quotidien.",
+        reference: "PRINCE2 Guide, Page 45"
+    },
+    {
+        section: "PRINCE2",
+        question: "Comment PRINCE2 gère-t-il les ressources limitées ?",
+        options: [
+            { text: "En planifiant leur allocation dans les Plans", correct: true },
+            { text: "En augmentant le budget pour compenser", correct: false },
+            { text: "En réduisant la qualité des livrables", correct: false },
+            { text: "En ignorant les contraintes pour avancer", correct: false }
+        ],
+        justification: "Les ressources sont allouées via une planification rigoureuse.",
+        reference: "PRINCE2 Guide, Page 125"
+    },
+    {
+        section: "PRINCE2",
+        question: "Qu’est-ce qu’un Highlight Report dans PRINCE2 ?",
+        options: [
+            { text: "Un rapport périodique sur l’avancement du projet", correct: true },
+            { text: "Un document final pour clore le projet", correct: false },
+            { text: "Une liste des risques nouvellement identifiés", correct: false },
+            { text: "Un plan détaillé pour la prochaine étape", correct: false }
+        ],
+        justification: "Le Highlight Report informe le Project Board régulièrement.",
+        reference: "PRINCE2 Guide, Page 135",
+        keyword: "(Highlight Report)"
+    },
+    {
+        section: "PRINCE2",
+        question: "Comment PRINCE2 gère-t-il les écarts de qualité ?",
+        options: [
+            { text: "Via des revues formelles et des actions correctives", correct: true },
+            { text: "En déléguant la qualité aux développeurs", correct: false },
+            { text: "En testant uniquement à la fin du projet", correct: false },
+            { text: "En ignorant les écarts mineurs pour avancer", correct: false }
+        ],
+        justification: "Les écarts de qualité sont corrigés via des revues.",
+        reference: "PRINCE2 Guide, Page 100"
+    },
+    {
+        section: "PRINCE2",
+        question: "Quel est le rôle du thème Progression dans PRINCE2 ?",
+        options: [
+            { text: "Suivre l’avancement par rapport aux plans", correct: true },
+            { text: "Gérer les conflits entre les parties prenantes", correct: false },
+            { text: "Planifier les tests pour garantir la qualité", correct: false },
+            { text: "Définir les spécifications techniques des livrables", correct: false }
+        ],
+        justification: "Progression mesure l’avancement par rapport aux objectifs.",
+        reference: "PRINCE2 Guide, Page 45"
+    },
+    {
+        section: "PRINCE2",
+        question: "Pourquoi PRINCE2 utilise-t-il des rôles définis ?",
+        options: [
+            { text: "Clarifier les responsabilités pour une gestion efficace", correct: true },
+            { text: "Réduire le nombre de réunions nécessaires", correct: false },
+            { text: "Simplifier la documentation du projet", correct: false },
+            { text: "Limiter la collaboration entre les équipes", correct: false }
+        ],
+        justification: "Les rôles définis assurent une répartition claire des tâches.",
+        reference: "PRINCE2 Guide, Page 45"
+    },
+    {
+        section: "PRINCE2",
+        question: "Comment PRINCE2 gère-t-il un projet en crise ?",
+        options: [
+            { text: "Escalader via le Project Board pour décisions", correct: true },
+            { text: "Prolonger le projet sans consultation", correct: false },
+            { text: "Déléguer la résolution à l’équipe technique", correct: false },
+            { text: "Ignorer la crise pour respecter les délais", correct: false }
+        ],
+        justification: "Les crises sont escaladées au Project Board.",
+        reference: "PRINCE2 Guide, Page 89"
+    },
+    {
+        section: "PRINCE2",
+        question: "Quel est le rôle du thème Organisation dans PRINCE2 ?",
+        options: [
+            { text: "Définir la structure et les responsabilités du projet", correct: true },
+            { text: "Gérer les risques liés aux ressources", correct: false },
+            { text: "Planifier les tests pour garantir la qualité", correct: false },
+            { text: "Suivre l’avancement des livrables techniques", correct: false }
+        ],
+        justification: "Organisation établit les rôles et la structure.",
+        reference: "PRINCE2 Guide, Page 45"
+    },
+    {
+        section: "PRINCE2",
+        question: "Comment PRINCE2 gère-t-il les livrables intermédiaires ?",
+        options: [
+            { text: "Via des Work Packages avec critères clairs", correct: true },
+            { text: "En les déléguant sans suivi formel", correct: false },
+            { text: "En les testant uniquement à la fin", correct: false },
+            { text: "En les ignorant pour se concentrer sur le final", correct: false }
+        ],
+        justification: "Les Work Packages contrôlent les livrables intermédiaires.",
+        reference: "PRINCE2 Guide, Page 110",
+        keyword: "(Work Packages)"
+    },
+    {
+        section: "PRINCE2",
+        question: "Qu’est-ce qu’un Work Package dans PRINCE2 ?",
+        options: [
+            { text: "Un ensemble de tâches assignées avec des critères", correct: true },
+            { text: "Un document spécifiant les besoins techniques", correct: false },
+            { text: "Un rapport sur l’avancement des travaux", correct: false },
+            { text: "Un plan pour tester les livrables finaux", correct: false }
+        ],
+        justification: "Un Work Package est un ensemble de travail défini.",
+        reference: "PRINCE2 Guide, Page 110",
+        keyword: "(Work Package)"
+    },
+    {
+        section: "PRINCE2",
+        question: "Comment PRINCE2 gère-t-il les risques projet ?",
+        options: [
+            { text: "Via une identification et gestion continues", correct: true },
+            { text: "En attendant leur apparition pour réagir", correct: false },
+            { text: "En déléguant leur suivi au sponsor du projet", correct: false },
+            { text: "En ignorant les risques pour avancer plus vite", correct: false }
+        ],
+        justification: "PRINCE2 gère les risques de manière proactive.",
+        reference: "PRINCE2 Guide, Page 105"
+    },
+    // Questions Cycle en V
     {
         section: "Cycle en V",
         question: "Quelle est la principale caractéristique du Cycle en V ?",
@@ -766,214 +1623,6 @@
         justification: "Le Cycle en V détecte les erreurs plus tôt que la cascade.",
         reference: "Guide du Cycle en V, Page 27"
     },
-    // Questions 3P (modifiées)
-    {
-        section: "3P",
-        question: "Que signifie 3P dans la gestion de projet ?",
-        options: [
-            { text: "Un processus de planification détaillé du projet", correct: false },
-            { text: "Une méthode de préparation à la production lean", correct: true },
-            { text: "Un plan pour évaluer les performances produit", correct: false },
-            { text: "Un protocole pour mesurer les processus efficaces", correct: false }
-        ],
-        justification: "3P signifie Production Preparation Process, une méthode lean.",
-        reference: "Guide 3P, Page 8"
-    },
-    {
-        section: "3P",
-        question: "Quel est l'objectif principal de la méthode 3P ?",
-        options: [
-            { text: "Réduire les gaspillages dès la conception du processus", correct: true },
-            { text: "Maximiser les profits grâce à une production accrue", correct: false },
-            { text: "Minimiser les délais en accélérant les étapes clés", correct: false },
-            { text: "Augmenter la capacité de production pour le client", correct: false }
-        ],
-        justification: "3P élimine les gaspillages dès la phase de conception.",
-        reference: "Guide 3P, Page 10"
-    },
-    {
-        section: "3P",
-        question: "Quelle est la première étape du processus 3P ?",
-        options: [
-            { text: "Une analyse approfondie des besoins des clients", correct: true },
-            { text: "Une phase de production initiale pour tester les idées", correct: false },
-            { text: "Une conception détaillée des prototypes à utiliser", correct: false },
-            { text: "Une série de tests pour valider les concepts", correct: false }
-        ],
-        justification: "3P commence par comprendre les besoins clients.",
-        reference: "Guide 3P, Page 12"
-    },
-    {
-        section: "3P",
-        question: "Quelles sont les 3 phases principales de la méthode 3P ?",
-        options: [
-            { text: "Planification, Développement, Validation du produit", correct: false },
-            { text: "Préparation, Prototypage, Mise en production", correct: true },
-            { text: "Préparation, Performance, Optimisation finale", correct: false },
-            { text: "Processus, Évaluation, Amélioration continue", correct: false }
-        ],
-        justification: "Les phases de 3P sont Préparation, Prototype, Production.",
-        reference: "Guide 3P, Page 15"
-    },
-    {
-        section: "3P",
-        question: "Quel est le rôle des prototypes dans 3P ?",
-        options: [
-            { text: "Tester rapidement les idées avant la production finale", correct: true },
-            { text: "Valider la qualité du produit fini après fabrication", correct: false },
-            { text: "Documenter les étapes pour référence future", correct: false },
-            { text: "Former les équipes sur les processus standards", correct: false }
-        ],
-        justification: "Les prototypes valident les concepts rapidement en 3P.",
-        reference: "Guide 3P, Page 18"
-    },
-    {
-        section: "3P",
-        question: "Quelle est la particularité de l'approche 3P par rapport aux méthodes traditionnelles ?",
-        options: [
-            { text: "Une anticipation des problèmes dès la phase de conception", correct: true },
-            { text: "Une exécution plus lente pour garantir la qualité", correct: false },
-            { text: "Une documentation plus lourde pour chaque étape", correct: false },
-            { text: "Une ignorance des contraintes techniques du projet", correct: false }
-        ],
-        justification: "3P anticipe les problèmes de production dès la conception.",
-        reference: "Guide 3P, Page 20"
-    },
-    {
-        section: "3P",
-        question: "Comment 3P intègre-t-il les principes du Lean ?",
-        options: [
-            { text: "En appliquant les principes lean dès la phase de conception", correct: true },
-            { text: "En utilisant les principes lean uniquement en production", correct: false },
-            { text: "En ignorant les principes lean pour plus de flexibilité", correct: false },
-            { text: "En limitant les principes lean à la documentation", correct: false }
-        ],
-        justification: "3P intègre le Lean dès la conception pour éliminer les gaspillages.",
-        reference: "Guide 3P, Page 22"
-    },
-    // Questions Lean (modifiées)
-    {
-        section: "Lean",
-        question: "Quel est le principe fondamental du Lean ?",
-        options: [
-            { text: "Éliminer systématiquement les gaspillages dans les processus", correct: true },
-            { text: "Maximiser les profits en augmentant la production", correct: false },
-            { text: "Réduire les coûts en minimisant les ressources utilisées", correct: false },
-            { text: "Augmenter la vitesse de production pour les clients", correct: false }
-        ],
-        justification: "Le Lean se concentre sur l'élimination des gaspillages (muda).",
-        reference: "Guide Lean Management, Page 15"
-    },
-    {
-        section: "Lean",
-        question: "Quels sont les types de gaspillages (muda) dans le Lean ?",
-        options: [
-            { text: "Surproduction, Attente, Transport, Sur-traitement, Stock, Mouvement, Défauts", correct: true },
-            { text: "Coût excessif, Délais longs, Qualité faible, Communication inefficace", correct: false },
-            { text: "Planification complexe, Organisation rigide, Direction stricte, Contrôle", correct: false },
-            { text: "Budget élevé, Ressources limitées, Temps perdu, Scope réduit", correct: false }
-        ],
-        justification: "Le Lean identifie 7 gaspillages principaux à éliminer.",
-        reference: "Guide Lean Management, Page 18"
-    },
-    {
-        section: "Lean",
-        question: "Qu'est-ce que le Kaizen dans le Lean ?",
-        options: [
-            { text: "Une méthode pour améliorer continuellement les processus", correct: true },
-            { text: "Un outil pour planifier efficacement les ressources", correct: false },
-            { text: "Un système pour contrôler la qualité des produits", correct: false },
-            { text: "Une technique pour gérer les stocks de manière optimale", correct: false }
-        ],
-        justification: "Kaizen signifie amélioration continue dans le Lean.",
-        reference: "Guide Lean Management, Page 25"
-    },
-    {
-        section: "Lean",
-        question: "Qu'est-ce que le 'Juste-à-temps' dans le Lean ?",
-        options: [
-            { text: "Produire ce qui est requis au moment précis nécessaire", correct: true },
-            { text: "Livrer rapidement pour répondre aux attentes des clients", correct: false },
-            { text: "Maintenir un stock suffisant pour éviter les ruptures", correct: false },
-            { text: "Travailler plus vite pour réduire les délais globaux", correct: false }
-        ],
-        justification: "Juste-à-temps produit uniquement ce qui est nécessaire, quand nécessaire.",
-        reference: "Guide Lean Management, Page 30"
-    },
-    {
-        section: "Lean",
-        question: "Que signifie 'Poka-Yoke' dans le Lean ?",
-        options: [
-            { text: "Un dispositif empêchant les erreurs dans les processus", correct: true },
-            { text: "Un système automatisé pour accélérer la production", correct: false },
-            { text: "Une méthode pour maintenir un flux continu", correct: false },
-            { text: "Une approche pour améliorer les compétences des équipes", correct: false }
-        ],
-        justification: "Poka-Yoke signifie anti-erreur dans le Lean.",
-        reference: "Lean Manufacturing Tools, Page 120"
-    },
-    {
-        section: "Lean",
-        question: "Qu'est-ce que le 'Gemba' dans le Lean ?",
-        options: [
-            { text: "Le lieu réel où la valeur est créée pour le client", correct: true },
-            { text: "Une réunion d'équipe pour discuter des améliorations", correct: false },
-            { text: "Un document qualité pour suivre les performances", correct: false },
-            { text: "Un outil d'analyse pour identifier les gaspillages", correct: false }
-        ],
-        justification: "Gemba est le terrain où la valeur est produite.",
-        reference: "Guide Lean Management, Page 40"
-    },
-    {
-        section: "Lean",
-        question: "Quel est le rôle du 'Value Stream Mapping' dans le Lean ?",
-        options: [
-            { text: "Cartographier le flux pour identifier les gaspillages", correct: true },
-            { text: "Calculer les coûts totaux de la production", correct: false },
-            { text: "Gérer les stocks pour optimiser les ressources", correct: false },
-            { text: "Former les équipes sur les meilleures pratiques", correct: false }
-        ],
-        justification: "Le Value Stream Mapping visualise le flux pour éliminer les gaspillages.",
-        reference: "Guide Lean Management, Page 45"
-    },
-    // Autres questions PRINCE2 (modifiées)
-    {
-        section: "PRINCE2",
-        question: "Quels sont les 7 principes de PRINCE2 ?",
-        options: [
-            { text: "Justification continue, Leçons, Rôles, Étapes, Exception, Produits, Adaptation", correct: true },
-            { text: "Coût, Délai, Qualité, Risque, Communication, Ressources, Scope", correct: false },
-            { text: "Initiation, Planification, Exécution, Contrôle, Clôture, Test, Suivi", correct: false },
-            { text: "Budget, Équipe, Temps, Documentation, Validation, Livraison, Fin", correct: false }
-        ],
-        justification: "Les 7 principes guident la mise en œuvre de PRINCE2.",
-        reference: "PRINCE2 Guide, Page 20"
-    },
-    {
-        section: "PRINCE2",
-        question: "Qu'est-ce qu'une tolérance dans PRINCE2 ?",
-        options: [
-            { text: "Une marge acceptable pour les écarts dans les objectifs", correct: true },
-            { text: "Un retard autorisé sans impact sur le projet", correct: false },
-            { text: "Un dépassement budgétaire prévu dans le plan", correct: false },
-            { text: "Un ajustement du scope approuvé par l'équipe", correct: false }
-        ],
-        justification: "Les tolérances définissent les limites d'autorité du chef de projet.",
-        reference: "PRINCE2 Guide, Page 85"
-    },
-    {
-        section: "PRINCE2",
-        question: "Quel est le rôle du Comité de Pilotage dans PRINCE2 ?",
-        options: [
-            { text: "Superviser stratégiquement et approuver les décisions clés", correct: true },
-            { text: "Gérer quotidiennement les activités de l'équipe projet", correct: false },
-            { text: "Produire les livrables selon les spécifications définies", correct: false },
-            { text: "Tester les produits pour garantir leur conformité", correct: false }
-        ],
-        justification: "Le Comité de Pilotage (Project Board) prend les décisions stratégiques.",
-        reference: "PRINCE2 Guide, Page 45"
-    },
-    // Autres questions Cycle en V (modifiées)
     {
         section: "Cycle en V",
         question: "Quelles sont les phases principales du Cycle en V ?",
@@ -1010,56 +1659,6 @@
         justification: "Le Cycle en V est rigide face aux changements tardifs.",
         reference: "Guide du Cycle en V, Page 35"
     },
-    // Autres questions PRINCE2 (modifiées)
-    {
-        section: "PRINCE2",
-        question: "Quels sont les processus de PRINCE2 ?",
-        options: [
-            { text: "Élaborer, Diriger, Initialiser, Contrôler, Gérer, Livrer, Clore", correct: true },
-            { text: "Démarrer, Planifier, Exécuter, Contrôler, Valider, Clôturer", correct: false },
-            { text: "Planifier, Faire, Vérifier, Agir, Évaluer, Terminer", correct: false },
-            { text: "Analyser, Concevoir, Développer, Tester, Livrer, Suivre", correct: false }
-        ],
-        justification: "PRINCE2 suit 7 processus structurés pour gérer le projet.",
-        reference: "PRINCE2 Guide, Page 30"
-    },
-    {
-        section: "PRINCE2",
-        question: "Comment PRINCE2 gère-t-il les changements ?",
-        options: [
-            { text: "Via un processus formel d'évaluation et d'approbation", correct: true },
-            { text: "En acceptant tous les changements sans analyse préalable", correct: false },
-            { text: "En refusant systématiquement toute modification demandée", correct: false },
-            { text: "En ignorant les changements pour respecter le plan initial", correct: false }
-        ],
-        justification: "PRINCE2 contrôle les changements avec un processus dédié.",
-        reference: "PRINCE2 Guide, Page 55"
-    },
-    {
-        section: "PRINCE2",
-        question: "Qu'est-ce qu'une séquence de management dans PRINCE2 ?",
-        options: [
-            { text: "Une période définie par le Project Board pour gérer", correct: true },
-            { text: "Une phase technique alignée sur les livrables", correct: false },
-            { text: "Une série de tests pour valider les produits", correct: false },
-            { text: "Une réunion régulière pour coordonner les équipes", correct: false }
-        ],
-        justification: "Une séquence de management est une période définie par le Project Board.",
-        reference: "PRINCE2 Guide, Page 60"
-    },
-    {
-        section: "PRINCE2",
-        question: "Quel est le rôle du Business Case dans PRINCE2 ?",
-        options: [
-            { text: "Justifier continuellement la viabilité du projet", correct: true },
-            { text: "Décrire techniquement les spécifications des livrables", correct: false },
-            { text: "Planifier les tests pour garantir la qualité finale", correct: false },
-            { text: "Répertorier les risques potentiels du projet", correct: false }
-        ],
-        justification: "Le Business Case justifie le projet tout au long de son cycle.",
-        reference: "PRINCE2 Guide, Page 40"
-    },
-    // Autres questions Cycle en V (modifiées)
     {
         section: "Cycle en V",
         question: "Comment sont liés les tests de validation et les spécifications dans le Cycle en V ?",
@@ -1108,92 +1707,6 @@
         justification: "La planification des tests débute dès le début du projet.",
         reference: "Guide du Cycle en V, Page 48"
     },
-    // Questions Lean (modifiées)
-    {
-        section: "Lean",
-        question: "Quel est le principe du Jidoka dans le Lean ?",
-        options: [
-            { text: "Automatiser avec intervention humaine pour la qualité", correct: true },
-            { text: "Produire rapidement pour répondre aux demandes", correct: false },
-            { text: "Réduire les coûts en minimisant les ressources", correct: false },
-            { text: "Augmenter la production via des machines autonomes", correct: false }
-        ],
-        justification: "Jidoka combine automatisation et contrôle humain.",
-        reference: "Lean Thinking, Womack & Jones, Page 95"
-    },
-    {
-        section: "Lean",
-        question: "Qu'est-ce que le Kaizen dans la méthodologie Lean ?",
-        options: [
-            { text: "Une approche pour améliorer constamment les processus", correct: true },
-            { text: "Un outil pour planifier les activités de production", correct: false },
-            { text: "Une technique pour contrôler la qualité des livrables", correct: false },
-            { text: "Un système pour optimiser la gestion des ressources", correct: false }
-        ],
-        justification: "Kaizen est l'amélioration continue impliquant tous.",
-        reference: "Lean Thinking, Womack & Jones, Page 100"
-    },
-    {
-        section: "Lean",
-        question: "Que signifie 'Muda' dans le Lean ?",
-        options: [
-            { text: "Toute activité consommant des ressources sans valeur", correct: true },
-            { text: "Une mesure de l'efficacité des processus lean", correct: false },
-            { text: "Un indicateur de la qualité des produits finis", correct: false },
-            { text: "Une étape clé dans la production optimisée", correct: false }
-        ],
-        justification: "Muda désigne le gaspillage à éliminer dans le Lean.",
-        reference: "Lean Thinking, Womack & Jones, Page 75"
-    },
-    // Questions supplémentaires sur les aspects pratiques (modifiées)
-    {
-        section: "Scrum",
-        question: "Comment gérer les imprévus dans un Sprint ?",
-        options: [
-            { text: "Ajuster le Sprint Backlog avec le Product Owner", correct: true },
-            { text: "Prolonger la durée du Sprint pour tout intégrer", correct: false },
-            { text: "Ignorer les imprévus jusqu'à la prochaine planification", correct: false },
-            { text: "Ajouter des ressources pour accélérer les tâches", correct: false }
-        ],
-        justification: "Les imprévus sont gérés en ajustant le Sprint Backlog.",
-        reference: "Guide Scrum, Page 60"
-    },
-    {
-        section: "XP",
-        question: "Comment XP gère-t-il la documentation technique ?",
-        options: [
-            { text: "Un code clair et des tests comme documentation principale", correct: true },
-            { text: "Une documentation exhaustive pour chaque modification", correct: false },
-            { text: "Aucune documentation pour accélérer le développement", correct: false },
-            { text: "Une documentation externe rédigée après le codage", correct: false }
-        ],
-        justification: "XP privilégie le code et les tests comme documentation.",
-        reference: "Extreme Programming Explained, Page 105"
-    },
-    {
-        section: "PRINCE2",
-        question: "Comment PRINCE2 gère-t-il la qualité ?",
-        options: [
-            { text: "Via des revues planifiées et des critères définis", correct: true },
-            { text: "En testant uniquement les produits à la fin", correct: false },
-            { text: "Sans gestion formelle de la qualité", correct: false },
-            { text: "Par un contrôle informel au fil du projet", correct: false }
-        ],
-        justification: "PRINCE2 planifie la qualité avec des revues structurées.",
-        reference: "PRINCE2 Guide, Page 100"
-    },
-    {
-        section: "Lean",
-        question: "Comment appliquer le principe de 'Standardisation' dans Lean ?",
-        options: [
-            { text: "Documenter les meilleures pratiques et les améliorer", correct: true },
-            { text: "Imposer des règles fixes sans ajustements possibles", correct: false },
-            { text: "Permettre à chacun de travailler à sa manière", correct: false },
-            { text: "Adopter les standards d'autres organisations", correct: false }
-        ],
-        justification: "La standardisation documente et améliore les pratiques.",
-        reference: "Lean Thinking, Page 170"
-    },
     {
         section: "Cycle en V",
         question: "Comment gérer les modifications des exigences dans le Cycle en V ?",
@@ -1205,67 +1718,6 @@
         ],
         justification: "Les modifications nécessitent de remonter le V.",
         reference: "Guide du Cycle en V, Page 75"
-    },
-    {
-        section: "3P",
-        question: "Comment le 3P intègre-t-il l'innovation ?",
-        options: [
-            { text: "Via des cycles rapides d'expérimentation et prototypage", correct: true },
-            { text: "En adoptant les innovations de la concurrence", correct: false },
-            { text: "En attendant les avancées technologiques majeures", correct: false },
-            { text: "Sans focus particulier sur l'innovation", correct: false }
-        ],
-        justification: "3P favorise l'innovation par l'expérimentation rapide.",
-        reference: "Guide 3P, Page 60"
-    },
-    // Questions finales (modifiées)
-    {
-        section: "Scrum",
-        question: "Comment gérer les dépendances entre équipes Scrum ?",
-        options: [
-            { text: "Coordonner via Scrum of Scrums et des réunions", correct: true },
-            { text: "Fusionner toutes les équipes en une seule unité", correct: false },
-            { text: "Travailler indépendamment sans coordination", correct: false },
-            { text: "Ignorer les dépendances pour rester focalisé", correct: false }
-        ],
-        justification: "Scrum of Scrums gère les dépendances entre équipes.",
-        reference: "Guide Scrum, Page 65"
-    },
-    {
-        section: "XP",
-        question: "Comment XP gère-t-il les changements de priorités ?",
-        options: [
-            { text: "Ajuster via le Planning Game et les itérations", correct: true },
-            { text: "Refuser les changements pour maintenir le plan", correct: false },
-            { text: "Interrompre le développement pour replanifier", correct: false },
-            { text: "Ignorer les nouvelles priorités jusqu'à la fin", correct: false }
-        ],
-        justification: "XP s'adapte aux priorités via le Planning Game.",
-        reference: "Extreme Programming Explained, Page 110"
-    },
-    {
-        section: "PRINCE2",
-        question: "Comment PRINCE2 gère-t-il les risques projet ?",
-        options: [
-            { text: "Via une identification et gestion continues", correct: true },
-            { text: "En attendant leur apparition pour réagir", correct: false },
-            { text: "En déléguant leur suivi au sponsor du projet", correct: false },
-            { text: "En ignorant les risques pour avancer plus vite", correct: false }
-        ],
-        justification: "PRINCE2 gère les risques de manière proactive.",
-        reference: "PRINCE2 Guide, Page 105"
-    },
-    {
-        section: "Lean",
-        question: "Comment mettre en place le 'Visual Management' dans Lean ?",
-        options: [
-            { text: "Utiliser des tableaux visuels pour montrer le progrès", correct: true },
-            { text: "Produire des rapports écrits détaillés", correct: false },
-            { text: "Organiser des réunions sans outils visuels", correct: false },
-            { text: "Éviter tout management visuel pour plus de flexibilité", correct: false }
-        ],
-        justification: "Le Visual Management rend les progrès visibles à tous.",
-        reference: "Lean Thinking, Page 180"
     },
     {
         section: "Cycle en V",
@@ -1280,127 +1732,6 @@
         reference: "Guide du Cycle en V, Page 85"
     },
     {
-        section: "3P",
-        question: "Comment le 3P gère-t-il la formation des équipes ?",
-        options: [
-            { text: "Former par l'expérimentation et le prototypage", correct: true },
-            { text: "Proposer une formation théorique préalable", correct: false },
-            { text: "Laisser les équipes apprendre individuellement", correct: false },
-            { text: "Éviter la formation pour accélérer le projet", correct: false }
-        ],
-        justification: "3P forme les équipes via l'expérimentation pratique.",
-        reference: "Guide 3P, Page 70"
-    },
-    // Questions finales ajoutées (modifiées)
-    {
-        section: "Scrum",
-        question: "Quel est le but du Sprint Planning ?",
-        options: [
-            { text: "Planifier les tâches à réaliser durant le Sprint", correct: true },
-            { text: "Évaluer les résultats du Sprint précédent", correct: false },
-            { text: "Définir la vision stratégique du produit", correct: false },
-            { text: "Analyser les performances individuelles", correct: false }
-        ],
-        justification: "Le Sprint Planning planifie le travail du Sprint.",
-        reference: "Guide Scrum, Page 70"
-    },
-    {
-        section: "Scrum",
-        question: "Qu'est-ce qu'un Sprint Goal ?",
-        options: [
-            { text: "Un objectif unifié guidant le travail du Sprint", correct: true },
-            { text: "Une liste détaillée des tâches à accomplir", correct: false },
-            { text: "Un indicateur mesurant la productivité", correct: false },
-            { text: "Une échéance fixe pour livrer l'incrément", correct: false }
-        ],
-        justification: "Le Sprint Goal donne une direction cohérente au Sprint.",
-        reference: "Guide Scrum, Page 75"
-    },
-    {
-        section: "XP",
-        question: "Qu'est-ce que le 'Refactoring' dans XP ?",
-        options: [
-            { text: "Améliorer le code sans modifier son comportement", correct: true },
-            { text: "Réécrire entièrement le code pour plus de clarté", correct: false },
-            { text: "Corriger les bugs détectés pendant les tests", correct: false },
-            { text: "Ajouter des fonctionnalités pour répondre aux besoins", correct: false }
-        ],
-        justification: "Le Refactoring améliore la structure du code.",
-        reference: "Extreme Programming Explained, Page 115"
-    },
-    {
-        section: "XP",
-        question: "Quel est le rôle du 'Customer On-Site' dans XP ?",
-        options: [
-            { text: "Fournir des retours rapides et des clarifications", correct: true },
-            { text: "Gérer le budget et les ressources du projet", correct: false },
-            { text: "Superviser l'équipe pour respecter les délais", correct: false },
-            { text: "Contribuer directement au codage du produit", correct: false }
-        ],
-        justification: "Le Customer On-Site offre un feedback constant.",
-        reference: "Extreme Programming Explained, Page 120"
-    },
-    {
-        section: "PRINCE2",
-        question: "Qu'est-ce qu'un Work Package dans PRINCE2 ?",
-        options: [
-            { text: "Un ensemble de tâches assignées avec des critères", correct: true },
-            { text: "Un document spécifiant les besoins techniques", correct: false },
-            { text: "Un rapport sur l'avancement des travaux", correct: false },
-            { text: "Un plan pour tester les livrables finaux", correct: false }
-        ],
-        justification: "Un Work Package est un ensemble de travail défini.",
-        reference: "PRINCE2 Guide, Page 110"
-    },
-    {
-        section: "PRINCE2",
-        question: "Quel est le rôle du Project Board dans PRINCE2 ?",
-        options: [
-            { text: "Diriger et superviser le projet stratégiquement", correct: true },
-            { text: "Exécuter les tâches quotidiennes du projet", correct: false },
-            { text: "Rédiger la documentation technique", correct: false },
-            { text: "Tester les livrables pour leur conformité", correct: false }
-        ],
-        justification: "Le Project Board supervise le projet.",
-        reference: "PRINCE2 Guide, Page 115"
-    },
-    {
-        section: "Lean",
-        question: "Qu'est-ce que le principe 'Heijunka' dans Lean ?",
-        options: [
-            { text: "Niveler la production pour un flux constant", correct: true },
-            { text: "Maximiser la production pour répondre à la demande", correct: false },
-            { text: "Éliminer les défauts dans les processus", correct: false },
-            { text: "Former les équipes pour plus d'efficacité", correct: false }
-        ],
-        justification: "Heijunka nivelle la production pour réduire les variations.",
-        reference: "Lean Thinking, Page 190"
-    },
-    {
-        section: "Lean",
-        question: "Que signifie 'Gemba' dans le Lean ?",
-        options: [
-            { text: "Le lieu où la valeur est réellement créée", correct: true },
-            { text: "Une réunion pour discuter des améliorations", correct: false },
-            { text: "Un outil pour planifier les activités", correct: false },
-            { text: "Un rapport sur la qualité des processus", correct: false }
-        ],
-        justification: "Gemba est l'endroit où le travail crée de la valeur.",
-        reference: "Lean Thinking, Page 195"
-    },
-    {
-        section: "Cycle en V",
-        question: "Quelle est la différence entre tests d'intégration et tests système ?",
-        options: [
-            { text: "Intégration teste les interfaces, système le tout", correct: true },
-            { text: "Aucune différence, ils vérifient la même chose", correct: false },
-            { text: "Système est rapide, intégration est approfondie", correct: false },
-            { text: "Intégration est optionnelle, système est requis", correct: false }
-        ],
-        justification: "Intégration : interfaces ; système : comportement global.",
-        reference: "Guide du Cycle en V, Page 90"
-    },
-    {
         section: "Cycle en V",
         question: "Comment gérer la documentation dans le Cycle en V ?",
         options: [
@@ -1411,416 +1742,6 @@
         ],
         justification: "Le Cycle en V exige une documentation traçable.",
         reference: "Guide du Cycle en V, Page 95"
-    },
-    {
-        section: "3P",
-        question: "Quelle est l'importance du 'Genchi Genbutsu' dans 3P ?",
-        options: [
-            { text: "Observer sur le terrain pour comprendre les besoins", correct: true },
-            { text: "Rédiger des rapports pour documenter les processus", correct: false },
-            { text: "Déléguer les décisions aux experts techniques", correct: false },
-            { text: "Ignorer les observations pour accélérer le projet", correct: false }
-        ],
-        justification: "Genchi Genbutsu signifie aller voir sur place.",
-        reference: "Guide 3P, Page 80"
-    },
-    {
-        section: "3P",
-        question: "Comment le 3P intègre-t-il l'ergonomie ?",
-        options: [
-            { text: "En concevant des postes optimisés dès le départ", correct: true },
-            { text: "En ajustant l'ergonomie après les incidents", correct: false },
-            { text: "En ignorant l'ergonomie pour réduire les coûts", correct: false },
-            { text: "En la considérant uniquement sur demande", correct: false }
-        ],
-        justification: "3P intègre l'ergonomie dès la conception.",
-        reference: "Guide 3P, Page 85"
-    },
-
-    // 50 nouvelles questions ajoutées
-    {
-        section: "Scrum",
-        question: "Comment Scrum gère-t-il les équipes distribuées géographiquement ?",
-        options: [
-            { text: "En utilisant des outils collaboratifs et en adaptant les cérémonies", correct: true },
-            { text: "En regroupant toutes les équipes sur un même site physique", correct: false },
-            { text: "En supprimant les réunions pour simplifier la coordination", correct: false },
-            { text: "En travaillant indépendamment sans synchronisation", correct: false }
-        ],
-        justification: "Scrum adapte les cérémonies avec des outils pour les équipes distribuées.",
-        reference: "Guide Scrum, Page 70"
-    },
-    {
-        section: "Scrum",
-        question: "Quel est l'impact d'un changement d'équipe en plein Sprint ?",
-        options: [
-            { text: "Cela peut affecter la vélocité et la dynamique d'équipe", correct: true },
-            { text: "Cela n'a aucun effet sur la progression du Sprint", correct: false },
-            { text: "Cela prolonge automatiquement la durée du Sprint", correct: false },
-            { text: "Cela nécessite une redéfinition du Product Backlog", correct: false }
-        ],
-        justification: "Un changement d'équipe perturbe la cohésion et la vélocité.",
-        reference: "Guide Scrum, Page 75"
-    },
-    {
-        section: "Scrum",
-        question: "Que faire si le Product Owner est absent temporairement ?",
-        options: [
-            { text: "Déléguer ses responsabilités à un représentant compétent", correct: true },
-            { text: "Suspendre le Sprint jusqu'à son retour", correct: false },
-            { text: "Laisser le Scrum Master prioriser le Backlog", correct: false },
-            { text: "Ignorer le Product Backlog pour avancer", correct: false }
-        ],
-        justification: "Un représentant peut assumer les tâches du Product Owner.",
-        reference: "Guide Scrum, Page 80"
-    },
-    {
-        section: "Scrum",
-        question: "Comment mesurer la vélocité dans Scrum ?",
-        options: [
-            { text: "En sommant les points d'effort terminés par Sprint", correct: true },
-            { text: "En calculant le temps total passé sur les tâches", correct: false },
-            { text: "En comptant le nombre de réunions organisées", correct: false },
-            { text: "En évaluant le nombre de bugs résolus", correct: false }
-        ],
-        justification: "La vélocité est la somme des points d'effort achevés.",
-        reference: "Guide Scrum, Page 85"
-    },
-    {
-        section: "Scrum",
-        question: "Quel est le rôle de la Definition of Done ?",
-        options: [
-            { text: "Définir les critères pour qu'un item soit terminé", correct: true },
-            { text: "Planifier les tâches à accomplir dans le Sprint", correct: false },
-            { text: "Évaluer la performance individuelle des développeurs", correct: false },
-            { text: "Prioriser les éléments du Product Backlog", correct: false }
-        ],
-        justification: "La Definition of Done assure la qualité des incréments.",
-        reference: "Guide Scrum, Page 72"
-    },
-    {
-        section: "Scrum",
-        question: "Comment gérer un Sprint avec trop d'imprévus ?",
-        options: [
-            { text: "Négocier avec le Product Owner pour ajuster le scope", correct: true },
-            { text: "Étendre la durée du Sprint pour tout compléter", correct: false },
-            { text: "Ignorer les imprévus pour respecter l'objectif initial", correct: false },
-            { text: "Ajouter des membres pour accélérer le travail", correct: false }
-        ],
-        justification: "Le scope est ajusté avec le Product Owner en cas d'imprévus.",
-        reference: "Guide Scrum, Page 60"
-    },
-    {
-        section: "Scrum",
-        question: "Quel est le but principal du Scrum of Scrums ?",
-        options: [
-            { text: "Coordonner les efforts entre plusieurs équipes Scrum", correct: true },
-            { text: "Planifier les Sprints pour une seule équipe", correct: false },
-            { text: "Évaluer la performance globale des développeurs", correct: false },
-            { text: "Prioriser le Product Backlog pour tous les projets", correct: false }
-        ],
-        justification: "Scrum of Scrums synchronise les équipes multiples.",
-        reference: "Guide Scrum, Page 65"
-    },
-    {
-        section: "Scrum",
-        question: "Comment gérer un conflit entre Product Owner et équipe ?",
-        options: [
-            { text: "Le Scrum Master facilite une résolution collaborative", correct: true },
-            { text: "Le Product Owner impose sa décision finale", correct: false },
-            { text: "L'équipe ignore les demandes du Product Owner", correct: false },
-            { text: "Le conflit est reporté au prochain Sprint", correct: false }
-        ],
-        justification: "Le Scrum Master aide à résoudre les conflits.",
-        reference: "Guide Scrum, Page 67"
-    },
-    {
-        section: "XP",
-        question: "Comment XP gère-t-il la dette technique accumulée ?",
-        options: [
-            { text: "En améliorant continuellement le code via refactoring", correct: true },
-            { text: "En ignorant la dette pour livrer plus rapidement", correct: false },
-            { text: "En ajoutant des ressources pour corriger les problèmes", correct: false },
-            { text: "En reportant les corrections à la fin du projet", correct: false }
-        ],
-        justification: "Le refactoring continu réduit la dette technique en XP.",
-        reference: "Extreme Programming Explained, Page 125"
-    },
-    {
-        section: "XP",
-        question: "Pourquoi XP insiste-t-il sur les tests automatisés ?",
-        options: [
-            { text: "Pour assurer la qualité et faciliter les modifications", correct: true },
-            { text: "Pour réduire les coûts des tests manuels", correct: false },
-            { text: "Pour accélérer la livraison sans vérification", correct: false },
-            { text: "Pour remplacer toute intervention humaine", correct: false }
-        ],
-        justification: "Les tests automatisés soutiennent le refactoring et la qualité.",
-        reference: "Extreme Programming Explained, Page 130"
-    },
-    {
-        section: "XP",
-        question: "Qu'est-ce que le Continuous Deployment en XP ?",
-        options: [
-            { text: "Déployer automatiquement chaque changement validé", correct: true },
-            { text: "Livrer manuellement à la fin de chaque itération", correct: false },
-            { text: "Attendre la fin du projet pour un déploiement", correct: false },
-            { text: "Déployer mensuellement après revue complète", correct: false }
-        ],
-        justification: "Continuous Deployment automatise les déploiements fréquents.",
-        reference: "Extreme Programming Explained, Page 135"
-    },
-    {
-        section: "XP",
-        question: "Comment XP gère-t-il un client indisponible ?",
-        options: [
-            { text: "En utilisant un proxy client pour les décisions", correct: true },
-            { text: "En arrêtant le développement jusqu'à son retour", correct: false },
-            { text: "En ignorant les besoins client pour avancer", correct: false },
-            { text: "En déléguant au développeur principal", correct: false }
-        ],
-        justification: "Un proxy peut remplacer temporairement le client.",
-        reference: "Extreme Programming Explained, Page 120"
-    },
-    {
-        section: "XP",
-        question: "Quel est l'avantage principal du Pair Programming ?",
-        options: [
-            { text: "Améliorer la qualité du code par la revue continue", correct: true },
-            { text: "Accélérer le développement par un travail parallèle", correct: false },
-            { text: "Réduire les coûts en limitant les ressources", correct: false },
-            { text: "Simplifier la gestion des tâches techniques", correct: false }
-        ],
-        justification: "Pair Programming améliore la qualité par la collaboration.",
-        reference: "Extreme Programming Explained, Page 75"
-    },
-    {
-        section: "XP",
-        question: "Comment XP priorise-t-il les fonctionnalités ?",
-        options: [
-            { text: "Via le Planning Game avec le client sur site", correct: true },
-            { text: "En suivant un plan fixe établi au départ", correct: false },
-            { text: "En laissant les développeurs décider seuls", correct: false },
-            { text: "En attendant les retours des utilisateurs", correct: false }
-        ],
-        justification: "Le Planning Game priorise avec le client.",
-        reference: "Extreme Programming Explained, Page 85"
-    },
-    {
-        section: "XP",
-        question: "Quel est le rôle des stand-up meetings en XP ?",
-        options: [
-            { text: "Coordonner quotidiennement les efforts de l'équipe", correct: true },
-            { text: "Planifier les itérations avec le client sur site", correct: false },
-            { text: "Évaluer les performances individuelles", correct: false },
-            { text: "Revoir les tests automatisés existants", correct: false }
-        ],
-        justification: "Les stand-ups synchronisent l'équipe quotidiennement.",
-        reference: "Extreme Programming Explained, Page 77"
-    },
-    {
-        section: "XP",
-        question: "Comment XP gère-t-il les délais serrés ?",
-        options: [
-            { text: "En livrant des versions petites et fréquentes", correct: true },
-            { text: "En prolongeant les itérations pour tout inclure", correct: false },
-            { text: "En réduisant la qualité pour aller plus vite", correct: false },
-            { text: "En ajoutant des développeurs au projet", correct: false }
-        ],
-        justification: "Small Releases permet de respecter les délais.",
-        reference: "Extreme Programming Explained, Page 95"
-    },
-    {
-        section: "PRINCE2",
-        question: "Comment PRINCE2 s'adapte-t-il à un environnement agile ?",
-        options: [
-            { text: "En intégrant des livraisons incrémentales et flexibles", correct: true },
-            { text: "En restant rigide pour maintenir le contrôle", correct: false },
-            { text: "En supprimant les processus de gestion", correct: false },
-            { text: "En ignorant les principes agiles", correct: false }
-        ],
-        justification: "PRINCE2 peut adopter des pratiques agiles comme les incréments.",
-        reference: "PRINCE2 Agile Guide, Page 50"
-    },
-    {
-        section: "PRINCE2",
-        question: "Quel est le rôle du Project Assurance dans PRINCE2 ?",
-        options: [
-            { text: "Vérifier l'alignement du projet avec ses objectifs", correct: true },
-            { text: "Gérer les tâches quotidiennes de l'équipe", correct: false },
-            { text: "Produire les livrables selon le planning", correct: false },
-            { text: "Planifier les tests pour valider les produits", correct: false }
-        ],
-        justification: "Project Assurance garantit l'alignement avec les objectifs.",
-        reference: "PRINCE2 Guide, Page 120"
-    },
-    {
-        section: "PRINCE2",
-        question: "Qu'est-ce qu'un Product Description dans PRINCE2 ?",
-        options: [
-            { text: "Une définition détaillée d'un livrable spécifique", correct: true },
-            { text: "Un plan stratégique pour tout le projet", correct: false },
-            { text: "Un rapport sur l'état d'avancement", correct: false },
-            { text: "Une liste des risques identifiés", correct: false }
-        ],
-        justification: "Product Description décrit un livrable avec ses critères.",
-        reference: "PRINCE2 Guide, Page 125"
-    },
-    {
-        section: "PRINCE2",
-        question: "Comment PRINCE2 gère-t-il les parties prenantes ?",
-        options: [
-            { text: "Via une communication structurée et des rôles clairs", correct: true },
-            { text: "En les excluant pour simplifier la gestion", correct: false },
-            { text: "En leur déléguant la gestion quotidienne", correct: false },
-            { text: "En ignorant leurs demandes pour rester focalisé", correct: false }
-        ],
-        justification: "PRINCE2 implique les parties prenantes de manière structurée.",
-        reference: "PRINCE2 Guide, Page 45"
-    },
-    {
-        section: "PRINCE2",
-        question: "Quel est l'avantage de la gestion par étapes ?",
-        options: [
-            { text: "Permettre un contrôle régulier et des décisions", correct: true },
-            { text: "Accélérer le projet en réduisant les revues", correct: false },
-            { text: "Simplifier la documentation à chaque phase", correct: false },
-            { text: "Éliminer la besoin de tolérances", correct: false }
-        ],
-        justification: "La gestion par étapes offre un contrôle à intervalles.",
-        reference: "PRINCE2 Guide, Page 60"
-    },
-    {
-        section: "PRINCE2",
-        question: "Comment PRINCE2 gère-t-il un échec de tolérance ?",
-        options: [
-            { text: "En escaladant via la gestion par exception", correct: true },
-            { text: "En ajustant les tolérances sans escalade", correct: false },
-            { text: "En ignorant l'échec pour continuer", correct: false },
-            { text: "En arrêtant immédiatement le projet", correct: false }
-        ],
-        justification: "La gestion par exception escalade les dépassements.",
-        reference: "PRINCE2 Guide, Page 89"
-    },
-    {
-        section: "PRINCE2",
-        question: "Quel est le rôle du sponsor dans PRINCE2 ?",
-        options: [
-            { text: "Fournir des ressources et approuver les décisions", correct: true },
-            { text: "Gérer les tâches opérationnelles du projet", correct: false },
-            { text: "Produire les livrables selon les spécifications", correct: false },
-            { text: "Tester les produits pour leur conformité", correct: false }
-        ],
-        justification: "Le sponsor soutient le projet stratégiquement.",
-        reference: "PRINCE2 Guide, Page 45"
-    },
-    {
-        section: "PRINCE2",
-        question: "Comment PRINCE2 assure-t-il la traçabilité ?",
-        options: [
-            { text: "Via une documentation liée aux livrables", correct: true },
-            { text: "En évitant toute documentation formelle", correct: false },
-            { text: "En déléguant la traçabilité à l'équipe", correct: false },
-            { text: "En testant uniquement à la fin", correct: false }
-        ],
-        justification: "La traçabilité est assurée par une documentation structurée.",
-        reference: "PRINCE2 Guide, Page 40"
-    },
-    {
-        section: "Lean",
-        question: "Comment Lean gère-t-il les goulets d'étranglement ?",
-        options: [
-            { text: "En optimisant le flux pour réduire les blocages", correct: true },
-            { text: "En augmentant les ressources pour compenser", correct: false },
-            { text: "En ignorant les goulots pour avancer", correct: false },
-            { text: "En stockant plus pour éviter les retards", correct: false }
-        ],
-        justification: "Lean optimise le flux pour éliminer les goulets.",
-        reference: "Lean Thinking, Page 200"
-    },
-    {
-        section: "Lean",
-        question: "Qu'est-ce que le takt time dans Lean ?",
-        options: [
-            { text: "Le rythme pour répondre à la demande client", correct: true },
-            { text: "Le temps total alloué à la production", correct: false },
-            { text: "Le temps d'attente entre deux tâches", correct: false },
-            { text: "Le temps de pause des opérateurs", correct: false }
-        ],
-        justification: "Takt time aligne la production sur la demande.",
-        reference: "Lean Thinking, Page 210"
-    },
-    {
-        section: "Lean",
-        question: "Qu'est-ce que le Kanban dans le Lean ?",
-        options: [
-            { text: "Un système visuel pour gérer le flux de travail", correct: true },
-            { text: "Un outil pour planifier les ressources humaines", correct: false },
-            { text: "Un test pour évaluer la qualité", correct: false },
-            { text: "Un rapport sur les performances", correct: false }
-        ],
-        justification: "Kanban visualise et limite le travail en cours.",
-        reference: "Lean Thinking, Page 220"
-    },
-    {
-        section: "Lean",
-        question: "Comment Lean favorise-t-il la flexibilité ?",
-        options: [
-            { text: "En réduisant les gaspillages pour s'adapter rapidement", correct: true },
-            { text: "En augmentant les stocks pour plus de marge", correct: false },
-            { text: "En fixant des processus rigides", correct: false },
-            { text: "En ignorant les changements demandés", correct: false }
-        ],
-        justification: "Lean élimine les gaspillages pour plus de flexibilité.",
-        reference: "Lean Thinking, Page 15"
-    },
-    {
-        section: "Lean",
-        question: "Quel est le rôle des 5S dans Lean ?",
-        options: [
-            { text: "Organiser l'espace pour améliorer l'efficacité", correct: true },
-            { text: "Planifier les tâches pour réduire les délais", correct: false },
-            { text: "Contrôler la qualité des produits finis", correct: false },
-            { text: "Gérer les stocks pour éviter les ruptures", correct: false }
-        ],
-        justification: "Les 5S optimisent l'environnement de travail.",
-        reference: "Lean Thinking, Page 230"
-    },
-    {
-        section: "Lean",
-        question: "Comment Lean gère-t-il la surproduction ?",
-        options: [
-            { text: "En produisant selon la demande via Juste-à-temps", correct: true },
-            { text: "En augmentant les stocks pour anticiper", correct: false },
-            { text: "En accélérant la production pour tout écouler", correct: false },
-            { text: "En ignorant la surproduction", correct: false }
-        ],
-        justification: "Juste-à-temps évite la surproduction.",
-        reference: "Lean Thinking, Page 30"
-    },
-    {
-        section: "Lean",
-        question: "Qu'est-ce que le flux tiré dans Lean ?",
-        options: [
-            { text: "Produire uniquement sur demande du client", correct: true },
-            { text: "Pousser la production pour remplir les stocks", correct: false },
-            { text: "Planifier la production à l'avance", correct: false },
-            { text: "Augmenter les ressources pour plus de volume", correct: false }
-        ],
-        justification: "Le flux tiré répond à la demande réelle.",
-        reference: "Lean Thinking, Page 240"
-    },
-    {
-        section: "Lean",
-        question: "Comment mesurer l'efficacité dans Lean ?",
-        options: [
-            { text: "En évaluant la valeur ajoutée pour le client", correct: true },
-            { text: "En comptant le nombre total de produits", correct: false },
-            { text: "En mesurant le temps total de production", correct: false },
-            { text: "En calculant les coûts totaux engagés", correct: false }
-        ],
-        justification: "Lean mesure l'efficacité par la valeur client.",
-        reference: "Lean Thinking, Page 15"
     },
     {
         section: "Cycle en V",
@@ -1872,7 +1793,7 @@
     },
     {
         section: "Cycle en V",
-        question: "Quel est l'avantage des tests précoces dans le Cycle en V ?",
+        question: "Quel est l’avantage des tests précoces dans le Cycle en V ?",
         options: [
             { text: "Détecter les défauts dès les premières phases", correct: true },
             { text: "Réduire le temps total de développement", correct: false },
@@ -1881,18 +1802,6 @@
         ],
         justification: "Les tests précoces identifient les problèmes tôt.",
         reference: "Guide du Cycle en V, Page 27"
-    },
-    {
-        section: "Cycle en V",
-        question: "Comment le Cycle en V gère-t-il les changements tardifs ?",
-        options: [
-            { text: "En remontant pour mettre à jour spécifications et tests", correct: true },
-            { text: "En acceptant sans modifier les documents", correct: false },
-            { text: "En les reportant à un nouveau projet", correct: false },
-            { text: "En les ignorant pour respecter le plan", correct: false }
-        ],
-        justification: "Les changements tardifs nécessitent une mise à jour complète.",
-        reference: "Guide du Cycle en V, Page 75"
     },
     {
         section: "Cycle en V",
@@ -1912,1464 +1821,268 @@
         options: [
             { text: "En planifiant des tests à chaque niveau", correct: true },
             { text: "En testant uniquement à la fin du cycle", correct: false },
-            { text: "En déléguant la qualité à l'équipe", correct: false },
+            { text: "En déléguant la qualité à l’équipe", correct: false },
             { text: "En ignorant la qualité pour avancer", correct: false }
         ],
         justification: "La qualité est intégrée via des tests à chaque phase.",
         reference: "Guide du Cycle en V, Page 110"
     },
+    // Questions Lean
     {
-        section: "3P",
-        question: "Comment le 3P assure-t-il la durabilité des processus ?",
+        section: "Lean",
+        question: "Quel est le principe fondamental du Lean ?",
         options: [
-            { text: "En intégrant la durabilité dès la conception", correct: true },
-            { text: "En augmentant les coûts pour plus de robustesse", correct: false },
-            { text: "En ignorant les aspects environnementaux", correct: false },
-            { text: "En réduisant les tests pour économiser", correct: false }
+            { text: "Éliminer systématiquement les gaspillages dans les processus", correct: true },
+            { text: "Maximiser les profits en augmentant la production", correct: false },
+            { text: "Réduire les coûts en minimisant les ressources utilisées", correct: false },
+            { text: "Augmenter la vitesse de production pour les clients", correct: false }
         ],
-        justification: "3P conçoit des processus durables dès le départ.",
-        reference: "Guide 3P, Page 90"
+        justification: "Le Lean se concentre sur l'élimination des gaspillages (muda).",
+        reference: "Guide Lean Management, Page 15",
+        keyword: "(muda)"
     },
     {
-        section: "3P",
-        question: "Pourquoi le 3P utilise-t-il des simulations ?",
+        section: "Lean",
+        question: "Quels sont les types de gaspillages (muda) dans le Lean ?",
         options: [
-            { text: "Tester les concepts avant un investissement", correct: true },
-            { text: "Remplacer la production réelle", correct: false },
-            { text: "Documenter les processus pour l'avenir", correct: false },
-            { text: "Augmenter les coûts pour plus de précision", correct: false }
+            { text: "Surproduction, Attente, Transport, Sur-traitement, Stock, Mouvement, Défauts", correct: true },
+            { text: "Coût excessif, Délais longs, Qualité faible, Communication inefficace", correct: false },
+            { text: "Planification complexe, Organisation rigide, Direction stricte, Contrôle", correct: false },
+            { text: "Budget élevé, Ressources limitées, Temps perdu, Scope réduit", correct: false }
         ],
-        justification: "Les simulations valident les idées à faible coût.",
-        reference: "Guide 3P, Page 100"
+        justification: "Le Lean identifie 7 gaspillages principaux à éliminer.",
+        reference: "Guide Lean Management, Page 18"
     },
     {
-        section: "3P",
-        question: "Comment le 3P gère-t-il les contraintes budgétaires ?",
+        section: "Lean",
+        question: "Qu'est-ce que le Kaizen dans le Lean ?",
         options: [
-            { text: "En optimisant les coûts dès la phase de conception", correct: true },
-            { text: "En augmentant le budget pour plus de qualité", correct: false },
-            { text: "En réduisant la qualité pour économiser", correct: false },
-            { text: "En ignorant les contraintes financières", correct: false }
+            { text: "Une méthode pour améliorer continuellement les processus", correct: true },
+            { text: "Un outil pour planifier efficacement les ressources", correct: false },
+            { text: "Un système pour contrôler la qualité des produits", correct: false },
+            { text: "Une technique pour gérer les stocks de manière optimale", correct: false }
         ],
-        justification: "3P optimise les coûts dès la conception.",
-        reference: "Guide 3P, Page 95"
+        justification: "Kaizen signifie amélioration continue dans le Lean.",
+        reference: "Guide Lean Management, Page 25",
+        keyword: "(Kaizen)"
     },
     {
-        section: "3P",
-        question: "Quel est le rôle de la collaboration dans 3P ?",
+        section: "Lean",
+        question: "Qu'est-ce que le 'Juste-à-temps' dans le Lean ?",
         options: [
-            { text: "Impliquer toutes les parties pour innover", correct: true },
-            { text: "Limiter la collaboration pour plus de contrôle", correct: false },
-            { text: "Déléguer uniquement aux experts techniques", correct: false },
-            { text: "Ignorer les équipes pour plus de rapidité", correct: false }
+            { text: "Produire ce qui est requis au moment précis nécessaire", correct: true },
+            { text: "Livrer rapidement pour répondre aux attentes des clients", correct: false },
+            { text: "Maintenir un stock suffisant pour éviter les ruptures", correct: false },
+            { text: "Travailler plus vite pour réduire les délais globaux", correct: false }
         ],
-        justification: "La collaboration favorise l'innovation en 3P.",
-        reference: "Guide 3P, Page 60"
+        justification: "Juste-à-temps produit uniquement ce qui est nécessaire, quand nécessaire.",
+        reference: "Guide Lean Management, Page 30",
+        keyword: "(Just-In-Time)"
     },
     {
-        section: "3P",
-        question: "Comment le 3P gère-t-il les risques ?",
+        section: "Lean",
+        question: "Que signifie 'Poka-Yoke' dans le Lean ?",
         options: [
-            { text: "En testant les solutions via des prototypes", correct: true },
-            { text: "En attendant les problèmes en production", correct: false },
+            { text: "Un dispositif empêchant les erreurs dans les processus", correct: true },
+            { text: "Un système automatisé pour accélérer la production", correct: false },
+            { text: "Une méthode pour maintenir un flux continu", correct: false },
+            { text: "Une approche pour améliorer les compétences des équipes", correct: false }
+        ],
+        justification: "Poka-Yoke signifie anti-erreur dans le Lean.",
+        reference: "Lean Manufacturing Tools, Page 120",
+        keyword: "(Poka-Yoke)"
+    },
+    {
+        section: "Lean",
+        question: "Qu'est-ce que le 'Gemba' dans le Lean ?",
+        options: [
+            { text: "Le lieu réel où la valeur est créée pour le client", correct: true },
+            { text: "Une réunion d'équipe pour discuter des améliorations", correct: false },
+            { text: "Un document qualité pour suivre les performances", correct: false },
+            { text: "Un outil d'analyse pour identifier les gaspillages", correct: false }
+        ],
+        justification: "Gemba est le terrain où la valeur est produite.",
+        reference: "Guide Lean Management, Page 40",
+        keyword: "(Gemba)"
+    },
+    {
+        section: "Lean",
+        question: "Quel est le rôle du 'Value Stream Mapping' dans le Lean ?",
+        options: [
+            { text: "Cartographier le flux pour identifier les gaspillages", correct: true },
+            { text: "Calculer les coûts totaux de la production", correct: false },
+            { text: "Gérer les stocks pour optimiser les ressources", correct: false },
+            { text: "Former les équipes sur les meilleures pratiques", correct: false }
+        ],
+        justification: "Le Value Stream Mapping visualise le flux pour éliminer les gaspillages.",
+        reference: "Guide Lean Management, Page 45",
+        keyword: "(Value Stream Mapping)"
+    },
+    {
+        section: "Lean",
+        question: "Quel est le principe du Jidoka dans le Lean ?",
+        options: [
+            { text: "Automatiser avec intervention humaine pour la qualité", correct: true },
+            { text: "Produire rapidement pour répondre aux demandes", correct: false },
+            { text: "Réduire les coûts en minimisant les ressources", correct: false },
+            { text: "Augmenter la production via des machines autonomes", correct: false }
+        ],
+        justification: "Jidoka combine automatisation et contrôle humain.",
+        reference: "Lean Thinking, Womack & Jones, Page 95",
+        keyword: "(Jidoka)"
+    },
+    {
+        section: "Lean",
+        question: "Que signifie 'Muda' dans le Lean ?",
+        options: [
+            { text: "Toute activité consommant des ressources sans valeur", correct: true },
+            { text: "Une mesure de l'efficacité des processus lean", correct: false },
+            { text: "Un indicateur de la qualité des produits finis", correct: false },
+            { text: "Une étape clé dans la production optimisée", correct: false }
+        ],
+        justification: "Muda désigne le gaspillage à éliminer dans le Lean.",
+        reference: "Lean Thinking, Womack & Jones, Page 75",
+        keyword: "(Muda)"
+    },
+    {
+        section: "Lean",
+        question: "Comment appliquer le principe de 'Standardisation' dans Lean ?",
+        options: [
+            { text: "Documenter les meilleures pratiques et les améliorer", correct: true },
+            { text: "Imposer des règles fixes sans ajustements possibles", correct: false },
+            { text: "Permettre à chacun de travailler à sa manière", correct: false },
+            { text: "Adopter les standards d'autres organisations", correct: false }
+        ],
+        justification: "La standardisation documente et améliore les pratiques.",
+        reference: "Lean Thinking, Page 170",
+        keyword: "(Standardisation)"
+    },
+    {
+        section: "Lean",
+        question: "Comment mettre en place le 'Visual Management' dans Lean ?",
+        options: [
+            { text: "Utiliser des tableaux visuels pour montrer le progrès", correct: true },
+            { text: "Produire des rapports écrits détaillés", correct: false },
+            { text: "Organiser des réunions sans outils visuels", correct: false },
+            { text: "Éviter tout management visuel pour plus de flexibilité", correct: false }
+        ],
+        justification: "Le Visual Management rend les progrès visibles à tous.",
+        reference: "Lean Thinking, Page 180",
+        keyword: "(Visual Management)"
+    },
+    {
+        section: "Lean",
+        question: "Qu'est-ce que le principe 'Heijunka' dans Lean ?",
+        options: [
+            { text: "Niveler la production pour un flux constant", correct: true },
+            { text: "Maximiser la production pour répondre à la demande", correct: false },
+            { text: "Éliminer les défauts dans les processus", correct: false },
+            { text: "Former les équipes pour plus d'efficacité", correct: false }
+        ],
+        justification: "Heijunka nivelle la production pour réduire les variations.",
+        reference: "Lean Thinking, Page 190",
+        keyword: "(Heijunka)"
+    },
+    {
+        section: "Lean",
+        question: "Comment Lean gère-t-il les goulets d'étranglement ?",
+        options: [
+            { text: "En optimisant le flux pour réduire les blocages", correct: true },
             { text: "En augmentant les ressources pour compenser", correct: false },
-            { text: "En ignorant les risques pour avancer", correct: false }
+            { text: "En ignorant les goulots pour avancer", correct: false },
+            { text: "En stockant plus pour éviter les retards", correct: false }
         ],
-        justification: "Les prototypes réduisent les risques en 3P.",
-        reference: "Guide 3P, Page 18"
+        justification: "Lean optimise le flux pour éliminer les goulets.",
+        reference: "Lean Thinking, Page 200"
     },
     {
-        section: "3P",
-        question: "Quel est l'avantage des cycles rapides en 3P ?",
+        section: "Lean",
+        question: "Qu'est-ce que le takt time dans Lean ?",
         options: [
-            { text: "Valider rapidement les idées pour économiser", correct: true },
-            { text: "Augmenter la durée pour plus de précision", correct: false },
-            { text: "Réduire la qualité pour aller plus vite", correct: false },
-            { text: "Complexifier les processus", correct: false }
+            { text: "Le rythme pour répondre à la demande client", correct: true },
+            { text: "Le temps total alloué à la production", correct: false },
+            { text: "Le temps d'attente entre deux tâches", correct: false },
+            { text: "Le temps de pause des opérateurs", correct: false }
         ],
-        justification: "Les cycles rapides permettent une validation efficace.",
-        reference: "Guide 3P, Page 60"
+        justification: "Takt time aligne la production sur la demande.",
+        reference: "Lean Thinking, Page 210",
+        keyword: "(Takt Time)"
     },
     {
-        section: "3P",
-        question: "Comment le 3P intègre-t-il la sécurité ?",
+        section: "Lean",
+        question: "Qu'est-ce que le Kanban dans le Lean ?",
         options: [
-            { text: "En concevant des processus sécurisés dès le départ", correct: true },
-            { text: "En ajustant la sécurité après les incidents", correct: false },
-            { text: "En ignorant la sécurité pour réduire les coûts", correct: false },
-            { text: "En déléguant la sécurité aux opérateurs", correct: false }
+            { text: "Un système visuel pour gérer le flux de travail", correct: true },
+            { text: "Un outil pour planifier les ressources humaines", correct: false },
+            { text: "Un test pour évaluer la qualité", correct: false },
+            { text: "Un rapport sur les performances", correct: false }
         ],
-        justification: "La sécurité est intégrée dès la conception en 3P.",
-        reference: "Guide 3P, Page 85"
+        justification: "Kanban visualise et limite le travail en cours.",
+        reference: "Lean Thinking, Page 220",
+        keyword: "(Kanban)"
     },
     {
-        section: "3P",
-        question: "Quel est le rôle des retours dans 3P ?",
+        section: "Lean",
+        question: "Comment Lean favorise-t-il la flexibilité ?",
         options: [
-            { text: "Ajuster les prototypes pour améliorer les résultats", correct: true },
-            { text: "Documenter les échecs pour référence future", correct: false },
-            { text: "Ignorer les retours pour rester focalisé", correct: false },
-            { text: "Ralentir le processus pour tout analyser", correct: false }
+            { text: "En réduisant les gaspillages pour s'adapter rapidement", correct: true },
+            { text: "En augmentant les stocks pour plus de marge", correct: false },
+            { text: "En fixant des processus rigides", correct: false },
+            { text: "En ignorant les changements demandés", correct: false }
         ],
-        justification: "Les retours affinent les prototypes en 3P.",
-        reference: "Guide 3P, Page 18"
+        justification: "Lean élimine les gaspillages pour plus de flexibilité.",
+        reference: "Lean Thinking, Page 15"
     },
-        {
-            section: "Scrum",
-            question: "Quel est le rôle principal du Scrum Master ?",
-            options: [
-                { text: "Coordonner les tâches de l'équipe et définir les objectifs du produit", correct: false },
-                { text: "Soutenir l'équipe dans l'application de Scrum et éliminer les obstacles", correct: true },
-                { text: "Assurer la facilitation des réunions Scrum et gérer les priorités", correct: false },
-                { text: "Superviser la conception technique et faciliter les processus agiles", correct: false }
-            ],
-            justification: "Le Scrum Master aide l'équipe à adopter Scrum, facilite les événements et élimine les obstacles.",
-            reference: "Guide Scrum 2020, Page 67"
-        },
-        {
-            section: "Scrum",
-            question: "Qu'est-ce qu'un Sprint dans Scrum ?",
-            options: [
-                { text: "Un cycle de conception technique et d'évaluation des risques", correct: false },
-                { text: "Une période pour planifier les tâches et organiser les réunions", correct: false },
-                { text: "Une phase de revue des processus et d'ajustement des priorités", correct: false },
-                { text: "Un intervalle fixe pour développer un incrément utilisable", correct: true }
-            ],
-            justification: "Un Sprint est une période fixe pour créer un incrément potentiellement livrable.",
-            reference: "Guide Scrum 2020, Page 68"
-        },
-        {
-            section: "Scrum",
-            question: "Quel artefact représente la liste priorisée des fonctionnalités ?",
-            options: [
-                { text: "Un graphique illustrant l'avancement des travaux réalisés", correct: false },
-                { text: "Un plan détaillé des tâches à exécuter pendant le Sprint", correct: false },
-                { text: "Une liste ordonnée des éléments nécessaires au produit final", correct: true },
-                { text: "Un objectif clair définissant les attentes du Sprint actuel", correct: false }
-            ],
-            justification: "Le Product Backlog est la liste priorisée des exigences du produit.",
-            reference: "Guide Scrum 2020, Page 71"
-        },
-        {
-            section: "Scrum",
-            question: "Que fait l'équipe lors du Daily Scrum ?",
-            options: [
-                { text: "Évalue la qualité des livrables produits pendant le Sprint", correct: false },
-                { text: "Coordonne les activités quotidiennes et signale les blocages", correct: true },
-                { text: "Présente les résultats partiels aux parties prenantes externes", correct: false },
-                { text: "Planifie les prochaines étapes du Sprint avec le Product Owner", correct: false }
-            ],
-            justification: "Le Daily Scrum synchronise les activités et identifie les obstacles en 15 minutes.",
-            reference: "Guide Scrum 2020, Page 69"
-        },
-        {
-            section: "Scrum",
-            question: "Quel est le rôle du Product Owner ?",
-            options: [
-                { text: "Faciliter les réunions quotidiennes et résoudre les conflits", correct: false },
-                { text: "Optimiser la valeur du produit via la gestion du Backlog", correct: true },
-                { text: "Coordonner les efforts de l'équipe et ajuster les processus", correct: false },
-                { text: "Superviser le développement technique et valider les livrables", correct: false }
-            ],
-            justification: "Le Product Owner maximise la valeur en gérant le Product Backlog.",
-            reference: "Guide Scrum 2020, Page 68"
-        },
-        {
-            section: "Scrum",
-            question: "Quelle est la durée typique d'un Sprint ?",
-            options: [
-                { text: "Un cycle court d'une journée pour des ajustements rapides", correct: false },
-                { text: "Une période variable selon les besoins du projet", correct: false },
-                { text: "Un intervalle fixe entre deux et quatre semaines", correct: true },
-                { text: "Une phase longue de six mois pour des projets complexes", correct: false }
-            ],
-            justification: "Les Sprints durent généralement de 2 à 4 semaines et restent fixes.",
-            reference: "Guide Scrum 2020, Page 70"
-        },
-        {
-            section: "Scrum",
-            question: "Quel événement permet d'améliorer les processus ?",
-            options: [
-                { text: "Un moment pour analyser et optimiser les méthodes de travail", correct: true },
-                { text: "Une session pour présenter l'incrément aux parties prenantes", correct: false },
-                { text: "Un point quotidien pour coordonner les efforts de l'équipe", correct: false },
-                { text: "Une réunion pour planifier les tâches du prochain Sprint", correct: false }
-            ],
-            justification: "La Sprint Retrospective vise à améliorer les processus pour le prochain Sprint.",
-            reference: "Guide Scrum 2020, Page 71"
-        },
-        {
-            section: "Scrum",
-            question: "Quel indicateur montre l'avancement du travail dans un sprint ?",
-            options: [
-                { text: "Un tableau mesurant les coûts et les performances actuelles", correct: false },
-                { text: "Un graphique montrant le travail restant au fil du temps", correct: true },
-                { text: "Une matrice évaluant les risques potentiels du projet", correct: false },
-                { text: "Un diagramme détaillant les tâches prévues et réalisées", correct: false }
-            ],
-            justification: "Le Burndown Chart montre l'avancement en traçant le travail restant.",
-            reference: "Guide Scrum 2020, Page 73"
-        },
-        {
-            section: "Scrum",
-            question: "Qu'est-ce que l'incrément dans Scrum ?",
-            options: [
-                { text: "Un rapport détaillé des activités réalisées par l'équipe", correct: false },
-                { text: "Un produit utilisable livré à la fin de chaque Sprint", correct: true },
-                { text: "Un ensemble de tâches planifiées pour le Sprint en cours", correct: false },
-                { text: "Un plan stratégique pour atteindre les objectifs du produit", correct: false }
-            ],
-            justification: "L'incrément est le produit fonctionnel livré, répondant à la Definition of Done.",
-            reference: "Guide Scrum 2020, Page 71"
-        },
-        {
-            section: "Scrum",
-            question: "Que peut-on ajuster pendant un sprint ?",
-            options: [
-                { text: "Les tâches du Sprint Backlog selon les apprentissages", correct: true },
-                { text: "La durée totale du Sprint en fonction des imprévus", correct: false },
-                { text: "Les rôles des membres de l'équipe pour mieux collaborer", correct: false },
-                { text: "Les responsabilités du Product Owner pour plus d'efficacité", correct: false }
-            ],
-            justification: "Le Sprint Backlog peut être ajusté sans changer l'objectif du Sprint.",
-            reference: "Guide Scrum 2020, Page 72"
-        },
-        {
-            section: "Scrum",
-            question: "Quel est l'objectif principal du Sprint Planning ?",
-            options: [
-                { text: "Évaluer les performances de l'équipe sur le Sprint passé", correct: false },
-                { text: "Définir un objectif clair et planifier les tâches associées", correct: true },
-                { text: "Résoudre les conflits internes avant de commencer le Sprint", correct: false },
-                { text: "Présenter l'incrément final aux parties prenantes externes", correct: false }
-            ],
-            justification: "Le Sprint Planning définit le Sprint Goal et planifie le travail.",
-            reference: "Guide Scrum 2020, Page 69"
-        },
-        {
-            section: "Scrum",
-            question: "Qui participe au Daily Scrum ?",
-            options: [
-                { text: "Le Scrum Master et le Product Owner pour diriger l'équipe", correct: false },
-                { text: "Uniquement le Scrum Master pour identifier les obstacles", correct: false },
-                { text: "Les développeurs pour coordonner leurs efforts quotidiens", correct: true },
-                { text: "Toutes les parties prenantes pour suivre l'avancement", correct: false }
-            ],
-            justification: "Le Daily Scrum est mené par les développeurs; les autres peuvent assister.",
-            reference: "Guide Scrum 2020, Page 69"
-        },
-        {
-            section: "Scrum",
-            question: "Quel principe Scrum favorise l'adaptation ?",
-            options: [
-                { text: "Une inspection régulière associée à des ajustements flexibles", correct: true },
-                { text: "Une documentation exhaustive pour guider les changements", correct: false },
-                { text: "Un contrôle strict des processus pour éviter les dérives", correct: false },
-                { text: "Une planification rigide pour garantir la stabilité du projet", correct: false }
-            ],
-            justification: "Inspection et adaptation sont des piliers permettant à Scrum de s'ajuster.",
-            reference: "Guide Scrum 2020, Page 67"
-        },
-        {
-            section: "Scrum",
-            question: "Quel est le rôle des développeurs dans Scrum ?",
-            options: [
-                { text: "Définir les priorités du produit avec le Product Owner", correct: false },
-                { text: "Planifier les réunions et éliminer les obstacles externes", correct: false },
-                { text: "Produire un incrément fonctionnel à chaque Sprint", correct: true },
-                { text: "Gérer le budget et les ressources pour le projet", correct: false }
-            ],
-            justification: "Les développeurs créent l'incrément en s'auto-organisant.",
-            reference: "Guide Scrum 2020, Page 70"
-        },
-        {
-            section: "Scrum",
-            question: "Que mesure le respect du Sprint Goal ?",
-            options: [
-                { text: "Le respect du budget alloué pour le développement", correct: false },
-                { text: "La réalisation cohérente de l'objectif fixé pour le Sprint", correct: true },
-                { text: "Le niveau de satisfaction des clients à la fin du Sprint", correct: false },
-                { text: "La durée effective du Sprint par rapport à sa planification", correct: false }
-            ],
-            justification: "Le Sprint Goal mesure si l'objectif du Sprint a été atteint.",
-            reference: "Guide Scrum 2020, Page 73"
-        },
-        {
-            section: "Scrum",
-            question: "Que contient un Sprint Backlog ?",
-            options: [
-                { text: "Un inventaire des bugs à corriger durant le projet", correct: false },
-                { text: "Les tâches sélectionnées et le plan pour les accomplir", correct: true },
-                { text: "Les demandes prioritaires des clients pour le Sprint", correct: false },
-                { text: "Une liste complète des fonctionnalités du produit final", correct: false }
-            ],
-            justification: "Le Sprint Backlog inclut les items choisis et leur plan d'exécution.",
-            reference: "Guide Scrum, Page 45"
-        },
-        {
-            section: "Scrum",
-            question: "Quelle est la durée maximale recommandée pour le Daily Scrum ?",
-            options: [
-                { text: "Un échange de 15 minutes pour rester focalisé et efficace", correct: true },
-                { text: "Une session d'une heure pour analyser les progrès", correct: false },
-                { text: "Un point de 45 minutes pour planifier la journée", correct: false },
-                { text: "Une réunion de 30 minutes pour couvrir tous les détails", correct: false }
-            ],
-            justification: "Le Daily Scrum est limité à 15 minutes pour rester efficace.",
-            reference: "Guide Scrum, Page 42"
-        },
-        {
-            section: "Scrum",
-            question: "Comment gérer les imprévus dans un Sprint ?",
-            options: [
-                { text: "Ignorer les imprévus jusqu'à la prochaine planification", correct: false },
-                { text: "Ajuster le Sprint Backlog avec le Product Owner", correct: true },
-                { text: "Prolonger la durée du Sprint pour tout intégrer", correct: false },
-                { text: "Ajouter des ressources pour accélérer les tâches", correct: false }
-            ],
-            justification: "Les imprévus sont gérés en ajustant le Sprint Backlog.",
-            reference: "Guide Scrum, Page 60"
-        },
-        {
-            section: "Scrum",
-            question: "Comment gérer les dépendances entre équipes Scrum ?",
-            options: [
-                { text: "Travailler indépendamment sans coordination", correct: false },
-                { text: "Coordonner via Scrum of Scrums et des réunions", correct: true },
-                { text: "Ignorer les dépendances pour rester focalisé", correct: false },
-                { text: "Fusionner toutes les équipes en une seule unité", correct: false }
-            ],
-            justification: "Scrum of Scrums gère les dépendances entre équipes.",
-            reference: "Guide Scrum, Page 65"
-        },
-        {
-            section: "Scrum",
-            question: "Quel est le but du Sprint Planning ?",
-            options: [
-                { text: "Définir la vision stratégique du produit", correct: false },
-                { text: "Planifier les tâches à réaliser durant le Sprint", correct: true },
-                { text: "Analyser les performances individuelles", correct: false },
-                { text: "Évaluer les résultats du Sprint précédent", correct: false }
-            ],
-            justification: "Le Sprint Planning planifie le travail du Sprint.",
-            reference: "Guide Scrum, Page 70"
-        },
-        {
-            section: "Scrum",
-            question: "Qu'est-ce qu'un Sprint Goal ?",
-            options: [
-                { text: "Une échéance fixe pour livrer l'incrément", correct: false },
-                { text: "Une liste détaillée des tâches à accomplir", correct: false },
-                { text: "Un objectif unifié guidant le travail du Sprint", correct: true },
-                { text: "Un indicateur mesurant la productivité", correct: false }
-            ],
-            justification: "Le Sprint Goal donne une direction cohérente au Sprint.",
-            reference: "Guide Scrum, Page 75"
-        },
-        {
-            section: "Scrum",
-            question: "Comment gérer un Product Backlog avec des priorités changeantes ?",
-            options: [
-                { text: "Ignorer les changements pour maintenir le plan initial", correct: false },
-                { text: "Laisser l'équipe décider des priorités indépendamment", correct: false },
-                { text: "Réévaluer régulièrement avec le Product Owner et les parties prenantes", correct: true },
-                { text: "Fixer les priorités initiales sans ajustements ultérieurs", correct: false }
-            ],
-            justification: "Le Product Backlog est réévalué régulièrement pour refléter les priorités.",
-            reference: "Guide Scrum 2020, Page 73"
-        },
-        {
-            section: "Scrum",
-            question: "Quel est l’objectif de la Sprint Review ?",
-            options: [
-                { text: "Corriger immédiatement les bugs identifiés", correct: false },
-                { text: "Évaluer les performances individuelles de l’équipe", correct: false },
-                { text: "Présenter l’incrément et recueillir les retours", correct: true },
-                { text: "Planifier les tâches pour le prochain Sprint", correct: false }
-            ],
-            justification: "La Sprint Review montre l’incrément et ajuste le Backlog.",
-            reference: "Guide Scrum 2020, Page 70"
-        },
-        {
-            section: "Scrum",
-            question: "Que faire si un Sprint Goal devient obsolète ?",
-            options: [
-                { text: "Continuer le Sprint sans ajuster l’objectif", correct: false },
-                { text: "Arrêter le Sprint après consultation du Product Owner", correct: true },
-                { text: "Prolonger le Sprint pour atteindre l’objectif", correct: false },
-                { text: "Ignorer l’objectif et ajouter de nouvelles tâches", correct: false }
-            ],
-            justification: "Un Sprint obsolète peut être arrêté pour replanifier.",
-            reference: "Guide Scrum 2020, Page 68"
-        },
-        {
-            section: "Scrum",
-            question: "Comment améliorer la transparence dans Scrum ?",
-            options: [
-                { text: "Réduire les réunions pour simplifier la communication", correct: false },
-                { text: "Maintenir des artefacts clairs et accessibles à tous", correct: true },
-                { text: "Déléguer la communication au Scrum Master uniquement", correct: false },
-                { text: "Limiter l’accès au Product Backlog au Product Owner", correct: false }
-            ],
-            justification: "La transparence repose sur des artefacts ouverts et clairs.",
-            reference: "Guide Scrum 2020, Page 67"
-        },
-        {
-            section: "Scrum",
-            question: "Quel est le rôle des parties prenantes dans la Sprint Review ?",
-            options: [
-                { text: "Planifier les tâches du prochain Sprint", correct: false },
-                { text: "Corriger les bugs identifiés pendant la démonstration", correct: false },
-                { text: "Diriger la réunion pour valider l’incrément", correct: false },
-                { text: "Fournir des retours pour ajuster le Product Backlog", correct: true }
-            ],
-            justification: "Les parties prenantes donnent des retours lors de la Review.",
-            reference: "Guide Scrum 2020, Page 70"
-        },
-        {
-            section: "Scrum",
-            question: "Comment estimer l’effort dans Scrum ?",
-            options: [
-                { text: "Compter les heures de travail prévues par tâche", correct: false },
-                { text: "Évaluer en fonction des délais imposés", correct: false },
-                { text: "Basé sur l’expérience individuelle des développeurs", correct: false },
-                { text: "Utiliser des points d’histoire lors du planning poker", correct: true }
-            ],
-            justification: "Le planning poker utilise des points d’histoire pour estimer.",
-            reference: "Guide Scrum 2020, Page 74"
-        },
-        {
-            section: "Scrum",
-            question: "Pourquoi limiter la taille des équipes Scrum ?",
-            options: [
-                { text: "Réduire les coûts en limitant les ressources", correct: false },
-                { text: "Accélérer les livraisons avec moins de tâches", correct: false },
-                { text: "Faciliter la communication et l’auto-organisation", correct: true },
-                { text: "Simplifier la gestion des réunions quotidiennes", correct: false }
-            ],
-            justification: "Les petites équipes favorisent la collaboration et l’efficacité.",
-            reference: "Guide Scrum 2020, Page 68"
-        },
-        {
-            section: "Scrum",
-            question: "Que faire si l’équipe manque de compétences spécifiques ?",
-            options: [
-                { text: "Ignorer la lacune pour respecter les délais", correct: false },
-                { text: "Prolonger le Sprint pour combler les lacunes", correct: false },
-                { text: "Former l’équipe ou intégrer un expert temporairement", correct: true },
-                { text: "Déléguer la tâche au Product Owner", correct: false }
-            ],
-            justification: "L’équipe peut se former ou intégrer une expertise.",
-            reference: "Guide Scrum 2020, Page 69"
-        },
-        {
-            section: "Scrum",
-            question: "Quel est l’impact d’un Daily Scrum mal géré ?",
-            options: [
-                { text: "Réduction du temps consacré aux réunions", correct: false },
-                { text: "Perte de synchronisation et accumulation d’obstacles", correct: true },
-                { text: "Amélioration de l’autonomie des développeurs", correct: false },
-                { text: "Augmentation de la vélocité de l’équipe", correct: false }
-            ],
-            justification: "Un Daily Scrum inefficace nuit à la coordination.",
-            reference: "Guide Scrum 2020, Page 69"
-        },
-        {
-            section: "Scrum",
-            question: "Comment gérer des attentes irréalistes des parties prenantes ?",
-            options: [
-                { text: "Ignorer les attentes pour se concentrer sur le Sprint", correct: false },
-                { text: "Prolonger le Sprint pour répondre à toutes les attentes", correct: false },
-                { text: "Négocier avec le Product Owner pour clarifier les priorités", correct: true },
-                { text: "Accepter toutes les demandes pour éviter les conflits", correct: false }
-            ],
-            justification: "La négociation via le Product Owner aligne les attentes.",
-            reference: "Guide Scrum 2020, Page 71"
-        },
-        {
-            section: "Scrum",
-            question: "Comment Scrum gère-t-il les équipes distribuées géographiquement ?",
-            options: [
-                { text: "En supprimant les réunions pour simplifier la coordination", correct: false },
-                { text: "En utilisant des outils collaboratifs et en adaptant les cérémonies", correct: true },
-                { text: "En travaillant indépendamment sans synchronisation", correct: false },
-                { text: "En regroupant toutes les équipes sur un même site physique", correct: false }
-            ],
-            justification: "Scrum adapte les cérémonies avec des outils pour les équipes distribuées.",
-            reference: "Guide Scrum, Page 70"
-        },
-        {
-            section: "Scrum",
-            question: "Quel est l’impact d’un changement d’équipe en plein Sprint ?",
-            options: [
-                { text: "Cela nécessite une redéfinition du Product Backlog", correct: false },
-                { text: "Cela peut affecter la vélocité et la dynamique d’équipe", correct: true },
-                { text: "Cela n’a aucun effet sur la progression du Sprint", correct: false },
-                { text: "Cela prolonge automatiquement la durée du Sprint", correct: false }
-            ],
-            justification: "Un changement d’équipe perturbe la cohésion et la vélocité.",
-            reference: "Guide Scrum, Page 75"
-        },
-        {
-            section: "Scrum",
-            question: "Que faire si le Product Owner est absent temporairement ?",
-            options: [
-                { text: "Laisser le Scrum Master prioriser le Backlog", correct: false },
-                { text: "Ignorer le Product Backlog pour avancer", correct: false },
-                { text: "Déléguer ses responsabilités à un représentant compétent", correct: true },
-                { text: "Suspendre le Sprint jusqu’à son retour", correct: false }
-            ],
-            justification: "Un représentant peut assumer les tâches du Product Owner.",
-            reference: "Guide Scrum, Page 80"
-        },
-        {
-            section: "Scrum",
-            question: "Comment mesurer la vélocité dans Scrum ?",
-            options: [
-                { text: "En comptant le nombre de réunions organisées", correct: false },
-                { text: "En évaluant le nombre de bugs résolus", correct: false },
-                { text: "En calculant le temps total passé sur les tâches", correct: false },
-                { text: "En sommant les points d’effort terminés par Sprint", correct: true }
-            ],
-            justification: "La vélocité est la somme des points d’effort achevés.",
-            reference: "Guide Scrum, Page 85"
-        },
-        {
-            section: "Scrum",
-            question: "Quel est le rôle de la Definition of Done ?",
-            options: [
-                { text: "Évaluer la performance individuelle des développeurs", correct: false },
-                { text: "Définir les critères pour qu’un item soit terminé", correct: true },
-                { text: "Prioriser les éléments du Product Backlog", correct: false },
-                { text: "Planifier les tâches à accomplir dans le Sprint", correct: false }
-            ],
-            justification: "La Definition of Done assure la qualité des incréments.",
-            reference: "Guide Scrum, Page 72"
-        },
-        {
-            section: "Scrum",
-            question: "Comment gérer un Sprint avec trop d’imprévus ?",
-            options: [
-                { text: "Ignorer les imprévus pour respecter l’objectif initial", correct: false },
-                { text: "Négocier avec le Product Owner pour ajuster le scope", correct: true },
-                { text: "Étendre la durée du Sprint pour tout compléter", correct: false },
-                { text: "Ajouter des membres pour accélérer le travail", correct: false }
-            ],
-            justification: "Le scope est ajusté avec le Product Owner en cas d’imprévus.",
-            reference: "Guide Scrum, Page 60"
-        },
-        {
-            section: "Scrum",
-            question: "Quel est le but principal du Scrum of Scrums ?",
-            options: [
-                { text: "Évaluer la performance globale des développeurs", correct: false },
-                { text: "Prioriser le Product Backlog pour tous les projets", correct: false },
-                { text: "Coordonner les efforts entre plusieurs équipes Scrum", correct: true },
-                { text: "Planifier les Sprints pour une seule équipe", correct: false }
-            ],
-            justification: "Scrum of Scrums synchronise les équipes multiples.",
-            reference: "Guide Scrum, Page 65"
-        },
-        {
-            section: "Scrum",
-            question: "Comment gérer un conflit entre Product Owner et équipe ?",
-            options: [
-                { text: "L’équipe ignore les demandes du Product Owner", correct: false },
-                { text: "Le Product Owner impose sa décision finale", correct: false },
-                { text: "Le Scrum Master facilite une résolution collaborative", correct: true },
-                { text: "Le conflit est reporté au prochain Sprint", correct: false }
-            ],
-            justification: "Le Scrum Master aide à résoudre les conflits.",
-            reference: "Guide Scrum, Page 67"
-        },
-        {
-            section: "XP",
-            question: "Quelle est la durée typique des itérations en XP ?",
-            options: [
-                { text: "Une phase d'un jour pour ajuster les priorités", correct: false },
-                { text: "Une période de deux semaines pour livrer des fonctionnalités", correct: true },
-                { text: "Un cycle de six semaines pour intégrer les retours", correct: false },
-                { text: "Une itération d'un mois pour planifier les releases", correct: false }
-            ],
-            justification: "Les itérations en XP durent généralement deux semaines.",
-            reference: "Extreme Programming Explained, Page 74"
-        },
-        {
-            section: "XP",
-            question: "Que signifie le 'Pair Programming' en XP ?",
-            options: [
-                { text: "Travailler en équipe pour planifier les tâches techniques", correct: false },
-                { text: "Coder seul tout en partageant les résultats avec un collègue", correct: false },
-                { text: "Collaborer en binôme pour coder et vérifier la qualité", correct: true },
-                { text: "Superviser le développement en duo pour réduire les erreurs", correct: false }
-            ],
-            justification: "Le Pair Programming implique deux développeurs travaillant ensemble sur le code.",
-            reference: "Extreme Programming Explained, Page 75"
-        },
-        {
-            section: "XP",
-            question: "Quelle pratique XP consiste à écrire les tests avant le code ?",
-            options: [
-                { text: "Une approche où les tests précèdent l'écriture du code", correct: true },
-                { text: "Une méthode pour intégrer fréquemment le code produit", correct: false },
-                { text: "Une technique pour collaborer en binôme sur les tests", correct: false },
-                { text: "Un processus pour analyser les besoins avant de coder", correct: false }
-            ],
-            justification: "Le TDD (Test-Driven Development) écrit les tests avant le code.",
-            reference: "Extreme Programming Explained, Page 76"
-        },
-        {
-            section: "XP",
-            question: "Quelle est une valeur clé de XP ?",
-            options: [
-                { text: "Une approche privilégiant la simplicité dans les solutions", correct: true },
-                { text: "Un focus sur le contrôle strict des processus techniques", correct: false },
-                { text: "Une stratégie visant l'isolation des tâches complexes", correct: false },
-                { text: "Une méthode basée sur un formalisme rigoureux", correct: false }
-            ],
-            justification: "La simplicité est une valeur clé de XP pour éviter la complexité inutile.",
-            reference: "Extreme Programming Explained, Page 77"
-        },
-        {
-            section: "XP",
-            question: "Quel est l'objectif principal de XP ?",
-            options: [
-                { text: "Coordonner les parties prenantes pour un suivi efficace", correct: false },
-                { text: "Livrer fréquemment des versions testées et fonctionnelles", correct: true },
-                { text: "Réduire les coûts en optimisant les ressources humaines", correct: false },
-                { text: "Planifier à long terme pour anticiper les besoins futurs", correct: false }
-            ],
-            justification: "XP vise à livrer des versions fonctionnelles fréquentes et testées.",
-            reference: "Extreme Programming Explained, Page 76"
-        },
-        {
-            section: "XP",
-            question: "Quelle pratique XP détecte rapidement les erreurs ?",
-            options: [
-                { text: "Une réunion quotidienne pour identifier les problèmes", correct: false },
-                { text: "Une intégration fréquente pour tester le code combiné", correct: true },
-                { text: "Une planification collaborative pour organiser les tâches", correct: false },
-                { text: "Une gestion par exception pour signaler les anomalies", correct: false }
-            ],
-            justification: "L'intégration continue détecte les erreurs rapidement en testant souvent.",
-            reference: "Extreme Programming Explained, Page 76"
-        },
-        {
-            section: "XP",
-            question: "Comment XP diffère-t-il de Scrum ?",
-            options: [
-                { text: "Une approche avec moins de pratiques techniques définies", correct: false },
-                { text: "Une focalisation sur des pratiques techniques rigoureuses", correct: true },
-                { text: "Un accent mis sur des réunions fréquentes et structurées", correct: false },
-                { text: "Une absence de collaboration directe avec le client", correct: false }
-            ],
-            justification: "XP se distingue par ses pratiques techniques comme TDD et Pair Programming.",
-            reference: "Extreme Programming Explained, Page 77"
-        },
-        {
-            section: "XP",
-            question: "Quel est le rôle du client sur site en XP ?",
-            options: [
-                { text: "Superviser l'équipe pour garantir le respect des délais", correct: false },
-                { text: "Fournir des retours rapides et clarifier les besoins", correct: true },
-                { text: "Gérer les ressources financières et les priorités", correct: false },
-                { text: "Contribuer au développement technique du produit", correct: false }
-            ],
-            justification: "Le client sur site donne un feedback rapide et des clarifications.",
-            reference: "Extreme Programming Explained, Page 80"
-        },
-        {
-            section: "XP",
-            question: "Quelle est la pratique de conception en XP ?",
-            options: [
-                { text: "Une conception complexe anticipant tous les besoins futurs", correct: false },
-                { text: "Une conception simple adaptée aux exigences actuelles", correct: true },
-                { text: "Une absence totale de conception avant le codage", correct: false },
-                { text: "Une conception figée définie dès le début du projet", correct: false }
-            ],
-            justification: "XP privilégie une conception simple et évolutive via le refactoring.",
-            reference: "Extreme Programming Explained, Page 82"
-        },
-        {
-            section: "XP",
-            question: "Comment XP gère-t-il la documentation ?",
-            options: [
-                { text: "Une documentation détaillée obligatoire pour chaque étape", correct: false },
-                { text: "Un code clair et des tests servant de documentation", correct: true },
-                { text: "Une documentation finale rédigée après le développement", correct: false },
-                { text: "Une absence complète de documentation écrite", correct: false }
-            ],
-            justification: "XP utilise le code et les tests comme documentation principale.",
-            reference: "Extreme Programming Explained, Page 84"
-        },
-        {
-            section: "XP",
-            question: "Quelle est la pratique de planification en XP ?",
-            options: [
-                { text: "Un planning détaillé imposé pour six mois à l'avance", correct: false },
-                { text: "Une planification collaborative basée sur des stories", correct: true },
-                { text: "Un planning dicté par la direction sans consultation", correct: false },
-                { text: "Une absence totale de planification structurée", correct: false }
-            ],
-            justification: "Le Planning Game est une planification collaborative en XP.",
-            reference: "Extreme Programming Explained, Page 85"
-        },
-        {
-            section: "XP",
-            question: "Qu'est-ce que le concept de 'Collective Ownership' dans XP ?",
-            options: [
-                { text: "Le code géré exclusivement par le client sur site", correct: false },
-                { text: "Chaque membre pouvant modifier toute partie du code", correct: true },
-                { text: "Une restriction aux seniors pour les modifications", correct: false },
-                { text: "Un seul développeur responsable de l'ensemble du code", correct: false }
-            ],
-            justification: "Le Collective Ownership permet à tous de modifier le code.",
-            reference: "Extreme Programming Explained, Page 90"
-        },
-        {
-            section: "XP",
-            question: "Quel est le principe du 'Small Releases' dans XP ?",
-            options: [
-                { text: "Produire uniquement des releases majeures chaque trimestre", correct: false },
-                { text: "Livrer de petites versions fonctionnelles très fréquemment", correct: true },
-                { text: "Concentrer les efforts sur une livraison finale unique", correct: false },
-                { text: "Attendre la fin pour livrer une version complète", correct: false }
-            ],
-            justification: "Small Releases livre souvent des versions fonctionnelles.",
-            reference: "Extreme Programming Explained, Page 95"
-        },
-        {
-            section: "XP",
-            question: "Comment XP gère-t-il la documentation technique ?",
-            options: [
-                { text: "Une documentation exhaustive pour chaque modification", correct: false },
-                { text: "Un code clair et des tests comme documentation principale", correct: true },
-                { text: "Aucune documentation pour accélérer le développement", correct: false },
-                { text: "Une documentation externe rédigée après le codage", correct: false }
-            ],
-            justification: "XP privilégie le code et les tests comme documentation.",
-            reference: "Extreme Programming Explained, Page 105"
-        },
-        {
-            section: "XP",
-            question: "Comment XP gère-t-il les changements de priorités ?",
-            options: [
-                { text: "Ignorer les nouvelles priorités jusqu'à la fin", correct: false },
-                { text: "Ajuster via le Planning Game et les itérations", correct: true },
-                { text: "Refuser les changements pour maintenir le plan", correct: false },
-                { text: "Interrompre le développement pour replanifier", correct: false }
-            ],
-            justification: "XP s'adapte aux priorités via le Planning Game.",
-            reference: "Extreme Programming Explained, Page 110"
-        },
-        {
-            section: "XP",
-            question: "Qu'est-ce que le 'Refactoring' dans XP ?",
-            options: [
-                { text: "Corriger les bugs détectés pendant les tests", correct: false },
-                { text: "Améliorer le code sans modifier son comportement", correct: true },
-                { text: "Réécrire entièrement le code pour plus de clarté", correct: false },
-                { text: "Ajouter des fonctionnalités pour répondre aux besoins", correct: false }
-            ],
-            justification: "Le Refactoring améliore la structure du code.",
-            reference: "Extreme Programming Explained, Page 115"
-        },
-        {
-            section: "XP",
-            question: "Quel est le rôle du 'Customer On-Site' dans XP ?",
-            options: [
-                { text: "Contribuer directement au codage du produit", correct: false },
-                { text: "Fournir des retours rapides et des clarifications", correct: true },
-                { text: "Superviser l’équipe pour respecter les délais", correct: false },
-                { text: "Gérer le budget et les ressources du projet", correct: false }
-            ],
-            justification: "Le Customer On-Site offre un feedback constant.",
-            reference: "Extreme Programming Explained, Page 120"
-        },
-        {
-            section: "XP",
-            question: "Comment XP gère-t-il la dette technique accumulée ?",
-            options: [
-                { text: "En reportant les corrections à la fin du projet", correct: false },
-                { text: "En améliorant continuellement le code via refactoring", correct: true },
-                { text: "En ajoutant des ressources pour corriger les problèmes", correct: false },
-                { text: "En ignorant la dette pour livrer plus rapidement", correct: false }
-            ],
-            justification: "Le refactoring continu réduit la dette technique en XP.",
-            reference: "Extreme Programming Explained, Page 125"
-        },
-        {
-            section: "XP",
-            question: "Pourquoi XP insiste-t-il sur les tests automatisés ?",
-            options: [
-                { text: "Pour réduire les coûts des tests manuels", correct: false },
-                { text: "Pour accélérer la livraison sans vérification", correct: false },
-                { text: "Pour assurer la qualité et faciliter les modifications", correct: true },
-                { text: "Pour remplacer toute intervention humaine", correct: false }
-            ],
-            justification: "Les tests automatisés soutiennent le refactoring et la qualité.",
-            reference: "Extreme Programming Explained, Page 130"
-        },
-        {
-            section: "XP",
-            question: "Qu'est-ce que le Continuous Deployment en XP ?",
-            options: [
-                { text: "Déployer automatiquement chaque changement validé", correct: true },
-                { text: "Attendre la fin du projet pour un déploiement", correct: false },
-                { text: "Livrer manuellement à la fin de chaque itération", correct: false },
-                { text: "Déployer mensuellement après revue complète", correct: false }
-            ],
-            justification: "Continuous Deployment automatise les déploiements fréquents.",
-            reference: "Extreme Programming Explained, Page 135"
-        },
-        {
-            section: "XP",
-            question: "Comment XP gère-t-il un client indisponible ?",
-            options: [
-                { text: "En ignorant les besoins client pour avancer", correct: false },
-                { text: "En utilisant un proxy client pour les décisions", correct: true },
-                { text: "En arrêtant le développement jusqu’à son retour", correct: false },
-                { text: "En déléguant au développeur principal", correct: false }
-            ],
-            justification: "Un proxy peut remplacer temporairement le client.",
-            reference: "Extreme Programming Explained, Page 120"
-        },
-        {
-            section: "XP",
-            question: "Quel est l’avantage principal du Pair Programming ?",
-            options: [
-                { text: "Réduire les coûts en limitant les ressources", correct: false },
-                { text: "Améliorer la qualité du code par la revue continue", correct: true },
-                { text: "Simplifier la gestion des tâches techniques", correct: false },
-                { text: "Accélérer le développement par un travail parallèle", correct: false }
-            ],
-            justification: "Pair Programming améliore la qualité par la collaboration.",
-            reference: "Extreme Programming Explained, Page 75"
-        },
-        {
-            section: "XP",
-            question: "Comment XP priorise-t-il les fonctionnalités ?",
-            options: [
-                { text: "En attendant les retours des utilisateurs", correct: false },
-                { text: "En suivant un plan fixe établi au départ", correct: false },
-                { text: "En laissant les développeurs décider seuls", correct: false },
-                { text: "Via le Planning Game avec le client sur site", correct: true }
-            ],
-            justification: "Le Planning Game priorise avec le client.",
-            reference: "Extreme Programming Explained, Page 85"
-        },
-        {
-            section: "XP",
-            question: "Quel est le rôle des stand-up meetings en XP ?",
-            options: [
-                { text: "Évaluer les performances individuelles", correct: false },
-                { text: "Coordonner quotidiennement les efforts de l’équipe", correct: true },
-                { text: "Revoir les tests automatisés existants", correct: false },
-                { text: "Planifier les itérations avec le client sur site", correct: false }
-            ],
-            justification: "Les stand-ups synchronisent l’équipe quotidiennement.",
-            reference: "Extreme Programming Explained, Page 77"
-        },
-        {
-            section: "XP",
-            question: "Comment XP gère-t-il les délais serrés ?",
-            options: [
-                { text: "En prolongeant les itérations pour plus de stabilité", correct: false },
-                { text: "En livrant des versions petites et fréquentes", correct: true },
-                { text: "En réduisant la qualité pour aller plus vite", correct: false },
-                { text: "En ajoutant des développeurs au projet", correct: false }
-            ],
-            justification: "Small Releases permet de respecter les délais.",
-            reference: "Extreme Programming Explained, Page 95"
-        },
-        {
-            section: "XP",
-            question: "Pourquoi XP insiste-t-il sur un rythme soutenable ?",
-            options: [
-                { text: "Réduire les coûts en limitant les heures", correct: false },
-                { text: "Prévenir l’épuisement et maintenir la productivité", correct: true },
-                { text: "Simplifier la gestion des ressources humaines", correct: false },
-                { text: "Accélérer les livraisons à court terme", correct: false }
-            ],
-            justification: "Un rythme soutenable évite le burnout et soutient la performance.",
-            reference: "Extreme Programming Explained, Page 140"
-        },
-        {
-            section: "XP",
-            question: "Comment XP gère-t-il les bugs détectés en production ?",
-            options: [
-                { text: "Ignorer les bugs mineurs pour avancer", correct: false },
-                { text: "Corriger rapidement via des tests et déploiements fréquents", correct: true },
-                { text: "Déléguer les corrections au client sur site", correct: false },
-                { text: "Reporter les corrections à la prochaine itération", correct: false }
-            ],
-            justification: "XP corrige rapidement grâce à l’intégration continue.",
-            reference: "Extreme Programming Explained, Page 135"
-        },
-        {
-            section: "XP",
-            question: "Quel est l’objectif des User Stories en XP ?",
-            options: [
-                { text: "Remplacer la documentation formelle du projet", correct: false },
-                { text: "Décrire les besoins du client de manière concise", correct: true },
-                { text: "Planifier l’ensemble des tâches techniques", correct: false },
-                { text: "Documenter les tests pour chaque fonctionnalité", correct: false }
-            ],
-            justification: "Les User Stories capturent les besoins client simplement.",
-            reference: "Extreme Programming Explained, Page 85"
-        },
-        {
-            section: "XP",
-            question: "Comment XP favorise-t-il la confiance avec le client ?",
-            options: [
-                { text: "En réduisant les interactions pour plus d’efficacité", correct: false },
-                { text: "En livrant fréquemment et en impliquant le client", correct: true },
-                { text: "En fixant des délais stricts sans ajustements", correct: false },
-                { text: "En produisant une documentation détaillée", correct: false }
-            ],
-            justification: "Les livraisons fréquentes et l’implication renforcent la confiance.",
-            reference: "Extreme Programming Explained, Page 80"
-        },
-        {
-            section: "XP",
-            question: "Quel est le rôle du feedback dans XP ?",
-            options: [
-                { text: "Planifier les itérations futures uniquement", correct: false },
-                { text: "Évaluer les performances individuelles des développeurs", correct: false },
-                { text: "Ajuster le développement pour répondre aux besoins", correct: true },
-                { text: "Documenter les erreurs pour référence future", correct: false }
-            ],
-            justification: "Le feedback guide les ajustements rapides en XP.",
-            reference: "Extreme Programming Explained, Page 76"
-        },
-        {
-            section: "XP",
-            question: "Pourquoi XP privilégie-t-il les solutions simples ?",
-            options: [
-                { text: "Réduire la complexité et faciliter les modifications", correct: true },
-                { text: "Éviter toute planification à long terme", correct: false },
-                { text: "Accélérer le développement en ignorant les détails", correct: false },
-                { text: "Minimiser les coûts en limitant les fonctionnalités", correct: false }
-            ],
-            justification: "La simplicité réduit les efforts et les risques.",
-            reference: "Extreme Programming Explained, Page 82"
-        },
-        {
-            section: "XP",
-            question: "Comment XP gère-t-il les conflits d’équipe ?",
-            options: [
-                { text: "Résoudre via une communication ouverte et collaborative", correct: true },
-                { text: "Ignorer les conflits pour rester focalisé", correct: false },
-                { text: "Imposer une décision par le chef d’équipe", correct: false },
-                { text: "Déléguer la résolution au client sur site", correct: false }
-            ],
-            justification: "La communication ouverte résout les conflits en XP.",
-            reference: "Extreme Programming Explained, Page 77"
-        },
-        {
-            section: "XP",
-            question: "Quel est l’impact de l’absence de tests automatisés en XP ?",
-            options: [
-                { text: "Réduction du temps consacré aux tests", correct: false },
-                { text: "Simplification de la gestion du projet", correct: false },
-                { text: "Augmentation des bugs et complexité du refactoring", correct: true },
-                { text: "Amélioration de la vitesse de livraison", correct: false }
-            ],
-            justification: "Sans tests automatisés, la qualité et la maintenance souffrent.",
-            reference: "Extreme Programming Explained, Page 130"
-        },
-        {
-            section: "XP",
-            question: "Comment XP gère-t-il les itérations courtes ?",
-            options: [
-                { text: "En fixant des objectifs à long terme", correct: false },
-                { text: "En planifiant des livraisons fréquentes et incrémentales", correct: true },
-                { text: "En réduisant les tests pour accélérer", correct: false },
-                { text: "En prolongeant les itérations pour plus de stabilité", correct: false }
-            ],
-            justification: "Les itérations courtes favorisent des livraisons rapides.",
-            reference: "Extreme Programming Explained, Page 74"
-        },
-        {
-            section: "XP",
-            question: "Quel est le rôle du coach en XP ?",
-            options: [
-                { text: "Gérer les tâches quotidiennes des développeurs", correct: false },
-                { text: "Prioriser le backlog avec le client", correct: false },
-                { text: "Guider l’équipe dans l’adoption des pratiques XP", correct: true },
-                { text: "Produire la documentation technique", correct: false }
-            ],
-            justification: "Le coach soutient l’équipe dans les pratiques XP.",
-            reference: "Extreme Programming Explained, Page 77"
-        },
-        {
-            section: "PRINCE2",
-            question: "Quel est le principe fondamental de PRINCE2 concernant la justification continue ?",
-            options: [
-                { text: "Maintenir une rentabilité constante tout au long du projet", correct: false },
-                { text: "Planifier rigoureusement pour éviter tout changement", correct: false },
-                { text: "Garantir une justification commerciale viable à chaque étape", correct: true },
-                { text: "Assurer une documentation complète pour chaque décision", correct: false }
-            ],
-            justification: "La justification commerciale continue est essentielle en PRINCE2.",
-            reference: "PRINCE2 Guide, Page 12"
-        },
-        {
-            section: "PRINCE2",
-            question: "Quels sont les 7 thèmes de PRINCE2 ?",
-            options: [
-                { text: "Scope, Temps, Coût, Qualité, Ressources, Communication, Risque", correct: false },
-                { text: "Business Case, Organisation, Qualité, Plans, Risque, Changement, Progression", correct: true },
-                { text: "Initiation, Planification, Exécution, Contrôle, Validation, Livraison, Fin", correct: false },
-                { text: "Coût, Qualité, Risque, Planification, Suivi, Contrôle, Clôture", correct: false }
-            ],
-            justification: "Les 7 thèmes de PRINCE2 guident la gestion du projet.",
-            reference: "PRINCE2 Guide, Page 45"
-        },
-        {
-            section: "PRINCE2",
-            question: "Qu'est-ce qu'une exception dans PRINCE2 ?",
-            options: [
-                { text: "Un changement imprévu dans la portée du projet", correct: false },
-                { text: "Un dépassement des tolérances nécessitant une escalade", correct: true },
-                { text: "Une erreur technique signalée par l'équipe de développement", correct: false },
-                { text: "Un risque identifié affectant les objectifs principaux", correct: false }
-            ],
-            justification: "Une exception survient quand une tolérance est dépassée.",
-            reference: "PRINCE2 Guide, Page 89"
-        },
-        {
-            section: "PRINCE2",
-            question: "Quels sont les 7 principes de PRINCE2 ?",
-            options: [
-                { text: "Initiation, Planification, Exécution, Contrôle, Clôture, Test, Suivi", correct: false },
-                { text: "Coût, Délai, Qualité, Risque, Communication, Ressources, Scope", correct: false },
-                { text: "Justification continue, Leçons, Rôles, Étapes, Exception, Produits, Adaptation", correct: true },
-                { text: "Budget, Équipe, Temps, Documentation, Validation, Livraison, Fin", correct: false }
-            ],
-            justification: "Les 7 principes guident la mise en œuvre de PRINCE2.",
-            reference: "PRINCE2 Guide, Page 20"
-        },
-        {
-            section: "PRINCE2",
-            question: "Qu'est-ce qu'une tolérance dans PRINCE2 ?",
-            options: [
-                { text: "Un retard autorisé sans impact sur le projet", correct: false },
-                { text: "Une marge acceptable pour les écarts dans les objectifs", correct: true },
-                { text: "Un dépassement budgétaire prévu dans le plan", correct: false },
-                { text: "Un ajustement du scope approuvé par l'équipe", correct: false }
-            ],
-            justification: "Les tolérances définissent les limites d'autorité du chef de projet.",
-            reference: "PRINCE2 Guide, Page 85"
-        },
-        {
-            section: "PRINCE2",
-            question: "Quel est le rôle du Comité de Pilotage dans PRINCE2 ?",
-            options: [
-                { text: "Produire les livrables selon les spécifications définies", correct: false },
-                { text: "Superviser stratégiquement et approuver les décisions clés", correct: true },
-                { text: "Gérer quotidiennement les activités de l'équipe projet", correct: false },
-                { text: "Tester les produits pour garantir leur conformité", correct: false }
-            ],
-            justification: "Le Comité de Pilotage (Project Board) prend les décisions stratégiques.",
-            reference: "PRINCE2 Guide, Page 45"
-        },
-        {
-            section: "PRINCE2",
-            question: "Quels sont les processus de PRINCE2 ?",
-            options: [
-                { text: "Planifier, Faire, Vérifier, Agir, Évaluer, Terminer", correct: false },
-                { text: "Élaborer, Diriger, Initialiser, Contrôler, Gérer, Livrer, Clore", correct: true },
-                { text: "Démarrer, Planifier, Exécuter, Contrôler, Valider, Clôturer", correct: false },
-                { text: "Analyser, Concevoir, Développer, Tester, Livrer, Suivre", correct: false }
-            ],
-            justification: "PRINCE2 suit 7 processus structurés pour gérer le projet.",
-            reference: "PRINCE2 Guide, Page 30"
-        },
-        {
-            section: "PRINCE2",
-            question: "Comment PRINCE2 gère-t-il les changements ?",
-            options: [
-                { text: "En refusant systématiquement toute modification demandée", correct: false },
-                { text: "En ignorant les changements pour respecter le plan initial", correct: false },
-                { text: "Via un processus formel d'évaluation et d'approbation", correct: true },
-                { text: "En acceptant tous les changements sans analyse préalable", correct: false }
-            ],
-            justification: "PRINCE2 contrôle les changements avec un processus dédié.",
-            reference: "PRINCE2 Guide, Page 55"
-        },
-        {
-            section: "PRINCE2",
-            question: "Qu'est-ce qu'une séquence de management dans PRINCE2 ?",
-            options: [
-                { text: "Une période définie par le Project Board pour gérer", correct: true },
-                { text: "Une réunion régulière pour coordonner les équipes", correct: false },
-                { text: "Une série de tests pour valider les produits", correct: false },
-                { text: "Une phase technique alignée sur les livrables", correct: false }
-            ],
-            justification: "Une séquence de management est une période définie par le Project Board.",
-            reference: "PRINCE2 Guide, Page 60"
-        },
-        {
-            section: "PRINCE2",
-            question: "Quel est le rôle du Business Case dans PRINCE2 ?",
-            options: [
-                { text: "Décrire techniquement les spécifications des livrables", correct: false },
-                { text: "Répertorier les risques potentiels du projet", correct: false },
-                { text: "Justifier continuellement la viabilité du projet", correct: true },
-                { text: "Planifier les tests pour garantir la qualité finale", correct: false }
-            ],
-            justification: "Le Business Case justifie le projet tout au long de son cycle.",
-            reference: "PRINCE2 Guide, Page 40"
-        },
-        {
-            section: "PRINCE2",
-            question: "Comment PRINCE2 gère-t-il la qualité ?",
-            options: [
-                { text: "En testant uniquement les produits à la fin", correct: false },
-                { text: "Via des revues planifiées et des critères définis", correct: true },
-                { text: "Sans gestion formelle de la qualité", correct: false },
-                { text: "Par un contrôle informel au fil du projet", correct: false }
-            ],
-            justification: "PRINCE2 planifie la qualité avec des revues structurées.",
-            reference: "PRINCE2 Guide, Page 100"
-        },
-        {
-            section: "PRINCE2",
-            question: "Comment PRINCE2 s’adapte-t-il à un environnement agile ?",
-            options: [
-                { text: "En intégrant des livraisons incrémentales et flexibles", correct: true },
-                { text: "En restant rigide pour maintenir le contrôle", correct: false },
-                { text: "En supprimant les processus de gestion", correct: false },
-                { text: "En ignorant les principes agiles", correct: false }
-            ],
-            justification: "PRINCE2 peut adopter des pratiques agiles comme les incréments.",
-            reference: "PRINCE2 Agile Guide, Page 50"
-        },
-        {
-            section: "PRINCE2",
-            question: "Quel est le rôle du Project Assurance dans PRINCE2 ?",
-            options: [
-                { text: "Gérer les tâches quotidiennes de l’équipe", correct: false },
-                { text: "Vérifier l’alignement du projet avec ses objectifs", correct: true },
-                { text: "Planifier les tests pour garantir la qualité", correct: false },
-                { text: "Produire les livrables selon le planning", correct: false }
-            ],
-            justification: "Project Assurance garantit l’alignement avec les objectifs.",
-            reference: "PRINCE2 Guide, Page 120"
-        },
-        {
-            section: "PRINCE2",
-            question: "Qu’est-ce qu’un Product Description dans PRINCE2 ?",
-            options: [
-                { text: "Un rapport sur l’état d’avancement", correct: false },
-                { text: "Une définition détaillée d’un livrable spécifique", correct: true },
-                { text: "Une liste des risques identifiés", correct: false },
-                { text: "Un plan stratégique pour tout le projet", correct: false }
-            ],
-            justification: "Product Description décrit un livrable avec ses critères.",
-            reference: "PRINCE2 Guide, Page 125"
-        },
-        {
-            section: "PRINCE2",
-            question: "Comment PRINCE2 gère-t-il les parties prenantes ?",
-            options: [
-                { text: "En les excluant pour simplifier la gestion", correct: false },
-                { text: "Via une communication structurée et des rôles clairs", correct: true },
-                { text: "En leur déléguant la gestion quotidienne", correct: false },
-                { text: "En ignorant leurs demandes pour rester focalisé", correct: false }
-            ],
-            justification: "PRINCE2 implique les parties prenantes de manière structurée.",
-            reference: "PRINCE2 Guide, Page 45"
-        },
-        {
-            section: "PRINCE2",
-            question: "Quel est l’avantage de la gestion par étapes ?",
-            options: [
-                { text: "Éliminer la besoin de tolérances", correct: false },
-                { text: "Permettre un contrôle régulier et des décisions", correct: true },
-                { text: "Accélérer le projet en réduisant les revues", correct: false },
-                { text: "Simplifier la documentation à chaque phase", correct: false }
-            ],
-            justification: "La gestion par étapes offre un contrôle à intervalles.",
-            reference: "PRINCE2 Guide, Page 60"
-        },
-        {
-            section: "PRINCE2",
-            question: "Comment PRINCE2 gère-t-il un échec de tolérance ?",
-            options: [
-                { text: "En escaladant via la gestion par exception", correct: true },
-                { text: "En arrêtant immédiatement le projet", correct: false },
-                { text: "En ajustant les tolérances sans escalade", correct: false },
-                { text: "En ignorant l’échec pour continuer", correct: false }
-            ],
-            justification: "La gestion par exception escalade les dépassements.",
-            reference: "PRINCE2 Guide, Page 89"
-        },
-        {
-            section: "PRINCE2",
-            question: "Quel est le rôle du sponsor dans PRINCE2 ?",
-            options: [
-                { text: "Fournir des ressources et approuver les décisions", correct: true },
-                { text: "Gérer les tâches opérationnelles du projet", correct: false },
-                { text: "Produire les livrables selon les spécifications", correct: false },
-                { text: "Tester les produits pour leur conformité", correct: false }
-            ],
-            justification: "Le sponsor soutient le projet stratégiquement.",
-            reference: "PRINCE2 Guide, Page 45"
-        },
-        {
-            section: "PRINCE2",
-            question: "Comment PRINCE2 assure-t-il la traçabilité ?",
-            options: [
-                { text: "En évitant toute documentation formelle", correct: false },
-                { text: "En testant uniquement à la fin", correct: false },
-                { text: "Via une documentation liée aux livrables", correct: true },
-                { text: "En déléguant la traçabilité à l’équipe", correct: false }
-            ],
-            justification: "La traçabilité est assurée par une documentation structurée.",
-            reference: "PRINCE2 Guide, Page 40"
-        },
-        {
-            section: "PRINCE2",
-            question: "Pourquoi PRINCE2 insiste-t-il sur les leçons apprises ?",
-            options: [
-                { text: "Réduire les coûts en évitant les revues", correct: false },
-                { text: "Améliorer les projets futurs grâce à l’expérience", correct: true },
-                { text: "Simplifier la gestion des risques actuels", correct: false },
-                { text: "Documenter les erreurs pour responsabiliser l’équipe", correct: false }
-            ],
-            justification: "Les leçons apprises optimisent les projets futurs.",
-            reference: "PRINCE2 Guide, Page 130"
-        },
-        {
-            section: "PRINCE2",
-            question: "Quel est le rôle du chef de projet dans PRINCE2 ?",
-            options: [
-                { text: "Approuver stratégiquement les décisions clés", correct: false },
-                { text: "Gérer quotidiennement le projet dans les tolérances", correct: true },
-                { text: "Tester les produits pour leur conformité", correct: false },
-                { text: "Produire les livrables selon les spécifications", correct: false }
-            ],
-            justification: "Le chef de projet gère le projet au quotidien.",
-            reference: "PRINCE2 Guide, Page 45"
-        },
-        {
-            section: "PRINCE2",
-            question: "Comment PRINCE2 gère-t-il les ressources limitées ?",
-            options: [
-                { text: "En augmentant le budget pour compenser", correct: false },
-                { text: "En réduisant la qualité des livrables", correct: false },
-                { text: "En planifiant leur allocation dans les Plans", correct: true },
-                { text: "En ignorant les contraintes pour avancer", correct: false }
-            ],
-            justification: "Les ressources sont allouées via une planification rigoureuse.",
-            reference: "PRINCE2 Guide, Page 125"
-        },
-        {
-            section: "PRINCE2",
-            question: "Qu’est-ce qu’un Highlight Report dans PRINCE2 ?",
-            options: [
-                { text: "Un document final pour clore le projet", correct: false },
-                { text: "Une liste des risques nouvellement identifiés", correct: false },
-                { text: "Un rapport périodique sur l’avancement du projet", correct: true },
-                { text: "Un plan détaillé pour la prochaine étape", correct: false }
-            ],
-            justification: "Le Highlight Report informe le Project Board régulièrement.",
-            reference: "PRINCE2 Guide, Page 135"
-        },
-        {
-            section: "PRINCE2",
-            question: "Comment PRINCE2 gère-t-il les écarts de qualité ?",
-            options: [
-                { text: "En déléguant la qualité aux développeurs", correct: false },
-                { text: "En testant uniquement à la fin du projet", correct: false },
-                { text: "Via des revues formelles et des actions correctives", correct: true },
-                { text: "En ignorant les écarts mineurs pour avancer", correct: false }
-            ],
-            justification: "Les écarts de qualité sont corrigés via des revues.",
-            reference: "PRINCE2 Guide, Page 100"
-        },
-        {
-            section: "PRINCE2",
-            question: "Quel est le rôle du thème Progression dans PRINCE2 ?",
-            options: [
-                { text: "Suivre l’avancement par rapport aux plans", correct: true },
-                { text: "Gérer les conflits entre les parties prenantes", correct: false },
-                { text: "Planifier les tests pour garantir la qualité", correct: false },
-                { text: "Définir les spécifications techniques des livrables", correct: false }
-            ],
-            justification: "Progression mesure l’avancement par rapport aux objectifs.",
-            reference: "PRINCE2 Guide, Page 45"
-        },
-        {
-            section: "PRINCE2",
-            question: "Pourquoi PRINCE2 utilise-t-il des rôles définis ?",
-            options: [
-                { text: "Réduire le nombre de réunions nécessaires", correct: false },
-                { text: "Clarifier les responsabilités pour une gestion efficace", correct: true },
-                { text: "Simplifier la documentation du projet", correct: false },
-                { text: "Limiter la collaboration entre les équipes", correct: false }
-            ],
-            justification: "Les rôles définis assurent une répartition claire des tâches.",
-            reference: "PRINCE2 Guide, Page 45"
-        },
-        {
-            section: "PRINCE2",
-            question: "Comment PRINCE2 gère-t-il un projet en crise ?",
-            options: [
-                { text: "Prolonger le projet sans consultation", correct: false },
-                { text: "Déléguer la résolution à l’équipe technique", correct: false },
-                { text: "Escalader via le Project Board pour décisions", correct: true },
-                { text: "Ignorer la crise pour respecter les délais", correct: false }
-            ],
-            justification: "Les crises sont escaladées au Project Board.",
-            reference: "PRINCE2 Guide, Page 89"
-        },
-        {
-            section: "PRINCE2",
-            question: "Quel est le rôle du thème Organisation dans PRINCE2 ?",
-            options: [
-                { text: "Gérer les risques liés aux ressources", correct: false },
-                { text: "Planifier les tests pour garantir la qualité", correct: false },
-                { text: "Définir la structure et les responsabilités du projet", correct: true },
-                { text: "Suivre l’avancement des livrables techniques", correct: false }
-            ],
-            justification: "Organisation établit les rôles et la structure.",
-            reference: "PRINCE2 Guide, Page 45"
-        },
-        {
-            section: "PRINCE2",
-            question: "Comment PRINCE2 gère-t-il les livrables intermédiaires ?",
-            options: [
-                { text: "En les déléguant sans suivi formel", correct: false },
-                { text: "Via des Work Packages avec critères clairs", correct: true },
-                { text: "En les testant uniquement à la fin", correct: false },
-                { text: "En les ignorant pour se concentrer sur le final", correct: false }
-            ],
-            justification: "Les Work Packages contrôlent les livrables intermédiaires.",
-            reference: "PRINCE2 Guide, Page 110"
-        },
-        {
-            section: "PRINCE2",
-            question: "Qu’est-ce qu’un Work Package dans PRINCE2 ?",
-            options: [
-                { text: "Un rapport sur l’avancement des travaux", correct: false },
-                { text: "Un document spécifiant les besoins techniques", correct: false },
-                { text: "Un plan pour tester les livrables finaux", correct: false },
-                { text: "Un ensemble de tâches assignées avec des critères", correct: true }
-            ],
-            justification: "Un Work Package est un ensemble de travail défini.",
-            reference: "PRINCE2 Guide, Page 110"
-        },
-        {
-            section: "PRINCE2",
-            question: "Quel est le rôle du Project Board dans PRINCE2 ?",
-            options: [
-                { text: "Diriger et superviser le projet stratégiquement", correct: true },
-                { text: "Rédiger la documentation technique", correct: false },
-                { text: "Exécuter les tâches quotidiennes du projet", correct: false },
-                { text: "Tester les livrables pour leur conformité", correct: false }
-            ],
-            justification: "Le Project Board supervise le projet.",
-            reference: "PRINCE2 Guide, Page 115"
-        },
-        {
-            section: "PRINCE2",
-            question: "Comment PRINCE2 gère-t-il les risques projet ?",
-            options: [
-                { text: "En attendant leur apparition pour réagir", correct: false },
-                { text: "En déléguant leur suivi au sponsor du projet", correct: false },
-                { text: "En ignorant les risques pour avancer plus vite", correct: false },
-                { text: "Via une identification et gestion continues", correct: true }
-            ],
-            justification: "PRINCE2 gère les risques de manière proactive.",
-            reference: "PRINCE2 Guide, Page 105"
-        },
-        {
-            section: "Cycle en V",
-            question: "Quelle est la principale caractéristique du Cycle en V ?",
-            options: [
-                { text: "Une correspondance entre développement et tests à chaque niveau", correct: true },
-                { text: "Une réduction des coûts grâce à moins de documentation", correct: false },
-                { text: "Une rapidité d'exécution pour des livraisons courtes", correct: false },
-                { text: "Une flexibilité permettant des ajustements fréquents", correct: false }
-            ],
-            justification: "Le Cycle en V lie chaque phase de développement à un test.",
-            reference: "Guide du Cycle en V, Page 23"
-        },
-        {
-            section: "Cycle en V",
-            question: "Quand les tests sont-ils planifiés dans le Cycle en V ?",
-            options: [
-                { text: "Pendant l'exécution des tâches de codage", correct: false },
-                { text: "En parallèle avec les phases de spécification associées", correct: true },
-                { text: "Après la livraison pour répondre aux retours clients", correct: false },
-                { text: "À la fin du développement pour valider le produit", correct: false }
-            ],
-            justification: "Les tests sont planifiés avec les phases correspondantes.",
-            reference: "Guide du Cycle en V, Page 25"
-        },
-        {
-            section: "Cycle en V",
-            question: "Quel est l'avantage principal du Cycle en V par rapport au modèle en cascade ?",
-            options: [
-                { text: "Une plus grande flexibilité face aux changements demandés", correct: false },
-                { text: "Une réduction des coûts par une planification simplifiée", correct: false },
-                { text: "Une détection précoce des erreurs grâce aux tests planifiés", correct: true },
-                { text: "Une exécution plus rapide des phases de développement", correct: false }
-            ],
-            justification: "Le Cycle en V détecte les erreurs plus tôt que la cascade.",
-            reference: "Guide du Cycle en V, Page 27"
-        },
-        {
-            section: "Cycle en V",
-            question: "Quelles sont les phases principales du Cycle en V ?",
-            options: [
-                { text: "Initiation, Codage, Tests, Livraison, Suivi post-projet", correct: false },
-                { text: "Planification, Exécution, Contrôle, Clôture, Évaluation", correct: false },
-                { text: "Besoins, Conception, Réalisation, Tests unitaires, Intégration, Système, Recette", correct: true },
-                { text: "Analyse, Développement, Validation, Déploiement, Maintenance", correct: false }
-            ],
-            justification: "Le Cycle en V suit une structure symétrique de phases et tests.",
-            reference: "Guide du Cycle en V, Page 30"
-        },
-        {
-            section: "Cycle en V",
-            question: "À quoi correspondent les tests d'intégration dans le Cycle en V ?",
-            options: [
-                { text: "À la conception technique des composants individuels", correct: false },
-                { text: "À la validation des besoins directement avec les utilisateurs", correct: false },
-                { text: "À la vérification des interfaces dans la conception préliminaire", correct: true },
-                { text: "À l'évaluation détaillée du code au niveau unitaire", correct: false }
-            ],
-            justification: "Les tests d'intégration valident les interfaces (conception préliminaire).",
-            reference: "Guide du Cycle en V, Page 32"
-        },
-        {
-            section: "Cycle en V",
-            question: "Quel est l'inconvénient majeur du Cycle en V ?",
-            options: [
-                { text: "Un manque de traçabilité des exigences initiales", correct: false },
-                { text: "Une complexité technique rendant les tests difficiles", correct: false },
-                { text: "Un coût élevé dû à une documentation excessive", correct: false },
-                { text: "Une rigidité limitant les ajustements en cours de projet", correct: true }
-            ],
-            justification: "Le Cycle en V est rigide face aux changements tardifs.",
-            reference: "Guide du Cycle en V, Page 35"
-        },
-        {
-            section: "Cycle en V",
-            question: "Comment sont liés les tests de validation et les spécifications dans le Cycle en V ?",
-            options: [
-                { text: "Indépendants et réalisés à des étapes différentes", correct: false },
-                { text: "Liés uniquement par la documentation finale", correct: false },
-                { text: "Créés après le développement pour valider le produit", correct: false },
-                { text: "Conçus simultanément pour garantir la conformité", correct: true }
-            ],
-            justification: "Les tests de validation sont conçus avec les spécifications.",
-            reference: "Guide du Cycle en V, Page 40"
-        }
+    {
+        section: "Lean",
+        question: "Quel est le rôle des 5S dans Lean ?",
+        options: [
+            { text: "Organiser l’espace pour améliorer l’efficacité", correct: true },
+            { text: "Planifier les tâches pour réduire les délais", correct: false },
+            { text: "Contrôler la qualité des produits finis", correct: false },
+            { text: "Gérer les stocks pour éviter les ruptures", correct: false }
+        ],
+        justification: "Les 5S optimisent l’environnement de travail.",
+        reference: "Lean Thinking, Page 230",
+        keyword: "(5S)"
+    },
+    {
+        section: "Lean",
+        question: "Comment Lean gère-t-il la surproduction ?",
+        options: [
+            { text: "En produisant selon la demande via Juste-à-temps", correct: true },
+            { text: "En augmentant les stocks pour anticiper", correct: false },
+            { text: "En accélérant la production pour tout écouler", correct: false },
+            { text: "En ignorant la surproduction", correct: false }
+        ],
+        justification: "Juste-à-temps évite la surproduction.",
+        reference: "Lean Thinking, Page 30"
+    },
+    {
+        section: "Lean",
+        question: "Qu’est-ce que le flux tiré dans Lean ?",
+        options: [
+            { text: "Produire uniquement sur demande du client", correct: true },
+            { text: "Pousser la production pour remplir les stocks", correct: false },
+            { text: "Planifier la production à l’avance", correct: false },
+            { text: "Augmenter les ressources pour plus de volume", correct: false }
+        ],
+        justification: "Le flux tiré répond à la demande réelle.",
+        reference: "Lean Thinking, Page 240",
+        keyword: "(Pull System)"
+    },
+    {
+        section: "Lean",
+        question: "Comment mesurer l’efficacité dans Lean ?",
+        options: [
+            { text: "En évaluant la valeur ajoutée pour le client", correct: true },
+            { text: "En comptant le nombre total de produits", correct: false },
+            { text: "En mesurant le temps total de production", correct: false },
+            { text: "En calculant les coûts totaux engagés", correct: false }
+        ],
+        justification: "Lean mesure l’efficacité par la valeur client.",
+        reference: "Lean Thinking, Page 15"
+    }
 ];
     function shuffleQuestionOptions(questions) {
     // Iterate through each question in the array
