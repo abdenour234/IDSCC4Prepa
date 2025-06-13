@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QCM - IaaS et OpenStack</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .quiz-container {
+            padding: 30px;
+        }
+
+        .back-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .section-title {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 15px 20px;
+            margin: 30px 0 20px 0;
+            border-radius: 8px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .question-card {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .question-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-color: #3498db;
+        }
+
+        .question-number {
+            background: #3498db;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .options {
+            margin-bottom: 20px;
+        }
+
+        .option {
+            background: white;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .option:hover {
+            border-color: #3498db;
+            background: #f0f8ff;
+        }
+
+        .option input[type="radio"], .option input[type="checkbox"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+
+        .validate-btn {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .validate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+
+        .validate-btn:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            display: none;
+        }
+
+        .correct {
+            background: #d4edda;
+            border: 2px solid #c3e6cb;
+            color: #155724;
+        }
+
+        .incorrect {
+            background: #f8d7da;
+            border: 2px solid #f5c6cb;
+            color: #721c24;
+        }
+
+        .explanation {
+            margin-top: 10px;
+            font-weight: normal;
+            line-height: 1.6;
+            color: #495057;
+            font-size: 0.95rem;
+        }
+
+        .progress-bar {
+            background: #e9ecef;
+            height: 8px;
+            border-radius: 4px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .stats {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 1.1rem;
+            color: #2c3e50;
+        }
+
+        .final-score {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 30px;
+            display: none;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        .final-score h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .score-excellent {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+        }
+
+        .score-good {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+        }
+
+        .score-average {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+        }
+
+        .score-poor {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Quiz IaaS & OpenStack</h1>
+            <p>Testez vos connaissances sur l'Infrastructure as a Service et OpenStack</p>
+        </div>
+        <div class="quiz-container">
+            <a href="#" class="back-btn">Retour</a>
+            <div class="section-title">Questions</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="stats" id="stats">Questions répondues : 0/50 | Score : 0</div>
+
+            <!-- Question 1 -->
+            <div class="question-card">
+                <div class="question-number">Question 1</div>
+                <div class="question-text">Que signifie IaaS ?</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q1" value="a"> a) Infrastructure as a Software</label>
+                    <label class="option"><input type="radio" name="q1" value="b"> b) Infrastructure as a Service</label>
+                    <label class="option"><input type="radio" name="q1" value="c"> c) Internet as a Service</label>
+                    <label class="option"><input type="radio" name="q1" value="d"> d) Integration as a Service</label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q1', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">IaaS signifie <strong>Infrastructure as a Service</strong>, un modèle de cloud computing qui fournit des ressources informatiques virtualisées sur Internet.</div>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question-card">
+                <div class="question-number">Question 2</div>
+                <div class="question-text">Quelles ressources sont typiquement incluses dans l'IaaS ?</div>
+                <div class="options">
+                    <label class="option"><input type="checkbox" name="q2" value="a"> a) CPU</label>
+                    <label class="option"><input type="checkbox" name="q2" value="b"> b) RAM</label>
+                    <label class="option"><input type="checkbox" name="q2" value="c"> c) Applications logicielles</label>
+                    <label class="option"><input type="checkbox" name="q2" value="d"> d) Stockage</label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q2', ['a', 'b', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Les ressources typiques de l’IaaS incluent le CPU, la RAM et le stockage. Les applications logicielles sont gérées par le client, pas par le fournisseur IaaS.</div>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question-card">
+                <div class="question-number">Question 3</div>
+                <div class="question-text">Quelle est une caractéristique clé de l’IaaS ?</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q3" value="a"> a) Gestion complète des applications par le fournisseur</label>
+                    <label class="option"><input type="radio" name="q3" value="b"> b) Paiement à l’usage</label>
+                    <label class="option"><input type="radio" name="q3" value="c"> c) Absence de scalabilité</label>
+                    <label class="option"><input type="radio" name="q3" value="d"> d) Gestion du matériel par le client</label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q3', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le paiement à l’usage (pay-as-you-go) est une caractéristique clé de l’IaaS, permettant aux clients de payer uniquement pour les ressources utilisées.</div>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question-card">
+                <div class="question-number">Question 4</div>
+                <div class="question-text">Dans l’IaaS, qui gère les serveurs physiques ?</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q4" value="a"> a) Le client</label>
+                    <label class="option"><input type="radio" name="q4" value="b"> b) Le fournisseur Cloud</label>
+                    <label class="option"><input type="radio" name="q4" value="c"> c) Les deux</label>
+                    <label class="option"><input type="radio" name="q4" value="d"> d) Aucun des deux</label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q4', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Dans l’IaaS, le fournisseur Cloud gère les serveurs physiques, tandis que le client gère les systèmes d’exploitation et les applications.</div>
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="question-card">
+                <div class="question-number">Question 5</div>
+                <div class="question-text">OpenStack a été initialement créé par :</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q5" value="a"> a) Google et AWS</label>
+                    <label class="option"><input type="radio" name="q5" value="b"> b) NASA et Rackspace</label>
+                    <label class="option"><input type="radio" name="q5" value="c"> c) Microsoft et IBM</label>
+                    <label class="option"><input type="radio" name="q5" value="d"> d) Red Hat et Canonical</label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q5', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">OpenStack a été créé en 2010 par la NASA (projet Nebula) et Rackspace (CloudFiles).</div>
+                </div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="question-card">
+                <div class="question-number">Question 6</div>
+                <div class="question-text">Quel composant OpenStack gère les machines virtuelles ?</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q6" value="a"> a) Glance</label>
+                    <label class="option"><input type="radio" name="q6" value="b"> b) Nova</label>
+                    <label class="option"><input type="radio" name="q6" value="c"> c) Neutron</label>
+                    <label class="option"><input type="radio" name="q6" value="d"> d) Cinder</label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q6', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Nova est le service de calcul (Compute Service) d’OpenStack qui gère les machines virtuelles.</div>
+                </div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="question-card">
+                <div class="question-number">Question 7</div>
+                <div class="question-text">Quelles sont les fonctions de Neutron ?</div>
+                <div class="options">
+                    <label class="option"><input type="checkbox" name="q7" value="a"> a) Création de réseaux isolés</label>
+                    <label class="option"><input type="checkbox" name="q7" value="b"> b) Gestion des images</label>
+                    <label class="option"><input type="checkbox" name="q7" value="c"> c) Attribution d’IP</label>
+                    <label class="option"><input type="checkbox" name="q7" value="d"> d) Routage vers Internet</label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q7', ['a', 'c', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Neutron gère les réseaux virtuels, incluant la création de réseaux isolés, l’attribution d’IP et le routage vers Internet. La gestion des images est assurée par Glance.</div>
+                </div>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="question-card">
+                <div class="question-number">Question 8</div>
+                <div class="question-text">Quel module OpenStack fournit une interface web ?</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q8" value="a"> a) Keystone</label>
+                    <label class="option"><input type="radio" name="q8" value="b"> b) Horizon</label>
+                    <label class="option"><input type="radio" name="q8" value="c"> c) Swift</label>
+                    <label class="option"><input type="radio" name="q8" value="d"> d) Heat</label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q8', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Horizon est le module d’OpenStack qui fournit une interface web pour gérer les services.</div>
+                </div>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="question-card">
+                <div class="question-number">Question 9</div>
+                <div class="question-text">Quel service OpenStack est utilisé pour le stockage d’objets ?</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q9" value="a"> a) Cinder</label>
+                    <label class="option"><input type="radio" name="q9" value="b"> b) Swift</label>
+                    <label class="option"><input type="radio" name="q9" value="c"> c) Glance</label>
+                    <label class="option"><input type="radio" name="q9" value="d"> d) Nova</label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q9', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Swift est le service de stockage d’objets dans OpenStack, utilisé pour stocker des fichiers comme des backups ou des vidéos.</div>
+                </div>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="question-card">
+                <div class="question-number">Question 10</div>
+                <div class="question-text">Quelle commande CLI crée une image dans Glance ?</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q10" value="a"> a) glance image-list</label>
+                    <label class="option"><input type="radio" name="q10" value="b"> b) glance image-create</label>
+                    <label class="option"><input type="radio" name="q10" value="c"> c) nova boot</label>
+                    <label class="option"><input type="radio" name="q10" value="d"> d) neutron net-create</label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q10', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">La commande <code>glance image-create</code> est utilisée pour créer une image dans Glance.</div>
+                </div>
+            </div>
+
+            <!-- Question 11 -->
+            <div class="question-card">
+                <div class="question-number">Question 11</div>
+                <div class="question-text">Quel composant de Nova planifie le placement des VMs ?</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q11" value="a"> a) nova-api</label>
+                    <label class="option"><input type="radio" name="q11" value="b"> b) nova-scheduler</label>
+                    <label class="option"><input type="radio" name="q11" value="c"> c) nova-compute</label>
+                    <label class="option"><input type="radio" name="q11" value="d"> d) nova-conductor</label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q11', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le composant <code>nova-scheduler</code> est responsable de la planification du placement des machines virtuelles.</div>
+                </div>
+            </div>
+
+            <!-- Question 12 -->
+            <div class="question-card">
+                <div class="question-number">Question 12</div>
+                <div class="question-text">Quels sont les types de réseaux dans OpenStack ?</div>
+                <div class="options">
+                    <label class="option"><input type="checkbox" name="q12" value="a"> a) Management</label>
+                    <label class="option"><input type="checkbox" name="q12" value="b"> b) API</label>
+                    <label class="option"><input type="checkbox" name="q12" value="c"> c) Data</label>
+                    <label class="option"><input type="checkbox" name="q12" value="d"> d) Internal</label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q12', ['a', 'b', 'c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">OpenStack utilise les réseaux Management, API, Data et External. Le réseau Internal n’est pas un type standard.</div>
+                </div>
+            </div>
+
+            <!-- Question 13 -->
+            <div class="question-card">
+                <div class="question-number">Question 13</div>
+                <div class="question-text">Quel module OpenStack est utilisé pour l’orchestration ?</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q13" value="a"> a) Heat</label>
+                    <label class="option"><input type="radio" name="q13" value="b"> b) Ceilometer</label>
+                    <label class="option"><input type="radio" name="q13" value="c"> c) Keystone</label>
+                    <label class="option"><input type="radio" name="q13" value="d"> d) Horizon</label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q13', ['a'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Heat est le module d’orchestration d’OpenStack, permettant de déployer des stacks d’infrastructure via des templates YAML.</div>
+                </div>
+            </div>
+
+            <!-- Question 14 -->
+            <div class="question-card">
+                <div class="question-number">Question 14</div>
+                <div class="question-text">Quel service OpenStack gère l’authentification ?</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q14" value="a"> a) Nova</label>
+                    <label class="option"><input type="radio" name="q14" value="b"> b) Keystone</label>
+                    <label class="option"><input type="radio" name="q14" value="c"> c) Glance</label>
+                    <label class="option"><input type="radio" name="q14" value="d"> d) Neutron</label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q14', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Keystone est le service d’authentification et d’autorisation dans OpenStack.</div>
+                </div>
+            </div>
+
+            <!-- Question 15 -->
+            <div class="question-card">
+                <div class="question-number">Question 15</div>
+                <div class="question-text">Quels sont les backends possibles pour Cinder ?</div>
+                <div class="options">
+                    <label class="option"><input type="checkbox" name="q15" value="a"> a) LVM</label>
+                    <label class="option"><input type="checkbox" name="q15" value="b"> b) Ceph</label>
+                    <label class="option"><input type="checkbox" name="q15" value="c"> c) Swift</label>
+                    <label class="option"><input type="checkbox" name="q15" value="d"> d) NetApp</label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q15', ['a', 'b', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Cinder supporte des backends comme LVM, Ceph et NetApp. Swift est utilisé pour le stockage d’objets, pas pour le stockage en bloc.</div>
+                </div>
+            </div>
+
+            <!-- Question 16 -->
+            <div class="question-card">
+                <div class="question-number">Question 16</div>
+                <div class="question-text">Quel composant Glance gère les métadonnées des images ?</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q16" value="a"> a) glance-api</label>
+                    <label class="option"><input type="radio" name="q16" value="b"> b) glance-registry</label>
+                    <label class="option"><input type="radio" name="q16" value="c"> c) glance-backend</label>
+                    <label class="option"><input type="radio" name="q16" value="d"> d) glance-scheduler</label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q16', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le composant <code>glance-registry</code> gère les métadonnées des images dans Glance.</div>
+                </div>
+            </div>
+
+            <!-- Question 17 -->
+            <div class="question-card">
+                <div class="question-number">Question 17</div>
+                <div class="question-text">Quelle commande CLI lance une VM dans Nova ?</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q17" value="a"> a) nova boot</label>
+                    <label class="option"><input type="radio" name="q17" value="b"> b) nova list</label>
+                    <label class="option"><input type="radio" name="q17" value="c"> c) nova stop</label>
+                    <label class="option"><input type="radio" name="q17" value="d"> d) nova delete</label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q17', ['a'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">La commande <code>nova boot</code> est utilisée pour lancer une machine virtuelle dans Nova.</div>
+                </div>
+            </div>
+
+            <!-- Question 18 -->
+            <div class="question-card">
+                <div class="question-number">Question 18</div>
+                <div class="question-text">Quel est le rôle de Ceilometer ?</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q18" value="a"> a) Orchestration</label>
+                    <label class="option"><input type="radio" name="q18" value="b"> b) Télémetrie</label>
+                    <label class="option"><input type="radio" name="q18" value="c"> c) Authentification</label>
+                    <label class="option"><input type="radio" name="q18" value="d"> d) Gestion des réseaux</label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q18', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Ceilometer est le module de télémetrie d’OpenStack, utilisé pour la supervision, la facturation et l’auto-scaling.</div>
+                </div>
+            </div>
+
+            <!-- Question 19 -->
+            <div class="question-card">
+                <div class="question-number">Question 19</div>
+                <div class="question-text">Quels sont les objectifs de Ceilometer ?</div>
+                <div class="options">
+                    <label class="option"><input type="checkbox" name="q19" value="a"> a) Supervision</label>
+                    <label class="option"><input type="checkbox" name="q19" value="b"> b) Facturation</label>
+                    <label class="option"><input type="checkbox" name="q19" value="c"> c) Authentification</label>
+                    <label class="option"><input type="checkbox" name="q19" value="d"> d) Auto-scaling</label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q19', ['a', 'b', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Ceilometer est utilisé pour la supervision, la facturation et l’auto-scaling. L’authentification est gérée par Keystone.</div>
+                </div>
+            </div>
+
+            <!-- Question 20 -->
+            <div class="question-card">
+                <div class="question-number">Question 20</div>
+                <div class="question-text">Quel module OpenStack utilise des templates YAML ?</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q20" value="a"> a) Swift</label>
+                    <label class="option"><input type="radio" name="q20" value="b"> b) Heat</label>
+                    <label class="option"><input type="radio" name="q20" value="c"> c) Glance</label>
+                    <label class="option"><input type="radio" name="q20" value="d"> d) Nova</label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q20', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Heat utilise des templates YAML pour déployer des stacks d’infrastructure.</div>
+                </div>
+            </div>
+
+            <!-- Question 21 -->
+            <div class="question-card">
+                <div class="question-number">Question 21</div>
+                <div class="question-text">Quel composant de Neutron gère le DHCP ?</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q21" value="a"> a) neutron-server</label>
+                    <label class="option"><input type="radio" name="q21" value="b"> b) dhcp-agent</label>
+                    <label class="option"><input type="radio" name="q21" value="c"> c) l3-agent</label>
+                    <label class="option"><input type="radio" name="q21" value="d"> d) metadata-agent</label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q21', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le composant <code>dhcp-agent</code> de Neutron gère les services DHCP pour les réseaux virtuels.</div>
+                </div>
+            </div>
+
+            <!-- Question 22 -->
+            <div class="question-card">
+                <div class="question-number">Question 22</div>
+                <div class="question-text">Qu’est-ce qu’un "project" dans Keystone ?</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q22" value="a"> a) Une machine virtuelle</label>
+                    <label class="option"><input type="radio" name="q22" value="b"> b) Un espace logique d’isolation</label>
+                    <label class="option"><input type="radio" name="q22" value="c"> c) Un type de réseau</label>
+                    <label class="option"><input type="radio" name="q22" value="d"> d) Une image système</label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q22', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Un "project" (ou tenant) dans Keystone est un espace logique d’isolation pour regrouper les ressources.</div>
+                </div>
+            </div>
+
+            <!-- Question 23 -->
+            <div class="question-card">
+                <div class="question-number">Question 23</div>
+                <div class="question-text">Quels sont les types d’authentification supportés par Keystone ?</div>
+                <div class="options">
+                    <label class="option"><input type="checkbox" name="q23" value="a"> a) Nom d’utilisateur/mot de passe</label>
+                    <label class="option"><input type="checkbox" name="q23" value="b"> b) Jetons</label>
+                    <label class="option"><input type="checkbox" name="q23" value="c"> c) AWS-compatible</label>
+                    <label class="option"><input type="checkbox" name="q23" value="d"> d) SSH keys</label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q23', ['a', 'b', 'c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Keystone supporte l'authentification par nom d'utilisateur/mot de passe, jetons et AWS-compatible. Les clés SSH sont utilisées ailleurs, comme dans Nova.</div>
+                </div>
+            </div>
+
+            <!-- Question 24 -->
+            <div class="question-card">
+                <div class="question-number">Question 24</div>
+                <div class="question-text">Quel backend n’est PAS utilisé par Glance ?</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q24" value="a"> a) Swift</label>
+                    <label class="option"><input type="radio" name="q24" value="b"> b) Fichiers locaux</label>
+                    <label class="option"><input type="radio" name="q24" value="c"> c) S3</label>
+                    <label class="option"><input type="radio" name="q24" value="d"> d) MySQL</label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q24', ['d'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Glance utilise des backends comme Swift, fichiers locaux et S3. MySQL est utilisé pour les bases de données, pas pour le stockage d’images.</div>
+                </div>
+            </div>
+
+            <!-- Question 25 -->
+            <div class="question-card">
+                <div class="question-number">Question 25</div>
+                <div class="question-text">Quel composant OpenStack est exécuté sur le Controller Node ?</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q25" value="a"> a) nova-compute</label>
+                    <label class="option"><input type="radio" name="q25" value="b"> b) keystone</label>
+                    <label class="option"><input type="radio" name="q25" value="c"> c) neutron-agent</label>
+                    <label class="option"><input type="radio" name="q25" value="d"> d) cinder-volume</label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q25', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Keystone est exécuté sur le Controller Node, car il gère l’authentification centralisée.</div>
+                </div>
+            </div>
+
+            <!-- Question 26 -->
+            <div class="question-card">
+                <div class="question-number">Question 26</div>
+                <div class="question-text">Quelle est la fonction principale de Swift ?</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q26" value="a"> a) Stockage en bloc</label>
+                    <label class="option"><input type="radio" name="q26" value="b"> b) Stockage d’objets</label>
+                    <label class="option"><input type="radio" name="q26" value="c"> c) Gestion des VMs</label>
+                    <label class="option"><input type="radio" name="q26" value="d"> d) Authentification</label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q26', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Swift fournit un stockage d’objets scalable, utilisé pour des fichiers comme des backups ou des vidéos.</div>
+                </div>
+            </div>
+
+            <!-- Question 27 -->
+            <div class="question-card">
+                <div class="question-number">Question 27</div>
+                <div class="question-text">Quel protocole est utilisé par les services OpenStack pour communiquer ?</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q27" value="a"> a) SOAP</label>
+                    <label class="option"><input type="radio" name="q27" value="b"> b) REST</label>
+                    <label class="option"><input type="radio" name="q27" value="c"> c) FTP</label>
+                    <label class="option"><input type="radio" name="q27" value="d"> d) SNMP</label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q27', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Les services OpenStack communiquent via des API REST.</div>
+                </div>
+            </div>
+
+            <!-- Question 28 -->
+            <div class="question-card">
+                <div class="question-number">Question 28</div>
+                <div class="question-text">Quels composants sont nécessaires pour exécuter une VM ?</div>
+                <div class="options">
+                    <label class="option"><input type="checkbox" name="q28" value="a"> a) Nova</label>
+                    <label class="option"><input type="checkbox" name="q28" value="b"> b) Glance</label>
+                    <label class="option"><input type="checkbox" name="q28" value="c"> c) Neutron</label>
+                    <label class="option"><input type="checkbox" name="q28" value="d"> d) Horizon</label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q28', ['a', 'b', 'c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Pour exécuter une VM, Nova (gestion des VMs), Glance (images) et Neutron (réseaux) sont nécessaires. Horizon est facultatif car c’est l’interface web.</div>
+                </div>
+            </div>
+
+            <!-- Question 29 -->
+            <div class="question-card">
+                <div class="question-number">Question 29</div>
+                <div class="question-text">Quel est le rôle du composant <code>nova-conductor</code> ?</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q29" value="a"> a) Exécuter les VMs</label>
+                    <label class="option"><input type="radio" name="q29" value="b"> b) Médiateur entre DB et compute</label>
+                    <label class="option"><input type="radio" name="q29" value="c"> c) Planifier les VMs</label>
+                    <label class="option"><input type="radio" name="q29" value="d"> d) Gérer les réseaux</label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q29', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation"><code>nova-conductor</code> agit comme médiateur entre la base de données et le service compute.</div>
+                </div>
+            </div>
+
+            <!-- Question 30 -->
+            <div class="question-card">
+                <div class="question-number">Question 30</div>
+                <div class="question-text">Quel réseau OpenStack est utilisé pour la communication entre services ?</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q30" value="a"> a) Data</label>
+                    <label class="option"><input type="radio" name="q30" value="b"> b) Management</label>
+                    <label class="option"><input type="radio" name="q30" value="c"> c) External</label>
+                    <label class="option"><input type="radio" name="q30" value="d"> d) API</label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q30', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le réseau Management est utilisé pour la communication entre les services OpenStack.</div>
+                </div>
+            </div>
+
+            <!-- Question 31 -->
+            <div class="question-card">
+                <div class="question-number">Question 31</div>
+                <div class="question-text">Quelle est la principale différence entre Cinder et Swift ?</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q31" value="a"> a) Cinder est pour le stockage d’objets, Swift pour le stockage en bloc</label>
+                    <label class="option"><input type="radio" name="q31" value="b"> b) Cinder est pour le stockage en bloc, Swift pour le stockage d’objets</label>
+                    <label class="option"><input type="radio" name="q31" value="c"> c) Les deux sont pour le stockage en bloc</label>
+                    <label class="option"><input type="radio" name="q31" value="d"> d) Les deux sont pour le stockage d’objets</label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q31', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Cinder fournit un stockage en bloc (volumes persistants), tandis que Swift fournit un stockage d’objets (fichiers).</div>
+                </div>
+            </div>
+
+            <!-- Question 32 -->
+            <div class="question-card">
+                <div class="question-number">Question 32</div>
+                <div class="question-text">Quel module OpenStack est comparable à Amazon S3 ?</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q32" value="a"> a) Cinder</label>
+                    <label class="option"><input type="radio" name="q32" value="b"> b) Swift</label>
+                    <label class="option"><input type="radio" name="q32" value="c"> c) Glance</label>
+                    <label class="option"><input type="radio" name="q32" value="d"> d) Neutron</label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q32', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Swift est comparable à Amazon S3, car il fournit un stockage d’objets via une API REST.</div>
+                </div>
+            </div>
+
+            <!-- Question 33 -->
+            <div class="question-card">
+                <div class="question-number">Question 33</div>
+                <div class="question-text">Quel est le rôle de <code>nova-api</code> ?</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q33" value="a"> a) Exécuter les VMs</label>
+                    <label class="option"><input type="radio" name="q33" value="b"> b) Recevoir les requêtes</label>
+                    <label class="option"><input type="radio" name="q33" value="c"> c) Planifier les VMs</label>
+                    <label class="option"><input type="radio" name="q33" value="d"> d) Gérer les images</label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q33', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation"><code>nova-api</code> reçoit les requêtes des utilisateurs pour gérer les machines virtuelles.</div>
+                </div>
+            </div>
+
+            <!-- Question 34 -->
+            <div class="question-card">
+                <div class="question-number">Question 34</div>
+                <div class="question-text">Quels services utilisent RabbitMQ dans OpenStack ?</div>
+                <div class="options">
+                    <label class="option"><input type="checkbox" name="q34" value="a"> a) Nova</label>
+                    <label class="option"><input type="checkbox" name="q34" value="b"> b) Glance</label>
+                    <label class="option"><input type="checkbox" name="q34" value="c"> c) Neutron</label>
+                    <label class="option"><input type="checkbox" name="q34" value="d"> d) Horizon</label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q34', ['a', 'b', 'c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Nova, Glance et Neutron utilisent RabbitMQ comme bus de messages pour la communication interne. Horizon, étant une interface web, n’utilise pas RabbitMQ directement.</div>
+                </div>
+            </div>
+
+            <!-- Question 35 -->
+            <div class="question-card">
+                <div class="question-number">Question 35</div>
+                <div class="question-text">Quel est le format de fichier typique pour les images dans Glance ?</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q35" value="a"> a) ISO</label>
+                    <label class="option"><input type="radio" name="q35" value="b"> b) QCOW2</label>
+                    <label class="option"><input type="radio" name="q35" value="c"> c) VHD</label>
+                    <label class="option"><input type="radio" name="q35" value="d"> d) RAW</label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q35', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le format QCOW2 est couramment utilisé pour les images dans Glance en raison de ses capacités de copie sur écriture.</div>
+                </div>
+            </div>
+
+            <!-- Question 36 -->
+            <div class="question-card">
+                <div class="question-number">Question 36</div>
+                <div class="question-text">Quel composant Neutron gère le routage vers Internet ?</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q36" value="a"> a) dhcp-agent</label>
+                    <label class="option"><input type="radio" name="q36" value="b"> b) l3-agent</label>
+                    <label class="option"><input type="radio" name="q36" value="c"> c) metadata-agent</label>
+                    <label class="option"><input type="radio" name="q36" value="d"> d) neutron-server</label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q36', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le composant <code>l3-agent</code> gère le routage vers Internet dans Neutron.</div>
+                </div>
+            </div>
+
+            <!-- Question 37 -->
+            <div class="question-card">
+                <div class="question-number">Question 37</div>
+                <div class="question-text">Quel service OpenStack permet de gérer les snapshots ?</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q37" value="a"> a) Swift</label>
+                    <label class="option"><input type="radio" name="q37" value="b"> b) Cinder</label>
+                    <label class="option"><input type="radio" name="q37" value="c"> c) Glance</label>
+                    <label class="option"><input type="radio" name="q37" value="d"> d) Nova</label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q37', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Cinder permet de créer et gérer des snapshots pour les volumes de stockage en bloc.</div>
+                </div>
+            </div>
+
+            <!-- Question 38 -->
+            <div class="question-card">
+                <div class="question-number">Question 38</div>
+                <div class="question-text">Quel est le rôle du service catalog dans Keystone ?</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q38" value="a"> a) Gérer les machines virtuelles</label>
+                    <label class="option"><input type="radio" name="q38" value="b"> b) Lister les endpoints d’API</label>
+                    <label class="option"><input type="radio" name="q38" value="c"> c) Fournir un stockage d’objets</label>
+                    <label class="option"><input type="radio" name="q38" value="d"> d) Gérer les réseaux</label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q38', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le service catalog dans Keystone liste les endpoints d’API des services OpenStack.</div>
+                </div>
+            </div>
+
+            <!-- Question 39 -->
+            <div class="question-card">
+                <div class="question-number">Question 39</div>
+                <div class="question-text">Quels hyperviseurs sont supportés par Nova ?</div>
+                <div class="options">
+                    <label class="option"><input type="checkbox" name="q39" value="a"> a) KVM</label>
+                    <label class="option"><input type="checkbox" name="q39" value="b"> b) QEMU</label>
+                    <label class="option"><input type="checkbox" name="q39" value="c"> c) VMware</label>
+                    <label class="option"><input type="checkbox" name="q39" value="d"> d) MySQL</label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q39', ['a', 'b', 'c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Nova supporte des hyperviseurs comme KVM, QEMU et VMware. MySQL est une base de données, pas un hyperviseur.</div>
+                </div>
+            </div>
+
+            <!-- Question 40 -->
+            <div class="question-card">
+                <div class="question-number">Question 40</div>
+                <div class="question-text">Quel réseau est utilisé pour exposer les APIs OpenStack ?</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q40" value="a"> a) Management</label>
+                    <label class="option"><input type="radio" name="q40" value="b"> b) API</label>
+                    <label class="option"><input type="radio" name="q40" value="c"> c) Data</label>
+                    <label class="option"><input type="radio" name="q40" value="d"> d) External</label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q40', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le réseau API est utilisé pour exposer les APIs des services OpenStack, comme <code>nova-api</code> ou <code>glance-api</code>.</div>
+                </div>
+            </div>
+
+            <!-- Question 41 -->
+            <div class="question-card">
+                <div class="question-number">Question 41</div>
+                <div class="question-text">Quel est le rôle de <code>nova-consoleauth</code> ?</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q41" value="a"> a) Planifier les VMs</label>
+                    <label class="option"><input type="radio" name="q41" value="b"> b) Gérer l’accès distant</label>
+                    <label class="option"><input type="radio" name="q41" value="c"> c) Exécuter les VMs</label>
+                    <label class="option"><input type="radio" name="q41" value="d"> d) Gérer les images</label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q41', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation"><code>nova-consoleauth</code> gère l’authentification pour l’accès distant aux machines virtuelles.</div>
+                </div>
+            </div>
+
+            <!-- Question 42 -->
+            <div class="question-card">
+                <div class="question-number">Question 42</div>
+                <div class="question-text">Quelle commande CLI affiche la liste des VMs ?</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q42" value="a"> a) nova boot</label>
+                    <label class="option"><input type="radio" name="q42" value="b"> b) nova list</label>
+                    <label class="option"><input type="radio" name="q42" value="c"> c) nova stop</label>
+                    <label class="option"><input type="radio" name="q42" value="d"> d) nova delete</label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q42', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">La commande <code>nova list</code> affiche la liste des machines virtuelles.</div>
+                </div>
+            </div>
+
+            <!-- Question 43 -->
+            <div class="question-card">
+                <div class="question-number">Question 43</div>
+                <div class="question-text">Quel module OpenStack est utilisé pour gérer les clés SSH ?</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q43" value="a"> a) Nova</label>
+                    <label class="option"><input type="radio" name="q43" value="b"> b) Horizon</label>
+                    <label class="option"><input type="radio" name="q43" value="c"> c) Keystone</label>
+                    <label class="option"><input type="radio" name="q43" value="d"> d) Neutron</label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q43', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Horizon permet de gérer les clés SSH via son interface web.</div>
+                </div>
+            </div>
+
+            <!-- Question 44 -->
+            <div class="question-card">
+                <div class="question-number">Question 44</div>
+                <div class="question-text">Quels sont les avantages de Swift ?</div>
+                <div class="options">
+                    <label class="option"><input type="checkbox" name="q44" value="a"> a) Haute redondance</label>
+                    <label class="option"><input type="checkbox" name="q44" value="b"> b) API REST</label>
+                    <label class="option"><input type="checkbox" name="q44" value="c"> c) Snapshots</label>
+                    <label class="option"><input type="checkbox" name="q44" value="d"> d) Écriture via containers</label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q44', ['a', 'b', 'd'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Swift offre une haute redondance, une API REST et l’écriture via des containers. Les snapshots sont une fonctionnalité de Cinder.</div>
+                </div>
+            </div>
+
+            <!-- Question 45 -->
+            <div class="question-card">
+                <div class="question-number">Question 45</div>
+                <div class="question-text">Quel composant exécute les VMs dans Nova ?</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q45" value="a"> a) nova-api</label>
+                    <label class="option"><input type="radio" name="q45" value="b"> b) nova-compute</label>
+                    <label class="option"><input type="radio" name="q45" value="c"> c) nova-scheduler</label>
+                    <label class="option"><input type="radio" name="q45" value="d"> d) nova-conductor</label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q45', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation"><code>nova-compute</code> est responsable de l’exécution des machines virtuelles dans Nova.</div>
+                </div>
+            </div>
+
+            <!-- Question 46 -->
+            <div class="question-card">
+                <div class="question-number">Question 46</div>
+                <div class="question-text">Quel type de stockage est fourni par Cinder ?</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q46" value="a"> a) Stockage d’objets</label>
+                    <label class="option"><input type="radio" name="q46" value="b"> b) Stockage en bloc</label>
+                    <label class="option"><input type="radio" name="q46" value="c"> c) Stockage de fichiers</label>
+                    <label class="option"><input type="radio" name="q46" value="d"> d) Stockage d’images</label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q46', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Cinder fournit un stockage en bloc, utilisé pour les volumes persistants attachés aux VMs.</div>
+                </div>
+            </div>
+
+            <!-- Question 47 -->
+            <div class="question-card">
+                <div class="question-number">Question 47</div>
+                <div class="question-text">Quel module OpenStack est utilisé pour la facturation ?</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q47" value="a"> a) Heat</label>
+                    <label class="option"><input type="radio" name="q47" value="b"> b) Ceilometer</label>
+                    <label class="option"><input type="radio" name="q47" value="c"> c) Horizon</label>
+                    <label class="option"><input type="radio" name="q47" value="d"> d) Keystone</label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q47', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Ceilometer est utilisé pour collecter des statistiques d’utilisation, notamment pour la facturation.</div>
+                </div>
+            </div>
+
+            <!-- Question 48 -->
+            <div class="question-card">
+                <div class="question-number">Question 48</div>
+                <div class="question-text">Quel est le rôle de <code>neutron-server</code> ?</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q48" value="a"> a) Gérer le DHCP</label>
+                    <label class="option"><input type="radio" name="q48" value="b"> b) Exposer l’API réseau</label>
+                    <label class="option"><input type="radio" name="q48" value="c"> c) Exécuter les VMs</label>
+                    <label class="option"><input type="radio" name="q48" value="d"> d) Gérer les images</label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q48', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation"><code>neutron-server</code> expose l’API réseau pour gérer les réseaux virtuels dans OpenStack.</div>
+                </div>
+            </div>
+
+            <!-- Question 49 -->
+            <div class="question-card">
+                <div class="question-number">Question 49</div>
+                <div class="question-text">Quels services sont exécutés sur le Compute Node ?</div>
+                <div class="options">
+                    <label class="option"><input type="checkbox" name="q49" value="a"> a) nova-compute</label>
+                    <label class="option"><input type="checkbox" name="q49" value="b"> b) keystone</label>
+                    <label class="option"><input type="checkbox" name="q49" value="c"> c) neutron-agent</label>
+                    <label class="option"><input type="checkbox" name="q49" value="d"> d) horizon</label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q49', ['a', 'c'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Le Compute Node exécute <code>nova-compute</code> pour les VMs et <code>neutron-agent</code> pour les réseaux. Keystone et Horizon sont sur le Controller Node.</div>
+                </div>
+            </div>
+
+            <!-- Question 50 -->
+            <div class="question-card">
+                <div class="question-number">Question 50</div>
+                <div class="question-text">Quel est le rôle principal de Horizon ?</div>
+                <div class="options">
+                    <label class="option"><input type="radio" name="q50" value="a"> a) Gérer les réseaux</label>
+                    <label class="option"><input type="radio" name="q50" value="b"> b) Fournir une interface web</label>
+                    <label class="option"><input type="radio" name="q50" value="c"> c) Stocker les images</label>
+                    <label class="option"><input type="radio" name="q50" value="d"> d) Orchestrer les ressources</label>
+                </div>
+                <button class="validate-btn" onclick="validateAnswer('q50', ['b'], this)">Valider la réponse</button>
+                <div class="result">
+                    <div class="explanation">Horizon fournit une interface web centralisée pour administrer les services OpenStack.</div>
+                </div>
+            </div>
+
+            <div class="final-score" id="finalScore">
+                <h2>Votre score final</h2>
+                <p id="scoreText"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let answeredQuestions = 0;
+        let score = 0;
+        const totalQuestions = 50;
+    
+        function validateAnswer(questionId, correctAnswers, button) {
+            try {
+                // Récupérer la carte de la question
+                const questionCard = button.closest('.question-card');
+                if (!questionCard) {
+                    console.error(`Carte de question pour ${questionId} non trouvée`);
+                    return;
+                }
+    
+                // Récupérer les inputs (radio ou checkbox)
+                const inputs = questionCard.querySelectorAll(`input[name="${questionId}"]`);
+                const resultDiv = questionCard.querySelector('.result');
+                let selectedAnswers = [];
+    
+                // Collecter les réponses sélectionnées
+                inputs.forEach(input => {
+                    if (input.checked) {
+                        selectedAnswers.push(input.value);
+                    }
+                });
+    
+                // Vérifier si une réponse a été sélectionnée
+                if (selectedAnswers.length === 0) {
+                    alert('Veuillez sélectionner au moins une réponse.');
+                    return;
+                }
+    
+                // Trier les tableaux pour éviter les problèmes d'ordre
+                selectedAnswers.sort();
+                correctAnswers.sort();
+    
+                // Vérifier si les réponses sont correctes
+                const isCorrect = selectedAnswers.length === correctAnswers.length &&
+                    selectedAnswers.every((val, index) => val === correctAnswers[index]);
+    
+                // Afficher le résultat
+                resultDiv.style.display = 'block';
+                resultDiv.classList.add(isCorrect ? 'correct' : 'incorrect');
+                resultDiv.innerHTML = `<strong>Résultat : </strong><span class="${isCorrect ? 'correct' : 'incorrect'}">${isCorrect ? 'Correct' : 'Incorrect'}</span><br>` + resultDiv.innerHTML;
+    
+                // Désactiver le bouton et les inputs
+                button.disabled = true;
+                inputs.forEach(input => input.disabled = true);
+    
+                // Mettre à jour le score et la progression
+                answeredQuestions++;
+                if (isCorrect) score++;
+    
+                const progressPercent = (answeredQuestions / totalQuestions) * 100;
+                document.getElementById('progressFill').style.width = `${progressPercent}%`;
+                document.getElementById('stats').textContent = `Questions répondues : ${answeredQuestions}/${totalQuestions} | Score : ${score}`;
+    
+                // Afficher le score final si toutes les questions sont répondues
+                if (answeredQuestions === totalQuestions) {
+                    showFinalScore();
+                }
+    
+                // Débogage
+                console.log(`Question: ${questionId}, Sélection: ${selectedAnswers}, Correct: ${correctAnswers}, Résultat: ${isCorrect}`);
+            } catch (error) {
+                console.error(`Erreur dans validateAnswer pour ${questionId}:`, error);
+            }
+        }
+    
+        function showFinalScore() {
+            const finalScoreDiv = document.getElementById('finalScore');
+            const scoreText = document.getElementById('scoreText');
+            const percentage = (score / totalQuestions) * 100;
+            let message = `Votre score est de ${score}/${totalQuestions} (${percentage.toFixed(2)}%)`;
+    
+            // Supprimer les classes précédentes
+            finalScoreDiv.classList.remove('score-excellent', 'score-good', 'score-average', 'score-poor');
+            
+            // Appliquer la classe appropriée selon le score
+            if (percentage >= 90) {
+                finalScoreDiv.classList.add('score-excellent');
+                message += '<br>Excellent travail !';
+            } else if (percentage >= 70) {
+                finalScoreDiv.classList.add('score-good');
+                message += '<br>Bon travail !';
+            } else if (percentage >= 50) {
+                finalScoreDiv.classList.add('score-average');
+                message += '<br>Score moyen, continuez à apprendre !';
+            } else {
+                finalScoreDiv.classList.add('score-poor');
+                message += '<br>Révision nécessaire.';
+            }
+    
+            scoreText.innerHTML = message;
+            finalScoreDiv.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
