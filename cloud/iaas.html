@@ -1092,7 +1092,7 @@
             q.options.forEach((option, i) => {
                 const isChecked = userAnswers[index] && userAnswers[index].includes(i) ? 'checked' : '';
                 html += `
-                    <div class="option">
+                    <div class="option" onclick="handleOptionClick(${index}, ${i}, '${q.type}')">
                         <input type="${q.type === 'single' ? 'radio' : 'checkbox'}" 
                                id="option-${i}" 
                                name="q${index}" 
@@ -1135,6 +1135,24 @@
             updateButtonStates();
         }
         
+        // Gérer le clic sur une option
+        function handleOptionClick(questionIndex, optionIndex, questionType) {
+            if (answeredQuestions[questionIndex]) return;
+            
+            const input = document.querySelector(`input[name="q${questionIndex}"][value="${optionIndex}"]`);
+            
+            if (questionType === 'single') {
+                // Pour les questions à choix unique, désélectionner toutes les autres options
+                document.querySelectorAll(`input[name="q${questionIndex}"]`).forEach(opt => {
+                    opt.checked = false;
+                });
+                input.checked = true;
+            } else {
+                // Pour les questions à choix multiple, basculer l'état de la case
+                input.checked = !input.checked;
+            }
+        }
+        
         // Vérifier si une réponse est correcte
         function isAnswerCorrect(index) {
             if (!userAnswers[index]) return false;
@@ -1174,7 +1192,7 @@
         // Valider la réponse
         function submitAnswer() {
             const q = questions[currentQuestion];
-            const selectedOptions = document.querySelectorAll(`.option input:checked`);
+            const selectedOptions = document.querySelectorAll(`input[name="q${currentQuestion}"]:checked`);
             
             if (selectedOptions.length === 0) {
                 showNotification('Sélectionnez au moins une réponse!', 'incorrect');
@@ -1288,6 +1306,9 @@
                 submitAnswer();
             }
         });
+        
+        // Exposer la fonction handleOptionClick au scope global
+        window.handleOptionClick = handleOptionClick;
         
         // Démarrer le quiz
         initQuiz();
