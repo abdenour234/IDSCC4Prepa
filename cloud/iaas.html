@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz IaaS & OpenStack</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --correct: #2ecc71;
+            --incorrect: #e74c3c;
+            --neutral: #ecf0f1;
+            --warning: #f39c12;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, #3498db, #2c3e50, #e74c3c);
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px dashed var(--secondary);
+        }
+        
+        h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            background-color: var(--neutral);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            font-weight: bold;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+        
+        .stat-box {
+            text-align: center;
+            flex: 1;
+        }
+        
+        .stat-value {
+            font-size: 1.8rem;
+            color: var(--secondary);
+        }
+        
+        .question-container {
+            background-color: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-left: 5px solid var(--secondary);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .question-container::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            border-width: 0 30px 30px 0;
+            border-style: solid;
+            border-color: transparent var(--secondary) transparent transparent;
+        }
+        
+        .question-text {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .options-container {
+            margin: 20px 0;
+        }
+        
+        .option {
+            padding: 15px;
+            margin-bottom: 12px;
+            background-color: var(--neutral);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-left: 50px;
+        }
+        
+        .option:hover {
+            background-color: #d6eaf8;
+            transform: translateX(5px);
+        }
+        
+        .option input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+        
+        .checkmark {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            height: 22px;
+            width: 22px;
+            background-color: #fff;
+            border: 2px solid #bbb;
+            border-radius: 4px;
+        }
+        
+        .option input:checked ~ .checkmark {
+            background-color: var(--secondary);
+            border-color: var(--secondary);
+        }
+        
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+        
+        .option input:checked ~ .checkmark:after {
+            display: block;
+        }
+        
+        .option .checkmark:after {
+            left: 7px;
+            top: 3px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        
+        .feedback {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .correct-answer {
+            background-color: rgba(46, 204, 113, 0.15);
+            border: 1px solid var(--correct);
+        }
+        
+        .incorrect-answer {
+            background-color: rgba(231, 76, 60, 0.15);
+            border: 1px solid var(--incorrect);
+        }
+        
+        .feedback-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .feedback-title i {
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .correct .feedback-title {
+            color: var(--correct);
+        }
+        
+        .incorrect .feedback-title {
+            color: var(--incorrect);
+        }
+        
+        .explanation {
+            margin-top: 10px;
+            padding: 15px;
+            background-color: rgba(236, 240, 241, 0.7);
+            border-radius: 8px;
+            border-left: 3px solid var(--secondary);
+        }
+        
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+        }
+        
+        #prev-btn {
+            background-color: #7f8c8d;
+            color: white;
+        }
+        
+        #prev-btn:hover {
+            background-color: #95a5a6;
+        }
+        
+        #submit-btn {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        #submit-btn:hover {
+            background-color: #2980b9;
+        }
+        
+        #next-btn {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        #next-btn:hover {
+            background-color: #34495e;
+        }
+        
+        .result-container {
+            text-align: center;
+            padding: 30px;
+            display: none;
+        }
+        
+        .result-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .score {
+            font-size: 5rem;
+            font-weight: bold;
+            color: var(--secondary);
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .restart-btn {
+            background: linear-gradient(45deg, var(--secondary), var(--primary));
+            color: white;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            margin-top: 20px;
+        }
+        
+        .progress-container {
+            width: 100%;
+            height: 12px;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--secondary), var(--primary));
+            border-radius: 10px;
+            transition: width 0.4s ease;
+        }
+        
+        .question-number {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--secondary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.16);
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transform: translateX(200%);
+            transition: transform 0.4s ease;
+            z-index: 1000;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .notification.correct {
+            background-color: var(--correct);
+        }
+        
+        .notification.incorrect {
+            background-color: var(--incorrect);
+        }
+        
+        .multiple-hint {
+            display: inline-block;
+            background-color: var(--warning);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .stats {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Quiz IaaS & OpenStack</h1>
+            <p>Testez vos connaissances sur l'infrastructure cloud et OpenStack</p>
+        </header>
+        
+        <div class="stats">
+            <div class="stat-box">
+                <div class="stat-label">Questions</div>
+                <div class="stat-value" id="current-question">1</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">Score</div>
+                <div class="stat-value" id="score">0</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">Progression</div>
+                <div class="stat-value" id="progress">0%</div>
+            </div>
+        </div>
+        
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        
+        <div id="quiz-content">
+            <!-- Question content will be loaded here -->
+        </div>
+        
+        <div class="buttons">
+            <button id="prev-btn">← Précédent</button>
+            <button id="submit-btn">Valider</button>
+            <button id="next-btn">Suivant →</button>
+        </div>
+        
+        <div id="result-container" class="result-container">
+            <h2 class="result-title">Résultats du Quiz</h2>
+            <div class="score" id="final-score">0/50</div>
+            <p id="result-message"></p>
+            <button id="restart-btn" class="restart-btn">Recommencer le Quiz</button>
+        </div>
+    </div>
+    
+    <div id="notification" class="notification"></div>
+    
+    <script>
+        // Questions data
+        const questions = [
+            {
+                type: 'single',
+                question: 'Quelle est la caractéristique principale de l\'IaaS selon le document?',
+                options: [
+                    'Fournit des applications métier clés en main',
+                    'Offre des machines virtuelles via la virtualisation',
+                    'Gère le middleware pour les développeurs',
+                    'Automatise le déploiement des conteneurs'
+                ],
+                correctAnswer: 1,
+                explanation: 'Selon le document, l\'IaaS repose sur la virtualisation et met à disposition des machines virtuelles.'
+            },
+            {
+                type: 'multiple',
+                question: 'Quels avantages de l\'IaaS sont mentionnés?',
+                options: [
+                    'Coûts fixes prévisibles',
+                    'Extensibilité immédiate des ressources',
+                    'Sécurité physique des datacenters',
+                    'Maintenance matérielle par le client'
+                ],
+                correctAnswer: [1, 2],
+                explanation: 'Le document mentionne l\'extensibilité immédiate et la sécurité physique des datacenters comme avantages clés de l\'IaaS.'
+            },
+            {
+                type: 'single',
+                question: 'Dans le modèle de responsabilités IaaS, qui gère l\'hyperviseur?',
+                options: [
+                    'Client',
+                    'Fournisseur',
+                    'Développeur d\'applications',
+                    'Utilisateur final'
+                ],
+                correctAnswer: 1,
+                explanation: 'Le fournisseur Cloud installe et maintient le matériel physique et l\'hyperviseur dans le modèle IaaS.'
+            },
+            {
+                type: 'multiple',
+                question: 'Quels éléments font partie de l\'architecture IaaS?',
+                options: [
+                    'KVM/XEN (virtualisation)',
+                    'Stockage objet Swift',
+                    'Réseau Fibre Channel',
+                    'Middleware runtime'
+                ],
+                correctAnswer: [0, 2],
+                explanation: 'Le document mentionne la virtualisation (KVM, XEN) et le réseau (Fibre Channel) comme éléments de l\'architecture IaaS.'
+            },
+            {
+                type: 'single',
+                question: 'Quelle plateforme n\'est PAS citée comme solution IaaS?',
+                options: [
+                    'OpenNebula',
+                    'Kubernetes',
+                    'CloudStack',
+                    'Eucalyptus'
+                ],
+                correctAnswer: 1,
+                explanation: 'Kubernetes est une plateforme d\'orchestration de conteneurs, non mentionnée comme solution IaaS dans le document.'
+            },
+            {
+                type: 'multiple',
+                question: 'Quels fournisseurs proposent des services IaaS?',
+                options: [
+                    'Google Compute Engine',
+                    'IBM Watson',
+                    'Amazon EC2',
+                    'Salesforce'
+                ],
+                correctAnswer: [0, 2],
+                explanation: 'Le document mentionne Amazon AWS (EC2) et Google Compute Engine comme fournisseurs IaaS.'
+            },
+            {
+                type: 'single',
+                question: 'À Paris, quel est le prix horaire d\'une instance EC2 t2.micro sous Windows?',
+                options: [
+                    '0,015 €',
+                    '0,020 €',
+                    '0,030 €',
+                    '0,040 €'
+                ],
+                correctAnswer: 1,
+                explanation: 'Le tableau des prix montre que l\'instance t2.micro sous Windows coûte 0,020 €/h à Paris.'
+            },
+            {
+                type: 'single',
+                question: 'OpenStack est comparé à quoi dans le document?',
+                options: [
+                    'Windows Server',
+                    'VMware vSphere',
+                    'Linux',
+                    'Docker'
+                ],
+                correctAnswer: 2,
+                explanation: 'Le document indique qu\'OpenStack est considéré comme "le Linux du Cloud".'
+            },
+            {
+                type: 'multiple',
+                question: 'Quels modules OpenStack gèrent le stockage?',
+                options: [
+                    'Nova',
+                    'Cinder',
+                    'Glance',
+                    'Neutron'
+                ],
+                correctAnswer: [1, 2],
+                explanation: 'Cinder gère le stockage bloc et Glance gère le référentiel d\'images.'
+            },
+            {
+                type: 'single',
+                question: 'Quel module OpenStack est responsable de l\'authentification?',
+                options: [
+                    'Horizon',
+                    'Keystone',
+                    'Neutron',
+                    'Heat'
+                ],
+                correctAnswer: 1,
+                explanation: 'Keystone est le service d\'identité qui fournit l\'authentification et l\'autorisation.'
+            },
+            {
+                type: 'multiple',
+                question: 'Quels réseaux sont utilisés dans un déploiement OpenStack?',
+                options: [
+                    'Réseau de gestion',
+                    'Réseau API',
+                    'Réseau social',
+                    'Réseau de données'
+                ],
+                correctAnswer: [0, 1, 3],
+                explanation: 'OpenStack utilise les réseaux de gestion, API et données, mais pas de "réseau social".'
+            },
+            {
+                type: 'single',
+                question: 'Quelle commande nova crée une nouvelle instance?',
+                options: [
+                    'nova list',
+                    'nova boot',
+                    'nova service-list',
+                    'nova delete'
+                ],
+                correctAnswer: 1,
+                explanation: 'La commande "nova boot" est utilisée pour lancer une nouvelle instance.'
+            },
+            {
+                type: 'single',
+                question: 'Où Glance stocke-t-il généralement les images?',
+                options: [
+                    'Cinder',
+                    'Nova',
+                    'Swift',
+                    'Keystone'
+                ],
+                correctAnswer: 2,
+                explanation: 'Glance stocke généralement les images dans Swift (Object Storage).'
+            },
+            {
+                type: 'multiple',
+                question: 'Quelles fonctions assure Neutron?',
+                options: [
+                    'Création de réseaux virtuels',
+                    'Stockage bloc persistant',
+                    'Contrôle du trafic réseau',
+                    'Orchestration de services'
+                ],
+                correctAnswer: [0, 2],
+                explanation: 'Neutron gère la création de réseaux virtuels et le contrôle du trafic réseau.'
+            },
+            {
+                type: 'single',
+                question: 'Quel composant fournit l\'interface Web OpenStack?',
+                options: [
+                    'Keystone',
+                    'Horizon',
+                    'Glance',
+                    'Neutron'
+                ],
+                correctAnswer: 1,
+                explanation: 'Horizon est le tableau de bord Web d\'OpenStack.'
+            },
+            {
+                type: 'multiple',
+                question: 'Quels pilotes de stockage sont compatibles avec Glance?',
+                options: [
+                    'Ceph',
+                    'SAN',
+                    'Swift',
+                    'iSCSI'
+                ],
+                correctAnswer: [0, 2],
+                explanation: 'Glance supporte Ceph et Swift comme backends de stockage.'
+            },
+            {
+                type: 'single',
+                question: 'Quel service gère les volumes de stockage bloc pour Nova?',
+                options: [
+                    'Swift',
+                    'Cinder',
+                    'Neutron',
+                    'Heat'
+                ],
+                correctAnswer: 1,
+                explanation: 'Cinder fournit des volumes de stockage bloc persistants pour les instances Nova.'
+            },
+            {
+                type: 'single',
+                question: 'Que permet la commande "glance image-create"?',
+                options: [
+                    'Supprimer une VM',
+                    'Lancer une instance',
+                    'Télécharger une image',
+                    'Configurer le réseau'
+                ],
+                correctAnswer: 2,
+                explanation: 'Cette commande permet de télécharger une nouvelle image dans Glance.'
+            },
+            {
+                type: 'multiple',
+                question: 'Quels plugins réseau sont évoqués pour Neutron?',
+                options: [
+                    'Open vSwitch',
+                    'Cisco Nexus',
+                    'Kubernetes CNI',
+                    'Amazon VPC'
+                ],
+                correctAnswer: [0, 1],
+                explanation: 'Le document mentionne Open vSwitch et Cisco Nexus comme plugins Neutron.'
+            },
+            {
+                type: 'single',
+                question: 'Comment les VM accèdent-elles à l\'extérieur dans OpenStack?',
+                options: [
+                    'Via un routeur virtuel Neutron',
+                    'Directement par le switch physique',
+                    'Par le service Keystone',
+                    'Via Cinder Volume'
+                ],
+                correctAnswer: 0,
+                explanation: 'Un routeur virtuel Neutron permet la connexion au réseau externe.'
+            },
+            {
+                type: 'single',
+                question: 'Quel service stocke les jetons d\'authentification temporaires?',
+                options: [
+                    'Glance',
+                    'Horizon',
+                    'Keystone',
+                    'Nova'
+                ],
+                correctAnswer: 2,
+                explanation: 'Keystone gère les jetons d\'authentification temporaires.'
+            },
+            {
+                type: 'multiple',
+                question: 'Quels rôles de Keystone sont mentionnés?',
+                options: [
+                    'Gestion des utilisateurs',
+                    'Catalogue des services',
+                    'Surveillance réseau',
+                    'Facturation'
+                ],
+                correctAnswer: [0, 1],
+                explanation: 'Keystone gère les utilisateurs et maintient un catalogue des services.'
+            },
+            {
+                type: 'single',
+                question: 'Quel service utilise Memcached pour le caching?',
+                options: [
+                    'Nova',
+                    'Swift',
+                    'Cinder',
+                    'Neutron'
+                ],
+                correctAnswer: 1,
+                explanation: 'Swift utilise Memcached pour améliorer les performances.'
+            },
+            {
+                type: 'single',
+                question: 'Quelle est l\'architecture de Swift?',
+                options: [
+                    'Centralisée',
+                    'Distribuée avec réplication logicielle',
+                    'Basée sur des baies matérielles',
+                    'Hiérarchique'
+                ],
+                correctAnswer: 1,
+                explanation: 'Swift a une architecture distribuée avec réplication logicielle.'
+            },
+            {
+                type: 'multiple',
+                question: 'Quels types de données Swift peut-il stocker?',
+                options: [
+                    'Vidéos',
+                    'Snapshots de VM',
+                    'Bases de données relationnelles',
+                    'Fichiers de configuration'
+                ],
+                correctAnswer: [0, 1],
+                explanation: 'Swift peut stocker des vidéos et des snapshots de VM, entre autres.'
+            },
+            {
+                type: 'single',
+                question: 'Quel hyperviseur est supporté par Nova?',
+                options: [
+                    'Hyper-V',
+                    'KVM',
+                    'VirtualBox',
+                    'Docker'
+                ],
+                correctAnswer: 1,
+                explanation: 'Nova supporte KVM comme hyperviseur.'
+            },
+            {
+                type: 'multiple',
+                question: 'Quels composants interagissent avec Nova?',
+                options: [
+                    'Keystone (auth)',
+                    'Glance (images)',
+                    'Cinder (stockage)',
+                    'Swift (orchestration)'
+                ],
+                correctAnswer: [0, 1, 2],
+                explanation: 'Nova interagit avec Keystone, Glance et Cinder.'
+            },
+            {
+                type: 'single',
+                question: 'Quelle commande liste les hyperviseurs?',
+                options: [
+                    'nova service-list',
+                    'nova hypervisor-list',
+                    'nova list',
+                    'nova flavor-create'
+                ],
+                correctAnswer: 1,
+                explanation: '"nova hypervisor-list" affiche les hyperviseurs disponibles.'
+            },
+            {
+                type: 'single',
+                question: 'Que fait Cinder Backup?',
+                options: [
+                    'Sauvegarde les volumes',
+                    'Lance des instances',
+                    'Gère le DHCP',
+                    'Authentifie les utilisateurs'
+                ],
+                correctAnswer: 0,
+                explanation: 'Cinder Backup permet de sauvegarder les volumes.'
+            },
+            {
+                type: 'multiple',
+                question: 'Quels drivers Cinder utilise-t-il?',
+                options: [
+                    'StoreVirtual',
+                    'NFS',
+                    'iSCSI',
+                    'RabbitMQ'
+                ],
+                correctAnswer: [0, 2],
+                explanation: 'Cinder supporte StoreVirtual et iSCSI comme backends.'
+            },
+            {
+                type: 'single',
+                question: 'Comment Neutron gère-t-il le réseau?',
+                options: [
+                    'Via une architecture monolithique',
+                    'Par des plugins modulaires',
+                    'En utilisant exclusivement le matériel',
+                    'Sans interaction avec Nova'
+                ],
+                correctAnswer: 1,
+                explanation: 'Neutron utilise une architecture modulaire basée sur des plugins.'
+            },
+            {
+                type: 'single',
+                question: 'Quel composant connecte les VM au réseau externe?',
+                options: [
+                    'Linux Bridge',
+                    'Glance API',
+                    'Keystone Token',
+                    'Cinder Volume'
+                ],
+                correctAnswer: 0,
+                explanation: 'Linux Bridge est utilisé pour connecter les VM au réseau externe.'
+            },
+            {
+                type: 'multiple',
+                question: 'Quels agents Neutron sont sur le nœud réseau?',
+                options: [
+                    'neutron-dhcp-agent',
+                    'nova-compute',
+                    'neutron-lbaas-agent',
+                    'glance-registry'
+                ],
+                correctAnswer: [0, 2],
+                explanation: 'neutron-dhcp-agent et neutron-lbaas-agent sont sur le nœud réseau.'
+            },
+            {
+                type: 'single',
+                question: 'Que contient le catalogue Keystone?',
+                options: [
+                    'Images de VM',
+                    'Endpoints des services',
+                    'Volumes de stockage',
+                    'Règles de firewall'
+                ],
+                correctAnswer: 1,
+                explanation: 'Keystone maintient un catalogue des endpoints de services.'
+            },
+            {
+                type: 'single',
+                question: 'Quelle méthode d\'authentification Keystone ne supporte PAS?',
+                options: [
+                    'Jetons temporaires',
+                    'Identifiants AWS-style',
+                    'Certificats matériels TPM',
+                    'User/Password'
+                ],
+                correctAnswer: 2,
+                explanation: 'Les certificats matériels TPM ne sont pas mentionnés dans le document.'
+            },
+            {
+                type: 'multiple',
+                question: 'Que permet Horizon?',
+                options: [
+                    'Lancer des instances',
+                    'Gérer les IP',
+                    'Configurer l\'hyperviseur',
+                    'Définir des ACLs'
+                ],
+                correctAnswer: [0, 1, 3],
+                explanation: 'Horizon permet de lancer des instances, gérer les IP et définir des ACLs.'
+            },
+            {
+                type: 'single',
+                question: 'Quel service utilise le "Network RAID 10"?',
+                options: [
+                    'Swift',
+                    'Cinder (StoreVirtual)',
+                    'Neutron',
+                    'Glance'
+                ],
+                correctAnswer: 1,
+                explanation: 'Cinder avec StoreVirtual utilise le Network RAID 10.'
+            },
+            {
+                type: 'single',
+                question: 'Quelle est la fonction de Heat?',
+                options: [
+                    'Surveillance des ressources',
+                    'Orchestration du cloud',
+                    'Gestion des identités',
+                    'Stockage objet'
+                ],
+                correctAnswer: 1,
+                explanation: 'Heat fournit des services d\'orchestration.'
+            },
+            {
+                type: 'multiple',
+                question: 'Quels services assurent la haute disponibilité dans OpenStack?',
+                options: [
+                    'Masakari',
+                    'Vitrage',
+                    'Monasca',
+                    'Octavia'
+                ],
+                correctAnswer: [0, 2],
+                explanation: 'Masakari et Monasca contribuent à la haute disponibilité.'
+            },
+            {
+                type: 'single',
+                question: 'Quel composant gère le load balancing?',
+                options: [
+                    'Designate',
+                    'Octavia',
+                    'Karbor',
+                    'Searchlight'
+                ],
+                correctAnswer: 1,
+                explanation: 'Octavia fournit des services de load balancing.'
+            },
+            {
+                type: 'single',
+                question: 'Quelle commande supprime une image Glance?',
+                options: [
+                    'glance image-delete',
+                    'glance image-remove',
+                    'glance image-destroy',
+                    'glance purge'
+                ],
+                correctAnswer: 0,
+                explanation: '"glance image-delete" supprime une image.'
+            },
+            {
+                type: 'multiple',
+                question: 'Quels éléments sont dans l\'architecture Swift?',
+                options: [
+                    'Proxy',
+                    'Compte/Container/Objet',
+                    'Scheduler Nova',
+                    'Base de données Keystone'
+                ],
+                correctAnswer: [0, 1],
+                explanation: 'Swift comprend des proxies et une structure Compte/Container/Objet.'
+            },
+            {
+                type: 'single',
+                question: 'Comment Swift assure-t-il la redondance?',
+                options: [
+                    'Par réplication matérielle',
+                    'Via la réplication logicielle',
+                    'En utilisant RAID 5',
+                    'Avec des snapshots Cinder'
+                ],
+                correctAnswer: 1,
+                explanation: 'Swift utilise la réplication logicielle pour la redondance.'
+            },
+            {
+                type: 'single',
+                question: 'Quel réseau est utilisé pour les API OpenStack?',
+                options: [
+                    'Management',
+                    'Data',
+                    'External',
+                    'API'
+                ],
+                correctAnswer: 3,
+                explanation: 'Le réseau API est dédié aux communications avec les API.'
+            },
+            {
+                type: 'multiple',
+                question: 'Quels services s\'exécutent sur le nœud contrôleur?',
+                options: [
+                    'Base de données',
+                    'Message Queue',
+                    'Compute Agent',
+                    'API Services'
+                ],
+                correctAnswer: [0, 1, 3],
+                explanation: 'Le nœud contrôleur héberge la base de données, la file d\'attente et les API.'
+            },
+            {
+                type: 'single',
+                question: 'Quelle commande crée un flavor Nova?',
+                options: [
+                    'nova flavor-add',
+                    'nova create-flavor',
+                    'nova flavor-create',
+                    'nova new-flavor'
+                ],
+                correctAnswer: 2,
+                explanation: '"nova flavor-create" est la commande correcte.'
+            },
+            {
+                type: 'single',
+                question: 'Quel composant Nova gère la console?',
+                options: [
+                    'nova-api',
+                    'nova-consoleauth',
+                    'nova-scheduler',
+                    'nova-cert'
+                ],
+                correctAnswer: 1,
+                explanation: 'nova-consoleauth gère l\'authentification de la console.'
+            },
+            {
+                type: 'multiple',
+                question: 'Quels drivers de stockage Glance utilise-t-il?',
+                options: [
+                    'Système de fichiers',
+                    'Ceph',
+                    'iSCSI',
+                    'NAS'
+                ],
+                correctAnswer: [0, 1],
+                explanation: 'Glance supporte les systèmes de fichiers et Ceph.'
+            },
+            {
+                type: 'single',
+                question: 'Que gère Barbican?',
+                options: [
+                    'Images',
+                    'Secrets (mots de passe, clés)',
+                    'Réseau',
+                    'Facturation'
+                ],
+                correctAnswer: 1,
+                explanation: 'Barbican gère les secrets comme les mots de passe et clés.'
+            },
+            {
+                type: 'single',
+                question: 'Quel service mesure l\'utilisation des ressources?',
+                options: [
+                    'Ceilometer',
+                    'Watcher',
+                    'CloudKitty',
+                    'Rally'
+                ],
+                correctAnswer: 0,
+                explanation: 'Ceilometer est le service de métriques et monitoring.'
+            }
+        ];
+
+        // Variables d'état
+        let currentQuestion = 0;
+        let score = 0;
+        let userAnswers = new Array(questions.length).fill(null);
+        let answeredQuestions = new Array(questions.length).fill(false);
+        
+        // Éléments DOM
+        const quizContent = document.getElementById('quiz-content');
+        const currentQuestionElement = document.getElementById('current-question');
+        const scoreElement = document.getElementById('score');
+        const progressElement = document.getElementById('progress');
+        const progressBar = document.getElementById('progress-bar');
+        const prevBtn = document.getElementById('prev-btn');
+        const submitBtn = document.getElementById('submit-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const resultContainer = document.getElementById('result-container');
+        const finalScoreElement = document.getElementById('final-score');
+        const resultMessage = document.getElementById('result-message');
+        const restartBtn = document.getElementById('restart-btn');
+        const notification = document.getElementById('notification');
+        
+        // Initialisation du quiz
+        function initQuiz() {
+            showQuestion(currentQuestion);
+            updateStats();
+        }
+        
+        // Afficher une question
+        function showQuestion(index) {
+            const q = questions[index];
+            let html = `
+                <div class="question-container">
+                    <div class="question-number">${index + 1}</div>
+                    <div class="question-text">
+                        ${q.question}
+                        ${q.type === 'multiple' ? '<span class="multiple-hint">Choix multiple</span>' : ''}
+                    </div>
+                    <div class="options-container">
+            `;
+            
+            q.options.forEach((option, i) => {
+                const isChecked = userAnswers[index] && userAnswers[index].includes(i) ? 'checked' : '';
+                html += `
+                    <div class="option">
+                        <input type="${q.type === 'single' ? 'radio' : 'checkbox'}" 
+                               id="option-${i}" 
+                               name="q${index}" 
+                               value="${i}" ${isChecked}>
+                        <label for="option-${i}">
+                            <span class="checkmark"></span>
+                            ${option}
+                        </label>
+                    </div>
+                `;
+            });
+            
+            html += `</div>`;
+            
+            // Ajout de la zone de feedback si la question a déjà été répondue
+            if (answeredQuestions[index]) {
+                const feedbackClass = isAnswerCorrect(index) ? 'correct' : 'incorrect';
+                html += `
+                    <div class="feedback ${feedbackClass}">
+                        <div class="feedback-title">
+                            <i>${isAnswerCorrect(index) ? '✓' : '✗'}</i>
+                            ${isAnswerCorrect(index) ? 'Réponse correcte!' : 'Réponse incorrecte!'}
+                        </div>
+                        <div class="explanation">${q.explanation}</div>
+                    </div>
+                `;
+            }
+            
+            quizContent.innerHTML = html;
+            
+            // Désactiver les options si la question a déjà été répondue
+            if (answeredQuestions[index]) {
+                const options = document.querySelectorAll('.option input');
+                options.forEach(option => {
+                    option.disabled = true;
+                });
+            }
+            
+            // Mettre à jour l'état des boutons
+            updateButtonStates();
+        }
+        
+        // Vérifier si une réponse est correcte
+        function isAnswerCorrect(index) {
+            if (!userAnswers[index]) return false;
+            
+            const q = questions[index];
+            const userAnswer = userAnswers[index];
+            const correctAnswer = Array.isArray(q.correctAnswer) ? q.correctAnswer : [q.correctAnswer];
+            
+            if (userAnswer.length !== correctAnswer.length) return false;
+            
+            return userAnswer.every(ans => correctAnswer.includes(ans)) && 
+                   correctAnswer.every(ans => userAnswer.includes(ans));
+        }
+        
+        // Mettre à jour les statistiques
+        function updateStats() {
+            currentQuestionElement.textContent = `${currentQuestion + 1}/${questions.length}`;
+            scoreElement.textContent = score;
+            const progress = Math.round(((currentQuestion + 1) / questions.length) * 100);
+            progressElement.textContent = `${progress}%`;
+            progressBar.style.width = `${progress}%`;
+        }
+        
+        // Mettre à jour l'état des boutons
+        function updateButtonStates() {
+            prevBtn.disabled = currentQuestion === 0;
+            nextBtn.disabled = currentQuestion === questions.length - 1;
+            submitBtn.disabled = answeredQuestions[currentQuestion];
+            
+            if (answeredQuestions[currentQuestion]) {
+                submitBtn.style.display = 'none';
+            } else {
+                submitBtn.style.display = 'block';
+            }
+        }
+        
+        // Valider la réponse
+        function submitAnswer() {
+            const q = questions[currentQuestion];
+            const selectedOptions = document.querySelectorAll(`.option input:checked`);
+            
+            if (selectedOptions.length === 0) {
+                showNotification('Sélectionnez au moins une réponse!', 'incorrect');
+                return;
+            }
+            
+            const selectedValues = Array.from(selectedOptions).map(opt => parseInt(opt.value));
+            userAnswers[currentQuestion] = selectedValues;
+            answeredQuestions[currentQuestion] = true;
+            
+            // Vérifier la réponse et mettre à jour le score
+            const correct = isAnswerCorrect(currentQuestion);
+            if (correct) {
+                score++;
+                showNotification('Correct!', 'correct');
+            } else {
+                showNotification('Incorrect!', 'incorrect');
+            }
+            
+            // Afficher le feedback
+            showQuestion(currentQuestion);
+            updateStats();
+            
+            // Si c'est la dernière question, afficher les résultats
+            if (currentQuestion === questions.length - 1) {
+                showResults();
+            }
+        }
+        
+        // Afficher une notification
+        function showNotification(message, type) {
+            notification.textContent = message;
+            notification.className = `notification ${type} show`;
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Afficher les résultats finaux
+        function showResults() {
+            quizContent.style.display = 'none';
+            document.querySelector('.buttons').style.display = 'none';
+            resultContainer.style.display = 'block';
+            
+            finalScoreElement.textContent = `${score}/${questions.length}`;
+            
+            const percentage = Math.round((score / questions.length) * 100);
+            let message = '';
+            
+            if (percentage >= 80) {
+                message = 'Excellent! Vous maîtrisez parfaitement IaaS et OpenStack.';
+            } else if (percentage >= 60) {
+                message = 'Bon travail! Vous avez une bonne connaissance du sujet.';
+            } else if (percentage >= 40) {
+                message = 'Pas mal! Quelques révisions et vous serez au top.';
+            } else {
+                message = 'Continuez à apprendre! Consultez à nouveau le document.';
+            }
+            
+            resultMessage.textContent = message;
+        }
+        
+        // Recommencer le quiz
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            userAnswers = new Array(questions.length).fill(null);
+            answeredQuestions = new Array(questions.length).fill(false);
+            
+            quizContent.style.display = 'block';
+            document.querySelector('.buttons').style.display = 'flex';
+            resultContainer.style.display = 'none';
+            
+            showQuestion(currentQuestion);
+            updateStats();
+        }
+        
+        // Écouteurs d'événements
+        prevBtn.addEventListener('click', () => {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                showQuestion(currentQuestion);
+                updateStats();
+            }
+        });
+        
+        nextBtn.addEventListener('click', () => {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                showQuestion(currentQuestion);
+                updateStats();
+            }
+        });
+        
+        submitBtn.addEventListener('click', submitAnswer);
+        
+        restartBtn.addEventListener('click', restartQuiz);
+        
+        // Permettre la navigation avec les touches du clavier
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft' && currentQuestion > 0) {
+                currentQuestion--;
+                showQuestion(currentQuestion);
+                updateStats();
+            } else if (e.key === 'ArrowRight' && currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                showQuestion(currentQuestion);
+                updateStats();
+            } else if (e.key === 'Enter' && !answeredQuestions[currentQuestion]) {
+                submitAnswer();
+            }
+        });
+        
+        // Démarrer le quiz
+        initQuiz();
+    </script>
+</body>
+</html>
