@@ -126,11 +126,17 @@
             transition: all 0.3s ease;
             position: relative;
             padding-left: 50px;
+            user-select: none;
         }
         
         .option:hover {
             background-color: #d6eaf8;
             transform: translateX(5px);
+        }
+        
+        .option.selected {
+            background-color: #d6eaf8;
+            border: 2px solid var(--secondary);
         }
         
         .option input {
@@ -150,7 +156,7 @@
             border-radius: 4px;
         }
         
-        .option input:checked ~ .checkmark {
+        .option.selected .checkmark {
             background-color: var(--secondary);
             border-color: var(--secondary);
         }
@@ -161,7 +167,7 @@
             display: none;
         }
         
-        .option input:checked ~ .checkmark:after {
+        .option.selected .checkmark:after {
             display: block;
         }
         
@@ -181,6 +187,10 @@
             border-radius: 10px;
             display: none;
             animation: fadeIn 0.5s ease-in;
+        }
+        
+        .feedback.show {
+            display: block;
         }
         
         @keyframes fadeIn {
@@ -248,12 +258,18 @@
             box-shadow: 0 6px 8px rgba(0,0,0,0.15);
         }
         
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
         #prev-btn {
             background-color: #7f8c8d;
             color: white;
         }
         
-        #prev-btn:hover {
+        #prev-btn:hover:not(:disabled) {
             background-color: #95a5a6;
         }
         
@@ -262,7 +278,7 @@
             color: white;
         }
         
-        #submit-btn:hover {
+        #submit-btn:hover:not(:disabled) {
             background-color: #2980b9;
         }
         
@@ -271,7 +287,7 @@
             color: white;
         }
         
-        #next-btn:hover {
+        #next-btn:hover:not(:disabled) {
             background-color: #34495e;
         }
         
@@ -445,7 +461,7 @@
     <div id="notification" class="notification"></div>
     
     <script>
-        // Questions data
+        // Questions data - Empty array for you to fill with your existing questions
         const questions = [
             {
                 type: 'single',
@@ -1072,6 +1088,10 @@
         
         // Initialisation du quiz
         function initQuiz() {
+            if (questions.length === 0) {
+                quizContent.innerHTML = '<div class="question-container"><p>Aucune question n\'a été ajoutée. Veuillez ajouter des questions dans le tableau "questions".</p></div>';
+                return;
+            }
             showQuestion(currentQuestion);
             updateStats();
         }
@@ -1090,17 +1110,16 @@
             `;
             
             q.options.forEach((option, i) => {
-                const isChecked = userAnswers[index] && userAnswers[index].includes(i) ? 'checked' : '';
+                const isSelected = userAnswers[index] && userAnswers[index].includes(i);
                 html += `
-                    <div class="option" onclick="handleOptionClick(${index}, ${i}, '${q.type}')">
-                        <input type="${q.type === 'single' ? 'radio' : 'checkbox'}" 
+                    <div class="option ${isSelected ? 'selected' : ''}" data-option="${i}">
+                        <input type="checkbox" 
                                id="option-${i}" 
                                name="q${index}" 
-                               value="${i}" ${isChecked}>
-                        <label for="option-${i}">
-                            <span class="checkmark"></span>
-                            ${option}
-                        </label>
+                               value="${i}" 
+                               ${isSelected ? 'checked' : ''}>
+                        <span class="checkmark"></span>
+                        <label for="option-${i}">${option}</label>
                     </div>
                 `;
             });
@@ -1111,7 +1130,7 @@
             if (answeredQuestions[index]) {
                 const feedbackClass = isAnswerCorrect(index) ? 'correct' : 'incorrect';
                 html += `
-                    <div class="feedback ${feedbackClass}">
+                    <div class="feedback show ${feedbackClass}">
                         <div class="feedback-title">
                             <i>${isAnswerCorrect(index) ? '✓' : '✗'}</i>
                             ${isAnswerCorrect(index) ? 'Réponse correcte!' : 'Réponse incorrecte!'}
@@ -1123,13 +1142,18 @@
             
             quizContent.innerHTML = html;
             
-            // Désactiver les options si la question a déjà été répondue
-            if (answeredQuestions[index]) {
-                const options = document.querySelectorAll('.option input');
-                options.forEach(option => {
-                    option.disabled = true;
-                });
-            }
+            // Ajouter les écouteurs d'événements pour les options
+            const options = document.querySelectorAll('.option');
+            options.forEach(option => {
+                if (!answeredQuestions[index]) {
+                    option.addEventListener('click', () => {
+                        handleOptionClick(index, parseInt(option.dataset.option), q.type);
+                    });
+                } else {
+                    option.style.pointerEvents = 'none';
+                    option.style.opacity = '0.7';
+                }
+            });
             
             // Mettre à jour l'état des boutons
             updateButtonStates();
@@ -1139,17 +1163,30 @@
         function handleOptionClick(questionIndex, optionIndex, questionType) {
             if (answeredQuestions[questionIndex]) return;
             
-            const input = document.querySelector(`input[name="q${questionIndex}"][value="${optionIndex}"]`);
+            const option = document.querySelector(`.option[data-option="${optionIndex}"]`);
+            const input = option.querySelector('input');
             
             if (questionType === 'single') {
                 // Pour les questions à choix unique, désélectionner toutes les autres options
-                document.querySelectorAll(`input[name="q${questionIndex}"]`).forEach(opt => {
-                    opt.checked = false;
+                document.querySelectorAll('.option').forEach(opt => {
+                    opt.classList.remove('selected');
+                    opt.querySelector('input').checked = false;
                 });
-                input.checked = true;
+                
+                // Si l'option n'était pas déjà sélectionnée, la sélectionner
+                if (!option.classList.contains('selected')) {
+                    option.classList.add('selected');
+                    input.checked = true;
+                }
             } else {
-                // Pour les questions à choix multiple, basculer l'état de la case
-                input.checked = !input.checked;
+                // Pour les questions à choix multiple, basculer l'état de l'option
+                if (option.classList.contains('selected')) {
+                    option.classList.remove('selected');
+                    input.checked = false;
+                } else {
+                    option.classList.add('selected');
+                    input.checked = true;
+                }
             }
         }
         
@@ -1169,6 +1206,8 @@
         
         // Mettre à jour les statistiques
         function updateStats() {
+            if (questions.length === 0) return;
+            
             currentQuestionElement.textContent = `${currentQuestion + 1}/${questions.length}`;
             scoreElement.textContent = score;
             const progress = Math.round(((currentQuestion + 1) / questions.length) * 100);
@@ -1178,28 +1217,36 @@
         
         // Mettre à jour l'état des boutons
         function updateButtonStates() {
+            if (questions.length === 0) {
+                prevBtn.disabled = true;
+                nextBtn.disabled = true;
+                submitBtn.disabled = true;
+                return;
+            }
+            
             prevBtn.disabled = currentQuestion === 0;
             nextBtn.disabled = currentQuestion === questions.length - 1;
-            submitBtn.disabled = answeredQuestions[currentQuestion];
             
             if (answeredQuestions[currentQuestion]) {
                 submitBtn.style.display = 'none';
             } else {
                 submitBtn.style.display = 'block';
+                submitBtn.disabled = false;
             }
         }
         
         // Valider la réponse
         function submitAnswer() {
-            const q = questions[currentQuestion];
-            const selectedOptions = document.querySelectorAll(`input[name="q${currentQuestion}"]:checked`);
+            if (questions.length === 0) return;
+            
+            const selectedOptions = document.querySelectorAll('.option.selected');
             
             if (selectedOptions.length === 0) {
                 showNotification('Sélectionnez au moins une réponse!', 'incorrect');
                 return;
             }
             
-            const selectedValues = Array.from(selectedOptions).map(opt => parseInt(opt.value));
+            const selectedValues = Array.from(selectedOptions).map(opt => parseInt(opt.dataset.option));
             userAnswers[currentQuestion] = selectedValues;
             answeredQuestions[currentQuestion] = true;
             
@@ -1218,7 +1265,9 @@
             
             // Si c'est la dernière question, afficher les résultats
             if (currentQuestion === questions.length - 1) {
-                showResults();
+                setTimeout(() => {
+                    showResults();
+                }, 2000);
             }
         }
         
@@ -1267,8 +1316,7 @@
             document.querySelector('.buttons').style.display = 'flex';
             resultContainer.style.display = 'none';
             
-            showQuestion(currentQuestion);
-            updateStats();
+            initQuiz();
         }
         
         // Écouteurs d'événements
@@ -1294,6 +1342,8 @@
         
         // Permettre la navigation avec les touches du clavier
         document.addEventListener('keydown', (e) => {
+            if (questions.length === 0) return;
+            
             if (e.key === 'ArrowLeft' && currentQuestion > 0) {
                 currentQuestion--;
                 showQuestion(currentQuestion);
@@ -1306,9 +1356,6 @@
                 submitAnswer();
             }
         });
-        
-        // Exposer la fonction handleOptionClick au scope global
-        window.handleOptionClick = handleOptionClick;
         
         // Démarrer le quiz
         initQuiz();
