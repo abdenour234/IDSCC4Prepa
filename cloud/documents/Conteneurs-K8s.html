@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conteneurisation et Orchestration dans le Cloud</title>
+    <!-- Prism.js for code highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet" />
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(to right, #8b0000, #a52a2a);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Sidebar */
+        nav {
+            position: fixed;
+            top: 100px;
+            left: 0;
+            width: 250px;
+            height: calc(100vh - 100px);
+            background: #333;
+            color: white;
+            padding: 1rem;
+            overflow-y: auto;
+            transition: transform 0.3s ease;
+        }
+
+        nav ul {
+            list-style: none;
+        }
+
+        nav ul li {
+            margin: 0.5rem 0;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 0.5rem;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        nav ul li a:hover {
+            background: #a52a2a;
+        }
+
+        nav ul ul {
+            padding-left: 1rem;
+            display: none;
+        }
+
+        nav ul li.active ul {
+            display: block;
+        }
+
+        /* Main Content */
+        main {
+            margin-left: 270px;
+            margin-top: 120px;
+            padding: 2rem;
+            max-width: 1200px;
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        section {
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.5s forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            color: #8b0000;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #a52a2a;
+        }
+
+        h3 {
+            color: #333;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        h4 {
+            color: #333;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .block, .alertblock {
+            background: #f9f9f9;
+            padding: 1rem;
+            border-left: 5px solid #a52a2a;
+            margin-bottom: 1rem;
+            border-radius: 5px;
+        }
+
+        .alertblock {
+            background: #ffe6e6;
+        }
+
+        ul {
+            list-style-type: circle;
+            padding-left: 2rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 0.8rem;
+            text-align: left;
+        }
+
+        table th {
+            background: #a52a2a;
+            color: white;
+        }
+
+        pre {
+            background: #f4f4f4;
+            padding: 1rem;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        .columns {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .columns > div {
+            flex: 1;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav {
+                transform: translateX(-250px);
+            }
+
+            nav.active {
+                transform: translateX(0);
+            }
+
+            main {
+                margin-left: 0;
+                margin-top: 150px;
+            }
+
+            .columns {
+                flex-direction: column;
+            }
+
+            header {
+                padding: 1rem;
+            }
+
+            header h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Toggle Button */
+        .toggle-nav {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            font-size: 1.5rem;
+            color: white;
+            cursor: pointer;
+            z-index: 1100;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .toggle-nav {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <i class="fas fa-bars toggle-nav" id="toggleNav"></i>
+        <h1>Conteneurisation et Orchestration dans le Cloud</h1>
+    </header>
+
+    <nav id="sidebar">
+        <ul>
+            <li><a href="#containerization">Conteneurisation – Concepts clés</a></li>
+            <li><a href="#docker">Docker – Moteur de conteneurs</a></li>
+            <li><a href="#orchestration">Orchestration – Pourquoi et comment ?</a></li>
+            <li><a href="#kubernetes">Kubernetes – L’orchestrateur dominant</a></li>
+            <li><a href="#docker-compose">Docker Compose – Orchestration légère</a></li>
+            <li><a href="#stack">Stack complète en production</a></li>
+            <li><a href="#summary">Résumé</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="containerization">
+            <h2>Conteneurisation – Concepts clés</h2>
+            <div>
+                <h3>Définition</h3>
+                <div class="block">
+                    La conteneurisation est une méthode de <strong>virtualisation légère</strong> qui permet d'exécuter des applications dans des environnements isolés appelés <strong>conteneurs</strong>, sans avoir besoin d'une VM complète.
+                </div>
+            </div>
+            <div>
+                <h3>Différence entre VM et conteneur</h3>
+                <table>
+                    <tr>
+                        <th></th>
+                        <th>VM (Machine virtuelle)</th>
+                        <th>Conteneur</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Contenu</strong></td>
+                        <td>Contient OS + application</td>
+                        <td>Partage le noyau de l’OS</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Poids</strong></td>
+                        <td>Lourde (plusieurs Go)</td>
+                        <td>Légère (quelques Mo à centaines)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Démarrage</strong></td>
+                        <td>Démarrage lent</td>
+                        <td>Démarrage en quelques secondes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Isolation</strong></td>
+                        <td>Plus isolée</td>
+                        <td>Moins isolée mais plus rapide</td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <h3>Avantages de la conteneurisation</h3>
+                <ul>
+                    <li><strong>Portabilité</strong> : fonctionne partout où Docker (ou autre) est installé.</li>
+                    <li><strong>Rapidité</strong> : déploiement instantané.</li>
+                    <li><strong>Légèreté</strong> : moins gourmand en ressources qu’une VM.</li>
+                    <li><strong>Isolation</strong> : chaque application tourne dans son environnement propre.</li>
+                    <li><strong>Dépendances embarquées</strong> : version de Python, Node.js, etc., gérées dans le conteneur.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="docker">
+            <h2>Docker – Moteur de conteneurs</h2>
+            <div>
+                <h3>Composants principaux</h3>
+                <table>
+                    <tr>
+                        <th>Élément</th>
+                        <th>Rôle</th>
+                    </tr>
+                    <tr>
+                        <td>Image</td>
+                        <td>Modèle immuable d’un conteneur (ex: ubuntu:20.04)</td>
+                    </tr>
+                    <tr>
+                        <td>Conteneur</td>
+                        <td>Instance d'une image</td>
+                    </tr>
+                    <tr>
+                        <td>Dockerfile</td>
+                        <td>Script de construction d’image</td>
+                    </tr>
+                    <tr>
+                        <td>Registry</td>
+                        <td>Dépôt d’images (ex: Docker Hub, GitHub Container Registry)</td>
+                    </tr>
+                    <tr>
+                        <td>Docker Engine</td>
+                        <td>Outil d'exécution des conteneurs</td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <h3>Commandes Docker de base</h3>
+                <pre><code class="language-bash">
+docker build -t mon_app .
+docker run -d -p 8080:80 mon_app
+docker ps
+docker stop <id>
+docker images
+docker exec -it <id> bash
+                </code></pre>
+            </div>
+        </section>
+
+        <section id="orchestration">
+            <h2>Orchestration – Pourquoi et comment ?</h2>
+            <div class="block">
+                Lorsque tu as plusieurs conteneurs à gérer, tu as besoin d’un orchestrateur pour :
+                <ul>
+                    <li>Déployer des conteneurs automatiquement</li>
+                    <li>Superviser les services (health checks, relance auto)</li>
+                    <li>Mettre à l’échelle (scale in/out)</li>
+                    <li>Gérer le réseau entre services</li>
+                    <li>Assurer une haute disponibilité</li>
+                </ul>
+            </div>
+            <div class="alertblock">
+                <strong>Exemple d’usage réel :</strong><br>
+                Tu as une app web composée de :
+                <ul>
+                    <li>frontend (Angular)</li>
+                    <li>backend (Spring Boot)</li>
+                    <li>DB (PostgreSQL)</li>
+                </ul>
+                <p>👉 Chacun tourne dans son conteneur. Il faut les lier ensemble, les surveiller, et les répartir sur plusieurs machines. C’est le rôle d’un orchestrateur comme Kubernetes.</p>
+            </div>
+        </section>
+
+        <section id="kubernetes">
+            <h2>Kubernetes – L’orchestrateur de conteneurs dominant</h2>
+            <div>
+                <h3>Composants principaux</h3>
+                <table>
+                    <tr>
+                        <th>Élément</th>
+                        <th>Rôle</th>
+                    </tr>
+                    <tr>
+                        <td>Pod</td>
+                        <td>Plus petite unité de déploiement (1+ conteneurs)</td>
+                    </tr>
+                    <tr>
+                        <td>Node</td>
+                        <td>Machine physique/virtuelle qui exécute les Pods</td>
+                    </tr>
+                    <tr>
+                        <td>Cluster</td>
+                        <td>Ensemble de nœuds</td>
+                    </tr>
+                    <tr>
+                        <td>Service</td>
+                        <td>Point d'accès réseau stable vers un ensemble de Pods</td>
+                    </tr>
+                    <tr>
+                        <td>Deployment</td>
+                        <td>Gère le déploiement/rolling update des Pods</td>
+                    </tr>
+                    <tr>
+                        <td>Scheduler</td>
+                        <td>Place les Pods sur les nœuds</td>
+                    </tr>
+                    <tr>
+                        <td>Kubelet</td>
+                        <td>Agent sur chaque nœud qui exécute les Pods</td>
+                    </tr>
+                    <tr>
+                        <td>Etcd</td>
+                        <td>Base de données clé-valeur (état du cluster)</td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <h3>Exemple de workflow Kubernetes</h3>
+                <div class="block">
+                    <ul>
+                        <li>Tu écris un fichier YAML pour un Deployment.</li>
+                        <li>Tu l’envoies au Master (API Server).</li>
+                        <li>Le Scheduler décide où lancer les Pods.</li>
+                        <li>Les Kubelets sur les nœuds exécutent les conteneurs.</li>
+                        <li>Un Service expose ton application au réseau.</li>
+                    </ul>
+                </div>
+            </div>
+            <div>
+                <h3>Exemple YAML simple</h3>
+                <pre><code class="language-yaml">
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mon-backend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: monrepo/backend:1.0
+        ports:
+        - containerPort: 5000
+                </code></pre>
+            </div>
+            <div>
+                <h3>Commandes de base kubectl</h3>
+                <pre><code class="language-bash">
+kubectl apply -f mon-deployment.yaml
+kubectl get pods
+kubectl logs <pod_name>
+kubectl exec -it <pod_name> bash
+kubectl scale deployment mon-backend --replicas=5
+kubectl delete pod <pod_name>
+                </code></pre>
+            </div>
+        </section>
+
+        <section id="docker-compose">
+            <h2>Docker Compose – Orchestration légère</h2>
+            <div class="block">
+                Avant Kubernetes, on utilisait <code>docker-compose</code> pour gérer plusieurs conteneurs sur une seule machine.
+            </div>
+            <pre><code class="language-yaml">
+version: '3'
+services:
+  web:
+    image: nginx
+    ports:
+      - "8080:80"
+  db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: example
+            </code></pre>
+        </section>
+
+        <section id="stack">
+            <h2>Stack complète typique en production</h2>
+            <table>
+                <tr>
+                    <th>Couche</th>
+                    <th>Outils</th>
+                </tr>
+                <tr>
+                    <td>Conteneur</td>
+                    <td>Docker, containerd, podman</td>
+                </tr>
+                <tr>
+                    <td>Orchestration</td>
+                    <td>Kubernetes, Docker Swarm</td>
+                </tr>
+                <tr>
+                    <td>CI/CD</td>
+                    <td>Jenkins, GitLab CI, ArgoCD</td>
+                </tr>
+                <tr>
+                    <td>Monitoring</td>
+                    <td>Prometheus, Grafana</td>
+                </tr>
+                <tr>
+                    <td>Logging</td>
+                    <td>ELK Stack (Elasticsearch, Logstash, wątpliwościKibana)</td>
+                </tr>
+                <tr>
+                    <td>Sécurité</td>
+                    <td>OPA, Falco, Kube-Bench</td>
+                </tr>
+            </table>
+        </section>
+
+        <section id="summary">
+            <h2>En résumé</h2>
+            <div class="alertblock">
+                <ul>
+                    <li>La <strong>conteneurisation</strong> (Docker) offre <strong>portabilité</strong> et <strong>efficacité</strong>.</li>
+                    <li>L’<strong>orchestration</strong> (Kubernetes) est essentielle pour gérer des applications conteneurisées à grande échelle.</li>
+                    <li><strong>Open source</strong>, scalable, automatisé : le Cloud moderne repose largement sur ces technologies.</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <!-- Prism.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-yaml.min.js"></script>
+    <script>
+        // Toggle sidebar on mobile
+        document.getElementById('toggleNav').addEventListener('click', () => {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({ behavior: 'smooth' });
+                // Close sidebar on mobile after clicking
+                if (window.innerWidth <= 768) {
+                    document.getElementById('sidebar').classList.remove('active');
+                }
+            });
+        });
+
+        // Highlight active section in sidebar
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('nav a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop + document.querySelector('main').offsetTop - 150;
+                if (pageYOffset >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.parentElement.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.parentElement.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

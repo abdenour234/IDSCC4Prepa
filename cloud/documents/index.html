@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documents Cloud Computing - ENSAO</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 0 40px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .logo {
+            font-size: 3rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 20px;
+        }
+
+        .documents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .document-card {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .document-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .document-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .document-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #4a5568;
+            margin-bottom: 15px;
+        }
+
+        .document-description {
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-weight: 600;
+            z-index: 100;
+        }
+
+        .back-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .documents-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="../index.html" class="back-btn">← Retour</a>
+    
+    <div class="container">
+        <header>
+            <div class="logo">📚 Documents</div>
+            <div class="subtitle">Ressources et documentation sur le Cloud Computing</div>
+        </header>
+
+        <main>
+            <section class="documents-grid">
+                <a href="iaas.html" class="document-card">
+                    <div class="document-icon">🖥️</div>
+                    <h2 class="document-title">Infrastructure as a Service (IaaS)</h2>
+                    <p class="document-description">Documentation complète sur les concepts IaaS et les infrastructures cloud</p>
+                </a>
+
+            <a href="Conteneurs-K8s.html" class="document-card">
+                <div class="document-icon">🐳</div>
+                <h2 class="document-title">Conteneurs et Kubernetes</h2>
+                <p class="document-description">Guide complet sur la conteneurisation et l'orchestration avec Kubernetes</p>
+            </a>
+            </section>
+        </main>
+    </div>
+</body>
+</html> 

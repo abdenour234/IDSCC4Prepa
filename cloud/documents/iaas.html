@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IaaS & OpenStack - Concepts Fondamentaux</title>
+    <!-- Prism.js for code highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet" />
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(to right, #8b0000, #a52a2a);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header h3 {
+            font-size: 1.2rem;
+            font-weight: normal;
+        }
+
+        /* Sidebar */
+        nav {
+            position: fixed;
+            top: 150px;
+            left: 0;
+            width: 250px;
+            height: calc(100vh - 150px);
+            background: #333;
+            color: white;
+            padding: 1rem;
+            overflow-y: auto;
+            transition: transform 0.3s ease;
+        }
+
+        nav ul {
+            list-style: none;
+        }
+
+        nav ul li {
+            margin: 0.5rem 0;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 0.5rem;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        nav ul li a:hover {
+            background: #a52a2a;
+        }
+
+        nav ul ul {
+            padding-left: 1rem;
+            display: none;
+        }
+
+        nav ul li.active ul {
+            display: block;
+        }
+
+        /* Main Content */
+        main {
+            margin-left: 270px;
+            margin-top: 170px;
+            padding: 2rem;
+            max-width: 1200px;
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        section {
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.5s forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            color: #8b0000;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #a52a2a;
+        }
+
+        h3 {
+            color: #333;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .block, .alertblock {
+            background: #f9f9f9;
+            padding: 1rem;
+            border-left: 5px solid #a52a2a;
+            margin-bottom: 1rem;
+            border-radius: 5px;
+        }
+
+        .alertblock {
+            background: #ffe6e6;
+        }
+
+        ul {
+            list-style-type: circle;
+            padding-left: 2rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 0.8rem;
+            text-align: left;
+        }
+
+        table th {
+            background: #a52a2a;
+            color: white;
+        }
+
+        pre {
+            background: #f4f4f4;
+            padding: 1rem;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        .columns {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .columns > div {
+            flex: 1;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav {
+                transform: translateX(-250px);
+            }
+
+            nav.active {
+                transform: translateX(0);
+            }
+
+            main {
+                margin-left: 0;
+                margin-top: 200px;
+            }
+
+            .columns {
+                flex-direction: column;
+            }
+
+            header {
+                padding: 1rem;
+            }
+
+            header h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Toggle Button */
+        .toggle-nav {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            font-size: 1.5rem;
+            color: white;
+            cursor: pointer;
+            z-index: 1100;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .toggle-nav {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <i class="fas fa-bars toggle-nav" id="toggleNav"></i>
+        <h1>IaaS (Infrastructure as a Service) & OpenStack</h1>
+        <h3>Concepts Fondamentaux et Étude de Cas</h3>
+    </header>
+
+    <nav id="sidebar">
+        <ul>
+            <li><a href="#iaas-concepts">IaaS : Concepts Fondamentaux</a>
+                <ul>
+                    <li><a href="#definition-iaas">Définition de l’IaaS</a></li>
+                    <li><a href="#fonctionnalites">Fonctionnalités clés</a></li>
+                    <li><a href="#responsabilites">Partage des responsabilités</a></li>
+                </ul>
+            </li>
+            <li><a href="#openstack">OpenStack : Étude de cas</a>
+                <ul>
+                    <li><a href="#intro-openstack">Introduction à OpenStack</a></li>
+                    <li><a href="#arch-openstack">Architecture OpenStack</a></li>
+                    <li><a href="#modules">Modules principaux</a>
+                        <ul>
+                            <li><a href="#nova">Nova</a></li>
+                            <li><a href="#glance">Glance</a></li>
+                            <li><a href="#cinder">Cinder</a></li>
+                            <li><a href="#neutron">Neutron</a></li>
+                            <li><a href="#keystone">Keystone</a></li>
+                            <li><a href="#horizon">Horizon</a></li>
+                            <li><a href="#swift">Swift</a></li>
+                            <li><a href="#heat">Heat</a></li>
+                            <li><a href="#ceilometer">Ceilometer</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#arch-physique">Architecture physique</a></li>
+                    <li><a href="#reseaux">Réseaux dans OpenStack</a></li>
+                    <li><a href="#conclusion">Conclusion</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="iaas-concepts">
+            <h2>IaaS : Concepts Fondamentaux</h2>
+
+            <div id="definition-iaas">
+                <h3>Définition précise de l’IaaS</h3>
+                <div class="block">
+                    <strong>Qu’est-ce que l’IaaS ?</strong><br>
+                    L’IaaS est un <strong>modèle de service Cloud</strong> qui fournit des <strong>ressources informatiques virtualisées</strong> sur Internet.
+                </div>
+                <div class="alertblock">
+                    <strong>Ressources incluses</strong>
+                    <ul>
+                        <li>CPU, RAM, stockage, réseau, systèmes de fichiers</li>
+                        <li>Gérés via une <strong>API</strong> ou une <strong>interface web</strong></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="fonctionnalites">
+                <h3>Fonctionnalités clés</h3>
+                <table>
+                    <tr>
+                        <th>Fonctionnalité</th>
+                        <th>Détail</th>
+                    </tr>
+                    <tr>
+                        <td>Scalabilité</td>
+                        <td>Ajouter ou retirer des ressources automatiquement ou manuellement</td>
+                    </tr>
+                    <tr>
+                        <td>Pas d’investissement matériel</td>
+                        <td>L’utilisateur ne gère pas le datacenter physique, c’est le fournisseur qui le fait</td>
+                    </tr>
+                    <tr>
+                        <td>Paiement à l’usage</td>
+                        <td>Le client paie selon sa consommation (modèle pay-as-you-go)</td>
+                    </tr>
+                    <tr>
+                        <td>Accès distant</td>
+                        <td>Accès depuis n’importe quel lieu avec Internet</td>
+                    </tr>
+                    <tr>
+                        <td>Haute disponibilité physique</td>
+                        <td>Redondance assurée par le datacenter</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div id="responsabilites">
+                <h3>Partage des responsabilités</h3>
+                <table>
+                    <tr>
+                        <th>Élément</th>
+                        <th>Géré par</th>
+                    </tr>
+                    <tr>
+                        <td>OS, BD, applications</td>
+                        <td><strong>Client</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Serveurs physiques, OS de base, virtualisation, réseau, stockage</td>
+                        <td><strong>Fournisseur Cloud</strong></td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+        <section id="openstack">
+            <h2>OpenStack : Étude de cas</h2>
+
+            <div id="intro-openstack">
+                <h3>Introduction à OpenStack</h3>
+                <div class="block">
+                    <strong>Qu’est-ce qu’OpenStack ?</strong><br>
+                    OpenStack est un <strong>ensemble de services open source</strong> pour construire et gérer un <strong>Cloud de type IaaS</strong>.
+                </div>
+                <ul>
+                    <li>Créé par <strong>NASA (Nebula)</strong> + <strong>Rackspace (CloudFiles)</strong> en 2010.</li>
+                    <li>Comparable à <strong>Linux pour le Cloud</strong> : communautaire, modulaire, libre.</li>
+                </ul>
+            </div>
+
+            <div id="arch-openstack">
+                <h3>Architecture OpenStack</h3>
+                <div class="alertblock">
+                    <strong>Architecture modulaire distribuée</strong>
+                    <ul>
+                        <li>Chaque service a un <strong>rôle défini</strong> et communique via des <strong>API REST</strong>.</li>
+                        <li>Utilise un <strong>bus de messages</strong> (ex. <code>RabbitMQ</code>) et une <strong>base de données</strong> (ex. <code>MariaDB/MySQL</code>).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="modules">
+                <h3>Modules principaux</h3>
+
+                <div id="nova">
+                    <h4>1. Nova – Compute Service</h4>
+                    <div class="block">
+                        <strong>Rôle</strong><br>
+                        Gestion des <strong>machines virtuelles</strong> (instances).
+                    </div>
+                    <div class="columns">
+                        <div class="alertblock">
+                            <strong>Composants</strong>
+                            <ul>
+                                <li><code>nova-api</code> : reçoit les requêtes</li>
+                                <li><code>nova-scheduler</code> : planifie le placement des VMs</li>
+                                <li><code>nova-compute</code> : exécute les VMs (ex. KVM)</li>
+                                <li><code>nova-conductor</code> : médiateur DB/compute</li>
+                                <li><code>nova-consoleauth</code> / <code>nova-novncproxy</code> : accès distant</li>
+                            </ul>
+                        </div>
+                        <div class="block">
+                            <strong>Commandes CLI</strong>
+                            <pre><code class="language-bash">
+nova boot --image &lt;img&gt; --flavor &lt;type&gt; --nic net-id=&lt;id&gt; --key-name &lt;key&gt; &lt;nom_VM&gt;
+nova list
+nova stop &lt;nom&gt;
+nova delete &lt;nom&gt;
+                            </code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="glance">
+                    <h4>2. Glance – Image Service</h4>
+                    <div class="block">
+                        <strong>Rôle</strong><br>
+                        Gère les <strong>images</strong> (disques systèmes) pour les VMs.
+                    </div>
+                    <div class="columns">
+                        <div class="alertblock">
+                            <strong>Architecture</strong>
+                            <ul>
+                                <li><code>glance-api</code> : expose les images</li>
+                                <li><code>glance-registry</code> : méta-données</li>
+                                <li><code>backend</code> : Swift, fichiers locaux, S3...</li>
+                            </ul>
+                        </div>
+                        <div class="block">
+                            <strong>Commandes CLI</strong>
+                            <pre><code class="language-bash">
+glance image-create --name &lt;nom&gt; --disk-format qcow2 --container-format bare --file &lt;fichier.img&gt;
+glance image-list
+                            </code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="cinder">
+                    <h4>3. Cinder – Block Storage</h4>
+                    <div class="block">
+                        <strong>Rôle</strong><br>
+                        Fournit des <strong>volumes persistants</strong> (disques durs) pour les VMs.
+                    </div>
+                    <div class="alertblock">
+                        <strong>Fonctionnalités</strong>
+                        <ul>
+                            <li>Création, attachement/détachement de volumes</li>
+                            <li>Snapshots</li>
+                            <li>Backends : LVM, Ceph, NetApp...</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="neutron">
+                    <h4>4. Neutron – Networking</h4>
+                    <div class="block">
+                        <strong>Rôle</strong><br>
+                        Gère le <strong>réseau des VMs</strong> (interne et vers Internet).
+                    </div>
+                    <div class="alertblock">
+                        <strong>Fonctions</strong>
+                        <ul>
+                            <li>Création de réseaux isolés par projet</li>
+                            <li>Attribution IPs, DHCP, DNS, Firewall</li>
+                            <li>Routage vers Internet</li>
+                            <li>Plugins SDN (Open vSwitch, Cisco...)</li>
+                        </ul>
+                    </div>
+                    <div class="block">
+                        <strong>Composants</strong><br>
+                        <code>neutron-server</code>, <code>neutron-agent</code>, <code>dhcp-agent</code>, <code>l3-agent</code>, <code>metadata-agent</code>
+                    </div>
+                    <h5>Exemple d’architecture réseau</h5>
+                    <pre>
+[VM1]---+
+         \
+         [Linux Bridge/Open vSwitch]---[Router virtuel]---[Internet]
+         /
+[VM2]---+
+                    </pre>
+                </div>
+
+                <div id="keystone">
+                    <h4>5. Keystone – Identity</h4>
+                    <div class="block">
+                        <strong>Rôle</strong><br>
+                        Fournit une <strong>authentification centralisée</strong> (tokens) et un <strong>catalogue des services</strong>.
+                    </div>
+                    <div class="alertblock">
+                        <strong>Concepts clés</strong>
+                        <ul>
+                            <li><strong>User</strong> : personne</li>
+                            <li><strong>Project (tenant)</strong> : espace logique d’isolation</li>
+                            <li><strong>Role</strong> : ensemble de permissions</li>
+                            <li><strong>Service catalog</strong> : liste des endpoints d’API</li>
+                        </ul>
+                    </div>
+                    <div class="block">
+                        <strong>Types d’auth</strong>
+                        <ul>
+                            <li>Nom d’utilisateur / mot de passe</li>
+                            <li>Jetons</li>
+                            <li>AWS-compatible (EC2 style)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="horizon">
+                    <h4>6. Horizon – Dashboard Web</h4>
+                    <div class="block">
+                        <strong>Rôle</strong><br>
+                        Interface Web centralisée pour administrer tous les services.
+                    </div>
+                    <div class="alertblock">
+                        <strong>Utilisation</strong>
+                        <ul>
+                            <li>Lancer des instances</li>
+                            <li>Gérer les clés SSH</li>
+                            <li>Associer des IPs flottantes</li>
+                            <li>Gérer utilisateurs/projets</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="swift">
+                    <h4>7. Swift – Object Storage</h4>
+                    <div class="block">
+                        <strong>Rôle</strong><br>
+                        Fournit un <strong>stockage objet</strong> scalable (backups, vidéos, images...).
+                    </div>
+                    <div class="alertblock">
+                        <strong>Caractéristiques</strong>
+                        <ul>
+                            <li>API REST</li>
+                            <li>Haute redondance par réplication</li>
+                            <li>Fonctionne sans RAID matériel</li>
+                            <li>Écriture via des "containers" (comme S3 buckets)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="heat">
+                    <h4>8. Heat – Orchestration</h4>
+                    <div class="block">
+                        <strong>Rôle</strong><br>
+                        Déployer des <strong>stacks d’infrastructure</strong> en tant que code.
+                    </div>
+                    <div class="alertblock">
+                        <strong>Fonctionnement</strong>
+                        <ul>
+                            <li>Utilisation de fichiers <strong>YAML</strong> (template Heat)</li>
+                            <li>Gestion de dépendances entre services</li>
+                            <li>Exemple : 1 VM + 1 réseau + 1 volume</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="ceilometer">
+                    <h4>9. Ceilometer – Télémetrie</h4>
+                    <div class="block">
+                        <strong>Rôle</strong><br>
+                        Collecter les <strong>statistiques d’utilisation</strong> pour :
+                    </div>
+                    <div class="alertblock">
+                        <strong>Objectifs</strong>
+                        <ul>
+                            <li>Supervision</li>
+                            <li>Facturation</li>
+                            <li>Auto-scaling</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div id="arch-physique">
+                <h3>Architecture physique d’un déploiement OpenStack</h3>
+                <div class="block">
+                    <strong>Schéma</strong>
+                    <pre>
++-----------------------------+
+|           Controller        |
+|  Keystone, Glance, Horizon  |
+|  Nova-API, Neutron-Server   |
+|  RabbitMQ, MariaDB          |
++-------------+--------------+
+              |
+              | (Management Network)
++-------------+--------------+
+|         Compute Node        |
+|     Nova-Compute, Neutron   |
+|     KVM / QEMU Hypervisor   |
++-----------------------------+
+                    </pre>
+                </div>
+            </div>
+
+            <div id="reseaux">
+                <h3>Réseaux dans OpenStack</h3>
+                <div class="alertblock">
+                    <strong>Types de réseaux</strong>
+                    <ul>
+                        <li><strong>Management</strong> : communication entre services</li>
+                        <li><strong>API</strong> : exposition des services (<code>nova-api</code>, <code>glance-api</code>...)</li>
+                        <li><strong>Data</strong> : réseau des VMs</li>
+                        <li><strong>External</strong> : accès à Internet</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="conclusion">
+                <h3>Conclusion – Synthèse</h3>
+                <table>
+                    <tr>
+                        <th>Module</th>
+                        <th>Fonction principale</th>
+                    </tr>
+                    <tr>
+                        <td>Nova</td>
+                        <td>Lancer/gérer les VMs</td>
+                    </tr>
+                    <tr>
+                        <td>Glance</td>
+                        <td>Stocker les images des OS</td>
+                    </tr>
+                    <tr>
+                        <td>Neutron</td>
+                        <td>Réseau virtuel (interne/externe)</td>
+                    </tr>
+                    <tr>
+                        <td>Cinder</td>
+                        <td>Disques persistants (block)</td>
+                    </tr>
+                    <tr>
+                        <td>Swift</td>
+                        <td>Stockage fichiers (objet)</td>
+                    </tr>
+                    <tr>
+                        <td>Keystone</td>
+                        <td>Authentification et autorisation</td>
+                    </tr>
+                    <tr>
+                        <td>Horizon</td>
+                        <td>Interface graphique web</td>
+                    </tr>
+                    <tr>
+                        <td>Heat</td>
+                        <td>Infrastructure-as-Code</td>
+                    </tr>
+                    <tr>
+                        <td>Ceilometer</td>
+                        <td>Monitoring et facturation</td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- Prism.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script>
+        // Toggle sidebar on mobile
+        document.getElementById('toggleNav').addEventListener('click', () => {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({ behavior: 'smooth' });
+                // Close sidebar on mobile after clicking
+                if (window.innerWidth <= 768) {
+                    document.getElementById('sidebar').classList.remove('active');
+                }
+            });
+        });
+
+        // Highlight active section in sidebar
+        const sections = document.querySelectorAll('section > div');
+        const navLinks = document.querySelectorAll('nav a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop + main.offsetTop - 200;
+                if (pageYOffset >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.parentElement.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.parentElement.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
