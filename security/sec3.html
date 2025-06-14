@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QCM Sécurité - Section III</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #8b5cf6;
+            --primary-hover: #7c3aed;
+            --background-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            --glass-bg: rgba(255, 255, 255, 0.98);
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            --border-radius: 0.75rem;
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--background-gradient);
+            min-height: 100vh;
+            padding: 1rem;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 64rem;
+            margin: 0 auto;
+        }
+
+        .glass-card {
+            background: var(--glass-bg);
+            border-radius: 1.5rem;
+            box-shadow: var(--shadow);
+            padding: 1.5rem;
+        }
+
+        @media (min-width: 640px) {
+            body {
+                padding: 1.5rem;
+            }
+            .glass-card {
+                padding: 2rem;
+            }
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #f3f4f6;
+            border-radius: 999px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .progress-value {
+            height: 100%;
+            background: var(--primary-color);
+            border-radius: 999px;
+            transition: width var(--transition);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            font-weight: 500;
+            transition: var(--transition);
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #4b5563;
+            border: 1px solid #d1d5db;
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background: #f9fafb;
+            transform: translateY(-1px);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .option-card {
+            background: white;
+            border: 2px solid transparent;
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .option-card:hover {
+            border-color: var(--primary-color);
+        }
+
+        .option-card.selected {
+            border-color: var(--primary-color);
+            background-color: #f5f3ff;
+        }
+
+        .feedback-container {
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: var(--border-radius);
+            border: 2px solid transparent;
+        }
+
+        .feedback-correct {
+            background-color: #d1fae5;
+            border-color: #059669;
+        }
+
+        .feedback-incorrect {
+            background-color: #fee2e2;
+            border-color: #dc2626;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .section-filter select {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: var(--border-radius);
+            border: 1px solid #d1d5db;
+            background: white;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        @media (min-width: 640px) {
+            .section-filter select {
+                width: auto;
+                min-width: 200px;
+            }
+        }
+
+        .navigation-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        @media (min-width: 640px) {
+            .navigation-buttons {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="glass-card">
+            <header class="text-center mb-8">
+                <h1 class="text-3xl font-bold text-indigo-600 mb-2">QCM Sécurité</h1>
+                <div class="section-filter">
+                    <select id="section-filter">
+                        <option value="all">Toutes les sections</option>
+                        <!-- Sections will be populated dynamically -->
+                    </select>
+                </div>
+            </header>
+
+            <div class="progress-bar">
+                <div id="progress-value" class="progress-value"></div>
+            </div>
+
+            <div id="question-container">
+                <span id="section-indicator" class="inline-block bg-indigo-100 text-indigo-800 text-sm font-medium px-3 py-1 rounded-full mb-4"></span>
+                <h2 id="question-text" class="text-xl text-gray-800 font-medium mb-6"></h2>
+                <div id="options-container" class="space-y-4"></div>
+            </div>
+
+            <div id="feedback-container" class="hidden feedback-container">
+                <p id="feedback-text" class="text-gray-700"></p>
+            </div>
+
+            <div class="navigation-buttons">
+                <button id="prev-btn" class="btn btn-secondary" disabled>Question précédente</button>
+                <button id="validate-btn" class="btn btn-primary" disabled>Valider</button>
+                <button id="next-btn" class="btn btn-primary" disabled>Question suivante</button>
+            </div>
+
+            <div class="mt-6 text-center">
+                <p id="question-counter" class="text-gray-600">Question 0/0</p>
+                <p id="score" class="text-gray-600">Score : 0/0</p>
+            </div>
+
+            <footer class="mt-8 text-center text-sm text-gray-500">
+                <p>© 2025 Bazzzed - Tous droits réservés</p>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+       const questions = [
+    // Secure Protocols
+    {
+        section: "Secure Protocols",
+        question: "___________ garantit l'intégrité et la sécurité des données qui transitent sur un réseau.",
+        options: [
+            { text: "Firewall", correct: false },
+            { text: "Antivirus", correct: false },
+            { text: "Pentesting Tools", correct: false },
+            { text: "Network-security protocols", correct: true }
+        ],
+        justification: "Les protocoles de sécurité réseau, tels que SSL/TLS, IPsec et SSH, sont conçus pour garantir l'intégrité, la confidentialité et l'authenticité des données transmises sur un réseau. Les pare-feu contrôlent le trafic, les antivirus protègent contre les malwares, et les outils de pentesting évaluent les vulnérabilités, mais seuls les protocoles de sécurité réseau sécurisent directement les données en transit.",
+        reference: "CISSP Study Guide, Network Security Protocols"
+    },
+    {
+        section: "Secure Protocols",
+        question: "Lequel des suivants n'est pas un protocole de sécurité robuste ?",
+        options: [
+            { text: "HTTPS", correct: false },
+            { text: "SSL", correct: false },
+            { text: "SMTP", correct: true },
+            { text: "SFTP", correct: false }
+        ],
+        justification: "SMTP (Simple Mail Transfer Protocol) n'est pas intrinsèquement sécurisé car il transmet les données en clair à moins d'être sécurisé avec des protocoles supplémentaires comme STARTTLS. HTTPS, SSL (bien que déprécié au profit de TLS) et SFTP sont conçus avec des mécanismes de sécurité robustes pour protéger l'intégrité et la confidentialité des données.",
+        reference: "RFC 5321 (SMTP), RFC 4251 (SFTP)"
+    },
+    {
+        section: "Secure Protocols",
+        question: "Lequel des suivants n'est pas une méthodologie sécurisée de transfert de courriel ?",
+        options: [
+            { text: "POP3", correct: true },
+            { text: "SSMTP", correct: false },
+            { text: "Mail using PGP", correct: false },
+            { text: "S/MIME", correct: false }
+        ],
+        justification: "POP3 (Post Office Protocol version 3) n'est pas sécurisé par défaut car il peut transmettre les identifiants et les courriels en clair à moins d'être chiffré avec SSL/TLS. SSMTP, PGP et S/MIME offrent des méthodes sécurisées pour le transfert de courriels grâce au chiffrement et à l'authentification.",
+        reference: "RFC 1939 (POP3), RFC 4880 (PGP)"
+    },
+    {
+        section: "Secure Protocols",
+        question: "HTTPS est l'abréviation de _________",
+        options: [
+            { text: "Hypertexts Transfer Protocol Secured", correct: false },
+            { text: "Secured Hyper Text Transfer Protocol", correct: false },
+            { text: "Hyperlinked Text Transfer Protocol Secured", correct: false },
+            { text: "Hyper Text Transfer Protocol Secure", correct: true }
+        ],
+        justification: "HTTPS signifie Hyper Text Transfer Protocol Secure, qui utilise SSL/TLS pour chiffrer les communications entre un client et un serveur, garantissant une navigation web sécurisée.",
+        reference: "RFC 2818 (HTTP over TLS)"
+    },
+    {
+        section: "Secure Protocols",
+        question: "SSL se concentre principalement sur _______",
+        options: [
+            { text: "integrity et authenticity", correct: false },
+            { text: "integrity et non-repudiation", correct: false },
+            { text: "authenticity et privacy", correct: false },
+            { text: "confidentiality et integrity", correct: true }
+        ],
+        justification: "SSL (Secure Sockets Layer) se concentre sur la confidentialité via le chiffrement et l'intégrité via des mécanismes comme les codes d'authentification de message (MAC). Bien que l'authenticité soit également abordée, l'accent principal est sur la sécurisation de la transmission des données.",
+        reference: "SSL/TLS Protocol Specifications"
+    },
+    {
+        section: "Secure Protocols",
+        question: "Quel protocole de sécurité est couramment utilisé pour sécuriser les communications de réseaux sans fil ?",
+        options: [
+            { text: "HTTP", correct: false },
+            { text: "FTP", correct: false },
+            { text: "SSH", correct: false },
+            { text: "WPA", correct: true }
+        ],
+        justification: "WPA (Wi-Fi Protected Access) est un protocole de sécurité spécifiquement conçu pour sécuriser les communications des réseaux sans fil. HTTP, FTP et SSH sont utilisés à d'autres fins et ne sont pas spécifiques aux réseaux sans fil.",
+        reference: "IEEE 802.11i (WPA/WPA2)"
+    },
+    {
+        section: "Secure Protocols",
+        question: "Lequel des protocoles suivants peut utiliser Advanced Encryption Standard (AES) ?",
+        options: [
+            { text: "WPA", correct: false },
+            { text: "IPsec", correct: false },
+            { text: "SSL/TLS", correct: false },
+            { text: "All of the above", correct: true }
+        ],
+        justification: "AES est une norme de chiffrement polyvalente utilisée par plusieurs protocoles. WPA (et WPA2) utilise AES pour la sécurité sans fil, IPsec prend en charge AES pour le chiffrement des VPN, et SSL/TLS peut utiliser AES pour des communications sécurisées, rendant 'All of the above' la bonne réponse.",
+        reference: "FIPS 197 (AES), RFC 4301 (IPsec)"
+    },
+
+    // Endpoint Protection
+    {
+        section: "Endpoint Protection",
+        question: "Quelle est la première étape pour sécuriser les appareils IoT dans une entreprise ou à domicile ?",
+        options: [
+            { text: "Segmenter tous les appareils IoT sur un réseau isolé", correct: false },
+            { text: "Acheter uniquement des ordinateurs portables et des serveurs approuvés", correct: false },
+            { text: "Enregistrer les appareils IoT dans une base de données", correct: false },
+            { text: "Identifier les nouveaux et existants endpoints dans votre réseau", correct: true }
+        ],
+        justification: "La première étape pour sécuriser les appareils IoT est d'identifier tous les points d'extrémité sur le réseau. Sans savoir quels appareils sont connectés, il est impossible de les sécuriser efficacement. La segmentation et l'enregistrement sont des étapes ultérieures.",
+        reference: "NIST SP 800-160 (IoT Security)"
+    },
+    {
+        section: "Endpoint Protection",
+        question: "Qu'est-ce qui est généralement effectué par le client endpoint detection and response (EDR) et non par le client endpoint protection platform (EPP) ?",
+        options: [
+            { text: "Real-time monitoring", correct: false },
+            { text: "Threat detection", correct: false },
+            { text: "Incident response", correct: true },
+            { text: "Malware scanning", correct: false }
+        ],
+        justification: "Les clients EDR se concentrent sur des capacités avancées comme la réponse aux incidents, y compris la chasse aux menaces et l'analyse forensique, tandis que les clients EPP se concentrent principalement sur la prévention via la détection et l'analyse des malwares. La réponse aux incidents est propre à l'EDR.",
+        reference: "Gartner Endpoint Protection Platforms Definition"
+    },
+    {
+        section: "Endpoint Protection",
+        question: "Quelles trois choses devriez-vous utiliser sur tous les appareils connectés, si disponibles ?",
+        options: [
+            { text: "Encryption", correct: true },
+            { text: "Firewall", correct: true },
+            { text: "Antivirus", correct: true },
+            { text: "VPN", correct: false },
+            { text: "Two-factor authentication", correct: false }
+        ],
+        justification: "Le chiffrement, les pare-feu et les logiciels antivirus sont essentiels pour sécuriser tous les appareils connectés. Les VPN sont utiles dans des scénarios spécifiques, et l'authentification à deux facteurs n'est pas universellement applicable à tous les appareils.",
+        reference: "NIST SP 800-53 (Security Controls)"
+    },
+    {
+        section: "Endpoint Protection",
+        question: "Quelle est la meilleure approche pour empêcher un appareil IoT compromis d'accéder malicieusement aux données et appareils sur un réseau local ?",
+        options: [
+            { text: "Installer un software firewall sur chaque appareil du réseau", correct: false },
+            { text: "Placer tous les appareils IoT ayant accès à Internet sur un réseau isolé", correct: true },
+            { text: "Implémenter RAID", correct: false },
+            { text: "Utiliser un VPN pour tous les appareils", correct: false }
+        ],
+        justification: "Isoler les appareils IoT sur un réseau séparé (segmentation réseau) empêche les appareils compromis d'accéder à d'autres appareils et données sur le réseau local. Les pare-feu, RAID et les VPN n'abordent pas cette menace de manière aussi efficace.",
+        reference: "CIS IoT Security Guide"
+    },
+
+    // Boot Integrity
+    {
+        section: "Boot Integrity",
+        question: "Quelle technologie garantit qu'un système démarre uniquement avec un logiciel de confiance ?",
+        options: [
+            { text: "Secure Boot", correct: true },
+            { text: "Firewall", correct: false },
+            { text: "Antivirus", correct: false },
+            { text: "VPN", correct: false }
+        ],
+        justification: "Secure Boot est une fonctionnalité UEFI qui garantit qu'un système ne démarre qu'avec un logiciel de confiance en vérifiant les signatures numériques. Les pare-feu, antivirus et VPN servent à d'autres fins de sécurité.",
+        reference: "UEFI Specification 2.9"
+    },
+
+    // Database Security
+    {
+        section: "Database Security",
+        question: "Quel composant une entreprise devrait-elle implémenter pour sécuriser les données sensibles sur ses serveurs internes ?",
+        options: [
+            { text: "Encryption", correct: true },
+            { text: "Firewall", correct: false },
+            { text: "Load balancer", correct: false },
+            { text: "Proxy server", correct: false }
+        ],
+        justification: "Le chiffrement est le composant principal pour sécuriser les données sensibles sur les serveurs internes, en protégeant les données au repos et en transit. Les pare-feu contrôlent le trafic, les équilibreurs de charge distribuent les requêtes, et les serveurs proxy gèrent les connexions, mais ils ne sécurisent pas directement les données.",
+        reference: "NIST SP 800-57 (Encryption Standards)"
+    },
+
+    // Application Security
+    {
+        section: "Application Security",
+        question: "Quelles deux fonctionnalités de sécurité sont incluses uniquement dans la dernière génération de WAF ?",
+        options: [
+            { text: "Bot protection", correct: true },
+            { text: "SQL injection prevention", correct: false },
+            { text: "Cross-site scripting prevention", correct: false },
+            { text: "Machine learning-based threat detection", correct: true }
+        ],
+        justification: "Les WAF (Web Application Firewalls) de dernière génération incluent des fonctionnalités avancées comme la protection contre les bots et la détection de menaces basée sur l'apprentissage automatique. La prévention des injections SQL et des attaques XSS est standard dans les WAF plus anciens, donc elles ne sont pas exclusives à la dernière génération.",
+        reference: "OWASP WAF Guidelines"
+    },
+
+    // Application Hardening
+    {
+        section: "Application Hardening",
+        question: "Quelles mesures une entreprise devrait-elle implémenter dans le cadre du application hardening ?",
+        options: [
+            { text: "Supprimer les services inutiles", correct: false },
+            { text: "Appliquer les principes de least privilege", correct: false },
+            { text: "Désactiver les comptes par défaut", correct: false },
+            { text: "All of the above", correct: true }
+        ],
+        justification: "Le renforcement des applications implique de supprimer les services inutiles, d'appliquer le principe du moindre privilège, et de désactiver les comptes par défaut pour réduire la surface d'attaque. Toutes ces mesures sont essentielles, rendant 'All of the above' la bonne réponse.",
+        reference: "CIS Application Hardening Guidelines"
+    },
+    {
+        section: "Application Hardening",
+        question: "Un ingénieur en sécurité souhaite créer une politique de navigation de groupe pour le application hardening. Quelles deux fonctionnalités la politique devrait-elle inclure ?",
+        options: [
+            { text: "Disable browser extensions", correct: true },
+            { text: "Enforce HTTPS", correct: true },
+            { text: "Enable cookies", correct: false },
+            { text: "Block pop-ups", correct: false }
+        ],
+        justification: "Pour le renforcement des applications, une politique de navigation devrait inclure la désactivation des extensions de navigateur (pour réduire les vulnérabilités) et l'application de HTTPS (pour sécuriser les communications). Activer les cookies et bloquer les pop-ups ne sont pas directement liés au renforcement des applications.",
+        reference: "OWASP Secure Browsing Guidelines"
+    },
+
+    // Load Balancing
+    {
+        section: "Load Balancing",
+        question: "Une organisation fait face à un afflux de visites sur un serveur web principal. Vous élaborez un plan pour ajouter quelques serveurs web supplémentaires pour l'équilibrage de charge et la redondance. Quel requis de la sécurité de l'information est adressé par la mise en œuvre du plan ?",
+        options: [
+            { text: "Confidentiality", correct: false },
+            { text: "Integrity", correct: false },
+            { text: "Availability", correct: true },
+            { text: "Non-repudiation", correct: false }
+        ],
+        justification: "L'ajout de serveurs web pour l'équilibrage de charge et la redondance améliore la disponibilité en garantissant que le service reste accessible même en cas de forte demande ou de panne d'un serveur. Cela n'affecte pas directement la confidentialité, l'intégrité ou la non-répudiation.",
+        reference: "CIA Triad (Availability)"
+    },
+
+    // Network Segmentation
+    {
+        section: "Network Segmentation",
+        question: "Quel est le but principal d'un subnet dans le réseautage ?",
+        options: [
+            { text: "Bloquer les sites web indésirables", correct: false },
+            { text: "Identifier le fabricant d'un appareil", correct: false },
+            { text: "Diviser un réseau plus large en segments plus petits", correct: true },
+            { text: "Fournir une connectivité sans fil", correct: false }
+        ],
+        justification: "Le but principal d'un sous-réseau (subnet) est de diviser un réseau plus large en segments plus petits pour améliorer la gestion, la performance et la sécurité. Les autres options ne décrivent pas la fonction principale d'un sous-réseau.",
+        reference: "RFC 1918 (IP Addressing)"
+    },
+    {
+        section: "Network Segmentation",
+        question: "Quel concept de sécurité garantit que les utilisateurs se voient accorder uniquement les permissions nécessaires pour effectuer leurs tâches ?",
+        options: [
+            { text: "Access control", correct: true },
+            { text: "Firewall configuration", correct: false },
+            { text: "Load balancing", correct: false },
+            { text: "Network segmentation", correct: false }
+        ],
+        justification: "Le contrôle d'accès garantit que les utilisateurs ne reçoivent que les permissions nécessaires à leurs tâches, suivant le principe du moindre privilège. La segmentation réseau et la configuration des pare-feu contribuent à la sécurité, mais ne sont pas directement liées à la gestion des permissions des utilisateurs.",
+        reference: "NIST SP 800-53 (Access Control)"
+    },
+
+    // Virtual Private Networks
+    {
+        section: "Virtual Private Networks",
+        question: "Quel est le but principal d'un VPN (Virtual Private Network) dans la sécurité réseau ?",
+        options: [
+            { text: "Bloquer les sites web malveillants", correct: false },
+            { text: "Augmenter la vitesse du réseau", correct: false },
+            { text: "Sécuriser la transmission de données sur un réseau non fiable", correct: true },
+            { text: "Gérer les appareils matériels", correct: false }
+        ],
+        justification: "Un VPN sécurise la transmission des données sur un réseau non fiable en créant un tunnel chiffré, garantissant la confidentialité et l'intégrité des données. Il ne bloque pas les sites, n'augmente pas la vitesse, ni ne gère les appareils matériels.",
+        reference: "RFC 4301 (IPsec)"
+    },
+    {
+        section: "Virtual Private Networks",
+        question: "Un technicien réseau a été chargé de concevoir un réseau privé virtuel entre deux routeurs de succursales. Quel type de clé cryptographique devrait être utilisé dans ce scénario ?",
+        options: [
+            { text: "Hash key", correct: false },
+            { text: "Symmetric key", correct: true },
+            { text: "Asymmetric key", correct: false },
+            { text: "Digital signature", correct: false }
+        ],
+        justification: "Les VPN entre routeurs, comme ceux utilisant IPsec, utilisent généralement des clés symétriques pour le chiffrement en raison de leur efficacité et de leur rapidité. Les clés asymétriques sont utilisées pour l'échange initial de clés, mais pas pour le chiffrement des données.",
+        reference: "RFC 4301 (IPsec)"
+    },
+    {
+        section: "Virtual Private Networks",
+        question: "La configuration, l'emplacement, la version du logiciel et le système d'exploitation sous-jacent d'un réseau privé virtuel (VPN) sont tous des facteurs qui sont les plus susceptibles d'affecter :",
+        options: [
+            { text: "Performance", correct: false },
+            { text: "Stability", correct: false },
+            { text: "Scalability", correct: false },
+            { text: "Security", correct: true }
+        ],
+        justification: "La configuration, l'emplacement, la version du logiciel et le système d'exploitation d'un VPN affectent principalement la sécurité, car des configurations incorrectes ou des versions obsolètes peuvent introduire des vulnérabilités. Bien que la performance et l'évolutivité puissent être impactées, la sécurité est la préoccupation principale.",
+        reference: "NIST SP 800-77 (Guide to IPsec VPNs)"
+    },
+    {
+        section: "Virtual Private Networks",
+        question: "Quel est le protocole utilisé avec HTTPS pour chiffrer les communications vers et depuis les sites web ?",
+        options: [
+            { text: "IPsec", correct: false },
+            { text: "Secure Sockets Layer/Transport Layer Security (SSL/TLS)", correct: true },
+            { text: "SSH", correct: false },
+            { text: "WPA", correct: false }
+        ],
+        justification: "HTTPS utilise SSL/TLS pour chiffrer les communications entre les clients et les sites web, garantissant la confidentialité et l'intégrité des données. IPsec, SSH et WPA sont utilisés dans d'autres contextes.",
+        reference: "RFC 2818 (HTTP over TLS)"
+    },
+    {
+        section: "Virtual Private Networks",
+        question: "Felicia est une ingénieure réseau déployant une solution de réseau privé virtuel (VPN). Le VPN fonctionne en utilisant Secure Shell (SSH). Lorsqu'un nouveau technicien du help desk lui demande à quelle couche du modèle OSI il s'applique, comment Felicia répond-elle ?",
+        options: [
+            { text: "Layer 3", correct: false },
+            { text: "Layer 4", correct: false },
+            { text: "Layer 7", correct: true },
+            { text: "Layer 2", correct: false }
+        ],
+        justification: "SSH (Secure Shell), utilisé dans certains VPN, fonctionne à la couche d'application (Layer 7) du modèle OSI, car il fournit des services d'accès sécurisé à distance et de transfert de fichiers. Les autres couches ne correspondent pas à la fonction de SSH.",
+        reference: "RFC 4251 (SSH Protocol)"
+    },
+    {
+        section: "Virtual Private Networks",
+        question: "Quel composant central d'Internet Protocol Security (IPSec) négocie, crée et gère les associations de sécurité ?",
+        options: [
+            { text: "Encapsulating Security Payload (ESP)", correct: false },
+            { text: "Authentication Header (AH)", correct: false },
+            { text: "Secure Shell (SSH)", correct: false },
+            { text: "Internet Key Exchange (IKE)", correct: true }
+        ],
+        justification: "IKE (Internet Key Exchange) est le composant d'IPsec qui négocie, crée et gère les associations de sécurité pour établir des connexions VPN sécurisées. ESP et AH fournissent le chiffrement et l'authentification, tandis que SSH est un protocole distinct.",
+        reference: "RFC 7296 (IKEv2)"
+    },
+
+    // Port Security
+    {
+        section: "Port Security",
+        question: "Quelles deux options peuvent limiter les informations découvertes par le port scanning ?",
+        options: [
+            { text: "Intrusion prevention system", correct: true },
+            { text: "Firewall", correct: true },
+            { text: "Authentication", correct: false },
+            { text: "Passwords", correct: false },
+            { text: "Encryption", correct: false }
+        ],
+        justification: "Les systèmes de prévention d'intrusion (IPS) et les pare-feu peuvent limiter les informations découvertes par le balayage de ports en bloquant ou en filtrant les tentatives de balayage. L'authentification, les mots de passe et le chiffrement ne limitent pas directement le balayage de ports.",
+        reference: "NIST SP 800-115 (Technical Guide to Information Security Testing)"
+    },
+    {
+        section: "Port Security",
+        question: "Quelle procédure est recommandée pour atténuer les risques d'ARP spoofing ?",
+        options: [
+            { text: "Activer DHCP snooping sur les VLANs sélectionnés", correct: true },
+            { text: "Activer IP Source Guard sur les ports de confiance", correct: false },
+            { text: "Activer DAI sur le VLAN de gestion", correct: false },
+            { text: "Activer port security globalement", correct: false }
+        ],
+        justification: "Le DHCP snooping sur les VLANs sélectionnés atténue les risques d'ARP spoofing en filtrant les messages DHCP non fiables, ce qui aide à prévenir les attaques de type 'man-in-the-middle'. Les autres options, bien que pertinentes pour la sécurité, ne ciblent pas directement l'ARP spoofing.",
+        reference: "Cisco Security Configuration Guide"
+    },
+
+    // Secure Networking
+    {
+        section: "Secure Networking",
+        question: "Lequel des suivants décrit le mieux la sécurité réseau ?",
+        options: [
+            { text: "Protéger les serveurs physiques", correct: false },
+            { text: "Sauvegarder les données uniquement en transit", correct: false },
+            { text: "Garantir l'intégrité et la confidentialité des données et des services", correct: true },
+            { text: "Garantir une vitesse réseau élevée", correct: false }
+        ],
+        justification: "La sécurité réseau vise à garantir l'intégrité, la confidentialité et la disponibilité des données et des services à travers des mesures comme le chiffrement, les pare-feu et les contrôles d'accès. Protéger les serveurs physiques ou garantir la vitesse ne sont pas les objectifs principaux.",
+        reference: "CIA Triad (Network Security)"
+    },
+
+    // Firewalls
+    {
+        section: "Firewalls",
+        question: "Quel est le but principal d'un firewall dans la sécurité réseau ?",
+        options: [
+            { text: "Augmenter la vitesse du réseau", correct: false },
+            { text: "Bloquer tout le trafic entrant et sortant", correct: false },
+            { text: "Filtrer et contrôler le trafic réseau basé sur des règles", correct: true },
+            { text: "Fournir une connectivité sans fil", correct: false }
+        ],
+        justification: "Un pare-feu filtre et contrôle le trafic réseau en fonction de règles prédéfinies pour protéger le réseau contre les accès non autorisés. Il ne bloque pas tout le trafic, n'augmente pas la vitesse, ni ne fournit de connectivité sans fil.",
+        reference: "NIST SP 800-41 (Guidelines on Firewalls)"
+    },
+    {
+        section: "Firewalls",
+        question: "Quelle fonction de pare-feu consiste à masquer les adresses IP internes des réseaux externes ?",
+        options: [
+            { text: "Port forwarding", correct: false },
+            { text: "Network Address Translation (NAT)", correct: true },
+            { text: "Load balancing", correct: false },
+            { text: "Packet inspection", correct: false }
+        ],
+        justification: "La traduction d'adresses réseau (NAT) masque les adresses IP internes en les remplaçant par une adresse publique, protégeant ainsi les hôtes internes. Le port forwarding, l'équilibrage de charge et l'inspection de paquets ont d'autres fonctions.",
+        reference: "RFC 2663 (NAT Terminology)"
+    },
+    {
+        section: "Firewalls",
+        question: "Quelles sont trois caractéristiques du mode transparent ASA ?",
+        options: [
+            { text: "Ce mode ne prend pas en charge VPNs, QoS, ou DHCP Relay", correct: true },
+            { text: "C'est le mode de déploiement traditionnel du pare-feu", correct: false },
+            { text: "Ce mode est appelé « bump in the wire »", correct: true },
+            { text: "NAT peut être implémenté entre les réseaux connectés", correct: true },
+            { text: "Dans ce mode, l'ASA est invisible pour un attaquant", correct: false },
+            { text: "Les interfaces de l'ASA séparent les réseaux Layer 3 et nécessitent des adresses IP dans différents sous-réseaux", correct: false }
+        ],
+        justification: "Le mode transparent ASA fonctionne comme un 'bump in the wire' (sans adresses IP sur les interfaces), prend en charge NAT, mais ne supporte pas les VPN, QoS ou DHCP Relay. Il n'est pas le mode traditionnel, et il n'est pas nécessairement invisible aux attaquants.",
+        reference: "Cisco ASA Configuration Guide"
+    },
+    {
+        section: "Firewalls",
+        question: "Qu'est-ce qui est nécessaire pour permettre au trafic spécifique provenant du réseau externe d'un pare-feu ASA d'atteindre un réseau interne ?",
+        options: [
+            { text: "ACL", correct: true },
+            { text: "NAT", correct: false },
+            { text: "Dynamic routing protocols", correct: false },
+            { text: "Outside security zone level 0", correct: false }
+        ],
+        justification: "Une liste de contrôle d'accès (ACL) est nécessaire pour permettre au trafic spécifique de passer du réseau externe au réseau interne sur un pare-feu ASA, en définissant des règles explicites. NAT, les protocoles de routage dynamique et les niveaux de zone ne suffisent pas seuls.",
+        reference: "Cisco ASA Configuration Guide"
+    },
+    {
+        section: "Firewalls",
+        question: "Quelle partie de l'en-tête de règle Snort IPS identifie le port de destination ?",
+        options: [
+            { text: "alert tcp $HOME_NET any -> $EXTERNAL_NET $HTTP_PORTS", correct: true },
+            { text: "alert tcp $EXTERNAL_NET any -> $HOME_NET any", correct: false },
+            { text: "alert tcp any any -> any any", correct: false },
+            { text: "alert tcp $HOME_NET $HTTP_PORTS -> $EXTERNAL_NET any", correct: false }
+        ],
+        justification: "Dans une règle Snort, le port de destination est spécifié après la flèche (->), comme dans '$EXTERNAL_NET $HTTP_PORTS', qui indique les ports HTTP (par exemple, 80, 443). Les autres options n'identifient pas correctement le port de destination.",
+        reference: "Snort Users Manual"
+    },
+    {
+        section: "Firewalls",
+        question: "Quels deux services de sécurité peuvent être effectués en tant que Security-as-a-Service (SECaaS) ?",
+        options: [
+            { text: "Intrusion detection", correct: true },
+            { text: "Load balancing", correct: false },
+            { text: "Authentication", correct: true },
+            { text: "Email security", correct: false }
+        ],
+        justification: "SECaaS inclut des services comme la détection d'intrusion et l'authentification, qui peuvent être fournis via le cloud. L'équilibrage de charge et la sécurité des courriels ne sont pas typiquement considérés comme des services SECaaS principaux.",
+        reference: "Gartner SECaaS Definition"
+    },
+    {
+        section: "Firewalls",
+        question: "Quels sont les avantages pour une banque de prendre un Next Generation FireWall (NGFW) pour sécuriser son réseau ?",
+        options: [
+            { text: "Une analyse plus approfondie peut être effectuée avec un sandbox", correct: true },
+            { text: "Une intelligence artificielle effectue tous les points de contrôle de sécurité", correct: false },
+            { text: "Le contenu malveillant est vérifié par Deep Packet Inspection (DPI)", correct: true },
+            { text: "Machine learning configure automatiquement la micro-segmentation", correct: false }
+        ],
+        justification: "Les NGFW offrent des capacités comme l'analyse en sandbox pour détecter les malwares avancés et l'inspection profonde des paquets (DPI) pour identifier le contenu malveillant. L'IA et la micro-segmentation automatique ne sont pas des fonctionnalités standard des NGFW.",
+        reference: "Gartner Next-Generation Firewall Definition"
+    },
+    {
+        section: "Firewalls",
+        question: "Lequel des pare-feu suivants est placé devant les services web pour protéger, cacher, décharger et distribuer l'accès aux serveurs web ?",
+        options: [
+            { text: "Application firewall", correct: false },
+            { text: "Reverse proxy firewall", correct: true },
+            { text: "Stateful firewall", correct: false },
+            { text: "Packet filtering firewall", correct: false }
+        ],
+        justification: "Un pare-feu de type reverse proxy est placé devant les services web pour protéger, masquer les serveurs, décharger le trafic (par exemple, via la mise en cache) et distribuer l'accès. Les autres types de pare-feu ne remplissent pas toutes ces fonctions.",
+        reference: "OWASP Reverse Proxy Guidelines"
+    },
+
+    // Network Access Control
+    {
+        section: "Network Access Control",
+        question: "Quel est l'objectif du cadre Cisco NAC et de l'appliance Cisco NAC ?",
+        options: [
+            { text: "S'assurer que seuls les hôtes authentifiés et dont la posture de sécurité a été examinée et approuvée sont autorisés sur le réseau", correct: true },
+            { text: "Surveiller les données de l'entreprise vers le FAI pour construire une base de données en temps réel des menaces de spam actuelles", correct: false },
+            { text: "Fournir une analyse antimalware à la périphérie du réseau", correct: false },
+            { text: "Fournir une protection contre les menaces basées sur le web", correct: false }
+        ],
+        justification: "Le cadre Cisco NAC (Network Access Control) vérifie l'authentification des hôtes et leur conformité aux politiques de sécurité avant de leur permettre l'accès au réseau, assurant ainsi une posture de sécurité robuste.",
+        reference: "Cisco NAC Documentation"
+    },
+    {
+        section: "Network Access Control",
+        question: "Quel état de port est utilisé par 802.1X si un poste de travail échoue à l'autorisation ?",
+        options: [
+            { text: "Open", correct: false },
+            { text: "Closed", correct: false },
+            { text: "Unauthorized", correct: true },
+            { text: "Restricted", correct: false }
+        ],
+        justification: "Le protocole 802.1X place un port dans l'état 'Unauthorized' si un poste de travail échoue à l'autorisation, empêchant l'accès au réseau jusqu'à ce que l'authentification réussisse. 'Restricted' n'est pas un état standard dans 802.1X.",
+        reference: "IEEE 802.1X Standard"
+    },
+
+    // Proxies
+    {
+        section: "Proxies",
+        question: "Quel est l'avantage d'utiliser un cloud access security broker (CASB) pour établir des connexions API avec les fournisseurs de cloud ?",
+        options: [
+            { text: "Il augmente le débit", correct: false },
+            { text: "Il minimise les points de configuration", correct: true },
+            { text: "Il prévient les attaques par déni de service (DoS)", correct: false },
+            { text: "Il permet des mises à jour instantanées des applications cloud", correct: false }
+        ],
+        justification: "Un CASB simplifie la gestion des connexions API avec les fournisseurs de cloud en minimisant les points de configuration, offrant une gestion centralisée des politiques de sécurité. Il ne se concentre pas sur l'augmentation du débit ou la prévention des attaques DoS.",
+        reference: "Gartner CASB Definition"
+    },
+    {
+        section: "Proxies",
+        question: "Quel type de proxy se place devant le serveur protégé et négocie les connexions avant de permettre au trafic de passer vers sa destination ?",
+        options: [
+            { text: "Forward proxy", correct: false },
+            { text: "Reverse proxy", correct: true },
+            { text: "Transparent proxy", correct: false },
+            { text: "Anonymous proxy", correct: false }
+        ],
+        justification: "Un reverse proxy se place devant un serveur protégé, négocie les connexions et gère le trafic entrant pour protéger et décharger le serveur. Les autres types de proxies ont des fonctions différentes.",
+        reference: "OWASP Proxy Guidelines"
+    },
+
+    // Intrusion Prevention
+    {
+        section: "Intrusion Prevention",
+        question: "Quelle est la fonction d'un Intrusion Prevention System (IPS) dans la sécurité réseau ?",
+        options: [
+            { text: "Chiffrer les données pendant la transmission", correct: false },
+            { text: "Détecter et bloquer les activités malveillantes en temps réel", correct: true },
+            { text: "Gérer les routeurs réseau", correct: false },
+            { text: "Fournir une connectivité sans fil", correct: false }
+        ],
+        justification: "Un IPS détecte et bloque les activités malveillantes en temps réel en analysant le trafic réseau, contrairement à l'IDS qui se limite à la détection. Il ne chiffre pas les données, ne gère pas les routeurs, ni ne fournit de connectivité sans fil.",
+        reference: "NIST SP 800-94 (Guide to Intrusion Detection and Prevention)"
+    },
+    {
+        section: "Intrusion Prevention",
+        question: "Quelle fonction est fournie par Snort dans le cadre de Security Onion ?",
+        options: [
+            { text: "Générer des alertes d'intrusion réseau par l'utilisation de règles et de signatures", correct: true },
+            { text: "Normaliser les journaux de divers journaux de données NSM", correct: false },
+            { text: "Fournir une analyse du trafic en temps réel", correct: false },
+            { text: "Surveiller les performances des applications", correct: false }
+        ],
+        justification: "Snort, dans Security Onion, fonctionne comme un IDS/IPS en générant des alertes basées sur des règles et des signatures pour détecter les intrusions réseau. Les autres fonctions ne sont pas spécifiques à Snort.",
+        reference: "Snort Users Manual"
+    },
+    {
+        section: "Intrusion Prevention",
+        question: "Quels sont deux inconvénients de l'utilisation de HIPS ?",
+        options: [
+            { text: "Avec HIPS, le succès ou l'échec d'une attaque ne peut pas être facilement déterminé", correct: true },
+            { text: "Avec HIPS, l'administrateur réseau doit vérifier le support pour tous les différents systèmes d'exploitation utilisés dans le réseau", correct: true },
+            { text: "HIPS peut augmenter la latence du réseau", correct: false },
+            { text: "HIPS nécessite des mises à jour constantes pour rester efficace", correct: false }
+        ],
+        justification: "Les HIPS (Host-based Intrusion Prevention Systems) peuvent compliquer la détermination du succès d'une attaque en raison de leur complexité, et ils nécessitent un support pour divers systèmes d'exploitation. Cependant, ils n'augmentent pas significativement la latence réseau, et les mises à jour sont une exigence standard, pas un inconvénient spécifique.",
+        reference: "NIST SP 800-94 (Guide to Intrusion Detection and Prevention)"
+    },
+
+    // Other Network Appliances
+    {
+        section: "Other Network Appliances",
+        question: "Un architecte en sécurité souhaite ajouter dans un réseau un appareil capable de comprendre les protocoles des couches d'application. Quel appareil devrait être ajouté ?",
+        options: [
+            { text: "Load balancer", correct: false },
+            { text: "Application-aware firewall", correct: true },
+            { text: "Router", correct: false },
+            { text: "Switch", correct: false }
+        ],
+        justification: "Un pare-feu conscient des applications (application-aware firewall) peut analyser et comprendre les protocoles de la couche d'application (Layer 7), permettant une inspection et un contrôle avancés. Les routeurs, commutateurs et équilibreurs de charge opèrent à des couches inférieures.",
+        reference: "Gartner Next-Generation Firewall Definition"
+    },
+
+    // Wireless Cryptography
+    {
+        section: "Wireless Cryptography",
+        question: "Quelle norme sans fil a rendu AES et CCM obligatoires ?",
+        options: [
+            { text: "WEP", correct: false },
+            { text: "WPA", correct: false },
+            { text: "WPA2", correct: true },
+            { text: "WPA3", correct: false }
+        ],
+        justification: "WPA2 a introduit l'utilisation obligatoire de l'AES (Advanced Encryption Standard) avec le mode CCM (Counter with Cipher Block Chaining Message Authentication Code) pour le chiffrement et l'authentification. WPA3 améliore WPA2 mais n'est pas la première à rendre AES/CCM obligatoire.",
+        reference: "IEEE 802.11i (WPA2)"
+    },
+
+    // Wireless Authentication Methods
+    {
+        section: "Wireless Authentication Methods",
+        question: "Quelle est une méthode non technique qu'un cybercriminel utiliserait pour recueillir des informations sensibles d'une organisation ?",
+        options: [
+            { text: "Phishing", correct: true },
+            { text: "Malware", correct: false },
+            { text: "Brute force attack", correct: false },
+            { text: "Packet sniffing", correct: false }
+        ],
+        justification: "Le phishing est une méthode non technique qui repose sur l'ingénierie sociale pour inciter les utilisateurs à révéler des informations sensibles. Les malwares, les attaques par force brute et le sniffing de paquets sont des méthodes techniques.",
+        reference: "OWASP Top 10 (Social Engineering)"
+    },
+
+    // Wireless Authentication Protocols
+    {
+        section: "Wireless Authentication Protocols",
+        question: "Compte tenu de la nécessité de garantir que les données confidentielles ne soient pas exposées à des utilisateurs non autorisés, quel protocole est le plus approprié ?",
+        options: [
+            { text: "EAP", correct: false },
+            { text: "TLS", correct: true },
+            { text: "HTTPS", correct: false },
+            { text: "AES", correct: false }
+        ],
+        justification: "TLS (Transport Layer Security) est le protocole le plus approprié pour garantir que les données confidentielles ne soient pas exposées, car il fournit un chiffrement robuste et une authentification pour les communications sécurisées. EAP est un cadre d'authentification, HTTPS utilise TLS, et AES est un algorithme de chiffrement, pas un protocole complet.",
+        reference: "RFC 5246 (TLS)"
+    },
+
+    // Installing Wireless Networks
+    {
+        section: "Installing Wireless Networks",
+        question: "Un architecte en sécurité souhaite prévenir les ransomwares dans son organisation. Quelles deux techniques recommanderiez-vous ?",
+        options: [
+            { text: "Installer un web application firewall (WAF)", correct: false },
+            { text: "Implémenter des filtres de contenu d'email", correct: true },
+            { text: "Fournir une formation de sensibilisation à la sécurité aux utilisateurs", correct: true },
+            { text: "Désactiver l'accès à distance", correct: false }
+        ],
+        justification: "Les filtres de contenu d'email empêchent les pièces jointes ou liens malveillants, principaux vecteurs de ransomwares, et la formation de sensibilisation aide les utilisateurs à reconnaître les menaces comme le phishing. Un WAF protège les applications web, et désactiver l'accès à distance est trop restrictif.",
+        reference: "NIST SP 800-83 (Guide to Malware Incident Prevention)"
+    },
+
+    // Mobile Networks
+    {
+        section: "Mobile Networks",
+        question: "Quelle solution devrait être utilisée pour appliquer la politique de sécurité stipulant qu'un appareil informatique doit être mis à jour avec le dernier logiciel antimalware avant de pouvoir se connecter au réseau d'une organisation ?",
+        options: [
+            { text: "Mobile Device Management (MDM)", correct: false },
+            { text: "Firewall", correct: false },
+            { text: "VPN", correct: false },
+            { text: "Network Access Control (NAC)", correct: true }
+        ],
+        justification: "Le contrôle d'accès réseau (NAC) vérifie la conformité des appareils, y compris les mises à jour antimalwares, avant d'autoriser l'accès au réseau. Le MDM gère les appareils mobiles, les pare-feu contrôlent le trafic, et les VPN sécurisent les connexions, mais seul le NAC applique ce type de politique.",
+        reference: "NIST SP 800-124 (Mobile Device Security)"
+    },
+
+    // Mobile Device Management
+    {
+        section: "Mobile Device Management",
+        question: "Quelle technologie devrait être implémentée pour vérifier l'identité d'une organisation, authentifier son site web et fournir une connexion chiffrée entre un client et le site web ?",
+        options: [
+            { text: "Digital certificates", correct: true },
+            { text: "Biometrics", correct: false },
+            { text: "Smart cards", correct: false },
+            { text: "VPN", correct: false }
+        ],
+        justification: "Les certificats numériques, utilisés dans SSL/TLS, vérifient l'identité d'une organisation, authentifient un site web et établissent une connexion chiffrée. Les biométries et les cartes à puce sont utilisées pour l'authentification des utilisateurs, et les VPN sécurisent les connexions réseau, pas les sites web.",
+        reference: "X.509 Standard"
+    },
+
+    // Mobile Device Security
+    {
+        section: "Mobile Device Security",
+        question: "Le terme bring-your-own-device est utilisé pour décrire les appareils mobiles tels que les iPhones, smartphones, tablettes et autres appareils. Quelle mesure de sécurité est critique pour ces appareils ?",
+        options: [
+            { text: "Encryption", correct: false },
+            { text: "Firewall", correct: false },
+            { text: "Antivirus", correct: false },
+            { text: "All of the above", correct: true }
+        ],
+        justification: "Pour les appareils BYOD, le chiffrement protège les données, les pare-feu contrôlent le trafic, et les antivirus détectent les malwares. Toutes ces mesures sont critiques pour sécuriser les appareils mobiles.",
+        reference: "NIST SP 800-124 (Mobile Device Security)"
+    },
+
+    // Mobile Device Enforcement
+    {
+        section: "Mobile Device Enforcement",
+        question: "Quel utilitaire Windows devrait être utilisé pour configurer les règles de mot de passe et les politiques de verrouillage de compte sur un système qui ne fait partie d'aucun domaine ?",
+        options: [
+            { text: "Local Security Policy", correct: true },
+            { text: "Group Policy", correct: false },
+            { text: "Active Directory", correct: false },
+            { text: "User Account Control", correct: false }
+        ],
+        justification: "La politique de sécurité locale (Local Security Policy) est utilisée pour configurer les règles de mot de passe et de verrouillage sur un système non domaine. Les autres options nécessitent un domaine ou servent à d'autres fins.",
+        reference: "Microsoft Windows Security Policy Documentation"
+    },
+
+    // Mobile Deployment Models
+    {
+        section: "Mobile Deployment Models",
+        question: "Lequel des suivants est un exemple d'Infrastructure-as-a-Service (IaaS) ?",
+        options: [
+            { text: "Software as a Service (SaaS)", correct: false },
+            { text: "Platform as a Service (PaaS)", correct: false },
+            { text: "Virtualized servers", correct: true },
+            { text: "Web applications", correct: false }
+        ],
+        justification: "IaaS fournit des ressources d'infrastructure comme des serveurs virtualisés. SaaS fournit des applications, PaaS fournit des plateformes de développement, et les applications web ne sont pas un modèle de déploiement cloud.",
+        reference: "NIST SP 800-145 (Cloud Computing Definitions)"
+    },
+
+    // Cloud Security Controls
+    {
+        section: "Cloud Security Controls",
+        question: "Un spécialiste de la sécurité est sollicité pour des conseils sur une mesure de sécurité visant à empêcher les hôtes non autorisés à accéder au réseau domestique des employés. Quelle mesure serait la plus efficace ?",
+        options: [
+            { text: "Mettre en œuvre un firewall", correct: true },
+            { text: "Mettre en œuvre intrusion detection systems", correct: false },
+            { text: "Mettre en œuvre un VLAN", correct: false },
+            { text: "Implement RAID", correct: false }
+        ],
+        justification: "Un pare-feu est la mesure la plus efficace pour empêcher les hôtes non autorisés d'accéder au réseau domestique en filtrant le trafic. Les IDS détectent, les VLAN segmentent, et RAID protège les données, mais ne bloquent pas directement les accès.",
+        reference: "NIST SP 800-41 (Guidelines on Firewalls)"
+    },
+
+    // Securing Cloud Storage
+    {
+        section: "Securing Cloud Storage",
+        question: "Avant que les données ne soient envoyées pour analyse, quelle technique peut être utilisée pour remplacer les données sensibles dans les environnements de production non productifs afin de protéger les informations sous-jacentes ?",
+        options: [
+            { text: "Data masking", correct: true },
+            { text: "Data encryption", correct: false },
+            { text: "Data compression", correct: false },
+            { text: "Data deduplication", correct: false }
+        ],
+        justification: "Le masquage des données remplace les données sensibles par des valeurs fictives dans les environnements non productifs, protégeant ainsi les informations. Le chiffrement, la compression et la déduplication ont d'autres objectifs.",
+        reference: "NIST SP 800-53 (Data Protection)"
+    },
+
+    // Securing Cloud Networks
+    {
+        section: "Securing Cloud Networks",
+        question: "Quel est l'avantage d'utiliser un cloud access security broker (CASB) pour établir des connexions API avec les fournisseurs de cloud ?",
+        options: [
+            { text: "Il augmente le débit", correct: false },
+            { text: "Il minimise les points de configuration", correct: true },
+            { text: "Il prévient les attaques par déni de service (DoS)", correct: false },
+            { text: "Il permet des mises à jour instantanées des applications cloud", correct: false }
+        ],
+        justification: "Un CASB simplifie la gestion des connexions API avec les fournisseurs de cloud en minimisant les points de configuration, offrant une gestion centralisée des politiques de sécurité. Il ne se concentre pas sur l'augmentation du débit ou la prévention des attaques DoS.",
+        reference: "Gartner CASB Definition"
+    },
+
+    // Securing Compute Clouds
+    {
+        section: "Securing Compute Clouds",
+        question: "Lequels des processus suivants sont des exemples de logical access controls ?",
+        options: [
+            { text: "Encryption", correct: false },
+            { text: "Smart cards", correct: true },
+            { text: "Passwords", correct: true },
+            { text: "Biometrics", correct: true },
+            { text: "Access Control Lists (ACLs)", correct: true }
+        ],
+        justification: "Les contrôles d'accès logique incluent les cartes à puce, les mots de passe, la biométrie et les listes de contrôle d'accès (ACLs), qui régulent l'accès aux ressources numériques. Le chiffrement protège les données, mais n'est pas un contrôle d'accès.",
+        reference: "NIST SP 800-53 (Access Control)"
+    },
+
+    // Cloud Security Solutions
+    {
+        section: "Cloud Security Solutions",
+        question: "Qu'est-ce qu’un exemple d’approche « best-in-suite » pour la sécurité dans le cloud ?",
+        options: [
+            { text: "Utilisation de plusieurs vendors pour différents composants de sécurité", correct: false },
+            { text: "Mise en œuvre de la suite de sécurité intégrée d’un single fournisseur", correct: true },
+            { text: "Reposer uniquement sur encryption", correct: false },
+            { text: "Utiliser exclusivement des outils open-source", correct: false }
+        ],
+        justification: "Une approche 'best-in-suite' consiste à utiliser une suite de sécurité intégrée d’un seul fournisseur pour une gestion cohérente et simplifiée. Les autres options fragmentent ou limitent la sécurité.",
+        reference: "Gartner Cloud Security Solutions"
+    },
+
+    // Identity Controls
+    {
+        section: "Identity Controls",
+        question: "Quel concept de sécurité garantit que les utilisateurs ne reçoivent que les permissions nécessaires pour effectuer leurs tâches ?",
+        options: [
+            { text: "Access control", correct: true },
+            { text: "Firewall configuration", correct: false },
+            { text: "Load balancing", correct: false },
+            { text: "Network segmentation", correct: false }
+        ],
+        justification: "Le contrôle d'accès garantit que les utilisateurs ne reçoivent que les permissions nécessaires à leurs tâches, suivant le principe du moindre privilège. La segmentation réseau et la configuration des pare-feu contribuent à la sécurité, mais ne gèrent pas directement les permissions.",
+        reference: "NIST SP 800-53 (Access Control)"
+    },
+
+    // Account Types
+    {
+        section: "Account Types",
+        question: "Une préoccupation d’authentification qui concerne les droits des utilisateurs.",
+        options: [
+            { text: "General access", correct: false },
+            { text: "Functional authentication", correct: false },
+            { text: "Functional authorization", correct: true },
+            { text: "Auto verification", correct: false }
+        ],
+        justification: "L'autorisation fonctionnelle concerne les droits des utilisateurs, déterminant ce qu'ils peuvent faire après l'authentification. Les autres options ne décrivent pas précisément cette préoccupation.",
+        reference: "NIST SP 800-53 (Authorization)"
+    },
+
+    // Account Policies
+    {
+        section: "Account Policies",
+        question: "Quel utilitaire Windows devrait être utilisé pour configurer les règles de mot de passe et les politiques de verrouillage de compte sur un système qui ne fait partie d’aucun domaine ?",
+        options: [
+            { text: "Local Security Policy", correct: true },
+            { text: "Group Policy", correct: false },
+            { text: "Active Directory", correct: false },
+            { text: "User Account Control", correct: false }
+        ],
+        justification: "La politique de sécurité locale (Local Security Policy) est utilisée pour configurer les règles de mot de passe et de verrouillage sur un système non domaine. Les autres options nécessitent un domaine ou servent à d'autres fins.",
+        reference: "Microsoft Windows Security Policy Documentation"
+    },
+
+    // Authentication Management
+    {
+        section: "Authentication Management",
+        question: "Quelle technologie mettriez-vous en œuvre pour authentifier et vérifier les transactions électroniques ?",
+        options: [
+            { text: "Digital certificates", correct: true },
+            { text: "Biometrics", correct: false },
+            { text: "Smart cards", correct: false },
+            { text: "VPN", correct: false }
+        ],
+        justification: "Les certificats numériques sont utilisés pour authentifier et vérifier les transactions électroniques, en fournissant une signature numérique et une identité vérifiable. Les biométries et les cartes à puce sont utilisées pour l'authentification des utilisateurs, et les VPN sécurisent les connexions.",
+        reference: "X.509 Standard"
+    },
+
+    // PAP and CHAP
+    {
+        section: "PAP and CHAP",
+        question: "CHAP signifie ?",
+        options: [
+            { text: "Challenge Handshake authentication protocol", correct: true },
+            { text: "Challenge Hardware authentication protocol", correct: false },
+            { text: "Circuit Hardware authentication protocol", correct: false },
+            { text: "Circuit Handshake authentication protocol", correct: false }
+        ],
+        justification: "CHAP signifie Challenge Handshake Authentication Protocol, utilisé pour authentifier les utilisateurs dans des protocoles comme PPP, en utilisant un mécanisme de défi-réponse sécurisé.",
+        reference: "RFC 1994 (CHAP)"
+    },
+
+    // Identity and Access Services
+    {
+        section: "Identity and Access Services",
+        question: "Quel type de contrôle d’accès fournissent les smart cards et la biométrie ?",
+        options: [
+            { text: "Physical access", correct: false },
+            { text: "Logical access", correct: true },
+            { text: "Network access", correct: false },
+            { text: "Administrative access", correct: false }
+        ],
+        justification: "Les cartes à puce et la biométrie fournissent un contrôle d'accès logique, authentifiant les utilisateurs pour accéder à des ressources numériques. Le contrôle d'accès physique concerne les espaces physiques.",
+        reference: "NIST SP 800-53 (Access Control)"
+    },
+
+    // Federated Identities
+    {
+        section: "Federated Identities",
+        question: "Laquelle des caractéristiques suivantes est une caractéristique des identités fédérées ?",
+        options: [
+            { text: "Single sign-on à travers plusieurs organisations", correct: true },
+            { text: "Authentification locale uniquement", correct: false },
+            { text: "Authentification basée sur mot de passe", correct: false },
+            { text: "Authentification basée sur appareil", correct: false }
+        ],
+        justification: "Les identités fédérées permettent un single sign-on (SSO) à travers plusieurs organisations, en partageant les informations d'authentification via des protocoles comme SAML ou OAuth. Les autres options ne décrivent pas les identités fédérées.",
+        reference: "SAML 2.0 Specification"
+    },
+
+    // Access Control
+    {
+        section: "Access Control",
+        question: "Lesquels des processus suivants sont des exemples de logical access controls ?",
+        options: [
+            { text: "Encryption", correct: false },
+            { text: "Smart cards", correct: true },
+            { text: "Passwords", correct: true },
+            { text: "Biometrics", correct: true },
+            { text: "Access Control Lists (ACLs)", correct: true }
+        ],
+        justification: "Les contrôles d'accès logique incluent les cartes à puce, les mots de passe, la biométrie et les listes de contrôle d'accès (ACLs), qui régulent l'accès aux ressources numériques. Le chiffrement protège les données, mais n'est pas un contrôle d'accès.",
+        reference: "NIST SP 800-53 (Access Control)"
+    },
+
+    // Public Key Infrastructure
+    {
+        section: "Public Key Infrastructure",
+        question: "La norme X.509 définit quelle technologie de sécurité ?",
+        options: [
+            { text: "Firewalls", correct: false },
+            { text: "Digital certificates", correct: true },
+            { text: "Intrusion detection systems", correct: false },
+            { text: "VPNs", correct: false }
+        ],
+        justification: "La norme X.509 définit le format des certificats numériques, utilisés dans les infrastructures à clé publique (PKI) pour l'authentification et le chiffrement. Les autres options ne sont pas liées à X.509.",
+        reference: "ITU-T X.509 Standard"
+    },
+
+    // Certificates
+    {
+        section: "Certificates",
+        question: "Quels sont les objectifs principaux de la signature numérique dans ce scénario ?",
+        options: [
+            { text: "Confidentiality", correct: false },
+            { text: "Integrity", correct: true },
+            { text: "Authentication", correct: true },
+            { text: "Non-repudiation", correct: true }
+        ],
+        justification: "Les signatures numériques garantissent l'intégrité (les données n'ont pas été modifiées), l'authentification (vérification de l'identité de l'expéditeur) et la non-répudiation (l'expéditeur ne peut pas nier l'envoi). La confidentialité est assurée par le chiffrement, pas par la signature.",
+        reference: "NIST SP 800-57 (Digital Signatures)"
+    },
+
+    // Certificate Formats
+    {
+        section: "Certificate Formats",
+        question: "Lequel des suivants est un format de certificat commun ?",
+        options: [
+            { text: "DER", correct: false },
+            { text: "PEM", correct: false },
+            { text: "PKCS", correct: false },
+            { text: "All of the above", correct: true }
+        ],
+        justification: "DER, PEM et PKCS sont tous des formats de certificats couramment utilisés. DER est binaire, PEM est encodé en Base64, et PKCS inclut divers standards pour les certificats. 'All of the above' est donc correct.",
+        reference: "RFC 7468 (PEM), PKCS Standards"
+    },
+
+    // Certificate Concepts
+    {
+        section: "Certificate Concepts",
+        question: "Quel algorithme de hachage est recommandé pour la protection des informations sensibles non classifiées ?",
+        options: [
+            { text: "MD5", correct: false },
+            { text: "SHA-1", correct: false },
+            { text: "SHA-256", correct: true },
+            { text: "HMAC", correct: false }
+        ],
+        justification: "SHA-256 est recommandé pour la protection des informations sensibles non classifiées en raison de sa robustesse contre les attaques de collision. MD5 et SHA-1 sont obsolètes, et HMAC est une construction, pas un algorithme de hachage seul.",
+        reference: "NIST SP 800-107 (Hash Functions)"
+    }
+].map(q => ({
+            ...q,
+            answered: false,
+            options: q.options.sort(() => Math.random() - 0.5) // Shuffle options
+        }));
+        class QuizManager {
+            constructor() {
+                this.currentQuestionIndex = 0;
+                this.score = { correct: 0, attempted: 0 };
+                this.filteredQuestions = questions;
+                this.userAnswers = new Array(questions.length).fill(null);
+                this.selectedSection = 'all';
+
+                // DOM elements
+                this.elements = {
+                    sectionFilter: document.getElementById('section-filter'),
+                    questionContainer: document.getElementById('question-container'),
+                    questionText: document.getElementById('question-text'),
+                    sectionIndicator: document.getElementById('section-indicator'),
+                    optionsContainer: document.getElementById('options-container'),
+                    feedbackContainer: document.getElementById('feedback-container'),
+                    feedbackText: document.getElementById('feedback-text'),
+                    progressValue: document.getElementById('progress-value'),
+                    questionCounter: document.getElementById('question-counter'),
+                    scoreDisplay: document.getElementById('score'),
+                    prevBtn: document.getElementById('prev-btn'),
+                    validateBtn: document.getElementById('validate-btn'),
+                    nextBtn: document.getElementById('next-btn')
+                };
+
+                this.init();
+            }
+
+            init() {
+                this.populateSectionFilter();
+                this.bindEvents();
+                this.updateUI();
+            }
+
+            populateSectionFilter() {
+                const sections = [...new Set(questions.map(q => q.section))].sort();
+                sections.forEach(section => {
+                    const option = document.createElement('option');
+                    option.value = section;
+                    option.textContent = section;
+                    this.elements.sectionFilter.appendChild(option);
+                });
+            }
+
+            bindEvents() {
+                this.elements.sectionFilter.addEventListener('change', () => this.filterQuestions());
+                this.elements.prevBtn.addEventListener('click', () => this.prevQuestion());
+                this.elements.validateBtn.addEventListener('click', () => this.validateAnswer());
+                this.elements.nextBtn.addEventListener('click', () => this.nextQuestion());
+            }
+
+            filterQuestions() {
+                this.selectedSection = this.elements.sectionFilter.value;
+                this.filteredQuestions = this.selectedSection === 'all'
+                    ? questions
+                    : questions.filter(q => q.section === this.selectedSection);
+                this.currentQuestionIndex = 0;
+                this.userAnswers = new Array(this.filteredQuestions.length).fill(null);
+                this.score = { correct: 0, attempted: 0 };
+                this.updateUI();
+            }
+
+            updateUI(preserveFeedback = false) {
+                if (!this.filteredQuestions.length) {
+                    this.renderEmptyState();
+                    return;
+                }
+
+                const question = this.filteredQuestions[this.currentQuestionIndex];
+                this.elements.questionText.textContent = question.question;
+                this.elements.sectionIndicator.textContent = question.section;
+                this.renderOptions(question);
+                this.updateProgress();
+                this.updateScoreAndCounter();
+                this.updateButtonStates(question);
+                if (!preserveFeedback) {
+                    this.elements.feedbackContainer.classList.add('hidden');
+                }
+            }
+
+            renderEmptyState() {
+                this.elements.questionText.textContent = "Aucune question disponible pour cette section.";
+                this.elements.optionsContainer.innerHTML = '';
+                this.elements.feedbackContainer.classList.add('hidden');
+                this.elements.progressValue.style.width = '0%';
+                this.elements.questionCounter.textContent = 'Question 0/0';
+                this.elements.scoreDisplay.textContent = `Score : ${this.score.correct}/${this.score.attempted}`;
+                this.elements.prevBtn.disabled = true;
+                this.elements.validateBtn.disabled = true;
+                this.elements.nextBtn.disabled = true;
+            }
+
+            renderOptions(question) {
+                this.elements.optionsContainer.innerHTML = '';
+                question.options.forEach((option, index) => {
+                    const optionCard = document.createElement('div');
+                    optionCard.classList.add('option-card');
+                    optionCard.innerHTML = `
+                        <div class="flex items-center">
+                            <input type="radio" name="option" id="option-${index}" value="${index}" class="mr-3 h-5 w-5 text-indigo-600">
+                            <label for="option-${index}" class="text-gray-700">${option.text}</label>
+                        </div>
+                    `;
+                    optionCard.addEventListener('click', () => this.selectOption(index));
+                    if (this.userAnswers[this.currentQuestionIndex] === index) {
+                        optionCard.classList.add('selected');
+                        optionCard.querySelector('input').checked = true;
+                    }
+                    this.elements.optionsContainer.appendChild(optionCard);
+                });
+            }
+
+            selectOption(index) {
+                this.userAnswers[this.currentQuestionIndex] = index;
+                this.updateUI();
+            }
+
+            validateAnswer() {
+                const selectedIndex = this.userAnswers[this.currentQuestionIndex];
+                if (selectedIndex === null) return;
+
+                const question = this.filteredQuestions[this.currentQuestionIndex];
+                const isCorrect = question.options[selectedIndex].correct;
+
+                if (!question.answered) {
+                    question.answered = true;
+                    this.score.attempted++;
+                    if (isCorrect) this.score.correct++;
+                }
+
+                this.elements.feedbackText.innerHTML = `
+                    ${isCorrect ? '<span class="text-green-600 font-medium">Correct !</span>' : '<span class="text-red-600 font-medium">Incorrect.</span>'}
+                    <p class="mt-2">${question.justification}</p>
+                    <p class="mt-2 text-sm text-gray-500">Référence : ${question.reference}</p>
+                `;
+                this.elements.feedbackContainer.classList.remove('hidden');
+                this.elements.feedbackContainer.classList.toggle('feedback-correct', isCorrect);
+                this.elements.feedbackContainer.classList.toggle('feedback-incorrect', !isCorrect);
+
+                this.updateUI(true);
+            }
+
+            prevQuestion() {
+                if (this.currentQuestionIndex > 0) {
+                    this.currentQuestionIndex--;
+                    this.updateUI();
+                }
+            }
+
+            nextQuestion() {
+                if (this.currentQuestionIndex < this.filteredQuestions.length - 1) {
+                    this.currentQuestionIndex++;
+                    this.updateUI();
+                }
+            }
+
+            updateProgress() {
+                const progress = ((this.currentQuestionIndex + 1) / this.filteredQuestions.length) * 100;
+                this.elements.progressValue.style.width = `${progress}%`;
+            }
+
+            updateScoreAndCounter() {
+                this.elements.questionCounter.textContent = `Question ${this.currentQuestionIndex + 1}/${this.filteredQuestions.length}`;
+                this.elements.scoreDisplay.textContent = `Score : ${this.score.correct}/${this.score.attempted}`;
+            }
+
+            updateButtonStates(question) {
+                this.elements.prevBtn.disabled = this.currentQuestionIndex === 0;
+                this.elements.validateBtn.disabled = this.userAnswers[this.currentQuestionIndex] === null || question.answered;
+                this.elements.nextBtn.disabled = this.currentQuestionIndex === this.filteredQuestions.length - 1;
+            }
+        }
+
+        // Initialize quiz
+        document.addEventListener('DOMContentLoaded', () => {
+            new QuizManager();
+        });
+    </script>
+</body>
+</html>
